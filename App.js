@@ -6,8 +6,6 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>ABDELHADY</Text>
-      <Text>ABDELHADY</Text>
-      <Text>ABDELHADY</Text>
 
       <StatusBar style="auto" />
     </View>
