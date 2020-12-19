@@ -10,7 +10,7 @@ import * as Font from "expo-font";
 const Stack = createStackNavigator();
 export default class App extends Component {
   state = {
-    isLoading: false,
+    isLoading: true,
     userToken: null,
     isSignedIn: false,
     isSignedOut: true,

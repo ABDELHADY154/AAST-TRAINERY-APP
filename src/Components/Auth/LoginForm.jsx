@@ -25,18 +25,6 @@ class LoginForm extends Component {
     });
   }
 
-  // componentDidMount() {
-  //   var body = this.state.user;
-  //   axios
-  //     .post("/login", body)
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-
   render() {
     const { navigation } = this.props;
     console.log(this.state.user.password);
