@@ -5,20 +5,25 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import HomeScreen from "./src/Components/Home/HomeScreen";
 import SignInScreen from "./src/Components/Auth/SignIn";
+import * as Font from "expo-font";
 
 const Stack = createStackNavigator();
-
 export default class App extends Component {
   state = {
-    isLoading: true,
+    isLoading: false,
     userToken: null,
     isSignedIn: false,
     isSignedOut: true,
   };
-  componentDidMount() {
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      "SF-L": require("./assets/fonts/SF-Compact-Display-Light.otf"),
+      "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
+    });
     setTimeout(() => {
       this.setState({ isLoading: false });
-    }, 2000);
+    }, 3000);
   }
   render() {
     if (this.state.isLoading == true) {
