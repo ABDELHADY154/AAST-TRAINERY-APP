@@ -12,6 +12,8 @@ export default class App extends Component {
   state = {
     isLoading: true,
     userToken: null,
+    isSignedIn: false,
+    isSignedOut: true,
   };
   componentDidMount() {
     setTimeout(() => {
@@ -19,7 +21,7 @@ export default class App extends Component {
     }, 2000);
   }
   render() {
-    if (this.state.isLoading) {
+    if (this.state.isLoading == true) {
       return <SplashScreen />;
     }
     return (

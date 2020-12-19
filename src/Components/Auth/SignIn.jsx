@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 class SignInScreen extends Component {
@@ -8,7 +8,23 @@ class SignInScreen extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Sign in </Text>
+        <View>
+          <TextInput
+            placeholder="Username"
+            // value={username}
+            // onChangeText={setUsername}
+          />
+          <TextInput
+            placeholder="Password"
+            // value={password}
+            // onChangeText={setPassword}
+            secureTextEntry
+          />
+          <Button
+            title="Sign in"
+            // onPress={() => signIn({ username, password })}
+          />
+        </View>
         <StatusBar style="auto" />
       </View>
     );

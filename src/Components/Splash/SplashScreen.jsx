@@ -1,48 +1,32 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Image, View } from "react-native";
 
 export default class SplashScreen extends Component {
   render() {
-    // const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>SplashScreen</Text>
+        <Image
+          source={require("../../assets/Images/logo.png")}
+          style={styles.logo}
+        />
         <StatusBar style="auto" />
       </View>
     );
   }
 }
-// export default function (props) {
-//   const navigation = useNavigation();
 
-//   return <SplashScreen {...props} navigation={navigation} />;
-// }
-
-// import { axios } from "./src/Config/Axios";
-// import { NavigationContainer } from "@react-navigation/native";
-// import { createStackNavigator } from "@react-navigation/stack";
-
-// class MyBackButton extends React.Component {
-//   render() {
-//     // Get it from props
-//     const { navigation } = this.props;
-//   }
-// }
-
-// // Wrap and export
-// export default function (props) {
-//   const navigation = useNavigation();
-
-//   return <MyBackButton {...props} navigation={navigation} />;
-// }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
+    // backgroundColor: "#1E4275",
+    backgroundColor: "white",
+
     justifyContent: "center",
-    // fontSize: 40,
+  },
+  logo: {
+    height: 84,
+    width: 257,
   },
 });
