@@ -7,12 +7,22 @@ import HomeScreen from "./src/Components/Home/HomeScreen";
 import SignInScreen from "./src/Components/Auth/SignIn";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+const config = {
+  animation: "spring",
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 const Stack = createStackNavigator();
 export default class App extends Component {
   state = {
     userData: {},
-    isLoading: false,
+    isLoading: true,
     userToken: null,
     isSignedIn: false,
     isSignedOut: true,
@@ -27,11 +37,9 @@ export default class App extends Component {
           userToken: this.state.userData.token,
           isSignedIn: true,
           isSignedOut: false,
-          isLoading: false,
+          // isLoading: false,
         });
       }
-
-      // console.log(data);
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -44,31 +52,68 @@ export default class App extends Component {
     setTimeout(() => {
       this.setState({ isLoading: false });
     }, 3000);
-    // AsyncStorage.removeItem("userData");
-
     this.getToken();
   }
   render() {
-    console.log(this.state.userData);
     if (this.state.isLoading == true) {
       return <SplashScreen />;
     }
 
     return (
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator title="Root">
           {this.state.userToken == null ? (
-            <Stack.Screen
-              name="SignIn"
-              component={SignInScreen}
-              options={{
-                header: () => {
-                  "none";
-                },
-              }}
-            />
+            <>
+              <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{
+                  header: () => {
+                    "none";
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: config,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  transitionSpec: {
+                    open: config,
+                    close: config,
+                  },
+                }}
+              />
+            </>
           ) : (
-            <Stack.Screen name="Home" component={HomeScreen} />
+            <>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  transitionSpec: {
+                    open: config,
+                    close: config,
+                  },
+                }}
+              />
+              <Stack.Screen
+                name="SignIn"
+                component={SignInScreen}
+                options={{
+                  header: () => {
+                    "none";
+                  },
+                  transitionSpec: {
+                    open: config,
+                    close: config,
+                  },
+                }}
+              />
+            </>
           )}
         </Stack.Navigator>
       </NavigationContainer>

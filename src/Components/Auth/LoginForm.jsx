@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 class LoginForm extends Component {
   state = {
     opacity: 0.7,
@@ -52,7 +53,7 @@ class LoginForm extends Component {
           userData: response.data.response.data,
         });
         this.storeToken(this.state.userData);
-        // navigation.navigation.navigate("SignIn");
+        this.props.navigation.navigate("Home");
       })
       .catch(error => {
         this.setState({
@@ -64,6 +65,9 @@ class LoginForm extends Component {
   render() {
     const { navigation } = this.props;
     var error = this.state.emailErr;
+
+    if (this.state.userData.token) {
+    }
     return (
       <View style={styles.container}>
         <ImageBackground

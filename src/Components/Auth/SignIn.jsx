@@ -5,6 +5,17 @@ import { useNavigation } from "@react-navigation/native";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
+const config = {
+  animation: "spring",
+  config: {
+    stiffness: 1000,
+    damping: 500,
+    mass: 3,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  },
+};
 const Stack = createStackNavigator();
 
 class SignInScreen extends Component {
@@ -19,6 +30,10 @@ class SignInScreen extends Component {
             header: () => {
               "none";
             },
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
           }}
         />
         <Stack.Screen
@@ -27,6 +42,10 @@ class SignInScreen extends Component {
           options={{
             header: () => {
               "none";
+            },
+            transitionSpec: {
+              open: config,
+              close: config,
             },
           }}
         />

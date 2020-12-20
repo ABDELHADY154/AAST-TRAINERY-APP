@@ -6,10 +6,12 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, Button } from "galio-framework";
 import { Item, Picker } from "native-base";
 import { Icon } from "react-native-elements";
+import { axios } from "../../Config/Axios";
 
 class RegisterForm extends Component {
   state = {
     opacity: 0.7,
+    departments: [],
   };
   onFocus() {
     this.setState({
@@ -22,9 +24,20 @@ class RegisterForm extends Component {
       opacity: 0.7,
     });
   }
+  componentDidMount() {
+    axios
+      .get("departments")
+      .then(response => {
+        this.setState({ departments: response.data.response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   render() {
     const { navigation } = this.props;
+
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -97,11 +110,15 @@ class RegisterForm extends Component {
                   //   selectedValue={this.state.selected}
                   //   onValueChange={this.onValueChange2.bind(this)}
                 >
-                  <Picker.Item label="Wallet" value="key0" />
-                  <Picker.Item label="ATM Card" value="key1" />
-                  <Picker.Item label="Debit Card" value="key2" />
-                  <Picker.Item label="Credit Card" value="key3" />
-                  <Picker.Item label="Net Banking" value="key4" />
+                  {this.state.departments.map(key => {
+                    return (
+                      <Picker.Item
+                        label={key.dep_name}
+                        value={key.id}
+                        key={key.id}
+                      />
+                    );
+                  })}
                 </Picker>
               </Item>
             </View>
