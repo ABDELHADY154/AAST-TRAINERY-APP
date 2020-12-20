@@ -6,16 +6,36 @@ import SplashScreen from "./src/Components/Splash/SplashScreen";
 import HomeScreen from "./src/Components/Home/HomeScreen";
 import SignInScreen from "./src/Components/Auth/SignIn";
 import * as Font from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Stack = createStackNavigator();
 export default class App extends Component {
   state = {
-    isLoading: true,
+    userData: {},
+    isLoading: false,
     userToken: null,
     isSignedIn: false,
     isSignedOut: true,
   };
+  async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      if (data) {
+        this.setState({ userData: data });
+        this.setState({
+          userToken: this.state.userData.token,
+          isSignedIn: true,
+          isSignedOut: false,
+          isLoading: false,
+        });
+      }
 
+      // console.log(data);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
   async componentDidMount() {
     await Font.loadAsync({
       "SF-L": require("./assets/fonts/SF-Compact-Display-Light.otf"),
@@ -24,11 +44,16 @@ export default class App extends Component {
     setTimeout(() => {
       this.setState({ isLoading: false });
     }, 3000);
+    // AsyncStorage.removeItem("userData");
+
+    this.getToken();
   }
   render() {
+    console.log(this.state.userData);
     if (this.state.isLoading == true) {
       return <SplashScreen />;
     }
+
     return (
       <NavigationContainer>
         <Stack.Navigator>

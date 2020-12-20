@@ -3,15 +3,15 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Input, Button } from "galio-framework";
-import axios from "../../Config/Axios";
-
+import { axios } from "../../Config/Axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 class LoginForm extends Component {
   state = {
     opacity: 0.7,
-    user: {
-      email: "",
-      password: "",
-    },
+    email: "",
+    password: "",
+    emailErr: "",
+    userData: {},
   };
   onFocus() {
     this.setState({
@@ -24,10 +24,46 @@ class LoginForm extends Component {
       opacity: 0.7,
     });
   }
+  async storeToken(user) {
+    try {
+      await AsyncStorage.setItem("userData", JSON.stringify(user));
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+  async getToken() {
+    try {
+      let userData = await AsyncStorage.getItem("userData");
+      let data = JSON.parse(userData);
+      console.log(data);
+    } catch (error) {
+      console.log("Something went wrong", error);
+    }
+  }
+  submit = () => {
+    var body = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    axios
+      .post("/login", body)
+      .then(response => {
+        this.setState({
+          userData: response.data.response.data,
+        });
+        this.storeToken(this.state.userData);
+        // navigation.navigation.navigate("SignIn");
+      })
+      .catch(error => {
+        this.setState({
+          emailErr: error.response.data.errors.email,
+        });
+      });
+  };
 
   render() {
     const { navigation } = this.props;
-    console.log(this.state.user.password);
+    var error = this.state.emailErr;
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -40,7 +76,12 @@ class LoginForm extends Component {
               style={styles.logo}
             />
           </View>
+
           <View style={{ width: 350, marginTop: 60 }}>
+            <Text style={{ color: "red", fontSize: 16, textAlign: "center" }}>
+              {error}
+            </Text>
+
             <Text style={styles.labelStyle}>Student Email</Text>
             <Input
               placeholder="regular"
@@ -49,7 +90,7 @@ class LoginForm extends Component {
               color="black"
               type="email-address"
               onFocus={() => this.onFocus()}
-              onChangeText={value => this.setState({ user: { email: value } })}
+              onChangeText={value => this.setState({ email: value })}
             />
             <Text style={styles.labelStyle}>Password</Text>
 
@@ -60,11 +101,9 @@ class LoginForm extends Component {
               style={{ opacity: this.state.opacity }}
               password
               viewPass
-              onChangeText={value =>
-                this.setState({ user: { password: value } })
-              }
+              onChangeText={value => this.setState({ password: value })}
             />
-            <Button style={styles.button} color="white">
+            <Button style={styles.button} color="white" onPress={this.submit}>
               <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign In</Text>
             </Button>
             <Text
