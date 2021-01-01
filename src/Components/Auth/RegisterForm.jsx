@@ -8,7 +8,7 @@ import { Item, Picker } from "native-base";
 import { Icon } from "react-native-elements";
 import { axios } from "../../Config/Axios";
 
-class RegisterForm extends Component {
+export default class RegisterForm extends Component {
   state = {
     opacity: 0.7,
     departments: [],
@@ -122,7 +122,13 @@ class RegisterForm extends Component {
                 </Picker>
               </Item>
             </View>
-            <Button style={styles.button} color="white">
+            <Button
+              style={styles.button}
+              onPress={() => {
+                this.props.userSignUp();
+              }}
+              color="white"
+            >
               <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign Up</Text>
             </Button>
 
@@ -137,7 +143,7 @@ class RegisterForm extends Component {
               Already have an account?{" "}
               <Text
                 style={{ color: "#CD8930", textDecorationLine: "underline" }}
-                onPress={() => navigation.navigate("login")}
+                onPress={() => navigation.navigate("SignIn")}
               >
                 Sign In
               </Text>
@@ -148,11 +154,6 @@ class RegisterForm extends Component {
       </View>
     );
   }
-}
-export default function (props) {
-  const navigation = useNavigation();
-
-  return <RegisterForm {...props} navigation={navigation} />;
 }
 
 const styles = StyleSheet.create({

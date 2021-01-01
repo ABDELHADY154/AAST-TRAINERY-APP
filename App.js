@@ -1,122 +1,141 @@
-import "react-native-gesture-handler";
-import React, { Component } from "react";
+import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
-import HomeScreen from "./src/Components/Home/HomeScreen";
-import SignInScreen from "./src/Components/Auth/SignIn";
+import Home from "./src/Components/Home/HomeScreen";
+import LoginForm from "./src/Components/Auth/LoginForm";
+import RegisterScreen from "./src/Components/Auth/RegisterForm";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const config = {
-  animation: "spring",
-  config: {
-    stiffness: 1000,
-    damping: 500,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 0.01,
-    restSpeedThreshold: 0.01,
-  },
-};
-const Stack = createStackNavigator();
-export default class App extends Component {
-  state = {
-    userData: {},
-    isLoading: true,
-    userToken: null,
-    isSignedIn: false,
-    isSignedOut: true,
-  };
-  async getToken() {
-    try {
-      let userData = await AsyncStorage.getItem("userData");
-      let data = JSON.parse(userData);
-      if (data) {
-        this.setState({ userData: data });
-        this.setState({
-          userToken: this.state.userData.token,
-          isSignedIn: true,
-          isSignedOut: false,
-          // isLoading: false,
-        });
-      }
-    } catch (error) {
-      console.log("Something went wrong", error);
-    }
-  }
-  async componentDidMount() {
-    await Font.loadAsync({
-      "SF-L": require("./assets/fonts/SF-Compact-Display-Light.otf"),
-      "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
-    });
-    setTimeout(() => {
-      this.setState({ isLoading: false });
-    }, 3000);
-    this.getToken();
-  }
-  render() {
-    if (this.state.isLoading == true) {
-      return <SplashScreen />;
-    }
+import { useNavigation } from "@react-navigation/native";
 
-    return (
+const AuthContext = React.createContext();
+
+function HomeScreen(props) {
+  const navigation = useNavigation();
+  const { signOut } = React.useContext(AuthContext);
+  return <Home {...props} navigation={navigation} userSignOut={signOut} />;
+}
+function SignUpScreen(props) {
+  const navigation = useNavigation();
+  const { signUp } = React.useContext(AuthContext);
+  return (
+    <RegisterScreen {...props} navigation={navigation} userSignUp={signUp} />
+  );
+}
+function SignInScreen(props) {
+  const navigation = useNavigation();
+  const { signIn } = React.useContext(AuthContext);
+  return <LoginForm {...props} navigation={navigation} userLogin={signIn} />;
+}
+const Stack = createStackNavigator();
+
+export default function App({ navigation }) {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case "RESTORE_TOKEN":
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case "SIGN_IN":
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case "SIGN_OUT":
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    },
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+      try {
+        await Font.loadAsync({
+          "SF-L": require("./assets/fonts/SF-Compact-Display-Light.otf"),
+          "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
+        });
+        userToken = await AsyncStorage.getItem("userToken");
+        console.log(userToken);
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: "RESTORE_TOKEN", token: userToken });
+    };
+    bootstrapAsync();
+  }, []);
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+      },
+      signOut: () => dispatch({ type: "SIGN_OUT" }),
+      signUp: async data => {
+        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+      },
+    }),
+    [],
+  );
+
+  return (
+    <AuthContext.Provider value={authContext}>
       <NavigationContainer>
-        <Stack.Navigator title="Root">
-          {this.state.userToken == null ? (
+        <Stack.Navigator>
+          {state.isLoading ? (
+            <>
+              <Stack.Screen
+                name="Splash"
+                component={SplashScreen}
+                options={{
+                  header: () => {
+                    "none";
+                  },
+                }}
+              />
+            </>
+          ) : state.userToken == null ? (
             <>
               <Stack.Screen
                 name="SignIn"
                 component={SignInScreen}
                 options={{
+                  animationTypeForReplace: state.isSignout ? "pop" : "push",
                   header: () => {
                     "none";
-                  },
-                  transitionSpec: {
-                    open: config,
-                    close: config,
                   },
                 }}
               />
               <Stack.Screen
-                name="Home"
-                component={HomeScreen}
+                name="Register"
+                component={SignUpScreen}
                 options={{
-                  transitionSpec: {
-                    open: config,
-                    close: config,
+                  animationTypeForReplace: state.isSignout ? "pop" : "push",
+                  header: () => {
+                    "none";
                   },
                 }}
               />
             </>
           ) : (
-            <>
-              <Stack.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                  transitionSpec: {
-                    open: config,
-                    close: config,
-                  },
-                }}
-              />
-              <Stack.Screen
-                name="SignIn"
-                component={SignInScreen}
-                options={{
-                  header: () => {
-                    "none";
-                  },
-                  transitionSpec: {
-                    open: config,
-                    close: config,
-                  },
-                }}
-              />
-            </>
+            <Stack.Screen name="Home" component={HomeScreen} />
           )}
         </Stack.Navigator>
       </NavigationContainer>
-    );
-  }
+    </AuthContext.Provider>
+  );
 }

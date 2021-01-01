@@ -6,9 +6,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 
-class HomeScreen extends Component {
+export default class HomeScreen extends Component {
   state = {
     userData: {},
+    token: AsyncStorage.getItem("userToken"),
   };
 
   async componentDidMount() {
@@ -26,11 +27,12 @@ class HomeScreen extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Welcome {this.state.userData.name} </Text>
+        <Text>Welcome {this.state.userData.name}</Text>
         <Button
           onPress={() => {
             AsyncStorage.removeItem("userData");
-            this.props.navigation.navigate("SignIn", { screen: "Login" });
+            AsyncStorage.removeItem("userToken");
+            this.props.userSignOut();
           }}
         >
           <Text>Logout</Text>
@@ -39,11 +41,6 @@ class HomeScreen extends Component {
       </View>
     );
   }
-}
-export default function (props) {
-  const navigation = useNavigation();
-
-  return <HomeScreen {...props} navigation={navigation} />;
 }
 
 const styles = StyleSheet.create({

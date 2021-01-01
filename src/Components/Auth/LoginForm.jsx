@@ -5,8 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Input, Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { StackActions } from "@react-navigation/native";
 
-class LoginForm extends Component {
+export default class LoginForm extends Component {
   state = {
     opacity: 0.7,
     email: "",
@@ -25,18 +26,16 @@ class LoginForm extends Component {
       opacity: 0.7,
     });
   }
-  async storeToken(user) {
+  async storeUser(user) {
     try {
       await AsyncStorage.setItem("userData", JSON.stringify(user));
     } catch (error) {
       console.log("Something went wrong", error);
     }
   }
-  async getToken() {
+  async storeToken(token) {
     try {
-      let userData = await AsyncStorage.getItem("userData");
-      let data = JSON.parse(userData);
-      console.log(data);
+      await AsyncStorage.setItem("userToken", JSON.stringify(token));
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -46,14 +45,16 @@ class LoginForm extends Component {
       email: this.state.email,
       password: this.state.password,
     };
+
     axios
       .post("/login", body)
       .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
-        this.storeToken(this.state.userData);
-        this.props.navigation.navigate("Home");
+        this.storeUser(this.state.userData);
+        this.storeToken(this.state.userData.token);
+        this.props.userLogin(this.state.email, this.state.password);
       })
       .catch(error => {
         this.setState({
@@ -135,11 +136,6 @@ class LoginForm extends Component {
       </View>
     );
   }
-}
-export default function (props) {
-  const navigation = useNavigation();
-
-  return <LoginForm {...props} navigation={navigation} />;
 }
 
 const styles = StyleSheet.create({
