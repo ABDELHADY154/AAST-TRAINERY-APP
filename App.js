@@ -8,6 +8,12 @@ import RegisterScreen from "./src/Components/Auth/RegisterForm";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  configureFonts,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import { isLoading } from "expo-font";
 
 const AuthContext = React.createContext();
 
@@ -29,7 +35,27 @@ function SignInScreen(props) {
   return <LoginForm {...props} navigation={navigation} userLogin={signIn} />;
 }
 const Stack = createStackNavigator();
-
+const fontConfig = {
+  web: {
+    regular: {
+      fontFamily: "SF-L",
+      fontWeight: "normal",
+    },
+    bold: {
+      fontFamily: "SF-M",
+      fontWeight: "normal",
+    },
+  },
+};
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#1E4274",
+    secondary: "#CD8930",
+  },
+};
 export default function App({ navigation }) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
@@ -94,48 +120,50 @@ export default function App({ navigation }) {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          {state.isLoading ? (
-            <>
-              <Stack.Screen
-                name="Splash"
-                component={SplashScreen}
-                options={{
-                  header: () => {
-                    "none";
-                  },
-                }}
-              />
-            </>
-          ) : state.userToken == null ? (
-            <>
-              <Stack.Screen
-                name="SignIn"
-                component={SignInScreen}
-                options={{
-                  animationTypeForReplace: state.isSignout ? "pop" : "push",
-                  header: () => {
-                    "none";
-                  },
-                }}
-              />
-              <Stack.Screen
-                name="Register"
-                component={SignUpScreen}
-                options={{
-                  animationTypeForReplace: state.isSignout ? "pop" : "push",
-                  header: () => {
-                    "none";
-                  },
-                }}
-              />
-            </>
-          ) : (
-            <Stack.Screen name="Home" component={HomeScreen} />
-          )}
-        </Stack.Navigator>
-      </NavigationContainer>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {state.isLoading ? (
+              <>
+                <Stack.Screen
+                  name="Splash"
+                  component={SplashScreen}
+                  options={{
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+              </>
+            ) : state.userToken == null ? (
+              <>
+                <Stack.Screen
+                  name="SignIn"
+                  component={SignInScreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Register"
+                  component={SignUpScreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+              </>
+            ) : (
+              <Stack.Screen name="Home" component={HomeScreen} />
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
     </AuthContext.Provider>
   );
 }
