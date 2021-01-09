@@ -55,6 +55,8 @@ const theme = {
     primary: "#1E4274",
     secondary: "#CD8930",
   },
+  ...DefaultTheme,
+  fonts: configureFonts(fontConfig),
 };
 export default function App({ navigation }) {
   const [state, dispatch] = React.useReducer(
@@ -96,7 +98,6 @@ export default function App({ navigation }) {
           "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
         });
         userToken = await AsyncStorage.getItem("userToken");
-        console.log(userToken);
       } catch (e) {
         console.log(e);
       }

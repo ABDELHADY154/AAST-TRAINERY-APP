@@ -1,48 +1,41 @@
 import React, { Component, Fragment } from "react";
 import { StatusBar } from "expo-status-bar";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ImageBackground,
-  Image,
-  KeyboardAvoidingView,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 import { Button, Input } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { StackActions } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
+import { Icon } from "react-native-elements";
+
 class LoginForm extends Component {
   state = {
     email: "",
     password: "",
     emailErr: "",
+    passErr: "",
     userData: {},
   };
 
-  onBlur() {
-    input.current.blur();
-    this.setState({
-      opacity: 0.7,
-    });
-  }
-  async storeUser(user) {
+  async storeConfig(config) {
     try {
-      await AsyncStorage.setItem("userData", JSON.stringify(user));
+      const jsonValue = JSON.stringify(config);
+      await AsyncStorage.setItem("config", jsonValue);
     } catch (error) {
       console.log("Something went wrong", error);
     }
   }
   async storeToken(token) {
     try {
-      await AsyncStorage.setItem("userToken", JSON.stringify(token));
+      await AsyncStorage.setItem("userToken", token);
     } catch (error) {
       console.log("Something went wrong", error);
     }
   }
   submit = () => {
+    this.setState({
+      emailErr: "",
+      passErr: "",
+    });
     var body = {
       email: this.state.email,
       password: this.state.password,
@@ -53,21 +46,41 @@ class LoginForm extends Component {
       .then(response => {
         this.setState({
           userData: response.data.response.data,
+          emailErr: "",
+          passErr: "",
         });
-        this.storeUser(this.state.userData);
+        let config = {
+          headers: {
+            Authorization: "Bearer " + this.state.userData.token,
+          },
+        };
+        this.storeConfig(config);
         this.storeToken(this.state.userData.token);
         this.props.userLogin(this.state.email, this.state.password);
       })
+
       .catch(error => {
-        this.setState({
-          emailErr: error.response.data.errors.email,
-        });
+        if (error.response.data.errors.email) {
+          this.setState({
+            emailErr: error.response.data.errors.email,
+          });
+        }
+        if (error.response.data.errors.password) {
+          this.setState({
+            passErr: error.response.data.errors.password,
+          });
+        }
+        // this.setState({
+        //   emailErr: error.response.data.errors.email,
+        //   passErr: error.response.data.errors.password,
+        // });
       });
   };
 
   render() {
     const { navigation } = this.props;
-    var error = this.state.emailErr;
+    var emailError = this.state.emailErr;
+    var passError = this.state.passErr;
     const { colors, fonts } = this.props.theme ? this.props.theme : "";
 
     if (this.state.userData.token) {
@@ -86,9 +99,6 @@ class LoginForm extends Component {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={{ color: "red", fontSize: 16, textAlign: "center" }}>
-              {error}
-            </Text>
             <Text style={styles.labelStyle}>Student Email</Text>
             <Input
               placeholder=""
@@ -97,6 +107,29 @@ class LoginForm extends Component {
               type="email-address"
               onChangeText={value => this.setState({ email: value })}
             />
+            {this.state.emailErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {emailError}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Text style={styles.labelPassword}>Password</Text>
 
             <Input
@@ -110,6 +143,29 @@ class LoginForm extends Component {
               iconStyle={{ marginBottom: 50 }}
               onChangeText={value => this.setState({ password: value })}
             />
+            {this.state.passErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {passError}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Text
               style={{
                 color: "white",
@@ -129,7 +185,6 @@ class LoginForm extends Component {
           <View
             style={{
               flex: 1,
-              // flexWrap: "wrap",
               justifyContent: "flex-end",
               alignItems: "center",
               marginBottom: 10,
@@ -171,7 +226,7 @@ class LoginForm extends Component {
                 fontSize: 16,
                 textAlign: "center",
               }}
-              onPress={() => navigation.navigate("Register")}
+              onPress={() => alert("mafeesh l kalam dah ")}
             >
               Trems and conditions
             </Text>
@@ -197,9 +252,10 @@ const styles = StyleSheet.create({
   },
 
   logoContainer: {
-    height: 250,
+    height: 200,
     justifyContent: "center",
     alignItems: "center",
+    marginBottom: 80,
   },
   logo: {
     width: 220,
@@ -221,16 +277,16 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderRadius: 0,
-    height: 40,
+    height: 35,
     alignItems: "center",
   },
   labelPassword: {
     color: "white",
     fontSize: 20,
     marginBottom: -16,
-    marginTop: 20,
+    marginTop: 0,
   },
   button: {
     width: "auto",

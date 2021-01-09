@@ -9,29 +9,37 @@ import { axios } from "../../Config/Axios";
 export default class HomeScreen extends Component {
   state = {
     userData: {},
-    token: AsyncStorage.getItem("userToken"),
+    token: "",
   };
 
   async componentDidMount() {
     try {
-      let userData = await AsyncStorage.getItem("userData");
-      let data = JSON.parse(userData);
-      if (data) {
-        this.setState({ userData: data });
-      }
-    } catch (error) {
-      console.log("Something went wrong", error);
+      var config = await AsyncStorage.getItem("config");
+      var parsedConfig = JSON.parse(config);
+    } catch (e) {
+      console.log(e);
     }
+    axios
+      .get("/A/get-profile", parsedConfig)
+      .then(response => {
+        this.setState({
+          userData: response.data.response.data,
+        });
+      })
+      .catch(err => {
+        console.log(err.response.data);
+      });
   }
   render() {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <Text>Welcome {this.state.userData.name}</Text>
+        <Text>Welcome {this.state.userData.email}</Text>
         <Button
           onPress={() => {
             AsyncStorage.removeItem("userData");
             AsyncStorage.removeItem("userToken");
+            AsyncStorage.removeItem("config");
             this.props.userSignOut();
           }}
         >

@@ -1,14 +1,19 @@
 import Axios from "react-native-axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export const axios = Axios.create({
   baseURL: "http://admin.aast-trainery.com/api",
 });
 
-// import Axios from "axios";
+// const token = async () => {
+//   try {
+//     var userToken = await AsyncStorage.getItem("userToken");
 
-// export const axios = Axios.create({
-//   baseURL: "http://admin.aast-trainery.com/api",
-// });
-
-// axios.defaults.headers.common["Authorization"] =
-//   "Bearer " + sessionStorage.getItem("token");
+//     return (axios.defaults.headers.common["Authorization"] =
+//       "Bearer " + userToken);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// };
+// token();
+// axios.defaults.headers.common["Authorization"] = "";
