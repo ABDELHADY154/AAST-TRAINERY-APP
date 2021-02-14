@@ -1,33 +1,170 @@
-import "react-native-gesture-handler";
-import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import * as React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import SplashScreen from "./src/Components/Splash/SplashScreen";
+import Home from "./src/Components/Home/HomeScreen";
+import LoginForm from "./src/Components/Auth/LoginForm";
+import RegisterScreen from "./src/Components/Auth/RegisterForm";
 import * as Font from "expo-font";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  configureFonts,
+  Provider as PaperProvider,
+} from "react-native-paper";
+import { isLoading } from "expo-font";
 
-export default class App extends Component {
-  componentDidMount() {
-    Font.loadAsync({
-      "sf-font": require("./assets/fonts/AbhayaLibre-Bold.ttf"),
-    });
-  }
+const AuthContext = React.createContext();
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={{ fontSize: 40, fontFamily: "sf-font" }}>
-          AAST TRAINERY
-        </Text>
-        <StatusBar style="auto" />
-      </View>
-    );
-  }
+function HomeScreen(props) {
+  const navigation = useNavigation();
+  const { signOut } = React.useContext(AuthContext);
+  return <Home {...props} navigation={navigation} userSignOut={signOut} />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+function SignUpScreen(props) {
+  const navigation = useNavigation();
+  const { signUp } = React.useContext(AuthContext);
+  return (
+    <RegisterScreen {...props} navigation={navigation} userSignUp={signUp} />
+  );
+}
+function SignInScreen(props) {
+  const navigation = useNavigation();
+  const { signIn } = React.useContext(AuthContext);
+  return <LoginForm {...props} navigation={navigation} userLogin={signIn} />;
+}
+const Stack = createStackNavigator();
+const fontConfig = {
+  web: {
+    regular: {
+      fontFamily: "SF-L",
+      fontWeight: "normal",
+    },
+    bold: {
+      fontFamily: "SF-M",
+      fontWeight: "normal",
+    },
   },
-});
+};
+const theme = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: "#1E4274",
+    secondary: "#CD8930",
+  },
+  ...DefaultTheme,
+  fonts: configureFonts(fontConfig),
+};
+export default function App({ navigation }) {
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case "RESTORE_TOKEN":
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case "SIGN_IN":
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case "SIGN_OUT":
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    },
+  );
+
+  React.useEffect(() => {
+    const bootstrapAsync = async () => {
+      let userToken;
+      try {
+        await Font.loadAsync({
+          "SF-L": require("./assets/fonts/SF-Compact-Display-Light.otf"),
+          "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
+        });
+        userToken = await AsyncStorage.getItem("userToken");
+      } catch (e) {
+        console.log(e);
+      }
+      dispatch({ type: "RESTORE_TOKEN", token: userToken });
+    };
+    bootstrapAsync();
+  }, []);
+
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async data => {
+        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+      },
+      signOut: () => dispatch({ type: "SIGN_OUT" }),
+      signUp: async data => {
+        dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
+      },
+    }),
+    [],
+  );
+
+  return (
+    <AuthContext.Provider value={authContext}>
+      <PaperProvider theme={theme}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {state.isLoading ? (
+              <>
+                <Stack.Screen
+                  name="Splash"
+                  component={SplashScreen}
+                  options={{
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+              </>
+            ) : state.userToken == null ? (
+              <>
+                <Stack.Screen
+                  name="SignIn"
+                  component={SignInScreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Register"
+                  component={SignUpScreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+              </>
+            ) : (
+              <Stack.Screen name="Home" component={HomeScreen} />
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </AuthContext.Provider>
+  );
+}
