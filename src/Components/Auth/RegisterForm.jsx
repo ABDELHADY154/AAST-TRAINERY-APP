@@ -139,7 +139,7 @@ class RegisterForm extends Component {
         >
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/Images/logoWhite.png")}
+              source={require("../../assets/Images/IconWhite.png")}
               style={styles.logo}
             />
           </View>
@@ -438,8 +438,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 220,
-    height: 90,
+    width: 93,
+    height: 121,
   },
   inputContainer: {
     flex: 1,
