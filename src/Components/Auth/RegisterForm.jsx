@@ -6,6 +6,8 @@ import { Picker } from "@react-native-picker/picker";
 import { axios } from "../../Config/Axios";
 import { withTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Icon } from "react-native-elements";
+import { Radio } from "galio-framework";
 
 class RegisterForm extends Component {
   state = {
@@ -17,6 +19,8 @@ class RegisterForm extends Component {
     studentEmailErr: "",
     studentPass: "",
     studentPassErr: "",
+    studentConPass: "",
+    studentConPassErr: "",
     confPass: "",
     confPassErr: "",
     regNo: "",
@@ -45,7 +49,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then((response) => {
+      .then(response => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -67,12 +71,14 @@ class RegisterForm extends Component {
       name: this.state.studentName,
       email: this.state.studentEmail,
       password: this.state.studentPass,
+      password_confirmation: this.state.studentConPass,
       reg_no: this.state.regNo,
       department_id: this.state.department,
+      gender: this.state.gender,
     };
     axios
       .post("/register", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -85,21 +91,41 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email
+          this.state.userData.email,
         );
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
-        // if (error.response.data.errors.email) {
-        //   this.setState({
-        //     emailErr: error.response.data.errors.email,
-        //   });
-        // }
-        // if (error.response.data.errors.password) {
-        //   this.setState({
-        //     passErr: error.response.data.errors.password,
-        //   });
-        // }
+        if (error.response.data.errors.name) {
+          this.setState({
+            studentNameErr: error.response.data.errors.name,
+          });
+        }
+        if (error.response.data.errors.email) {
+          this.setState({
+            studentEmailErr: error.response.data.errors.email,
+          });
+        }
+        if (error.response.data.errors.password) {
+          this.setState({
+            studentPassErr: error.response.data.errors.password,
+          });
+        }
+        if (error.response.data.errors.reg_no) {
+          this.setState({
+            regNoErr: error.response.data.errors.reg_no,
+          });
+        }
+        if (error.response.data.errors.department_id) {
+          this.setState({
+            departmentErr: error.response.data.errors.department_id[0],
+          });
+        }
+        if (error.response.data.errors.gender) {
+          this.setState({
+            gender: error.response.data.errors.gender,
+          });
+        }
       });
   };
 
@@ -124,16 +150,62 @@ class RegisterForm extends Component {
               placeholder=""
               style={styles.input}
               color="white"
-              onChangeText={(value) => this.setState({ studentName: value })}
+              onChangeText={value => this.setState({ studentName: value })}
             />
+            {this.state.studentNameErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.studentNameErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Text style={styles.labelStyle}>Student Email</Text>
             <Input
               placeholder=""
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={(value) => this.setState({ studentEmail: value })}
+              onChangeText={value => this.setState({ studentEmail: value })}
             />
+            {this.state.studentEmailErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.studentEmailErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Text style={styles.labelStyle}>Password</Text>
             <Input
               placeholder=""
@@ -144,15 +216,73 @@ class RegisterForm extends Component {
               iconColor="white"
               iconSize={22}
               iconStyle={{ marginBottom: 50 }}
-              onChangeText={(value) => this.setState({ studentPass: value })}
+              onChangeText={value => this.setState({ studentPass: value })}
+            />
+            {this.state.studentPassErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.studentPassErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
+            <Text style={styles.labelStyle}>Confirm Password</Text>
+            <Input
+              placeholder=""
+              style={styles.input}
+              color="white"
+              password
+              viewPass
+              iconColor="white"
+              iconSize={22}
+              iconStyle={{ marginBottom: 50 }}
+              onChangeText={value => this.setState({ studentConPass: value })}
             />
             <Text style={styles.labelStyle}>Registeration Number</Text>
             <Input
               placeholder=""
               style={styles.input}
               color="white"
-              onChangeText={(value) => this.setState({ regNo: value })}
+              onChangeText={value => this.setState({ regNo: value })}
             />
+            {this.state.regNoErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.regNoErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Text style={styles.labelStyle}>Department Major</Text>
             <View style={styles.boxContainer}>
               <Picker
@@ -176,8 +306,8 @@ class RegisterForm extends Component {
                   this.setState({ department: itemValue })
                 }
               >
-                {/* <Picker.Item label="Not set" value="0" key="0" /> */}
-                {this.state.departments.map((key) => {
+                <Picker.Item label="Not Set" value="0" />
+                {this.state.departments.map(key => {
                   return (
                     <Picker.Item
                       label={key.dep_name}
@@ -187,6 +317,47 @@ class RegisterForm extends Component {
                   );
                 })}
               </Picker>
+            </View>
+            {this.state.departmentErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 18,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.departmentErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
+            <View style={{ flexDirection: "row", justifyContent: "center" }}>
+              <Radio
+                label="Male"
+                color="info"
+                labelStyle={{ color: "white" }}
+                onChange={() => {
+                  this.setState({ gender: "male" });
+                }}
+              />
+              <Radio
+                label="Female"
+                color="info"
+                labelStyle={{ color: "white" }}
+                onChange={() => {
+                  this.setState({ gender: "female" });
+                }}
+              />
             </View>
             <Button style={styles.button} color="white" onPress={this.submit}>
               <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign Up</Text>
