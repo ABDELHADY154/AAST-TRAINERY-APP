@@ -14,7 +14,6 @@ import {
   Provider as PaperProvider,
 } from "react-native-paper";
 import { isLoading } from "expo-font";
-// import { Tutorial1 } from "./src/Components/Tutorials/Tutorialscreen1";
 const AuthContext = React.createContext();
 
 function HomeScreen(props) {
@@ -118,7 +117,7 @@ export default function App({ navigation }) {
     }),
     []
   );
-  // return <Tutorial1 />;
+  // return <SplashScreen />;
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
