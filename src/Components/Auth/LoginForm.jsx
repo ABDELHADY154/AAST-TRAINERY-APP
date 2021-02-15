@@ -199,7 +199,7 @@ class LoginForm extends Component {
                 marginBottom: 3,
               }}
             >
-              Don't have an account?
+              Don't have an account?{"  "}
               <Text
                 style={{
                   color: "#CD8930",
