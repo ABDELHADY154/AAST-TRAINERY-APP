@@ -360,11 +360,12 @@ class RegisterForm extends Component {
                 ) : (
                   <Text></Text>
                 )}
+                <Text style={styles.labelStyle}>Gender</Text>
                 <View
                   style={{
                     flexDirection: "row",
                     justifyContent: "center",
-                    marginTop: "2%",
+                    marginTop: "10%",
                   }}
                 >
                   <Radio
