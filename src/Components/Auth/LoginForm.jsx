@@ -43,7 +43,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -59,7 +59,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -93,7 +93,7 @@ class LoginForm extends Component {
         >
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/Images/logoWhite.png")}
+              source={require("../../assets/Images/IconWhite.png")}
               style={styles.logo}
             />
           </View>
@@ -105,7 +105,7 @@ class LoginForm extends Component {
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -141,7 +141,7 @@ class LoginForm extends Component {
               iconColor="white"
               iconSize={22}
               iconStyle={{ marginBottom: 50 }}
-              onChangeText={value => this.setState({ password: value })}
+              onChangeText={(value) => this.setState({ password: value })}
             />
             {this.state.passErr != "" ? (
               <View
@@ -199,7 +199,7 @@ class LoginForm extends Component {
                 marginBottom: 3,
               }}
             >
-              Don't have an account?{" "}
+              Don't have an account?
               <Text
                 style={{
                   color: "#CD8930",
@@ -258,8 +258,8 @@ const styles = StyleSheet.create({
     marginBottom: 80,
   },
   logo: {
-    width: 220,
-    height: 90,
+    width: 93,
+    height: 121,
   },
   inputContainer: {
     flex: 1,
