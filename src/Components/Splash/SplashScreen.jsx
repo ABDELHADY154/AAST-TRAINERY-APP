@@ -7,7 +7,7 @@ export default class SplashScreen extends Component {
     return (
       <View style={styles.container}>
         <Image
-          source={require("../../assets/Images/logoWhite.png")}
+          source={require("../../assets/Images/IconWhite.png")}
           style={styles.logo}
         />
         <StatusBar style="light" />
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    height: 105,
-    width: 257,
+    height: 177,
+    width: 222,
   },
 });

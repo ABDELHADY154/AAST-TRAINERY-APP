@@ -45,7 +45,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -72,7 +72,7 @@ class RegisterForm extends Component {
     };
     axios
       .post("/register", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -85,10 +85,10 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email,
+          this.state.userData.email
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data);
         // if (error.response.data.errors.email) {
         //   this.setState({
@@ -113,7 +113,7 @@ class RegisterForm extends Component {
         >
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/Images/logoWhite.png")}
+              source={require("../../assets/Images/IconWhite.png")}
               style={styles.logo}
             />
           </View>
@@ -124,7 +124,7 @@ class RegisterForm extends Component {
               placeholder=""
               style={styles.input}
               color="white"
-              onChangeText={value => this.setState({ studentName: value })}
+              onChangeText={(value) => this.setState({ studentName: value })}
             />
             <Text style={styles.labelStyle}>Student Email</Text>
             <Input
@@ -132,7 +132,7 @@ class RegisterForm extends Component {
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={value => this.setState({ studentEmail: value })}
+              onChangeText={(value) => this.setState({ studentEmail: value })}
             />
             <Text style={styles.labelStyle}>Password</Text>
             <Input
@@ -144,14 +144,14 @@ class RegisterForm extends Component {
               iconColor="white"
               iconSize={22}
               iconStyle={{ marginBottom: 50 }}
-              onChangeText={value => this.setState({ studentPass: value })}
+              onChangeText={(value) => this.setState({ studentPass: value })}
             />
             <Text style={styles.labelStyle}>Registeration Number</Text>
             <Input
               placeholder=""
               style={styles.input}
               color="white"
-              onChangeText={value => this.setState({ regNo: value })}
+              onChangeText={(value) => this.setState({ regNo: value })}
             />
             <Text style={styles.labelStyle}>Department Major</Text>
             <View style={styles.boxContainer}>
@@ -177,7 +177,7 @@ class RegisterForm extends Component {
                 }
               >
                 {/* <Picker.Item label="Not set" value="0" key="0" /> */}
-                {this.state.departments.map(key => {
+                {this.state.departments.map((key) => {
                   return (
                     <Picker.Item
                       label={key.dep_name}
@@ -267,8 +267,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    width: 220,
-    height: 90,
+    width: 93,
+    height: 121,
   },
   inputContainer: {
     flex: 1,
