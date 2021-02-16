@@ -16,7 +16,10 @@ class ForgetPass extends Component {
           style={styles.image}
         >
           <View style={styles.logoContainer}>
-            <Image source={require("../../assets/Images/logoWhite.png")} />
+            <Image
+              source={require("../../assets/Images/IconWhite.png")}
+              style={styles.logo}
+            />
           </View>
 
           <View style={styles.inputContainer}>
@@ -46,6 +49,10 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+  },
+  logo: {
+    width: 100.5,
+    height: 130,
   },
   image: {
     flex: 1,

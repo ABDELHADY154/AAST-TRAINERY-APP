@@ -510,8 +510,8 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   logo: {
-    width: 93,
-    height: 121,
+    width: 100.5,
+    height: 130,
   },
   inputContainer: {
     flex: 1,
