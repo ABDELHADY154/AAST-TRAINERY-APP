@@ -478,7 +478,7 @@ class RegisterForm extends Component {
                   }}
                   onPress={() => alert("mafeesh l kalam dah ")}
                 >
-                  Trems and conditions
+                  Terms and conditions
                 </Text>
               </View>
             </ImageBackground>
