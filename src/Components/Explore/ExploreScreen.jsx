@@ -14,12 +14,13 @@ export default class ExploreScreen extends Component {
       <View>
         <SafeAreaView>
           <ScrollView>
+            <AdvisorCard />
+
             <AdsCard />
             <AdsCardImg />
             <CompanyCard />
-            <AdvisorCard />
             <PromotedCard />
-            <SessionCard />
+            {/* <SessionCard /> */}
           </ScrollView>
         </SafeAreaView>
       </View>

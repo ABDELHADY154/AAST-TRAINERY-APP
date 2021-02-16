@@ -22,11 +22,14 @@ export class AdvisorCard extends Component {
     return (
       <View>
         <Card
+          // transparent
+          // bordered
           style={{
             width: "90%",
             marginLeft: 18,
             borderWidth: 1,
             borderColor: "#CCCCCC",
+            borderRadius: 2,
           }}
         >
           <CardItem>
