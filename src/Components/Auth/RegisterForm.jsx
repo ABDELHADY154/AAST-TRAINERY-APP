@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import { Input, Button } from "galio-framework";
 import { Picker } from "@react-native-picker/picker";
 import { axios } from "../../Config/Axios";
@@ -49,7 +57,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -78,7 +86,7 @@ class RegisterForm extends Component {
     };
     axios
       .post("/register", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -91,10 +99,10 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email,
+          this.state.userData.email
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data);
         if (error.response.data.errors.name) {
           this.setState({
@@ -133,287 +141,317 @@ class RegisterForm extends Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={require("../../assets/Images/signInbg.png")}
-          style={styles.image}
-        >
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../../assets/Images/IconWhite.png")}
-              style={styles.logo}
-            />
-          </View>
+        <SafeAreaView style={styles.container}>
+          <ScrollView style={styles.scrollView}>
+            <ImageBackground
+              source={require("../../assets/Images/signInbg.png")}
+              style={styles.image}
+            >
+              <View style={styles.logoContainer}>
+                <Image
+                  source={require("../../assets/Images/IconWhite.png")}
+                  style={styles.logo}
+                />
+              </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.labelStyle}>Student Name</Text>
-            <Input
-              placeholder=""
-              style={styles.input}
-              color="white"
-              onChangeText={value => this.setState({ studentName: value })}
-            />
-            {this.state.studentNameErr != "" ? (
+              <View style={styles.inputContainer}>
+                <Text style={styles.labelStyle}>Student Name</Text>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  color="white"
+                  onChangeText={(value) =>
+                    this.setState({ studentName: value })
+                  }
+                />
+                {this.state.studentNameErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.studentNameErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+                <Text style={styles.labelStyle}>Student Email</Text>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  color="white"
+                  type="email-address"
+                  onChangeText={(value) =>
+                    this.setState({ studentEmail: value })
+                  }
+                />
+                {this.state.studentEmailErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.studentEmailErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+                <Text style={styles.labelStyle}>Password</Text>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  color="white"
+                  password
+                  viewPass
+                  iconColor="white"
+                  iconSize={22}
+                  iconStyle={{ marginBottom: 50 }}
+                  onChangeText={(value) =>
+                    this.setState({ studentPass: value })
+                  }
+                />
+                {this.state.studentPassErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.studentPassErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+                <Text style={styles.labelStyle}>Confirm Password</Text>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  color="white"
+                  password
+                  viewPass
+                  iconColor="white"
+                  iconSize={22}
+                  iconStyle={{ marginBottom: 50 }}
+                  onChangeText={(value) =>
+                    this.setState({ studentConPass: value })
+                  }
+                />
+                <Text style={styles.labelStyle}>Registeration Number</Text>
+                <Input
+                  type="number-pad"
+                  placeholder=""
+                  style={styles.input}
+                  color="white"
+                  onChangeText={(value) => this.setState({ regNo: value })}
+                />
+                {this.state.regNoErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.regNoErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+                <Text style={styles.labelStyle}>Department Major</Text>
+                <View style={styles.boxContainer}>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "white",
+                      borderColor: "white",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="white"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="white"
+                    selectedValue={this.state.department}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({ department: itemValue })
+                    }
+                  >
+                    <Picker.Item label="Not Set" value="0" />
+                    {this.state.departments.map((key) => {
+                      return (
+                        <Picker.Item
+                          label={key.dep_name}
+                          value={key.id}
+                          key={key.id}
+                        />
+                      );
+                    })}
+                  </Picker>
+                </View>
+                {this.state.departmentErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.departmentErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
+                <Text style={styles.labelStyle}>Gender</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "center",
+                    marginTop: "10%",
+                  }}
+                >
+                  <Radio
+                    label="Male"
+                    color="white"
+                    labelStyle={{
+                      color: "white",
+                      marginRight: "20%",
+                      // borderRadius: -100,
+                    }}
+                    onChange={() => {
+                      this.setState({ gender: "male" });
+                    }}
+                  />
+                  <Radio
+                    label="Female"
+                    color="white"
+                    labelStyle={{ color: "white" }}
+                    onChange={() => {
+                      this.setState({ gender: "female" });
+                    }}
+                  />
+                </View>
+                <Button
+                  style={styles.button}
+                  color="white"
+                  onPress={this.submit}
+                >
+                  <Text style={{ color: "#1E4275", fontSize: 18 }}>
+                    Sign Up
+                  </Text>
+                </Button>
+              </View>
               <View
                 style={{
-                  justifyContent: "space-between",
+                  // flex: 1,
+                  justifyContent: "flex-end",
                   alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
+                  marginBottom: 10,
                 }}
               >
                 <Text
                   style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                    textAlign: "left",
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    textAlign: "center",
+                    marginBottom: 3,
                   }}
                 >
-                  {this.state.studentNameErr}
+                  Already have an account?{"  "}
+                  <Text
+                    style={{
+                      color: "#CD8930",
+                    }}
+                    onPress={() => navigation.navigate("SignIn")}
+                  >
+                    Sign In
+                  </Text>
                 </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Text style={styles.labelStyle}>Student Email</Text>
-            <Input
-              placeholder=""
-              style={styles.input}
-              color="white"
-              type="email-address"
-              onChangeText={value => this.setState({ studentEmail: value })}
-            />
-            {this.state.studentEmailErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
-                }}
-              >
                 <Text
                   style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                    textAlign: "left",
+                    color: "white",
+                    fontSize: 16,
+                    textAlign: "center",
+                    fontWeight: "500",
                   }}
                 >
-                  {this.state.studentEmailErr}
+                  By continuing you agree to our
                 </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Text style={styles.labelStyle}>Password</Text>
-            <Input
-              placeholder=""
-              style={styles.input}
-              color="white"
-              password
-              viewPass
-              iconColor="white"
-              iconSize={22}
-              iconStyle={{ marginBottom: 50 }}
-              onChangeText={value => this.setState({ studentPass: value })}
-            />
-            {this.state.studentPassErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
-                }}
-              >
                 <Text
                   style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                    textAlign: "left",
+                    color: "#CD8930",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    textAlign: "center",
                   }}
+                  onPress={() => alert("mafeesh l kalam dah ")}
                 >
-                  {this.state.studentPassErr}
+                  Trems and conditions
                 </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
               </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Text style={styles.labelStyle}>Confirm Password</Text>
-            <Input
-              placeholder=""
-              style={styles.input}
-              color="white"
-              password
-              viewPass
-              iconColor="white"
-              iconSize={22}
-              iconStyle={{ marginBottom: 50 }}
-              onChangeText={value => this.setState({ studentConPass: value })}
-            />
-            <Text style={styles.labelStyle}>Registeration Number</Text>
-            <Input
-              placeholder=""
-              style={styles.input}
-              color="white"
-              onChangeText={value => this.setState({ regNo: value })}
-            />
-            {this.state.regNoErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.regNoErr}
-                </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Text style={styles.labelStyle}>Department Major</Text>
-            <View style={styles.boxContainer}>
-              <Picker
-                mode="dialog"
-                style={{
-                  color: "white",
-                  borderColor: "white",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 10,
-                  borderRadius: 0,
-                }}
-                placeholder="Select your SIM"
-                placeholderStyle={{ color: "#1E4275" }}
-                placeholderIconColor="white"
-                itemStyle={{ backgroundColor: "#fff" }}
-                dropdownIconColor="white"
-                selectedValue={this.state.department}
-                onValueChange={(itemValue, itemIndex) =>
-                  this.setState({ department: itemValue })
-                }
-              >
-                <Picker.Item label="Not Set" value="0" />
-                {this.state.departments.map(key => {
-                  return (
-                    <Picker.Item
-                      label={key.dep_name}
-                      value={key.id}
-                      key={key.id}
-                    />
-                  );
-                })}
-              </Picker>
-            </View>
-            {this.state.departmentErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  width: "100%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.departmentErr}
-                </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <View style={{ flexDirection: "row", justifyContent: "center" }}>
-              <Radio
-                label="Male"
-                color="info"
-                labelStyle={{ color: "white" }}
-                onChange={() => {
-                  this.setState({ gender: "male" });
-                }}
-              />
-              <Radio
-                label="Female"
-                color="info"
-                labelStyle={{ color: "white" }}
-                onChange={() => {
-                  this.setState({ gender: "female" });
-                }}
-              />
-            </View>
-            <Button style={styles.button} color="white" onPress={this.submit}>
-              <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign Up</Text>
-            </Button>
-          </View>
-          <View
-            style={{
-              // flex: 1,
-              justifyContent: "flex-end",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <Text
-              style={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "500",
-                textAlign: "center",
-                marginBottom: 3,
-              }}
-            >
-              Already have an account ?{" "}
-              <Text
-                style={{
-                  color: "#CD8930",
-                }}
-                onPress={() => navigation.navigate("SignIn")}
-              >
-                Sign In
-              </Text>
-            </Text>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 16,
-                textAlign: "center",
-                fontWeight: "500",
-              }}
-            >
-              By continuing you agree to our
-            </Text>
-            <Text
-              style={{
-                color: "#CD8930",
-                fontWeight: "500",
-                fontSize: 16,
-                textAlign: "center",
-              }}
-              onPress={() => alert("mafeesh l kalam dah ")}
-            >
-              Trems and conditions
-            </Text>
-          </View>
-        </ImageBackground>
-        <StatusBar style="light" />
+            </ImageBackground>
+            <StatusBar style="light" />
+          </ScrollView>
+        </SafeAreaView>
       </View>
     );
   }
