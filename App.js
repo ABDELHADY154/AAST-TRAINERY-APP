@@ -91,7 +91,7 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
 
   React.useEffect(() => {
@@ -113,17 +113,17 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
-
+  return <SplashScreen />;
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
