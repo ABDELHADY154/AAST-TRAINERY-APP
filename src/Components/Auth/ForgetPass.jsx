@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 import { Button, Input } from "galio-framework";
@@ -59,10 +59,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 80,
+    marginTop: 50,
   },
   inputContainer: {
-    // flex: 1,
-    // justifyContent: "flex-start",
     width: 300,
     marginTop: -60,
   },

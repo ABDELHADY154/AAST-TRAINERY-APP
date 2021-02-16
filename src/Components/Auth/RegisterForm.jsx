@@ -16,6 +16,7 @@ import { withTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Icon } from "react-native-elements";
 import { Radio } from "galio-framework";
+import { RadioButton } from "react-native-paper";
 
 class RegisterForm extends Component {
   state = {
@@ -37,6 +38,7 @@ class RegisterForm extends Component {
     departmentErr: "",
     gender: "",
     genderErr: "",
+    checked: "",
   };
   async storeConfig(config) {
     try {
@@ -57,7 +59,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then((response) => {
+      .then(response => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -86,7 +88,7 @@ class RegisterForm extends Component {
     };
     axios
       .post("/register", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -99,11 +101,11 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email
+          this.state.userData.email,
         );
       })
-      .catch((error) => {
-        console.log(error.response.data);
+      .catch(error => {
+        console.log(error.response.data.errors);
         if (error.response.data.errors.name) {
           this.setState({
             studentNameErr: error.response.data.errors.name,
@@ -131,7 +133,7 @@ class RegisterForm extends Component {
         }
         if (error.response.data.errors.gender) {
           this.setState({
-            gender: error.response.data.errors.gender,
+            genderErr: error.response.data.errors.gender,
           });
         }
       });
@@ -160,9 +162,7 @@ class RegisterForm extends Component {
                   placeholder=""
                   style={styles.input}
                   color="white"
-                  onChangeText={(value) =>
-                    this.setState({ studentName: value })
-                  }
+                  onChangeText={value => this.setState({ studentName: value })}
                 />
                 {this.state.studentNameErr != "" ? (
                   <View
@@ -193,9 +193,7 @@ class RegisterForm extends Component {
                   style={styles.input}
                   color="white"
                   type="email-address"
-                  onChangeText={(value) =>
-                    this.setState({ studentEmail: value })
-                  }
+                  onChangeText={value => this.setState({ studentEmail: value })}
                 />
                 {this.state.studentEmailErr != "" ? (
                   <View
@@ -230,9 +228,7 @@ class RegisterForm extends Component {
                   iconColor="white"
                   iconSize={22}
                   iconStyle={{ marginBottom: 50 }}
-                  onChangeText={(value) =>
-                    this.setState({ studentPass: value })
-                  }
+                  onChangeText={value => this.setState({ studentPass: value })}
                 />
                 {this.state.studentPassErr != "" ? (
                   <View
@@ -267,7 +263,7 @@ class RegisterForm extends Component {
                   iconColor="white"
                   iconSize={22}
                   iconStyle={{ marginBottom: 50 }}
-                  onChangeText={(value) =>
+                  onChangeText={value =>
                     this.setState({ studentConPass: value })
                   }
                 />
@@ -277,7 +273,7 @@ class RegisterForm extends Component {
                   placeholder=""
                   style={styles.input}
                   color="white"
-                  onChangeText={(value) => this.setState({ regNo: value })}
+                  onChangeText={value => this.setState({ regNo: value })}
                 />
                 {this.state.regNoErr != "" ? (
                   <View
@@ -326,7 +322,7 @@ class RegisterForm extends Component {
                     }
                   >
                     <Picker.Item label="Not Set" value="0" />
-                    {this.state.departments.map((key) => {
+                    {this.state.departments.map(key => {
                       return (
                         <Picker.Item
                           label={key.dep_name}
@@ -368,27 +364,65 @@ class RegisterForm extends Component {
                     marginTop: "10%",
                   }}
                 >
-                  <Radio
-                    label="Male"
+                  <RadioButton
+                    value="male"
+                    uncheckedColor="white"
+                    status={
+                      this.state.checked === "first" ? "checked" : "unchecked"
+                    }
                     color="white"
-                    labelStyle={{
+                    onPress={() => this.setState({ checked: "first" })}
+                  />
+                  <Text
+                    style={{
                       color: "white",
                       marginRight: "20%",
-                      // borderRadius: -100,
+                      alignSelf: "center",
                     }}
-                    onChange={() => {
-                      this.setState({ gender: "male" });
-                    }}
-                  />
-                  <Radio
-                    label="Female"
+                  >
+                    Male
+                  </Text>
+                  <RadioButton
+                    value="female"
+                    uncheckedColor="white"
                     color="white"
-                    labelStyle={{ color: "white" }}
-                    onChange={() => {
-                      this.setState({ gender: "female" });
-                    }}
+                    status={
+                      this.state.checked === "second" ? "checked" : "unchecked"
+                    }
+                    onPress={() => this.setState({ checked: "second" })}
                   />
+                  <Text
+                    style={{
+                      color: "white",
+                      alignSelf: "center",
+                    }}
+                  >
+                    Female
+                  </Text>
                 </View>
+                {this.state.genderErr != "" ? (
+                  <View
+                    style={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      flexDirection: "row",
+                      width: "100%",
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 14,
+                        textAlign: "left",
+                      }}
+                    >
+                      {this.state.genderErr}
+                    </Text>
+                    <Icon name="x-octagon" type="feather" color="#F44336" />
+                  </View>
+                ) : (
+                  <Text></Text>
+                )}
                 <Button
                   style={styles.button}
                   color="white"
@@ -401,7 +435,6 @@ class RegisterForm extends Component {
               </View>
               <View
                 style={{
-                  // flex: 1,
                   justifyContent: "flex-end",
                   alignItems: "center",
                   marginBottom: 10,
@@ -474,6 +507,7 @@ const styles = StyleSheet.create({
     height: 200,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 50,
   },
   logo: {
     width: 93,
