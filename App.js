@@ -6,6 +6,7 @@ import Home from "./src/Components/Home/HomeScreen";
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
+import ExploreScreen from "./src/Components/Explore/ExploreScreen";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -123,7 +124,7 @@ export default function App({ navigation }) {
     }),
     []
   );
-  return <SplashScreen />;
+  return <ExploreScreen />;
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
