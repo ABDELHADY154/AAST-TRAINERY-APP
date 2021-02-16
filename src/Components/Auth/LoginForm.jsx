@@ -119,7 +119,7 @@ class LoginForm extends Component {
                 <Text
                   style={{
                     color: "#F44336",
-                    fontSize: 18,
+                    fontSize: 14,
                     textAlign: "left",
                   }}
                 >
@@ -155,7 +155,7 @@ class LoginForm extends Component {
                 <Text
                   style={{
                     color: "#F44336",
-                    fontSize: 18,
+                    fontSize: 14,
                     textAlign: "left",
                   }}
                 >
@@ -228,7 +228,7 @@ class LoginForm extends Component {
               }}
               onPress={() => alert("mafeesh l kalam dah ")}
             >
-              Trems and conditions
+              Terms and conditions
             </Text>
           </View>
         </ImageBackground>
