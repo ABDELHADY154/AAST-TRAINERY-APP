@@ -62,9 +62,7 @@ export class AdsCardImg extends Component {
                 </View>
               </Body>
             </Left>
-            <Right>
-              <Feather name="bookmark" size={30} color="#1E4274" />
-            </Right>
+            <Right></Right>
           </CardItem>
           <CardItem cardBody>
             <View>
@@ -95,17 +93,6 @@ export class AdsCardImg extends Component {
             <Left style={{ marginVertical: -15 }}>
               <Button transparent>
                 <FontAwesome5 name="ad" size={24} color="#1E4274" />
-                <Text
-                  style={{
-                    fontSize: 16,
-                    textTransform: "capitalize",
-                    fontWeight: "bold",
-                    color: "#1E4274",
-                    marginLeft: -10,
-                  }}
-                >
-                  Ads
-                </Text>
               </Button>
             </Left>
           </CardItem>
