@@ -1,4 +1,6 @@
 import React from "react";
+import { StatusBar } from "expo-status-bar";
+
 import { StyleSheet, View, Text, Image } from "react-native";
 import AppIntroSlider from "react-native-app-intro-slider";
 import { Divider, Button } from "react-native-paper";
@@ -52,11 +54,13 @@ export class Tutorials extends React.Component {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
     // this.setState({ showRealApp: true });
-    this.props.navigation.navigate("SignIn");
+    this.props.show(false);
+    // this.props.navigation.navigate("SignIn");
   };
   _onSkip = () => {
     // this.setState({ showRealApp: true });
-    this.props.navigation.navigate("SignIn");
+    // this.props.navigation.navigate("SignIn");
+    this.props.show(false);
   };
   _renderNextButton = () => {
     return (
@@ -85,18 +89,21 @@ export class Tutorials extends React.Component {
     //   return <App />;
     // } else {
     return (
-      <AppIntroSlider
-        renderItem={this._renderItem}
-        renderNextButton={this._renderNextButton}
-        renderDoneButton={this._renderDoneButton}
-        renderSkipButton={this._renderSkipButton}
-        data={slides}
-        onDone={this._onDone}
-        onSkip={this._onSkip}
-        showSkipButton={true}
-        activeDotStyle={{ backgroundColor: "#1E4275" }}
-        dotStyle={{ backgroundColor: "rgba(30, 66, 117,.5)" }}
-      />
+      <>
+        <AppIntroSlider
+          renderItem={this._renderItem}
+          renderNextButton={this._renderNextButton}
+          renderDoneButton={this._renderDoneButton}
+          renderSkipButton={this._renderSkipButton}
+          data={slides}
+          onDone={this._onDone}
+          onSkip={this._onSkip}
+          showSkipButton={true}
+          activeDotStyle={{ backgroundColor: "#1E4275" }}
+          dotStyle={{ backgroundColor: "rgba(30, 66, 117,.5)" }}
+        />
+        <StatusBar style="light" />
+      </>
     );
     // }
   }

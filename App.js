@@ -1,5 +1,6 @@
 import "react-native-gesture-handler";
 import * as React from "react";
+import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
@@ -42,11 +43,7 @@ function ForgetPassScreen(props) {
   // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
   return <ForgetPass {...props} navigation={navigation} />;
 }
-function TutorialsSCreen(props) {
-  const navigation = useNavigation();
-  // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
-  return <Tutorials {...props} navigation={navigation} />;
-}
+
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -101,7 +98,14 @@ export default function App({ navigation }) {
       userToken: null,
     },
   );
-
+  const [showTutorial, setShowTurial] = useState(true);
+  const TutorialsSCreen = props => {
+    const navigation = useNavigation();
+    const showTutorial = val => {
+      setShowTurial(val);
+    };
+    return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
+  };
   React.useEffect(() => {
     const bootstrapAsync = async () => {
       let userToken;
@@ -149,7 +153,7 @@ export default function App({ navigation }) {
                 />
               </>
             ) : state.userToken == null ? (
-              <>
+              showTutorial == true ? (
                 <Stack.Screen
                   name="Tutorial"
                   component={TutorialsSCreen}
@@ -160,37 +164,40 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
-                <Stack.Screen
-                  name="SignIn"
-                  component={SignInScreen}
-                  options={{
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Register"
-                  component={SignUpScreen}
-                  options={{
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Forget-password"
-                  component={ForgetPassScreen}
-                  options={{
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-              </>
+              ) : (
+                <>
+                  <Stack.Screen
+                    name="SignIn"
+                    component={SignInScreen}
+                    options={{
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Register"
+                    component={SignUpScreen}
+                    options={{
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Forget-password"
+                    component={ForgetPassScreen}
+                    options={{
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                </>
+              )
             ) : (
               <Stack.Screen name="Home" component={HomeScreen} />
             )}
