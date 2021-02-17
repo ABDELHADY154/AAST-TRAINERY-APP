@@ -7,6 +7,8 @@ import LoginForm from "./src/Components/Auth/LoginForm";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
+
 import { useNavigation } from "@react-navigation/native";
 import {
   DefaultTheme,
@@ -117,7 +119,7 @@ export default function App({ navigation }) {
     }),
     []
   );
-  // return <SplashScreen />;
+  return <Tutorials />;
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
