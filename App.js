@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -6,6 +7,7 @@ import Home from "./src/Components/Home/HomeScreen";
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
+import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
@@ -38,6 +40,11 @@ function ForgetPassScreen(props) {
   const navigation = useNavigation();
   // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
   return <ForgetPass {...props} navigation={navigation} />;
+}
+function TutorialsSCreen(props) {
+  const navigation = useNavigation();
+  // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
+  return <Tutorials {...props} navigation={navigation} />;
 }
 const Stack = createStackNavigator();
 const fontConfig = {
@@ -143,6 +150,16 @@ export default function App({ navigation }) {
               </>
             ) : state.userToken == null ? (
               <>
+                <Stack.Screen
+                  name="Tutorial"
+                  component={TutorialsSCreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
                 <Stack.Screen
                   name="SignIn"
                   component={SignInScreen}
