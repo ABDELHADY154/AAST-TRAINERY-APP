@@ -79,18 +79,20 @@ export class AdsCard extends Component {
                 ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
                 dictumst nisi blandit ornare viverra eleifend
               </Text>
-              <Image
-                style={{
-                  height: 80,
-                  width: 310,
-                  marginHorizontal: 20,
-                  marginTop: 15,
-                }}
-                source={{
-                  uri:
-                    "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
-                }}
-              />
+              <View>
+                <Image
+                  style={{
+                    height: 80,
+                    width: "87%",
+                    marginHorizontal: 23,
+                    marginTop: 15,
+                  }}
+                  source={{
+                    uri:
+                      "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
+                  }}
+                />
+              </View>
             </View>
           </CardItem>
           <View

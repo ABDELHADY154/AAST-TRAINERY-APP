@@ -25,13 +25,13 @@ export default class ExploreScreen extends Component {
                     color="#1E4274"
                     style={{
                       marginRight: 20,
+                      marginBottom: 15,
                     }}
                   />
                 </Right>
               </Button>
 
               <AdvisorCard />
-
               <AdsCard />
               <AdsCardImg />
               <CompanyCard />

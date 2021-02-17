@@ -17,7 +17,7 @@ import {
   Body,
   Right,
 } from "native-base";
-
+import { FontAwesome } from "@expo/vector-icons";
 export class PromotedCard extends Component {
   render() {
     return (
@@ -64,6 +64,7 @@ export class PromotedCard extends Component {
                     style={{
                       color: "#CD8930",
                       fontSize: 12,
+                      marginTop: 2,
                     }}
                   >
                     BIS
@@ -72,7 +73,7 @@ export class PromotedCard extends Component {
               </Body>
             </Left>
             <Right>
-              <Feather name="bookmark" size={30} color="#1E4274" />
+              <FontAwesome name="bookmark-o" size={30} color="#1E4274" />
             </Right>
           </CardItem>
           <CardItem cardBody>

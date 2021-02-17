@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   Container,
   Header,
@@ -66,6 +66,7 @@ export class AdvisorCard extends Component {
                     style={{
                       color: "#CD8930",
                       fontSize: 12,
+                      marginTop: 2,
                     }}
                   >
                     BIS
@@ -74,7 +75,7 @@ export class AdvisorCard extends Component {
               </Body>
             </Left>
             <Right>
-              <Feather name="bookmark" size={30} color="#1E4274" />
+              <FontAwesome name="bookmark-o" size={30} color="#1E4274" />
             </Right>
           </CardItem>
           <CardItem cardBody>

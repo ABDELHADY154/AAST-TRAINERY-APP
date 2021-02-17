@@ -65,7 +65,12 @@ export class AdsCardImg extends Component {
             <Right></Right>
           </CardItem>
           <CardItem cardBody>
-            <View>
+            <View
+              style={{
+                height: 80,
+                width: "88%",
+              }}
+            >
               <Image
                 style={{
                   height: 80,
