@@ -1,10 +1,13 @@
+import "react-native-gesture-handler";
 import * as React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
 import LoginForm from "./src/Components/Auth/LoginForm";
+import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
+import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
@@ -34,6 +37,16 @@ function SignInScreen(props) {
   const navigation = useNavigation();
   const { signIn } = React.useContext(AuthContext);
   return <LoginForm {...props} navigation={navigation} userLogin={signIn} />;
+}
+function ForgetPassScreen(props) {
+  const navigation = useNavigation();
+  // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
+  return <ForgetPass {...props} navigation={navigation} />;
+}
+function TutorialsSCreen(props) {
+  const navigation = useNavigation();
+  // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
+  return <Tutorials {...props} navigation={navigation} />;
 }
 const Stack = createStackNavigator();
 const fontConfig = {
@@ -87,7 +100,7 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    }
+    },
   );
 
   React.useEffect(() => {
@@ -109,17 +122,16 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signIn: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async (data) => {
+      signUp: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    []
+    [],
   );
-  return <Tutorials />;
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
@@ -140,6 +152,16 @@ export default function App({ navigation }) {
             ) : state.userToken == null ? (
               <>
                 <Stack.Screen
+                  name="Tutorial"
+                  component={TutorialsSCreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
                   name="SignIn"
                   component={SignInScreen}
                   options={{
@@ -152,6 +174,16 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="Register"
                   component={SignUpScreen}
+                  options={{
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Forget-password"
+                  component={ForgetPassScreen}
                   options={{
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
                     header: () => {

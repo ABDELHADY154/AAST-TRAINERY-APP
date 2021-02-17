@@ -7,7 +7,8 @@ export const axios = Axios.create({
 
 // const token = async () => {
 //   try {
-//     var userToken = await AsyncStorage.getItem("userToken");
+
+//   fdgthdfghdfgdfg  var userToken = await AsyncStorage.getItem("userToken");
 
 //     return (axios.defaults.headers.common["Authorization"] =
 //       "Bearer " + userToken);

@@ -43,7 +43,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -59,7 +59,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch((error) => {
+      .catch(error => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -70,10 +70,6 @@ class LoginForm extends Component {
             passErr: error.response.data.errors.password,
           });
         }
-        // this.setState({
-        //   emailErr: error.response.data.errors.email,
-        //   passErr: error.response.data.errors.password,
-        // });
       });
   };
 
@@ -105,7 +101,7 @@ class LoginForm extends Component {
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={(value) => this.setState({ email: value })}
+              onChangeText={value => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -119,7 +115,7 @@ class LoginForm extends Component {
                 <Text
                   style={{
                     color: "#F44336",
-                    fontSize: 18,
+                    fontSize: 14,
                     textAlign: "left",
                   }}
                 >
@@ -141,7 +137,7 @@ class LoginForm extends Component {
               iconColor="white"
               iconSize={22}
               iconStyle={{ marginBottom: 50 }}
-              onChangeText={(value) => this.setState({ password: value })}
+              onChangeText={value => this.setState({ password: value })}
             />
             {this.state.passErr != "" ? (
               <View
@@ -155,7 +151,7 @@ class LoginForm extends Component {
                 <Text
                   style={{
                     color: "#F44336",
-                    fontSize: 18,
+                    fontSize: 14,
                     textAlign: "left",
                   }}
                 >
@@ -172,9 +168,7 @@ class LoginForm extends Component {
                 fontSize: 18,
                 marginTop: 20,
               }}
-              onPress={() => {
-                alert("la eftkr enta");
-              }}
+              onPress={() => navigation.navigate("Forget-password")}
             >
               Forget Password
             </Text>
@@ -199,7 +193,7 @@ class LoginForm extends Component {
                 marginBottom: 3,
               }}
             >
-              Don't have an account?
+              Don't have an account?{"  "}
               <Text
                 style={{
                   color: "#CD8930",
@@ -228,7 +222,7 @@ class LoginForm extends Component {
               }}
               onPress={() => alert("mafeesh l kalam dah ")}
             >
-              Trems and conditions
+              Terms and conditions
             </Text>
           </View>
         </ImageBackground>
@@ -256,10 +250,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 80,
+    marginTop: 50,
   },
   logo: {
-    width: 93,
-    height: 121,
+    width: 100.5,
+    height: 130,
   },
   inputContainer: {
     flex: 1,
