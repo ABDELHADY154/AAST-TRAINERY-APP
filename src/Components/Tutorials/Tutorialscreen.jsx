@@ -5,7 +5,7 @@ import { Divider, Button } from "react-native-paper";
 
 const slides = [
   {
-    key: 1,
+    key: "1",
     title: "Start Your Non-Experience Career",
     text:
       " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.",
@@ -13,7 +13,7 @@ const slides = [
     backgroundColor: "#59b2ab",
   },
   {
-    key: 2,
+    key: "2",
     title: "Student CV and Protfolio",
     text:
       " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/2.jpg"),
@@ -22,7 +22,7 @@ const slides = [
     backgroundColor: "#febe29",
   },
   {
-    key: 3,
+    key: "3",
     title: "Career Coaching Guidance",
     text:
       " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/3.jpg"),
@@ -51,10 +51,12 @@ export class Tutorials extends React.Component {
   _onDone = () => {
     // User finished the introduction. Show real app through
     // navigation or simply by controlling state
-    this.setState({ showRealApp: true });
+    // this.setState({ showRealApp: true });
+    this.props.navigation.navigate("SignIn");
   };
   _onSkip = () => {
-    this.setState({ showRealApp: true });
+    // this.setState({ showRealApp: true });
+    this.props.navigation.navigate("SignIn");
   };
   _renderNextButton = () => {
     return (
@@ -79,24 +81,24 @@ export class Tutorials extends React.Component {
     );
   };
   render() {
-    if (this.state.showRealApp) {
-      return <App />;
-    } else {
-      return (
-        <AppIntroSlider
-          renderItem={this._renderItem}
-          renderNextButton={this._renderNextButton}
-          renderDoneButton={this._renderDoneButton}
-          renderSkipButton={this._renderSkipButton}
-          data={slides}
-          onDone={this._onDone}
-          onSkip={this._onSkip}
-          showSkipButton={true}
-          activeDotStyle={{ backgroundColor: "#1E4275" }}
-          dotStyle={{ backgroundColor: "rgba(30, 66, 117,.5)" }}
-        />
-      );
-    }
+    // if (this.state.showRealApp) {
+    //   return <App />;
+    // } else {
+    return (
+      <AppIntroSlider
+        renderItem={this._renderItem}
+        renderNextButton={this._renderNextButton}
+        renderDoneButton={this._renderDoneButton}
+        renderSkipButton={this._renderSkipButton}
+        data={slides}
+        onDone={this._onDone}
+        onSkip={this._onSkip}
+        showSkipButton={true}
+        activeDotStyle={{ backgroundColor: "#1E4275" }}
+        dotStyle={{ backgroundColor: "rgba(30, 66, 117,.5)" }}
+      />
+    );
+    // }
   }
 }
 
