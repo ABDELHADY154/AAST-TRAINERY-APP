@@ -43,7 +43,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -59,7 +59,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -101,7 +101,7 @@ class LoginForm extends Component {
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -137,7 +137,7 @@ class LoginForm extends Component {
               iconColor="white"
               iconSize={22}
               iconStyle={{ marginBottom: 50 }}
-              onChangeText={value => this.setState({ password: value })}
+              onChangeText={(value) => this.setState({ password: value })}
             />
             {this.state.passErr != "" ? (
               <View
@@ -164,7 +164,7 @@ class LoginForm extends Component {
             )}
             <Text
               style={{
-                color: "white",
+                color: "#CD8930",
                 fontSize: 18,
                 marginTop: 20,
               }}

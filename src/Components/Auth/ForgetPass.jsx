@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { withTheme } from "react-native-paper";
 import { Icon } from "react-native-elements";
 import { Modal, Portal } from "react-native-paper";
-
+import { Feather } from "@expo/vector-icons";
 class ForgetPass extends Component {
   state = {
     email: "",
@@ -25,7 +25,7 @@ class ForgetPass extends Component {
 
     axios
       .post("/forgot", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           emailErr: "",
           message: response.data.response.data.message,
@@ -34,7 +34,7 @@ class ForgetPass extends Component {
         this.showModal();
       })
 
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data.errors.message);
         if (error.response.data.errors.message) {
           this.setState({
@@ -57,6 +57,7 @@ class ForgetPass extends Component {
   };
 
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -64,6 +65,17 @@ class ForgetPass extends Component {
           style={styles.image}
         >
           <View style={styles.logoContainer}>
+            <Feather
+              name="chevron-left"
+              size={36}
+              color="#fff"
+              style={{
+                marginRight: 300,
+                flex: 1,
+                alignSelf: "flex-start",
+              }}
+              onPress={() => navigation.navigate("SignIn")}
+            />
             <Image
               source={require("../../assets/Images/IconWhite.png")}
               style={styles.logo}
@@ -77,7 +89,7 @@ class ForgetPass extends Component {
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
