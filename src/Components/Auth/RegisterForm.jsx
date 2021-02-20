@@ -371,7 +371,9 @@ class RegisterForm extends Component {
                       this.state.checked === "first" ? "checked" : "unchecked"
                     }
                     color="white"
-                    onPress={() => this.setState({ checked: "first" })}
+                    onPress={() =>
+                      this.setState({ checked: "first", gender: "male" })
+                    }
                   />
                   <Text
                     style={{
@@ -389,7 +391,9 @@ class RegisterForm extends Component {
                     status={
                       this.state.checked === "second" ? "checked" : "unchecked"
                     }
-                    onPress={() => this.setState({ checked: "second" })}
+                    onPress={() =>
+                      this.setState({ checked: "second", gender: "female" })
+                    }
                   />
                   <Text
                     style={{

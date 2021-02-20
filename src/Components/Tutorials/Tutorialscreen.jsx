@@ -1,155 +1,153 @@
-import React, { Component } from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
+import { StatusBar } from "expo-status-bar";
+
+import { StyleSheet, View, Text, Image } from "react-native";
+import AppIntroSlider from "react-native-app-intro-slider";
 import { Divider, Button } from "react-native-paper";
-import Onboarding from "react-native-onboarding-swiper";
-const Skip = () => (
-  <Button mode="text" color="#1E4275">
-    Skip
-  </Button>
-);
-const Next = () => (
-  <Button mode="text" color="#1E4275">
-    Next
-  </Button>
-);
-const Done = () => (
-  <Button mode="text" color="#1E4275">
-    Done
-  </Button>
-);
-const Dots = ({ selected }) => {
-  let backgroundColor = selected ? "#1E4275" : "rgba(30, 66, 117,.5)";
-  return (
-    <View
-      style={{
-        width: 8,
-        height: 8,
-        marginHorizontal: 3,
-        borderRadius: 5,
-        backgroundColor,
-      }}
-    />
-  );
-};
 
-let backgroundButtonBarColor = "#fff";
+const slides = [
+  {
+    key: "1",
+    title: "Start Your Non-Experience Career",
+    text:
+      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.",
+    image: require("../../assets/Images/Tutorials/Tutorial1.png"),
+    backgroundColor: "#59b2ab",
+  },
+  {
+    key: "2",
+    title: "Student CV and Protfolio",
+    text:
+      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/2.jpg"),
+    image: require("../../assets/Images/Tutorials/Tutorial2.png"),
 
-export class Tutorials extends Component {
-  render() {
+    backgroundColor: "#febe29",
+  },
+  {
+    key: "3",
+    title: "Career Coaching Guidance",
+    text:
+      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/3.jpg"),
+    image: require("../../assets/Images/Tutorials/Tutorial3.png"),
+
+    backgroundColor: "#22bcb5",
+  },
+];
+
+export class Tutorials extends React.Component {
+  state = {
+    showRealApp: false,
+  };
+  _renderItem = ({ item }) => {
     return (
-      <Onboarding
-        SkipButtonComponent={Skip}
-        NextButtonComponent={Next}
-        DoneButtonComponent={Done}
-        DotComponent={Dots}
-        bottomBarColor={backgroundButtonBarColor}
-        // onSkip={() => navigation.replace("Explore")}
-        // onDone={() => navigation.navigate("Explore")}
-        pages={[
-          {
-            backgroundColor: "#fff",
-            image: (
-              <Image
-                source={require("../../assets/Images/Tutorials/Tutorial1.png")}
-                style={styles.img}
-              />
-            ),
-            title: (
-              <Text style={styles.title}>Start Your Non-Experience Career</Text>
-            ),
+      <View style={styles.container}>
+        <Image style={styles.img} source={item.image} />
 
-            subtitle: (
-              <Text style={styles.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                dolor quis morbi sagittis donec sed massa. Velit malesuada amet
-                pretium turpis in commodo aliquet pulvinar ultrices.
-              </Text>
-            ),
-          },
-          {
-            backgroundColor: "#fff",
-            image: (
-              <Image
-                source={require("../../assets/Images/Tutorials/Tutorial2.png")}
-                style={styles.img}
-              />
-            ),
-            title: <Text style={styles.title}>Student CV and Protfolio</Text>,
+        <Text style={styles.title}>{item.title}</Text>
+        <Divider style={styles.hr} />
 
-            subtitle: (
-              <Text style={styles.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                dolor quis morbi sagittis donec sed massa. Velit malesuada amet
-                pretium turpis in commodo aliquet pulvinar ultrices.
-              </Text>
-            ),
-          },
-          {
-            backgroundColor: "#fff",
-            image: (
-              <Image
-                source={require("../../assets/Images/Tutorials/Tutorial3.png")}
-                style={styles.img}
-              />
-            ),
-            title: <Text style={styles.title}>Career Coaching Guidance</Text>,
-
-            subtitle: (
-              <Text style={styles.text}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                dolor quis morbi sagittis donec sed massa. Velit malesuada amet
-                pretium turpis in commodo aliquet pulvinar ultrices.
-              </Text>
-            ),
-          },
-        ]}
-      />
+        <Text style={styles.text}>{item.text}</Text>
+      </View>
     );
+  };
+  _onDone = () => {
+    // User finished the introduction. Show real app through
+    // navigation or simply by controlling state
+    // this.setState({ showRealApp: true });
+    this.props.show(false);
+    // this.props.navigation.navigate("SignIn");
+  };
+  _onSkip = () => {
+    // this.setState({ showRealApp: true });
+    // this.props.navigation.navigate("SignIn");
+    this.props.show(false);
+  };
+  _renderNextButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Text style={{ color: "#1E4275" }}>Next</Text>
+        {/* <Ion name="md-arrow-round-forward" color="blue" size={24} /> */}
+      </View>
+    );
+  };
+  _renderDoneButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Text style={{ color: "#1E4275" }}>Done</Text>
+      </View>
+    );
+  };
+  _renderSkipButton = () => {
+    return (
+      <View style={styles.buttonCircle}>
+        <Text style={{ color: "#1E4275" }}>Skip</Text>
+      </View>
+    );
+  };
+  render() {
+    // if (this.state.showRealApp) {
+    //   return <App />;
+    // } else {
+    return (
+      <>
+        <AppIntroSlider
+          renderItem={this._renderItem}
+          renderNextButton={this._renderNextButton}
+          renderDoneButton={this._renderDoneButton}
+          renderSkipButton={this._renderSkipButton}
+          data={slides}
+          onDone={this._onDone}
+          onSkip={this._onSkip}
+          showSkipButton={true}
+          activeDotStyle={{ backgroundColor: "#1E4275" }}
+          dotStyle={{ backgroundColor: "rgba(30, 66, 117,.5)" }}
+        />
+        <StatusBar style="light" />
+      </>
+    );
+    // }
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // backgroundColor: "#fff",
     alignItems: "center",
-  },
-  img: {
-    width: "100%",
-    height: 303,
-  },
-  textContainer: {
-    flex: 1,
-    alignItems: "center",
+    justifyContent: "center",
   },
   title: {
-    textAlign: "center",
     fontSize: 18,
     color: "#1E4275",
-    paddingBottom: 11,
-    borderBottomColor: "#CD8930",
-    borderBottomWidth: 2,
-    width: 275,
-    fontWeight: "bold",
+    marginTop: 56,
   },
   text: {
     flex: 1,
     alignItems: "center",
+    // textAlign: "center",
     paddingHorizontal: 28,
+    // width: 319,
     fontSize: 14,
     lineHeight: 20,
     color: "#1E4275",
-    paddingTop: 13,
   },
-  bottomBtns: {
+  img: {
     flex: 1,
-    alignItems: "flex-end",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: 34,
+    // flexDirection: "row",
+    width: "100%",
+    // resizeMode: "contain",
+    height: 303,
   },
-  btns: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "space-between",
+  hr: {
+    backgroundColor: "#CD8930",
+    height: 2,
+    width: 254,
+    marginTop: 11,
+    marginBottom: 13,
+  },
+  buttonCircle: {
+    backgroundColor: "transparent",
+    marginRight: 28,
+    marginTop: 13,
   },
 });
