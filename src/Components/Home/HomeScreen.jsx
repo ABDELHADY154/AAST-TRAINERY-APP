@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { Component } from "react";
+import React, { Component, createContext } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -14,7 +14,13 @@ import { Icon } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
-
+const AuthContext = React.createContext();
+// function ExploreScreen(props) {
+//   const navigation = useNavigation();
+//   const { signOut } = props.userSignOut();
+//   console.log(signOut);
+//   return <Explore {...props} navigation={navigation} userSignOut={signOut} />;
+// }
 const tabs = {
   Explore: {
     labelStyle: {
@@ -97,9 +103,20 @@ const tabs = {
   },
 };
 export default class HomeScreen extends Component {
-  state = {
-    userData: {},
-    token: "",
+  constructor() {
+    super();
+    this.state = {
+      userData: {},
+      token: "",
+    };
+  }
+
+  ExploreScreen = props => {
+    const navigation = useNavigation();
+    const signOut = this.props.userSignOut;
+    // console.log(signOut);userSignOut={signOut}
+
+    return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
 
   async componentDidMount() {
@@ -121,7 +138,7 @@ export default class HomeScreen extends Component {
       });
   }
   render() {
-    const { navigation } = this.props;
+    // console.log(this.props.userSignOut());
     return (
       <Tab.Navigator
         tabBar={props => (
@@ -143,7 +160,7 @@ export default class HomeScreen extends Component {
           />
         )}
       >
-        <Tab.Screen name="Explore" component={Explore} />
+        <Tab.Screen name="Explore" component={this.ExploreScreen} />
         <Tab.Screen name="Activity" component={Activity} />
         <Tab.Screen name="Coaching" component={CareerCoaching} />
         <Tab.Screen name="Notifications" component={Notification} />
