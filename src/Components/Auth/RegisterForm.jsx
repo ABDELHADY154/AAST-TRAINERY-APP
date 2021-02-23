@@ -9,12 +9,12 @@ import {
   SafeAreaView,
   ScrollView,
 } from "react-native";
-import { Input, Button } from "galio-framework";
+import { Button } from "galio-framework";
 import { Picker } from "@react-native-picker/picker";
 import { axios } from "../../Config/Axios";
 import { withTheme } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Icon } from "react-native-elements";
+import { Icon, Input } from "react-native-elements";
 import { Radio } from "galio-framework";
 import { RadioButton } from "react-native-paper";
 
@@ -39,6 +39,8 @@ class RegisterForm extends Component {
     gender: "",
     genderErr: "",
     checked: "",
+    showPass: true,
+    showConfPass: true,
   };
   async storeConfig(config) {
     try {
@@ -157,20 +159,29 @@ class RegisterForm extends Component {
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.labelStyle}>Student Name</Text>
                 <Input
-                  placeholder=""
                   style={styles.input}
-                  color="white"
+                  autoCompleteType="name"
+                  textContentType="name"
+                  keyboardType="default"
+                  textAlign="left"
+                  inputStyle={{ color: "white" }}
+                  inputContainerStyle={{
+                    borderColor: "white",
+                    borderBottomWidth: 2,
+                  }}
+                  label="Student Name"
+                  labelStyle={styles.labelStyle}
                   onChangeText={value => this.setState({ studentName: value })}
                 />
                 {this.state.studentNameErr != "" ? (
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: -10,
                     }}
                   >
                     <Text
@@ -187,21 +198,29 @@ class RegisterForm extends Component {
                 ) : (
                   <Text></Text>
                 )}
-                <Text style={styles.labelStyle}>Student Email</Text>
                 <Input
-                  placeholder=""
                   style={styles.input}
-                  color="white"
-                  type="email-address"
+                  autoCompleteType="email"
+                  textContentType="emailAddress"
+                  keyboardType="email-address"
+                  textAlign="left"
+                  inputStyle={{ color: "white" }}
+                  inputContainerStyle={{
+                    borderColor: "white",
+                    borderBottomWidth: 2,
+                  }}
+                  label="Student Email"
+                  labelStyle={styles.labelStyle}
                   onChangeText={value => this.setState({ studentEmail: value })}
                 />
                 {this.state.studentEmailErr != "" ? (
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: -10,
                     }}
                   >
                     <Text
@@ -218,25 +237,51 @@ class RegisterForm extends Component {
                 ) : (
                   <Text></Text>
                 )}
-                <Text style={styles.labelStyle}>Password</Text>
                 <Input
-                  placeholder=""
                   style={styles.input}
-                  color="white"
-                  password
-                  viewPass
-                  iconColor="white"
-                  iconSize={22}
-                  iconStyle={{ marginBottom: 50 }}
+                  textContentType="password"
+                  autoCompleteType="password"
+                  keyboardType="default"
+                  textAlign="left"
+                  label="Password"
+                  inputStyle={{ color: "white" }}
+                  inputContainerStyle={{
+                    borderColor: "white",
+                    borderBottomWidth: 2,
+                  }}
+                  rightIcon={
+                    this.state.showPass == false ? (
+                      <Icon
+                        name="eye-off-outline"
+                        type="ionicon"
+                        color="#ffffff"
+                        onPress={() => {
+                          this.setState({ showPass: true });
+                        }}
+                      />
+                    ) : (
+                      <Icon
+                        name="eye-outline"
+                        type="ionicon"
+                        color="#ffffff"
+                        onPress={() => {
+                          this.setState({ showPass: false });
+                        }}
+                      />
+                    )
+                  }
+                  labelStyle={styles.labelPassword}
+                  secureTextEntry={this.state.showPass}
                   onChangeText={value => this.setState({ studentPass: value })}
                 />
                 {this.state.studentPassErr != "" ? (
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: -10,
                     }}
                   >
                     <Text
@@ -253,35 +298,66 @@ class RegisterForm extends Component {
                 ) : (
                   <Text></Text>
                 )}
-                <Text style={styles.labelStyle}>Confirm Password</Text>
                 <Input
-                  placeholder=""
                   style={styles.input}
-                  color="white"
-                  password
-                  viewPass
-                  iconColor="white"
-                  iconSize={22}
-                  iconStyle={{ marginBottom: 50 }}
+                  textContentType="password"
+                  autoCompleteType="password"
+                  keyboardType="default"
+                  textAlign="left"
+                  label="Confirm Password"
+                  inputStyle={{ color: "white" }}
+                  inputContainerStyle={{
+                    borderColor: "white",
+                    borderBottomWidth: 2,
+                  }}
+                  rightIcon={
+                    this.state.showConfPass == false ? (
+                      <Icon
+                        name="eye-off-outline"
+                        type="ionicon"
+                        color="#ffffff"
+                        onPress={() => {
+                          this.setState({ showConfPass: true });
+                        }}
+                      />
+                    ) : (
+                      <Icon
+                        name="eye-outline"
+                        type="ionicon"
+                        color="#ffffff"
+                        onPress={() => {
+                          this.setState({ showConfPass: false });
+                        }}
+                      />
+                    )
+                  }
+                  labelStyle={styles.labelPassword}
+                  secureTextEntry={this.state.showConfPass}
                   onChangeText={value =>
                     this.setState({ studentConPass: value })
                   }
                 />
-                <Text style={styles.labelStyle}>Registeration Number</Text>
                 <Input
-                  type="number-pad"
-                  placeholder=""
                   style={styles.input}
-                  color="white"
+                  keyboardType="number-pad"
+                  textAlign="left"
+                  inputStyle={{ color: "white" }}
+                  inputContainerStyle={{
+                    borderColor: "white",
+                    borderBottomWidth: 2,
+                  }}
+                  label="Registration Number"
+                  labelStyle={styles.labelStyle}
                   onChangeText={value => this.setState({ regNo: value })}
                 />
                 {this.state.regNoErr != "" ? (
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: -10,
                     }}
                   >
                     <Text
@@ -298,7 +374,19 @@ class RegisterForm extends Component {
                 ) : (
                   <Text></Text>
                 )}
-                <Text style={styles.labelStyle}>Department Major</Text>
+
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 22,
+                    fontFamily: "SF-L",
+                    fontWeight: "normal",
+                    marginBottom: -10,
+                    marginLeft: 10,
+                  }}
+                >
+                  Department Major
+                </Text>
                 <View style={styles.boxContainer}>
                   <Picker
                     mode="dialog"
@@ -337,9 +425,10 @@ class RegisterForm extends Component {
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: 10,
                     }}
                   >
                     <Text
@@ -408,9 +497,10 @@ class RegisterForm extends Component {
                   <View
                     style={{
                       justifyContent: "space-between",
-                      alignItems: "center",
+                      alignSelf: "center",
                       flexDirection: "row",
-                      width: "100%",
+                      width: "91.5%",
+                      marginTop: 10,
                     }}
                   >
                     <Text
@@ -524,25 +614,23 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     color: "white",
-    fontSize: 20,
-    marginBottom: -14,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
+    marginBottom: -10,
   },
   input: {
     backgroundColor: "transparent",
-    borderColor: "white",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 1,
-    borderRadius: 0,
-    height: 40,
-    alignItems: "center",
+    height: 35,
+    alignSelf: "center",
   },
   labelPassword: {
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
     marginBottom: -16,
-    marginTop: 20,
+    marginTop: 0,
   },
   button: {
     width: "auto",
@@ -551,14 +639,16 @@ const styles = StyleSheet.create({
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: "auto",
-    marginTop: 10,
+    width: 282,
+    // marginTop: 10,
     borderColor: "white",
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
-    borderBottomWidth: 1,
+    borderBottomWidth: 2,
     borderRadius: 0,
+    // marginBottom: 10,
+    alignSelf: "center",
   },
 });
 export default withTheme(RegisterForm);

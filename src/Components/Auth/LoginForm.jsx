@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import { Button, Input } from "galio-framework";
+import { Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { withTheme } from "react-native-paper";
-import { Icon } from "react-native-elements";
+import { Icon, Input } from "react-native-elements";
 
 class LoginForm extends Component {
   state = {
@@ -14,6 +14,7 @@ class LoginForm extends Component {
     emailErr: "",
     passErr: "",
     userData: {},
+    showPass: true,
   };
 
   async storeConfig(config) {
@@ -43,7 +44,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -59,7 +60,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch((error) => {
+      .catch(error => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -95,21 +96,29 @@ class LoginForm extends Component {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.labelStyle}>Student Email</Text>
             <Input
-              placeholder=""
               style={styles.input}
-              color="white"
-              type="email-address"
-              onChangeText={(value) => this.setState({ email: value })}
+              autoCompleteType="email"
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              textAlign="left"
+              inputStyle={{ color: "white" }}
+              inputContainerStyle={{
+                borderColor: "white",
+                borderBottomWidth: 2,
+              }}
+              label="Student Email"
+              labelStyle={styles.labelStyle}
+              onChangeText={value => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignSelf: "center",
                   flexDirection: "row",
-                  width: "100%",
+                  width: "91.5%",
+                  marginTop: -10,
                 }}
               >
                 <Text
@@ -126,26 +135,51 @@ class LoginForm extends Component {
             ) : (
               <Text></Text>
             )}
-            <Text style={styles.labelPassword}>Password</Text>
-
             <Input
-              placeholder=""
               style={styles.input}
-              color="white"
-              password
-              viewPass
-              iconColor="white"
-              iconSize={22}
-              iconStyle={{ marginBottom: 50 }}
-              onChangeText={(value) => this.setState({ password: value })}
+              textContentType="password"
+              autoCompleteType="password"
+              keyboardType="default"
+              textAlign="left"
+              label="Password"
+              inputStyle={{ color: "white" }}
+              inputContainerStyle={{
+                borderColor: "white",
+                borderBottomWidth: 2,
+              }}
+              rightIcon={
+                this.state.showPass == false ? (
+                  <Icon
+                    name="eye-off-outline"
+                    type="ionicon"
+                    color="#ffffff"
+                    onPress={() => {
+                      this.setState({ showPass: true });
+                    }}
+                  />
+                ) : (
+                  <Icon
+                    name="eye-outline"
+                    type="ionicon"
+                    color="#ffffff"
+                    onPress={() => {
+                      this.setState({ showPass: false });
+                    }}
+                  />
+                )
+              }
+              labelStyle={styles.labelPassword}
+              secureTextEntry={this.state.showPass}
+              onChangeText={value => this.setState({ password: value })}
             />
             {this.state.passErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
-                  alignItems: "center",
+                  alignSelf: "center",
                   flexDirection: "row",
-                  width: "100%",
+                  width: "91.5%",
+                  marginTop: -10,
                 }}
               >
                 <Text
@@ -164,13 +198,14 @@ class LoginForm extends Component {
             )}
             <Text
               style={{
-                color: "#CD8930",
+                color: "white",
                 fontSize: 18,
                 marginTop: 20,
+                marginLeft: 10,
               }}
-              onPress={() => navigation.navigate("Forget-password")}
+              onPress={() => navigation.push("Forget-password")}
             >
-              Forget Password
+              Forgot Password
             </Text>
             <Button style={styles.button} color="white" onPress={this.submit}>
               <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign In</Text>
@@ -198,7 +233,7 @@ class LoginForm extends Component {
                 style={{
                   color: "#CD8930",
                 }}
-                onPress={() => navigation.navigate("Register")}
+                onPress={() => navigation.push("Register")}
               >
                 Sign Up
               </Text>
@@ -259,27 +294,25 @@ const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
     justifyContent: "center",
-    width: 300,
+    width: 297,
   },
   labelStyle: {
     color: "white",
-    fontSize: 20,
-    marginBottom: -14,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
+    marginBottom: -10,
   },
   input: {
     backgroundColor: "transparent",
-    borderColor: "white",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 1,
-    borderRadius: 0,
     height: 35,
-    alignItems: "center",
+    alignSelf: "center",
   },
   labelPassword: {
     color: "white",
-    fontSize: 20,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
     marginBottom: -16,
     marginTop: 0,
   },

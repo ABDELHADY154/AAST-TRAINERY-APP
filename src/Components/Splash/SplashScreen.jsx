@@ -6,10 +6,12 @@ export default class SplashScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Image
-          source={require("../../assets/Images/IconWhite.png")}
-          style={styles.logo}
-        />
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../assets/Images/IconWhite.png")}
+            style={styles.logo}
+          />
+        </View>
         <StatusBar style="light" />
       </View>
     );
@@ -23,8 +25,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#1E4275",
     justifyContent: "center",
   },
+  logoContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   logo: {
-    width: 120.5,
-    height: 150,
+    width: 140,
+    height: 181,
   },
 });

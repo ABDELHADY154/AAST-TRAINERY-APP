@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import { Button, Input } from "galio-framework";
+import { Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { withTheme } from "react-native-paper";
-import { Icon } from "react-native-elements";
+import { Icon, Input } from "react-native-elements";
 import { Modal, Portal } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
 class ForgetPass extends Component {
@@ -25,7 +25,7 @@ class ForgetPass extends Component {
 
     axios
       .post("/forgot", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           emailErr: "",
           message: response.data.response.data.message,
@@ -34,7 +34,7 @@ class ForgetPass extends Component {
         this.showModal();
       })
 
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data.errors.message);
         if (error.response.data.errors.message) {
           this.setState({
@@ -70,11 +70,12 @@ class ForgetPass extends Component {
               size={36}
               color="#fff"
               style={{
-                marginRight: 300,
+                marginRight: 330,
                 flex: 1,
                 alignSelf: "flex-start",
+                marginTop: 5,
               }}
-              onPress={() => navigation.navigate("SignIn")}
+              onPress={() => navigation.push("SignIn")}
             />
             <Image
               source={require("../../assets/Images/IconWhite.png")}
@@ -83,13 +84,52 @@ class ForgetPass extends Component {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.labelStyle}>Student Email</Text>
+            <Input
+              style={styles.input}
+              autoCompleteType="email"
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              textAlign="left"
+              inputStyle={{ color: "white" }}
+              inputContainerStyle={{
+                borderColor: "white",
+                borderBottomWidth: 2,
+              }}
+              label="Student Email"
+              labelStyle={styles.labelStyle}
+              onChangeText={value => this.setState({ email: value })}
+            />
+            {this.state.emailErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "center",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginTop: -10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.emailErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
+            {/* <Text style={styles.labelStyle}>Student Email</Text>
             <Input
               placeholder=""
               style={styles.input}
               color="white"
               type="email-address"
-              onChangeText={(value) => this.setState({ email: value })}
+              onChangeText={value => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -113,7 +153,7 @@ class ForgetPass extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Portal>
               <Modal
                 visible={this.state.visible}
@@ -185,26 +225,38 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   inputContainer: {
-    width: 300,
+    width: 297,
     marginTop: -60,
   },
   labelStyle: {
     color: "white",
-    fontSize: 20,
-    marginBottom: -14,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
+    marginBottom: -10,
   },
   input: {
     backgroundColor: "transparent",
-    borderColor: "white",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 1,
-    borderRadius: 0,
     height: 35,
-    alignItems: "center",
+    alignSelf: "center",
   },
-
+  // inputContainer: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   width: 297,
+  // },
+  // labelStyle: {
+  //   color: "white",
+  //   fontSize: 22,
+  //   fontFamily: "SF-L",
+  //   fontWeight: "normal",
+  //   marginBottom: -10,
+  // },
+  // input: {
+  //   backgroundColor: "transparent",
+  //   height: 35,
+  //   alignSelf: "center",
+  // },
   button: {
     width: "auto",
     borderRadius: 10,
