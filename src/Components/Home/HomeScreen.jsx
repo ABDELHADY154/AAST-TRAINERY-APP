@@ -4,8 +4,98 @@ import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
+import Explore from "../Explore/ExploreScreen";
+import Profile from "../Profile/ProfileScreen";
+import Activity from "../Activity/ActivityScreen";
+import CareerCoaching from "../CareerCoaching/CareerCoaching";
+import Notification from "../Notification/Notification";
 import { axios } from "../../Config/Axios";
+import { Icon } from "react-native-elements";
+import AnimatedTabBar from "@gorhom/animated-tabbar";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+const Tab = createBottomTabNavigator();
 
+const tabs = {
+  Explore: {
+    labelStyle: {
+      color: "#fff",
+      fontSize: 15,
+    },
+    icon: {
+      component: () => {
+        return <Icon name="home-outline" type="ionicon" color="#fff" />;
+      },
+      activeColor: "rgba(91,55,183,1)",
+    },
+    background: {
+      activeColor: "#CD8930",
+    },
+  },
+  Profile: {
+    labelStyle: {
+      color: "#fff",
+      fontSize: 15,
+    },
+    icon: {
+      component: () => {
+        return (
+          <Icon name="person-circle-outline" type="ionicon" color="#fff" />
+        );
+      },
+      activeColor: "rgba(91,55,183,1)",
+    },
+    background: {
+      activeColor: "#CD8930",
+    },
+  },
+  Activity: {
+    labelStyle: {
+      color: "#fff",
+      fontSize: 15,
+    },
+    icon: {
+      component: () => {
+        return <Icon name="bolt" type="font-awesome-5" color="#fff" />;
+      },
+      activeColor: "rgba(91,55,183,1)",
+    },
+    background: {
+      activeColor: "#CD8930",
+    },
+  },
+  Coaching: {
+    labelStyle: {
+      color: "#fff",
+      fontSize: 15,
+    },
+    icon: {
+      component: () => {
+        return <Icon name="briefcase-outline" type="ionicon" color="#fff" />;
+      },
+
+      activeColor: "rgba(91,55,183,1)",
+    },
+    background: {
+      activeColor: "#CD8930",
+    },
+  },
+  Notifications: {
+    labelStyle: {
+      color: "#fff",
+      fontSize: 15,
+    },
+    icon: {
+      component: () => {
+        return <Icon name="bell" type="font-awesome-5" color="#fff" />;
+      },
+
+      activeColor: "rgba(91,55,183,1)",
+    },
+    background: {
+      activeColor: "#CD8930",
+    },
+  },
+};
 export default class HomeScreen extends Component {
   state = {
     userData: {},
@@ -33,20 +123,32 @@ export default class HomeScreen extends Component {
   render() {
     const { navigation } = this.props;
     return (
-      <View style={styles.container}>
-        <Text>Welcome {this.state.userData.email}</Text>
-        <Button
-          onPress={() => {
-            AsyncStorage.removeItem("userData");
-            AsyncStorage.removeItem("userToken");
-            AsyncStorage.removeItem("config");
-            this.props.userSignOut();
-          }}
-        >
-          <Text>Logout</Text>
-        </Button>
-        <StatusBar style="auto" />
-      </View>
+      <Tab.Navigator
+        tabBar={props => (
+          <AnimatedTabBar
+            tabs={tabs}
+            {...props}
+            style={{
+              backgroundColor: "#1E4275",
+              borderRadius: 150,
+
+              justifyContent: "center",
+              alignItems: "center",
+              width: "99.9%",
+              height: 63,
+              alignSelf: "center",
+            }}
+            itemOuterSpace={9}
+            itemInnerSpace={7}
+          />
+        )}
+      >
+        <Tab.Screen name="Explore" component={Explore} />
+        <Tab.Screen name="Activity" component={Activity} />
+        <Tab.Screen name="Coaching" component={CareerCoaching} />
+        <Tab.Screen name="Notifications" component={Notification} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
     );
   }
 }
@@ -57,6 +159,5 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-    // fontSize: 40,
   },
 });
