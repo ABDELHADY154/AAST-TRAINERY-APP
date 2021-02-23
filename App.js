@@ -21,7 +21,7 @@ import {
 import { isLoading } from "expo-font";
 const AuthContext = React.createContext();
 
-function HomeScreen(props) {
+function Trainery(props) {
   const navigation = useNavigation();
   const { signOut } = React.useContext(AuthContext);
   return <Home {...props} navigation={navigation} userSignOut={signOut} />;
@@ -201,7 +201,16 @@ export default function App({ navigation }) {
                 </>
               )
             ) : (
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen
+                name="App"
+                component={Trainery}
+                options={{
+                  animationTypeForReplace: state.isSignout ? "pop" : "push",
+                  header: () => {
+                    "none";
+                  },
+                }}
+              />
             )}
           </Stack.Navigator>
         </NavigationContainer>
