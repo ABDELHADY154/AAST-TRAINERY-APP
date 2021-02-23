@@ -1,14 +1,63 @@
 import React, { Component } from "react";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import { Button, Input } from "galio-framework";
+import { Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { withTheme } from "react-native-paper";
-import { Icon } from "react-native-elements";
-
+import { Icon, Input } from "react-native-elements";
+import { Modal, Portal } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
 class ForgetPass extends Component {
+  state = {
+    email: "",
+    emailErr: "",
+    message: "",
+    visible: false,
+  };
+  submit = () => {
+    this.setState({
+      emailErr: "",
+    });
+    var body = {
+      email: this.state.email,
+    };
+
+    axios
+      .post("/forgot", body)
+      .then(response => {
+        this.setState({
+          emailErr: "",
+          message: response.data.response.data.message,
+        });
+
+        this.showModal();
+      })
+
+      .catch(error => {
+        console.log(error.response.data.errors.message);
+        if (error.response.data.errors.message) {
+          this.setState({
+            emailErr: error.response.data.errors.message,
+          });
+        }
+        if (error.response.data.errors.email[0]) {
+          this.setState({
+            emailErr: error.response.data.errors.email[0],
+          });
+        }
+      });
+  };
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+  hideModal = () => {
+    this.setState({ visible: false });
+    this.props.navigation.navigate("SignIn");
+  };
+
   render() {
+    const { navigation } = this.props;
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -16,6 +65,18 @@ class ForgetPass extends Component {
           style={styles.image}
         >
           <View style={styles.logoContainer}>
+            <Feather
+              name="chevron-left"
+              size={36}
+              color="#fff"
+              style={{
+                marginRight: 330,
+                flex: 1,
+                alignSelf: "flex-start",
+                marginTop: 5,
+              }}
+              onPress={() => navigation.push("SignIn")}
+            />
             <Image
               source={require("../../assets/Images/IconWhite.png")}
               style={styles.logo}
@@ -23,15 +84,110 @@ class ForgetPass extends Component {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.labelStyle}>Student Email</Text>
+            <Input
+              style={styles.input}
+              autoCompleteType="email"
+              textContentType="emailAddress"
+              keyboardType="email-address"
+              textAlign="left"
+              inputStyle={{ color: "white" }}
+              inputContainerStyle={{
+                borderColor: "white",
+                borderBottomWidth: 2,
+              }}
+              label="Student Email"
+              labelStyle={styles.labelStyle}
+              onChangeText={value => this.setState({ email: value })}
+            />
+            {this.state.emailErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "center",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginTop: -10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.emailErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )}
+            {/* <Text style={styles.labelStyle}>Student Email</Text>
             <Input
               placeholder=""
               style={styles.input}
               color="white"
               type="email-address"
-              // onChangeText={value => this.setState({ email: value })}
+              onChangeText={value => this.setState({ email: value })}
             />
-            <Button style={styles.button} color="white">
+            {this.state.emailErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  width: "100%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.emailErr}
+                </Text>
+                <Icon name="x-octagon" type="feather" color="#F44336" />
+              </View>
+            ) : (
+              <Text></Text>
+            )} */}
+            <Portal>
+              <Modal
+                visible={this.state.visible}
+                onDismiss={this.hideModal}
+                contentContainerStyle={{
+                  backgroundColor: "white",
+                  padding: 20,
+                  width: 294,
+                  height: 178,
+                  alignSelf: "center",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 18,
+                    fontWeight: "500",
+                    color: "#1E4274",
+                  }}
+                >
+                  Notice
+                </Text>
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "#1E4274",
+                    marginTop: 20,
+                  }}
+                >
+                  {this.state.message}
+                </Text>
+              </Modal>
+            </Portal>
+            <Button style={styles.button} color="white" onPress={this.submit}>
               <Text style={{ color: "#1E4275", fontSize: 18 }}>
                 Reset Password
               </Text>
@@ -69,26 +225,38 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   inputContainer: {
-    width: 300,
+    width: 297,
     marginTop: -60,
   },
   labelStyle: {
     color: "white",
-    fontSize: 20,
-    marginBottom: -14,
+    fontSize: 22,
+    fontFamily: "SF-L",
+    fontWeight: "normal",
+    marginBottom: -10,
   },
   input: {
     backgroundColor: "transparent",
-    borderColor: "white",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 1,
-    borderRadius: 0,
     height: 35,
-    alignItems: "center",
+    alignSelf: "center",
   },
-
+  // inputContainer: {
+  //   flex: 1,
+  //   justifyContent: "center",
+  //   width: 297,
+  // },
+  // labelStyle: {
+  //   color: "white",
+  //   fontSize: 22,
+  //   fontFamily: "SF-L",
+  //   fontWeight: "normal",
+  //   marginBottom: -10,
+  // },
+  // input: {
+  //   backgroundColor: "transparent",
+  //   height: 35,
+  //   alignSelf: "center",
+  // },
   button: {
     width: "auto",
     borderRadius: 10,
