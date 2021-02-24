@@ -1,23 +1,16 @@
 import React, { Component } from "react";
-import { View } from "react-native";
+import { View, Text, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
-
-import {
-  Container,
-  Header,
-  Content,
-  Card,
-  CardItem,
-  Thumbnail,
-  Text,
-  Button,
-  Icon,
-  Left,
-  Body,
-  Right,
-} from "native-base";
 import { FontAwesome } from "@expo/vector-icons";
+import {
+  Card,
+  Button,
+  Avatar,
+  IconButton,
+  Title,
+  Paragraph,
+} from "react-native-paper";
+
 export class CompanyCard extends Component {
   render() {
     return (
@@ -27,60 +20,50 @@ export class CompanyCard extends Component {
             width: "90%",
             marginLeft: 18,
             borderWidth: 1,
+            marginBottom: 10,
+
             borderColor: "#CCCCCC",
           }}
         >
-          <CardItem>
-            <Left style={{ flex: 3 }}>
-              <Thumbnail
-                style={{ height: 45, width: 45 }}
+          <Card.Title
+            style={{ marginLeft: 1 }}
+            title="UI/UX Designer"
+            titleStyle={{
+              color: "#1E4274",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+            subtitle="Qowwa  BIS"
+            subtitleStyle={{
+              color: "#1E4274",
+              fontSize: 14,
+              marginTop: -3,
+            }}
+            left={(props) => (
+              <Card.Cover
+                style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
                   uri:
                     "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
-              <Body>
-                <Text
-                  style={{
-                    color: "#1E4274",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                >
-                  UI/UX Designer
-                </Text>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text
-                    note
-                    style={{
-                      color: "#1E4274",
-                      fontSize: 14,
-                    }}
-                  >
-                    Qowwa
-                  </Text>
-                  <Text
-                    note
-                    style={{
-                      color: "#CD8930",
-                      fontSize: 12,
-                      marginTop: 2,
-                    }}
-                  >
-                    BIS
-                  </Text>
-                </View>
-              </Body>
-            </Left>
-            <Right>
-              <FontAwesome name="bookmark-o" size={30} color="#1E4274" />
-            </Right>
-          </CardItem>
-          <CardItem cardBody style={{ marginBottom: 20 }}>
-            <Text
+            )}
+            right={(props) => (
+              <IconButton
+                {...props}
+                icon="bookmark-outline"
+                size={30}
+                color="#1E4274"
+                onPress={() => {}}
+              />
+            )}
+          />
+          <Card.Content>
+            {/* <Title>Card title</Title> */}
+            <Paragraph
               style={{
-                marginHorizontal: 23,
-                fontSize: 13,
+                // marginHorizontal: 23,
+                fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
               }}
@@ -89,8 +72,9 @@ export class CompanyCard extends Component {
               Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
               ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
               dictumst nisi blandit ornare viverra eleifend
-            </Text>
-          </CardItem>
+            </Paragraph>
+            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+          </Card.Content>
         </Card>
       </View>
     );

@@ -1,22 +1,17 @@
 import React, { Component } from "react";
-import { View, Image } from "react-native";
+import { View, Text, Image } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
+
 import {
-  Container,
-  Header,
-  Content,
   Card,
-  CardItem,
-  Thumbnail,
-  Text,
   Button,
-  Icon,
-  Left,
-  Body,
-  Right,
-} from "native-base";
+  Avatar,
+  IconButton,
+  Title,
+  Paragraph,
+} from "react-native-paper";
 
 export class AdsCardImg extends Component {
   render() {
@@ -26,81 +21,77 @@ export class AdsCardImg extends Component {
           style={{
             width: "90%",
             marginLeft: 18,
+            marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
           }}
         >
-          <CardItem>
-            <Left style={{ flex: 3 }}>
-              <Thumbnail
-                style={{ height: 45, width: 45 }}
+          <Card.Title
+            style={{ marginLeft: 1 }}
+            title="Qowwa"
+            titleStyle={{
+              color: "#1E4274",
+              fontSize: 18,
+              fontWeight: "bold",
+            }}
+            subtitle="BIS"
+            subtitleStyle={{
+              color: "#1E4274",
+              fontSize: 14,
+              marginTop: -3,
+            }}
+            left={(props) => (
+              <Card.Cover
+                style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
                   uri:
                     "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
-              <Body>
-                <Text
-                  style={{
-                    color: "#1E4274",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                >
-                  Qowwa
-                </Text>
-                <View style={{ flex: 1, flexDirection: "row" }}>
-                  <Text
-                    note
-                    style={{
-                      color: "#CD8930",
-                      fontSize: 12,
-                    }}
-                  >
-                    BIS
-                  </Text>
-                </View>
-              </Body>
-            </Left>
-            <Right></Right>
-          </CardItem>
-          <CardItem cardBody>
-            <View
+            )}
+          />
+          <Card.Content>
+            {/* <Title>Card title</Title> */}
+            <Paragraph
               style={{
-                height: 80,
-                width: "88%",
+                // marginHorizontal: 23,
+                fontSize: 14,
+                color: "#1E4274",
+                lineHeight: 19,
               }}
             >
-              <Image
-                style={{
-                  height: 80,
-                  width: 310,
-                  marginHorizontal: 20,
-                  // marginTop: 15,
-                }}
-                source={{
-                  uri:
-                    "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
-                }}
-              />
-            </View>
-          </CardItem>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
+              dictumst nisi blandit ornare viverra eleifend
+            </Paragraph>
+            <Card.Cover
+              style={{
+                height: "30%",
+                width: "100%",
+                // marginHorizontal: 5,
+              }}
+              source={{
+                uri:
+                  "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
+              }}
+            />
+            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+          </Card.Content>
           <View
             style={{
-              borderBottomColor: "#F2F2F2",
-              borderBottomWidth: 1,
-              marginTop: 14,
-              marginHorizontal: 15,
-              // width:50,
+              backgroundColor: "#CCCCCC",
+              width: "90%",
+              height: 1,
+              marginVertical: 5,
+              // marginHorizontal: 10,
+              // alignItems: "center",
+              alignSelf: "center",
             }}
-          />
-          <CardItem>
-            <Left style={{ marginVertical: -15 }}>
-              <Button transparent>
-                <FontAwesome5 name="ad" size={24} color="#1E4274" />
-              </Button>
-            </Left>
-          </CardItem>
+          ></View>
+          <Card.Actions style={{ marginTop: -3, marginLeft: 10 }}>
+            <FontAwesome5 name="ad" size={24} color="#1E4274" />
+          </Card.Actions>
         </Card>
       </View>
     );
