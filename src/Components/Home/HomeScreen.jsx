@@ -15,12 +15,7 @@ import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
-// function ExploreScreen(props) {
-//   const navigation = useNavigation();
-//   const { signOut } = props.userSignOut();
-//   console.log(signOut);
-//   return <Explore {...props} navigation={navigation} userSignOut={signOut} />;
-// }
+
 const tabs = {
   Explore: {
     labelStyle: {

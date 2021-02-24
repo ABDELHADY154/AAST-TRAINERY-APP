@@ -40,7 +40,7 @@ export class AdsCardImg extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
