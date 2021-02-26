@@ -7,6 +7,7 @@ import { AdvisorCard } from "../Cards/AdvisorCard";
 import { CompanyCard } from "../Cards/CompanyCard";
 import { PromotedCard } from "../Cards/PromotedCard";
 import { AdsCardImg } from "../Cards/AdsCardImg";
+import { AdsCardImgOnly } from "../Cards/AdsCardImgOnly";
 import { AdsCard } from "../Cards/AdsCard";
 import { Feather } from "@expo/vector-icons";
 
@@ -73,9 +74,10 @@ export default class ExploreScreen extends Component {
         <ScrollView>
           <AdvisorCard />
           <CompanyCard />
-          <PromotedCard />
           <AdsCard />
           <AdsCardImg />
+          <AdsCardImgOnly />
+          <PromotedCard />
         </ScrollView>
         <StatusBar style="auto" />
       </View>

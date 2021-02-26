@@ -13,7 +13,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 
-export class AdsCardImg extends Component {
+export class AdsCardImgOnly extends Component {
   render() {
     return (
       <View>
@@ -51,21 +51,6 @@ export class AdsCardImg extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
-            <Paragraph
-              style={{
-                // marginHorizontal: 23,
-                fontSize: 14,
-                color: "#1E4274",
-                lineHeight: 19,
-                marginBottom: 10,
-              }}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-              dictumst nisi blandit ornare viverra eleifend
-            </Paragraph>
             <Card.Cover
               // ViewStyle={{
               //   height: "30%",

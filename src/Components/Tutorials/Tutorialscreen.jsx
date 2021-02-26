@@ -65,7 +65,7 @@ export class Tutorials extends React.Component {
   _renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Text style={{ color: "#1E4275" }}>Next</Text>
+        <Text style={{ color: "#1E4275", marginRight: -6 }}>Next</Text>
         {/* <Ion name="md-arrow-round-forward" color="blue" size={24} /> */}
       </View>
     );
@@ -73,21 +73,18 @@ export class Tutorials extends React.Component {
   _renderDoneButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Text style={{ color: "#1E4275" }}>Done</Text>
+        <Text style={{ color: "#1E4275", marginRight: -6 }}>Done</Text>
       </View>
     );
   };
   _renderSkipButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Text style={{ color: "#1E4275" }}>Skip</Text>
+        <Text style={{ color: "#1E4275", marginLeft: 13 }}>Skip</Text>
       </View>
     );
   };
   render() {
-    // if (this.state.showRealApp) {
-    //   return <App />;
-    // } else {
     return (
       <>
         <AppIntroSlider
