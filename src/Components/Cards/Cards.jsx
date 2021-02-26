@@ -34,9 +34,14 @@ export class AdvisorCard extends Component {
               fontSize: 18,
               fontWeight: "bold",
             }}
-            subtitle="Qowwa  BIS"
+            subtitle={
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ color: "#1E4274" }}>Qowwa{"   "}</Text>
+                <Text style={{ color: "#CD8930" }}>BIS</Text>
+              </View>
+            }
             subtitleStyle={{
-              color: "#1E4274",
+              // color: "#1E4274",
               fontSize: 14,
               marginTop: -3,
             }}
@@ -161,7 +166,12 @@ export class CompanyCard extends Component {
               fontSize: 18,
               fontWeight: "bold",
             }}
-            subtitle="Qowwa  BIS"
+            subtitle={
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ color: "#1E4274" }}>Qowwa{"   "}</Text>
+                <Text style={{ color: "#CD8930" }}>BIS</Text>
+              </View>
+            }
             subtitleStyle={{
               color: "#1E4274",
               fontSize: 14,
@@ -230,7 +240,12 @@ export class PromotedCard extends Component {
               fontSize: 18,
               fontWeight: "bold",
             }}
-            subtitle="Qowwa  BIS"
+            subtitle={
+              <View style={{ flexDirection: "row" }}>
+                <Text style={{ color: "#1E4274" }}>Qowwa{"   "}</Text>
+                <Text style={{ color: "#CD8930" }}>BIS</Text>
+              </View>
+            }
             subtitleStyle={{
               color: "#1E4274",
               fontSize: 14,
@@ -343,7 +358,7 @@ export class AdsCard extends Component {
             }}
             subtitle="BIS"
             subtitleStyle={{
-              color: "#1E4274",
+              color: "#CD8930",
               fontSize: 14,
               marginTop: -3,
             }}
@@ -417,7 +432,7 @@ export class AdsCardImg extends Component {
             }}
             subtitle="BIS"
             subtitleStyle={{
-              color: "#1E4274",
+              color: "#CD8930",
               fontSize: 14,
               marginTop: -3,
             }}
@@ -502,7 +517,7 @@ export class AdsCardImgOnly extends Component {
             }}
             subtitle="BIS"
             subtitleStyle={{
-              color: "#1E4274",
+              color: "#CD8930",
               fontSize: 14,
               marginTop: -3,
             }}
