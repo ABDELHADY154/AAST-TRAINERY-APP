@@ -305,6 +305,7 @@ class RegisterForm extends Component {
                         color: "#F44336",
                         fontSize: 14,
                         textAlign: "left",
+                        // width: 250,
                       }}
                     >
                       {this.state.studentPassErr}
