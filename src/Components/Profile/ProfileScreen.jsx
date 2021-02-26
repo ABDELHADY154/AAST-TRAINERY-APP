@@ -9,8 +9,52 @@ export default class ProfileScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text>Welcome {this.state.userData.email}</Text> */}
-        <Button
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
+            marginTop: 40,
+          }}
+        >
+          <Button
+            onlyIcon
+            icon="menu"
+            iconFamily="Ionicons"
+            iconSize={40}
+            color="transparent"
+            iconColor="#1E4274"
+            style={{
+              width: 40,
+              height: 40,
+              // flex: 1,
+              // justifyContent: "flex-start",
+              marginRight: 120,
+            }}
+            onPress={() => {
+              AsyncStorage.removeItem("userData");
+              AsyncStorage.removeItem("userToken");
+              AsyncStorage.removeItem("config");
+              this.props.logout();
+            }}
+          >
+            menu
+          </Button>
+
+          <Text
+            style={{
+              // justifyContent: "center",
+              // marginLeft: 115,
+              marginRight: 135,
+              fontSize: 16,
+              color: "#1E4274",
+              fontWeight: "bold",
+            }}
+          >
+            Profile
+          </Text>
+        </View>
+        {/* <Button
           onPress={() => {
             AsyncStorage.removeItem("userData");
             AsyncStorage.removeItem("userToken");
@@ -19,7 +63,7 @@ export default class ProfileScreen extends Component {
           }}
         >
           <Text>Profile Logout</Text>
-        </Button>
+        </Button> */}
         <StatusBar style="auto" />
       </View>
     );
@@ -31,5 +75,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
 });

@@ -3,11 +3,15 @@ import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
-import { AdvisorCard } from "../Cards/AdvisorCard";
-import { CompanyCard } from "../Cards/CompanyCard";
-import { PromotedCard } from "../Cards/PromotedCard";
-import { AdsCardImg } from "../Cards/AdsCardImg";
-import { AdsCard } from "../Cards/AdsCard";
+import {
+  AdvisorCard,
+  CompanyCard,
+  PromotedCard,
+  AdsCardImg,
+  AdsCardImgOnly,
+  AdsCard,
+} from "../Cards/Cards";
+
 import { Feather } from "@expo/vector-icons";
 
 export default class ExploreScreen extends Component {
@@ -73,9 +77,10 @@ export default class ExploreScreen extends Component {
         <ScrollView>
           <AdvisorCard />
           <CompanyCard />
-          <PromotedCard />
           <AdsCard />
           <AdsCardImg />
+          <AdsCardImgOnly />
+          <PromotedCard />
         </ScrollView>
         <StatusBar style="auto" />
       </View>
