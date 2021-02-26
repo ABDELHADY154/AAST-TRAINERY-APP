@@ -25,7 +25,7 @@ class ForgetPass extends Component {
 
     axios
       .post("/forgot", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           emailErr: "",
           message: response.data.response.data.message,
@@ -34,7 +34,7 @@ class ForgetPass extends Component {
         this.showModal();
       })
 
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data.errors.message);
         if (error.response.data.errors.message) {
           this.setState({
@@ -97,7 +97,7 @@ class ForgetPass extends Component {
               }}
               label="Student Email"
               labelStyle={styles.labelStyle}
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -118,7 +118,12 @@ class ForgetPass extends Component {
                 >
                   {this.state.emailErr}
                 </Text>
-                <Icon name="x-octagon" type="feather" color="#F44336" />
+                <Icon
+                  size={18}
+                  name="x-octagon"
+                  type="feather"
+                  color="#F44336"
+                />
               </View>
             ) : (
               <Text></Text>
