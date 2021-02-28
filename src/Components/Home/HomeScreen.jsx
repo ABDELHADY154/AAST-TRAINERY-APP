@@ -143,7 +143,6 @@ export default class HomeScreen extends Component {
             style={{
               backgroundColor: "#1E4275",
               borderRadius: 150,
-
               justifyContent: "center",
               alignItems: "center",
               width: "99.9%",

@@ -204,6 +204,7 @@ export default function App({ navigation }) {
                 name="App"
                 component={Trainery}
                 options={{
+                  cardStyle: { backgroundColor: "#fff" },
                   animationTypeForReplace: state.isSignout ? "pop" : "push",
                   header: () => {
                     "none";
