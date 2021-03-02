@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import Explore from "../Explore/ExploreScreen";
-import Profile from "../Profile/ProfileScreen";
+import Profile from "../Profile/Generalinfo/Generalinfo";
 import Activity from "../Activity/ActivityScreen";
 import CareerCoaching from "../CareerCoaching/CareerCoaching";
 import Notification from "../Notification/Notification";
@@ -106,7 +106,7 @@ export default class HomeScreen extends Component {
     };
   }
 
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     // console.log(signOut);userSignOut={signOut}
@@ -123,12 +123,12 @@ export default class HomeScreen extends Component {
     }
     axios
       .get("/A/get-profile", parsedConfig)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response.data);
       });
   }
@@ -136,7 +136,7 @@ export default class HomeScreen extends Component {
     // console.log(this.props.userSignOut());
     return (
       <Tab.Navigator
-        tabBar={props => (
+        tabBar={(props) => (
           <AnimatedTabBar
             tabs={tabs}
             {...props}
