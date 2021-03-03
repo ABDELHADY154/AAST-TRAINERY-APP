@@ -4,7 +4,7 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import DatePicker from "react-native-datepicker";
-
+import { CountryPicker } from "react-native-country-picker-modal";
 export default class Generalinfo extends Component {
   state = {
     studentName: "",
@@ -141,7 +141,7 @@ export default class Generalinfo extends Component {
                     this.setState({ nationality: value })
                   }
                 />
-                <Input
+                {/* <Input
                   style={styles.input}
                   textContentType="name"
                   keyboardType="default"
@@ -154,7 +154,9 @@ export default class Generalinfo extends Component {
                   label="City"
                   labelStyle={styles.labelStyle}
                   onChangeText={(value) => this.setState({ city: value })}
-                />
+                /> */}
+
+                <CountryPicker />
               </View>
             </View>
           </ScrollView>
