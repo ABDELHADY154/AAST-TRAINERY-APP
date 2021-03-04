@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import Explore from "../Explore/ExploreScreen";
-import Profile from "../Profile/Generalinfo/Generalinfo";
+import Profile from "../Profile/Academicsinfo/Academicsinfo";
 import Activity from "../Activity/ActivityScreen";
 import CareerCoaching from "../CareerCoaching/CareerCoaching";
 import Notification from "../Notification/Notification";

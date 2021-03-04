@@ -7,16 +7,15 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import DatePicker from "react-native-datepicker";
 // import { CountryPicker } from "react-native-country-picker-modal";
-export default class Generalinfo extends Component {
+export default class Academicinfo extends Component {
   state = {
-    studentName: "",
-    gender: "",
-    checked: "",
-    dateOfBirth: "",
-    nationality: "",
-    country: "",
-    city: "",
-    phone_Number: "",
+    SchoolName: "",
+    countryname: "",
+    cityname: "",
+    EducationFrom: "",
+    EducationTo: "",
+    EducationCredURL: "",
+    EducationCredUpload: "",
   };
   constructor(props) {
     super(props);
@@ -33,14 +32,14 @@ export default class Generalinfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 350,
+            marginRight: 340,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
           }}
           onPress={() => navigation.push("SignIn")}
         />
-        <Text style={styles.title}>Personal Information</Text>
+        <Text style={styles.title}>Education</Text>
 
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
@@ -55,113 +54,12 @@ export default class Generalinfo extends Component {
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
               }}
-              label="Full Name"
+              label="School Name"
               labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-            <Text
-              style={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: 5,
-                marginLeft: 10,
-              }}
-            >
-              Gender
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <RadioButton
-                value="male"
-                uncheckedColor="#1E4274"
-                status={
-                  this.state.checked === "first" ? "checked" : "unchecked"
-                }
-                color="#1E4274"
-                // style={{ borderRadius: 5 }}
-                onPress={() =>
-                  this.setState({ checked: "first", gender: "male" })
-                }
-              />
-              <Text
-                style={{
-                  color: "#1E4274",
-                  marginRight: "10%",
-                  marginTop: 8,
-                }}
-              >
-                Male
-              </Text>
-              <RadioButton
-                value="female"
-                uncheckedColor="#1E4274"
-                color="#1E4274"
-                status={
-                  this.state.checked === "second" ? "checked" : "unchecked"
-                }
-                onPress={() =>
-                  this.setState({ checked: "second", gender: "female" })
-                }
-              />
-              <Text
-                style={{
-                  color: "#1E4274",
-                  marginTop: 8,
-                }}
-              >
-                Female
-              </Text>
-            </View>
-            <View style={styles.inputContainer}>
-              <Text style={styles.gender}>Date Of Birth</Text>
-              <DatePicker
-                style={{ width: 370 }}
-                date={this.state.date}
-                mode="date"
-                placeholder="  "
-                format="DD-MM-YYYY"
-                minDate="01-01-1980"
-                maxDate="01-01-2006"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                showIcon={false}
-                // iconSource={{
-                //   uri:
-                //     "https://https://react-icons.github.io/react-icons/icons?name=ai/AiOutlineCalendar",
-                // }}
-                customStyles={{
-                  dateInput: {
-                    marginLeft: 10,
-                    borderColor: "transparent",
-                    borderBottomColor: "#1E4274",
-                    borderBottomWidth: 2,
-                    color: "#1E4274",
-                  },
-                }}
-                onDateChange={(date) => {
-                  this.setState({ date: date });
-                }}
-              />
 
-              <Input
-                style={styles.input}
-                textContentType="name"
-                keyboardType="default"
-                textAlign="left"
-                inputStyle={{ color: "#1E4274" }}
-                inputContainerStyle={{
-                  borderColor: "#1E4274",
-                  borderBottomWidth: 2,
-                }}
-                label="Nationality"
-                labelStyle={styles.labelStyle}
-                onChangeText={(value) => this.setState({ nationality: value })}
-              />
+            <View style={styles.inputContainer}>
               <Text style={styles.gender}>Country</Text>
               <View style={styles.boxContainer}>
                 <Picker
@@ -185,11 +83,11 @@ export default class Generalinfo extends Component {
                   //   this.setState({ country: itemValue })
                   // }
                 >
-                  <Picker.Item label="Choose Your Country" value="0" />
+                  <Picker.Item label="Choose The Country" value="0" />
                   {/* {this.state.country.map((key) => {
                       return (
                         <Picker.Item
-                          label={key.country_name}
+                          label={key.countryname}
                           value={key.id}
                           key={key.id}
                         />
@@ -217,14 +115,14 @@ export default class Generalinfo extends Component {
                   dropdownIconColor="#1E4275"
                   selectedValue={"Alexandria"}
                   // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
+                  //   this.setState({ city: itemValue })
                   // }
                 >
-                  <Picker.Item label="Choose Your City" value="0" />
+                  <Picker.Item label="Choose The City" value="0" />
                   {/* {this.state.country.map((key) => {
                       return (
                         <Picker.Item
-                          label={key.country_name}
+                          label={key.cityname}
                           value={key.id}
                           key={key.id}
                         />
@@ -232,19 +130,119 @@ export default class Generalinfo extends Component {
                     })} */}
                 </Picker>
               </View>
+              <Text style={styles.gender}>From</Text>
+              <DatePicker
+                style={{ width: 370 }}
+                date={this.state.EducationFrom}
+                mode="date"
+                placeholder="  "
+                format="DD-MM-YYYY"
+                minDate="01-01-1999"
+                maxDate="01-01-2029"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                showIcon={false}
+                // iconSource={{
+                //   uri:
+                //     "https://https://react-icons.github.io/react-icons/icons?name=ai/AiOutlineCalendar",
+                // }}
+                customStyles={{
+                  dateInput: {
+                    marginLeft: 10,
+                    borderColor: "transparent",
+                    borderBottomColor: "#1E4274",
+                    borderBottomWidth: 2,
+                    color: "#1E4274",
+                  },
+                }}
+                onDateChange={(date) => {
+                  this.setState({ EducationFrom: date });
+                }}
+              />
+              <Text style={styles.gender}>To</Text>
+              <DatePicker
+                style={{ width: 370 }}
+                date={this.state.EducationTo}
+                mode="date"
+                placeholder="  "
+                format="DD-MM-YYYY"
+                minDate="01-01-1999"
+                maxDate="01-01-2029"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                showIcon={false}
+                // iconSource={{
+                //   uri:
+                //     "https://https://react-icons.github.io/react-icons/icons?name=ai/AiOutlineCalendar",
+                // }}
+                customStyles={{
+                  dateInput: {
+                    marginLeft: 10,
+                    borderColor: "transparent",
+                    borderBottomColor: "#1E4274",
+                    borderBottomWidth: 2,
+                    color: "#1E4274",
+                  },
+                }}
+                onDateChange={(date) => {
+                  this.setState({ EducationTo: date });
+                }}
+              />
               <Input
                 style={styles.input}
-                keyboardType="number-pad"
+                textContentType="name"
+                keyboardType="default"
                 textAlign="left"
-                inputStyle={{ color: "#1E4275" }}
+                inputStyle={{ color: "#1E4274" }}
                 inputContainerStyle={{
-                  borderColor: "#1E4275",
+                  borderColor: "#1E4274",
                   borderBottomWidth: 2,
                 }}
-                label="Phone Number"
+                label="Credentials URL"
                 labelStyle={styles.labelStyle}
-                // onChangeText={value => this.setState({ regNo: value })}
+                placeholder="https://www."
+                placeholderTextColor="#1E4274"
+                onChangeText={(value) =>
+                  this.setState({ EducationCredURL: value })
+                }
               />
+              <View
+                style={{
+                  flexDirection: "row",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#1E4274",
+                    fontSize: 16,
+                    fontFamily: "SF-M",
+                    fontWeight: "normal",
+                    marginBottom: 5,
+                    marginLeft: 10,
+                  }}
+                >
+                  Credentials Upload{" "}
+                </Text>
+                <Button
+                  style={{
+                    borderRadius: 5,
+                    width: "10%",
+                    height: "36%",
+                    marginTop: -4,
+                    marginLeft: "49%",
+                  }}
+                  color="#1E4275"
+                  // onPress={this.submit}
+                >
+                  <Feather
+                    name="upload"
+                    size={20}
+                    color="#fff"
+
+                    // onPress={() => navigation.push("SignIn")}
+                  />
+                </Button>
+              </View>
             </View>
             <Button
               style={styles.button}
@@ -276,7 +274,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -140,
+    marginLeft: -250,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
