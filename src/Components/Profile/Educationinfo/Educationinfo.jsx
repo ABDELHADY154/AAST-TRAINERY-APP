@@ -8,15 +8,15 @@ import { Button } from "galio-framework";
 import DatePicker from "react-native-datepicker";
 // import { CountryPicker } from "react-native-country-picker-modal";
 export default class Academicinfo extends Component {
-  state = {
-    SchoolName: "",
-    countryname: "",
-    cityname: "",
-    EducationFrom: "",
-    EducationTo: "",
-    EducationCredURL: "",
-    EducationCredUpload: "",
-  };
+  // state = {
+  //   SchoolName: "",
+  //   countryname: "",
+  //   cityname: "",
+  //   EducationFrom: "",
+  //   EducationTo: "",
+  //   EducationCredURL: "",
+  //   EducationCredUpload: "",
+  // };
   constructor(props) {
     super(props);
     this.state = { date: "" };
@@ -155,7 +155,7 @@ export default class Academicinfo extends Component {
                     color: "#1E4274",
                   },
                 }}
-                onDateChange={(date) => {
+                onDateChange={date => {
                   this.setState({ EducationFrom: date });
                 }}
               />
@@ -184,7 +184,7 @@ export default class Academicinfo extends Component {
                     color: "#1E4274",
                   },
                 }}
-                onDateChange={(date) => {
+                onDateChange={date => {
                   this.setState({ EducationTo: date });
                 }}
               />
@@ -202,7 +202,7 @@ export default class Academicinfo extends Component {
                 labelStyle={styles.labelStyle}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />

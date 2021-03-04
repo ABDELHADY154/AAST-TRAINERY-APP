@@ -7,15 +7,15 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import DatePicker from "react-native-datepicker";
 export default class Academicinfo extends Component {
-  state = {
-    SchoolName: "",
-    countryname: "",
-    cityname: "",
-    EducationFrom: "",
-    EducationTo: "",
-    EducationCredURL: "",
-    EducationCredUpload: "",
-  };
+  // state = {
+  //   SchoolName: "",
+  //   countryname: "",
+  //   cityname: "",
+  //   EducationFrom: "",
+  //   EducationTo: "",
+  //   EducationCredURL: "",
+  //   EducationCredUpload: "",
+  // };
   constructor(props) {
     super(props);
     this.state = { date: "" };
@@ -209,7 +209,7 @@ export default class Academicinfo extends Component {
                     color: "#1E4274",
                   },
                 }}
-                onDateChange={(date) => {
+                onDateChange={date => {
                   this.setState({ AcademicsStartYear: date });
                 }}
               />
@@ -238,7 +238,7 @@ export default class Academicinfo extends Component {
                     color: "#1E4274",
                   },
                 }}
-                onDateChange={(date) => {
+                onDateChange={date => {
                   this.setState({ AcademicsEndYear: date });
                 }}
               />

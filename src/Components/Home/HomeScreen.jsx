@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import Explore from "../Explore/ExploreScreen";
-import Profile from "../Profile/Academicsinfo/Academicsinfo";
+import Profile from "../Profile/Generalinfo/Generalinfo";
 import Activity from "../Activity/ActivityScreen";
 import CareerCoaching from "../CareerCoaching/CareerCoaching";
 import Notification from "../Notification/Notification";
@@ -101,42 +101,29 @@ export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = {
-      userData: {},
       token: "",
     };
   }
 
-  ExploreScreen = (props) => {
+  ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     // console.log(signOut);userSignOut={signOut}
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
+  ProfileScreen = props => {
+    const navigation = useNavigation();
+    // const signOut = this.props.userSignOut; logout={signOut}
+    // console.log(signOut);userSignOut={signOut}
 
-  async componentDidMount() {
-    try {
-      var config = await AsyncStorage.getItem("config");
-      var parsedConfig = JSON.parse(config);
-    } catch (e) {
-      console.log(e);
-    }
-    axios
-      .get("/A/get-profile", parsedConfig)
-      .then((response) => {
-        this.setState({
-          userData: response.data.response.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
-  }
+    return <Profile {...props} navigation={navigation} />;
+  };
   render() {
     // console.log(this.props.userSignOut());
     return (
       <Tab.Navigator
-        tabBar={(props) => (
+        tabBar={props => (
           <AnimatedTabBar
             tabs={tabs}
             {...props}
@@ -158,7 +145,7 @@ export default class HomeScreen extends Component {
         <Tab.Screen name="Activity" component={Activity} />
         <Tab.Screen name="Coaching" component={CareerCoaching} />
         <Tab.Screen name="Notifications" component={Notification} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Profile" component={this.ProfileScreen} />
       </Tab.Navigator>
     );
   }

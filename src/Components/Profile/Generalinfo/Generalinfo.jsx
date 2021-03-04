@@ -5,21 +5,21 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import DatePicker from "react-native-datepicker";
+// import DatePicker from "react-native-datepicker";
 // import { CountryPicker } from "react-native-country-picker-modal";
 export default class Generalinfo extends Component {
-  state = {
-    studentName: "",
-    gender: "",
-    checked: "",
-    dateOfBirth: "",
-    nationality: "",
-    country: "",
-    city: "",
-    phone_Number: "",
-  };
-  constructor(props) {
-    super(props);
+  // state = {
+  //   studentName: "",
+  //   gender: "",
+  //   checked: "",
+  //   dateOfBirth: "",
+  //   nationality: "",
+  //   country: "",
+  //   city: "",
+  //   phone_Number: "",
+  // };
+  constructor() {
+    super();
     this.state = { date: "" };
   }
 
@@ -119,7 +119,7 @@ export default class Generalinfo extends Component {
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.gender}>Date Of Birth</Text>
-              <DatePicker
+              {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.date}
                 mode="date"
@@ -143,10 +143,10 @@ export default class Generalinfo extends Component {
                     color: "#1E4274",
                   },
                 }}
-                onDateChange={(date) => {
+                onDateChange={date => {
                   this.setState({ date: date });
                 }}
-              />
+              /> */}
 
               <Input
                 style={styles.input}
@@ -160,7 +160,7 @@ export default class Generalinfo extends Component {
                 }}
                 label="Nationality"
                 labelStyle={styles.labelStyle}
-                onChangeText={(value) => this.setState({ nationality: value })}
+                onChangeText={value => this.setState({ nationality: value })}
               />
               <Text style={styles.gender}>Country</Text>
               <View style={styles.boxContainer}>
