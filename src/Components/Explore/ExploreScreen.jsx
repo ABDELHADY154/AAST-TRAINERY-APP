@@ -21,7 +21,7 @@ export default class ExploreScreen extends Component {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
+            // justifyContent: "center",
             alignItems: "center",
             marginTop: 40,
           }}
@@ -36,8 +36,7 @@ export default class ExploreScreen extends Component {
             style={{
               width: 40,
               height: 40,
-              // flex: 1,
-              justifyContent: "flex-start",
+              marginRight: 100,
             }}
             onPress={() => {
               AsyncStorage.removeItem("userData");
@@ -51,9 +50,12 @@ export default class ExploreScreen extends Component {
 
           <Text
             style={{
-              justifyContent: "center",
-              marginHorizontal: 100,
+              // justifyContent: "center",
+              // marginLeft: 110,
+              alignItems: "center",
+              marginRight: 115,
               fontSize: 16,
+
               color: "#1E4274",
               fontWeight: "bold",
             }}
@@ -65,7 +67,7 @@ export default class ExploreScreen extends Component {
             size={28}
             color="#1E4274"
             style={{
-              marginRight: 10,
+              // marginLeft: 30,
               // flex: 1,
               justifyContent: "flex-end",
             }}
