@@ -19,8 +19,8 @@ export class AdvisorCard extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
@@ -31,7 +31,7 @@ export class AdvisorCard extends Component {
             title="UI/UX Designer"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle={
@@ -150,8 +150,8 @@ export class CompanyCard extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             borderWidth: 1,
             marginBottom: 10,
 
@@ -163,7 +163,7 @@ export class CompanyCard extends Component {
             title="UI/UX Designer"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle={
@@ -225,8 +225,8 @@ export class PromotedCard extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
@@ -237,7 +237,7 @@ export class PromotedCard extends Component {
             title="UI/UX Designer"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle={
@@ -341,8 +341,8 @@ export class AdsCard extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
@@ -353,7 +353,7 @@ export class AdsCard extends Component {
             title="Qowwa"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle="BIS"
@@ -415,8 +415,8 @@ export class AdsCardImg extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
@@ -427,7 +427,7 @@ export class AdsCardImg extends Component {
             title="Qowwa"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle="BIS"
@@ -500,8 +500,8 @@ export class AdsCardImgOnly extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            width: "95%",
+            marginLeft: 9,
             marginBottom: 10,
             borderWidth: 1,
             borderColor: "#CCCCCC",
@@ -512,7 +512,7 @@ export class AdsCardImgOnly extends Component {
             title="Qowwa"
             titleStyle={{
               color: "#1E4274",
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: "bold",
             }}
             subtitle="BIS"

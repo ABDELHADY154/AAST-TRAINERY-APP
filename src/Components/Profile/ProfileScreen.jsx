@@ -41,11 +41,11 @@ export default class ProfileScreen extends Component {
               iconFamily="Ionicons"
               iconSize={40}
               color="transparent"
-              iconColor="#fff"
+              iconColor="#1E4274"
               style={{
-                width: 59,
-                height: 59,
-                marginRight: 90,
+                width: 40,
+                height: 40,
+                marginRight: 100,
               }}
               onPress={() => {
                 AsyncStorage.removeItem("userData");
@@ -69,10 +69,23 @@ export default class ProfileScreen extends Component {
             </Text>
           </View>
           <View style={{ alignItems: "center", marginTop: -15 }}>
-            <Avatar.Image
-              size={110}
-              source={require("../../assets/Images/Tutorials/Tutorial3.png")}
-            />
+            <View>
+              <Avatar.Image
+                size={110}
+                source={require("../../assets/Images/Tutorials/Tutorial3.png")}
+              />
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  padding: 4,
+                  borderRadius: 50,
+                  marginTop: -30,
+                  marginLeft: 60,
+                }}
+              >
+                <FontAwesome name="camera" size={20} color="#1E4274" />
+              </View>
+            </View>
             <Text
               style={{
                 fontSize: 18,
@@ -88,7 +101,19 @@ export default class ProfileScreen extends Component {
         {/* Tabs */}
         <Tab.Navigator
           backBehavior="none"
-          style={{ backgroundColor: "#1E4274" }}
+          tabStyle={
+            {
+              //  activeTintColor: "#1E4274",
+              // indicatorStyle: "red",
+            }
+          }
+          tabBarOptions={{
+            activeTintColor: "#CD8930",
+            inactiveTintColor: "#1E4274",
+            indicatorStyle: { backgroundColor: "#CD8930" },
+            labelStyle: { fontSize: 14 },
+            style: { backgroundColor: "#fff" },
+          }}
         >
           <Tab.Screen name="Personal Info" component={PersonalTab} />
           <Tab.Screen name="Experience" component={ExperienceTab} />
@@ -126,7 +151,7 @@ export class PersonalTab extends Component {
               <View>
                 <Text
                   style={{
-                    fontSize: 22,
+                    fontSize: 16,
                     color: "#1E4274",
                     fontWeight: "bold",
                   }}
@@ -135,7 +160,7 @@ export class PersonalTab extends Component {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#1E4274",
                     width: "90%",
                   }}
@@ -144,7 +169,7 @@ export class PersonalTab extends Component {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 16,
+                    fontSize: 14,
                     color: "#1E4274",
                   }}
                 >
@@ -201,7 +226,7 @@ export class PersonalTab extends Component {
           </View> */}
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   color: "#1E4274",
                 }}
               >
@@ -212,7 +237,7 @@ export class PersonalTab extends Component {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
                     marginRight: 135,
@@ -227,7 +252,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -238,7 +263,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -249,7 +274,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -260,7 +285,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -271,7 +296,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -282,7 +307,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -293,7 +318,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -304,7 +329,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -318,7 +343,7 @@ export class PersonalTab extends Component {
                 <Text
                   style={{
                     // marginRight: 145,
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
                     marginRight: 143,
@@ -353,7 +378,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -375,7 +400,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       width: "80%",
                     }}
@@ -390,7 +415,7 @@ export class PersonalTab extends Component {
                 <Text
                   style={{
                     // marginRight: 145,
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
                     marginRight: 117,
@@ -417,7 +442,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -428,9 +453,9 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
-                      width: "80%",
+                      width: "78%",
                     }}
                   >
                     Arab Academy for science and technology
@@ -440,7 +465,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -451,7 +476,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       width: "80%",
                     }}
@@ -463,7 +488,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -474,7 +499,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -485,7 +510,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -496,7 +521,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -507,7 +532,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
                       marginRight: 5,
@@ -518,7 +543,7 @@ export class PersonalTab extends Component {
                   <Text
                     style={{
                       // marginRight: 145,
-                      fontSize: 16,
+                      fontSize: 14,
                       color: "#1E4274",
                     }}
                   >
@@ -532,7 +557,7 @@ export class PersonalTab extends Component {
                 <Text
                   style={{
                     // marginRight: 145,
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
                     marginRight: 230,
@@ -583,13 +608,12 @@ export class PersonalTab extends Component {
                 </View>
               </View>
             </View>
-
             <View style={{ marginTop: 10 }}>
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
                     // marginRight: 145,
-                    fontSize: 18,
+                    fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
                     // marginRight: 145,
