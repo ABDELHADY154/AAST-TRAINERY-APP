@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import DatePicker from "react-native-datepicker";
+import { DocumentPicker } from "expo";
 // import { CountryPicker } from "react-native-country-picker-modal";
 export default class Academicinfo extends Component {
   // state = {
@@ -17,6 +17,11 @@ export default class Academicinfo extends Component {
   //   EducationCredURL: "",
   //   EducationCredUpload: "",
   // };
+  _pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    alert(result.uri);
+    console.log(result);
+  };
   constructor(props) {
     super(props);
     this.state = { date: "" };
@@ -131,7 +136,7 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text style={styles.gender}>From</Text>
-              <DatePicker
+              {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.EducationFrom}
                 mode="date"
@@ -158,9 +163,9 @@ export default class Academicinfo extends Component {
                 onDateChange={date => {
                   this.setState({ EducationFrom: date });
                 }}
-              />
+              /> */}
               <Text style={styles.gender}>To</Text>
-              <DatePicker
+              {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.EducationTo}
                 mode="date"
@@ -187,7 +192,7 @@ export default class Academicinfo extends Component {
                 onDateChange={date => {
                   this.setState({ EducationTo: date });
                 }}
-              />
+              /> */}
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -202,7 +207,7 @@ export default class Academicinfo extends Component {
                 labelStyle={styles.labelStyle}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={value =>
+                onChangeText={(value) =>
                   this.setState({ EducationCredURL: value })
                 }
               />
@@ -232,15 +237,10 @@ export default class Academicinfo extends Component {
                     marginLeft: "49%",
                   }}
                   color="#1E4275"
+                  onPress={this._pickDocument}
                   // onPress={this.submit}
                 >
-                  <Feather
-                    name="upload"
-                    size={20}
-                    color="#fff"
-
-                    // onPress={() => navigation.push("SignIn")}
-                  />
+                  <Feather name="upload" size={20} color="#fff" />
                 </Button>
               </View>
             </View>

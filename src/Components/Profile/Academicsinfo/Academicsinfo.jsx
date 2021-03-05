@@ -5,7 +5,7 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import DatePicker from "react-native-datepicker";
+// import DatePicker from "react-native-datepicker";
 export default class Academicinfo extends Component {
   // state = {
   //   SchoolName: "",
@@ -185,7 +185,8 @@ export default class Academicinfo extends Component {
                 // onChangeText={value => this.setState({ StudentGpa: value })}
               />
               <Text style={styles.gender}>Start Year</Text>
-              <DatePicker
+
+              {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.AcademicsStartYear}
                 mode="date"
@@ -212,9 +213,9 @@ export default class Academicinfo extends Component {
                 onDateChange={date => {
                   this.setState({ AcademicsStartYear: date });
                 }}
-              />
+              /> */}
               <Text style={styles.gender}>End Year</Text>
-              <DatePicker
+              {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.AcademicsEndYear}
                 mode="date"
@@ -241,7 +242,7 @@ export default class Academicinfo extends Component {
                 onDateChange={date => {
                   this.setState({ AcademicsEndYear: date });
                 }}
-              />
+              /> */}
             </View>
             <Button
               style={styles.button}
