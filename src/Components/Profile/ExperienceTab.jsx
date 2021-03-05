@@ -12,6 +12,8 @@ import {
   Paragraph,
   Chip,
 } from "react-native-paper";
+import StarRating from "react-native-star-rating";
+
 export class ExperienceTab extends Component {
   render() {
     return (
@@ -424,6 +426,19 @@ export class CoursesCard extends Component {
   }
 }
 export class SkillsCard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      starCount: 3,
+    };
+  }
+
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating,
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -683,16 +698,38 @@ export class SkillsCard extends Component {
                     onPress={() => {}}
                   />
                 </View>
-                <View style={{ marginLeft: 18 }}>
+                <View
+                  style={{
+                    marginLeft: 18,
+                    flexDirection: "row",
+                    alignItems: "center",
+                  }}
+                >
                   <Paragraph
                     style={{
                       // marginHorizontal: 23,
                       fontSize: 14,
                       color: "#1E4274",
+                      marginRight: 50,
                     }}
                   >
                     Arabic
                   </Paragraph>
+                  <StarRating
+                    fullStarColor={"#CD8930"}
+                    starSize={20}
+                    disabled={false}
+                    maxStars={5}
+                    rating={this.state.starCount}
+                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                  />
+                  {/* <StarRating
+                    fullStarColor={"#CD8930"}
+                    disabled={false}
+                    maxStars={5}
+                    rating={this.state.starCount}
+                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                  /> */}
                 </View>
               </Card.Content>
             </Card>
