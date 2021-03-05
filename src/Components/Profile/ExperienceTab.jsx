@@ -18,7 +18,7 @@ export class ExperienceTab extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <EducationCard />
+            <EducationCard navigation={this.props.navigation} />
             <ExperienceCard />
             <CoursesCard />
             <SkillsCard />
@@ -59,13 +59,15 @@ export class EducationCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
                     size={30}
                     color="#1E4274"
-                    onPress={() => {}}
+                    onPress={() => {
+                      this.props.navigation.navigate("EducationForm");
+                    }}
                   />
                 )}
               />
@@ -184,7 +186,7 @@ export class ExperienceCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -321,7 +323,7 @@ export class CoursesCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -446,7 +448,7 @@ export class SkillsCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -578,7 +580,12 @@ export class SkillsCard extends Component {
                     flexDirection: "row",
                   }}
                 >
-                  <View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <Chip
                       style={{ height: 30, marginRight: 6 }}
                       textStyle={{

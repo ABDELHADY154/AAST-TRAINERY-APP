@@ -8,6 +8,7 @@ import Home from "./src/Components/Home/HomeScreen";
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
+import EducationScreen from "./src/Components/Profile/Educationinfo/Educationinfo";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
@@ -42,7 +43,10 @@ function ForgetPassScreen(props) {
   // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
   return <ForgetPass {...props} navigation={navigation} />;
 }
-
+function EducationInfoFormScreen(props) {
+  const navigation = useNavigation();
+  return <EducationScreen {...props} navigation={navigation} />;
+}
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -200,17 +204,30 @@ export default function App({ navigation }) {
                 </>
               )
             ) : (
-              <Stack.Screen
-                name="App"
-                component={Trainery}
-                options={{
-                  cardStyle: { backgroundColor: "#fff" },
-                  animationTypeForReplace: state.isSignout ? "pop" : "push",
-                  header: () => {
-                    "none";
-                  },
-                }}
-              />
+              <>
+                <Stack.Screen
+                  name="App"
+                  component={Trainery}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="EducationForm"
+                  component={EducationInfoFormScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+              </>
             )}
           </Stack.Navigator>
         </NavigationContainer>

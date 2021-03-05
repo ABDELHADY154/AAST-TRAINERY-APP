@@ -5,9 +5,15 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import { DocumentPicker } from "expo";
+import { DocumentPicker } from "expo-document-picker";
+import { useNavigation } from "@react-navigation/native";
+
+export default function EduInfoFormScren(props) {
+  const navigation = useNavigation();
+  return <EduInfoForm navigation={navigation} {...props} />;
+}
 // import { CountryPicker } from "react-native-country-picker-modal";
-export default class Academicinfo extends Component {
+class EduInfoForm extends Component {
   // state = {
   //   SchoolName: "",
   //   countryname: "",
@@ -17,16 +23,20 @@ export default class Academicinfo extends Component {
   //   EducationCredURL: "",
   //   EducationCredUpload: "",
   // };
-  _pickDocument = async () => {
-    let result = await DocumentPicker.getDocumentAsync({});
-    alert(result.uri);
-    console.log(result);
-  };
+
   constructor(props) {
     super(props);
     this.state = { date: "" };
   }
-
+  _pickDocument = async () => {
+    try {
+      let result = await DocumentPicker.getDocumentAsync({});
+      alert(result.uri);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -42,7 +52,7 @@ export default class Academicinfo extends Component {
             marginTop: 45,
             marginBottom: 15,
           }}
-          onPress={() => navigation.push("SignIn")}
+          onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Education</Text>
 
@@ -207,7 +217,7 @@ export default class Academicinfo extends Component {
                 labelStyle={styles.labelStyle}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />

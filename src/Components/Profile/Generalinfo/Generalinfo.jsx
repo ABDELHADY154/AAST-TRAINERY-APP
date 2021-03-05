@@ -1,10 +1,19 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Platform,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
+import DateTimePicker from "@react-native-community/datetimepicker";
+
 // import DatePicker from "react-native-datepicker";
 // import { CountryPicker } from "react-native-country-picker-modal";
 export default class Generalinfo extends Component {
@@ -18,10 +27,31 @@ export default class Generalinfo extends Component {
   //   city: "",
   //   phone_Number: "",
   // };
+  // const [date, setDate] = useState(new Date(1598051730000));
+  // const [mode, setMode] = useState('date');
+  // const [show, setShow] = useState(false);
   constructor() {
     super();
-    this.state = { date: "" };
+    this.state = {
+      date: new Date(1598051730000),
+      mode: "date",
+      show: false,
+    };
   }
+
+  onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || this.state.date;
+    this.setState({ show: Platform.OS === "ios" });
+    this.setState({ date: currentDate });
+  };
+  showMode = currentMode => {
+    this.setState({ show: true });
+    this.setState({ mode: currentMode });
+  };
+
+  showDatepicker = () => {
+    this.showMode("date");
+  };
 
   render() {
     return (
@@ -119,6 +149,23 @@ export default class Generalinfo extends Component {
             </View>
             <View style={styles.inputContainer}>
               <Text style={styles.gender}>Date Of Birth</Text>
+              <View>
+                <View>
+                  <Button
+                    onPress={this.showDatepicker}
+                    title="Show date picker!"
+                  />
+                </View>
+                {this.state.show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={this.state.date}
+                    mode={this.state.mode}
+                    display="default"
+                    onChange={this.onChange}
+                  />
+                )}
+              </View>
               {/* <DatePicker
                 style={{ width: 370 }}
                 date={this.state.date}
