@@ -3,6 +3,8 @@ import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
+import { IconButton } from "react-native-paper";
+
 import {
   AdvisorCard,
   CompanyCard,
@@ -21,23 +23,18 @@ export default class ExploreScreen extends Component {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "center",
+            // justifyContent: "center",
             alignItems: "center",
             marginTop: 40,
           }}
         >
-          <Button
-            onlyIcon
+          <IconButton
             icon="menu"
-            iconFamily="Ionicons"
-            iconSize={40}
-            color="transparent"
-            iconColor="#1E4274"
+            type="text"
+            size={40}
+            color="#1E4274"
             style={{
-              width: 40,
-              height: 40,
-              // flex: 1,
-              justifyContent: "flex-start",
+              marginRight: 110,
             }}
             onPress={() => {
               AsyncStorage.removeItem("userData");
@@ -45,15 +42,16 @@ export default class ExploreScreen extends Component {
               AsyncStorage.removeItem("config");
               this.props.logout();
             }}
-          >
-            menu
-          </Button>
+          />
 
           <Text
             style={{
-              justifyContent: "center",
-              marginHorizontal: 100,
+              // justifyContent: "center",
+              // marginLeft: 110,
+              alignItems: "center",
+              marginRight: 115,
               fontSize: 16,
+
               color: "#1E4274",
               fontWeight: "bold",
             }}
@@ -65,7 +63,7 @@ export default class ExploreScreen extends Component {
             size={28}
             color="#1E4274"
             style={{
-              marginRight: 10,
+              // marginLeft: 30,
               // flex: 1,
               justifyContent: "flex-end",
             }}
