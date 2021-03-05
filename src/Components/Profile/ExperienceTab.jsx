@@ -578,7 +578,7 @@ export class SkillsCard extends Component {
                     flexDirection: "row",
                   }}
                 >
-                  <View style={{ flexDirection: "" }}>
+                  <View>
                     <Chip
                       style={{ height: 30, marginRight: 6 }}
                       textStyle={{
