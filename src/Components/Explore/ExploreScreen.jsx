@@ -3,6 +3,8 @@ import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
+import { IconButton } from "react-native-paper";
+
 import {
   AdvisorCard,
   CompanyCard,
@@ -26,17 +28,13 @@ export default class ExploreScreen extends Component {
             marginTop: 40,
           }}
         >
-          <Button
-            onlyIcon
+          <IconButton
             icon="menu"
-            iconFamily="Ionicons"
-            iconSize={40}
-            color="transparent"
-            iconColor="#1E4274"
+            type="text"
+            size={40}
+            color="#1E4274"
             style={{
-              width: 40,
-              height: 40,
-              marginRight: 100,
+              marginRight: 110,
             }}
             onPress={() => {
               AsyncStorage.removeItem("userData");
@@ -44,9 +42,7 @@ export default class ExploreScreen extends Component {
               AsyncStorage.removeItem("config");
               this.props.logout();
             }}
-          >
-            menu
-          </Button>
+          />
 
           <Text
             style={{
