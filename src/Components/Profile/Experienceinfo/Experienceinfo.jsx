@@ -7,23 +7,25 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import { DocumentPicker } from "expo-document-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import { useNavigation } from "@react-navigation/native";
 
-export default function EduInfoFormScren(props) {
+export default function ExpInfoFormscreen(props) {
   const navigation = useNavigation();
-  return <EduInfoForm navigation={navigation} {...props} />;
+  return <ExpInfoForm navigation={navigation} {...props} />;
 }
 // import { CountryPicker } from "react-native-country-picker-modal";
-class EduInfoForm extends Component {
+class ExpInfoForm extends Component {
   // state = {
-  //   SchoolName: "",
-  //   countryname: "",
-  //   cityname: "",
-  //   EducationFrom: "",
-  //   EducationTo: "",
-  //   EducationCredURL: "",
-  //   EducationCredUpload: "",
+  //   StudentExperienceType: "",
+  //   StudentExperienceJobTitle: "",
+  //   StudentExperienceCompany: "",
+  //   StudentExperienceCountry: "",
+  //   StudentExperiencecity: "",
+  //   StudentExperienceFrom: "",
+  //   StudentExperienceTo: "",
+  //   StudentExperienceCredUrl: "",
+  //   StudentExperienceCredUpload: "",
+
   // };
   constructor() {
     super();
@@ -77,10 +79,46 @@ class EduInfoForm extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
-        <Text style={styles.title}>Education</Text>
+        <Text style={styles.title}>Experience</Text>
 
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
+            <Text style={styles.gender}>Experience Type</Text>
+            <View style={styles.boxContainer}>
+              <Picker
+                mode="dialog"
+                style={{
+                  color: "#1E4275",
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 10,
+                  borderRadius: 0,
+                }}
+                placeholder="Select your SIM"
+                placeholderStyle={{ color: "#1E4275" }}
+                placeholderIconColor="#1E4275"
+                itemStyle={{ backgroundColor: "#fff" }}
+                dropdownIconColor="#1E4275"
+                selectedValue={"EGYPT"}
+                // onValueChange={(itemValue, itemIndex) =>
+                //   this.setState({ country: itemValue })
+                // }
+              >
+                <Picker.Item label="Choose Experience Type" value="0" />
+                {/* {this.state.country.map((key) => {
+                      return (
+                        <Picker.Item
+                          label={key.countryname}
+                          value={key.id}
+                          key={key.id}
+                        />
+                      );
+                    })} */}
+              </Picker>
+            </View>
+
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -92,11 +130,32 @@ class EduInfoForm extends Component {
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
               }}
-              label="School Name"
+              label="Job Title"
               labelStyle={styles.labelStyle}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-
+            <Input
+              style={styles.input}
+              autoCompleteType="name"
+              textContentType="name"
+              keyboardType="default"
+              textAlign="left"
+              inputStyle={{ color: "#1E4274" }}
+              inputContainerStyle={{
+                borderColor: "#1E4274",
+                borderBottomWidth: 2,
+              }}
+              label="Company Name"
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginTop: -10,
+              }}
+              // onChangeText={(value) => this.setState({ SchoolName: value })}
+            />
             <View style={styles.inputContainer}>
               <Text
                 style={{
@@ -106,7 +165,6 @@ class EduInfoForm extends Component {
                   fontWeight: "normal",
                   marginTop: -10,
                   marginLeft: 10,
-                  marginBottom: -10,
                 }}
               >
                 Country

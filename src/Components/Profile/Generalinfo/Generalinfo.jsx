@@ -13,10 +13,15 @@ import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native";
 
 // import DatePicker from "react-native-datepicker";
 // import { CountryPicker } from "react-native-country-picker-modal";
-export default class Generalinfo extends Component {
+export default function GeneralInfoFormScreen(props) {
+  const navigation = useNavigation();
+  return <GeneralInfo navigation={navigation} {...props} />;
+}
+class GeneralInfo extends Component {
   // state = {
   //   studentName: "",
   //   gender: "",
@@ -39,12 +44,16 @@ export default class Generalinfo extends Component {
     };
   }
 
-  onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || this.state.date;
-    this.setState({ show: Platform.OS === "ios" });
-    this.setState({ date: currentDate });
+  onChange = (e, selectedDate) => {
+    try {
+      const currentDate = selectedDate || this.state.date;
+      this.setState({ show: Platform.OS === "ios" });
+      this.setState({ date: currentDate });
+    } catch (error) {
+      console.log(error);
+    }
   };
-  showMode = currentMode => {
+  showMode = (currentMode) => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
@@ -68,7 +77,7 @@ export default class Generalinfo extends Component {
             marginTop: 45,
             marginBottom: 15,
           }}
-          onPress={() => navigation.push("SignIn")}
+          onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Personal Information</Text>
 
@@ -148,12 +157,43 @@ export default class Generalinfo extends Component {
               </Text>
             </View>
             <View style={styles.inputContainer}>
-              <Text style={styles.gender}>Date Of Birth</Text>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 15,
+                  marginLeft: 10,
+                  marginBottom: -20,
+                }}
+              >
+                Date Of Birth
+              </Text>
               <View>
                 <View>
-                  <Button
+                  <Feather
                     onPress={this.showDatepicker}
-                    title="Show date picker!"
+                    name="calendar"
+                    size={22}
+                    color="#1E4274"
+                    style={{
+                      marginTop: 20,
+                      marginLeft: 340,
+                    }}
+                  ></Feather>
+                  <Button
+                    title={this.state.date}
+                    onPress={this.showDatepicker}
+                    color="transparent"
+                    style={{
+                      width: 360,
+                      marginLeft: 10,
+                      borderColor: "transparent",
+                      borderBottomColor: "#1E4274",
+                      borderBottomWidth: 2,
+                      marginTop: -30,
+                    }}
                   />
                 </View>
                 {this.state.show && (
@@ -166,34 +206,6 @@ export default class Generalinfo extends Component {
                   />
                 )}
               </View>
-              {/* <DatePicker
-                style={{ width: 370 }}
-                date={this.state.date}
-                mode="date"
-                placeholder="  "
-                format="DD-MM-YYYY"
-                minDate="01-01-1980"
-                maxDate="01-01-2006"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                showIcon={false}
-                // iconSource={{
-                //   uri:
-                //     "https://https://react-icons.github.io/react-icons/icons?name=ai/AiOutlineCalendar",
-                // }}
-                customStyles={{
-                  dateInput: {
-                    marginLeft: 10,
-                    borderColor: "transparent",
-                    borderBottomColor: "#1E4274",
-                    borderBottomWidth: 2,
-                    color: "#1E4274",
-                  },
-                }}
-                onDateChange={date => {
-                  this.setState({ date: date });
-                }}
-              /> */}
 
               <Input
                 style={styles.input}
@@ -207,7 +219,7 @@ export default class Generalinfo extends Component {
                 }}
                 label="Nationality"
                 labelStyle={styles.labelStyle}
-                onChangeText={value => this.setState({ nationality: value })}
+                onChangeText={(value) => this.setState({ nationality: value })}
               />
               <Text style={styles.gender}>Country</Text>
               <View style={styles.boxContainer}>

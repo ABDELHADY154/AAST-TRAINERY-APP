@@ -7,23 +7,25 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import { DocumentPicker } from "expo-document-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
-
 import { useNavigation } from "@react-navigation/native";
 
-export default function EduInfoFormScren(props) {
+export default function CoursesInfoFormscreen(props) {
   const navigation = useNavigation();
-  return <EduInfoForm navigation={navigation} {...props} />;
+  return <CoursesInfoForm navigation={navigation} {...props} />;
 }
 // import { CountryPicker } from "react-native-country-picker-modal";
-class EduInfoForm extends Component {
+class CoursesInfoForm extends Component {
   // state = {
-  //   SchoolName: "",
-  //   countryname: "",
-  //   cityname: "",
-  //   EducationFrom: "",
-  //   EducationTo: "",
-  //   EducationCredURL: "",
-  //   EducationCredUpload: "",
+  // needs update  StudentExperienceType: "",
+  //   StudentExperienceJobTitle: "",
+  //   StudentExperienceCompany: "",
+  //   StudentExperienceCountry: "",
+  //   StudentExperiencecity: "",
+  //   StudentExperienceFrom: "",
+  //   StudentExperienceTo: "",
+  //   StudentExperienceCredUrl: "",
+  //   StudentExperienceCredUpload: "",
+
   // };
   constructor() {
     super();
@@ -77,7 +79,7 @@ class EduInfoForm extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
-        <Text style={styles.title}>Education</Text>
+        <Text style={styles.title}>Courses</Text>
 
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
@@ -92,11 +94,54 @@ class EduInfoForm extends Component {
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
               }}
-              label="School Name"
+              label="Course Name"
               labelStyle={styles.labelStyle}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-
+            <Input
+              style={styles.input}
+              autoCompleteType="name"
+              textContentType="name"
+              keyboardType="default"
+              textAlign="left"
+              inputStyle={{ color: "#1E4274" }}
+              inputContainerStyle={{
+                borderColor: "#1E4274",
+                borderBottomWidth: 2,
+              }}
+              label="Course Provider"
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginTop: -10,
+                marginBottom: -10,
+              }}
+              // onChangeText={(value) => this.setState({ SchoolName: value })}
+            />
+            <Input
+              style={styles.input}
+              autoCompleteType="name"
+              textContentType="name"
+              keyboardType="default"
+              textAlign="left"
+              inputStyle={{ color: "#1E4274" }}
+              inputContainerStyle={{
+                borderColor: "#1E4274",
+                borderBottomWidth: 2,
+              }}
+              label="Company Name"
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginTop: -10,
+              }}
+              // onChangeText={(value) => this.setState({ SchoolName: value })}
+            />
             <View style={styles.inputContainer}>
               <Text
                 style={{
@@ -109,78 +154,8 @@ class EduInfoForm extends Component {
                   marginBottom: -10,
                 }}
               >
-                Country
+                From
               </Text>
-              <View style={styles.boxContainer}>
-                <Picker
-                  mode="dialog"
-                  style={{
-                    color: "#1E4275",
-                    borderColor: "#1E4275",
-                    borderTopWidth: 0,
-                    borderRightWidth: 0,
-                    borderLeftWidth: 0,
-                    borderBottomWidth: 10,
-                    borderRadius: 0,
-                  }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={"EGYPT"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
-                  // }
-                >
-                  <Picker.Item label="Choose The Country" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.countryname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
-                </Picker>
-              </View>
-              <Text style={styles.gender}>City</Text>
-              <View style={styles.boxContainer}>
-                <Picker
-                  mode="dialog"
-                  style={{
-                    color: "#1E4275",
-                    borderColor: "#1E4275",
-                    borderTopWidth: 0,
-                    borderRightWidth: 0,
-                    borderLeftWidth: 0,
-                    borderBottomWidth: 10,
-                    borderRadius: 0,
-                  }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={"Alexandria"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ city: itemValue })
-                  // }
-                >
-                  <Picker.Item label="Choose The City" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.cityname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
-                </Picker>
-              </View>
-              <Text style={styles.gender}>From</Text>
               <View>
                 <View>
                   <Feather
@@ -217,7 +192,19 @@ class EduInfoForm extends Component {
                   />
                 )}
               </View>
-              <Text style={styles.gender}>To</Text>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 10,
+                  marginLeft: 10,
+                  marginBottom: -10,
+                }}
+              >
+                To
+              </Text>
               <View>
                 <View>
                   <Feather
@@ -293,7 +280,7 @@ class EduInfoForm extends Component {
                   style={{
                     borderRadius: 5,
                     width: "10%",
-                    height: "36%",
+                    height: "46%",
                     marginTop: -4,
                     marginLeft: "49%",
                   }}
@@ -335,7 +322,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -250,
+    marginLeft: -270,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",

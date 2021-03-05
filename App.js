@@ -9,6 +9,12 @@ import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
 import EducationScreen from "./src/Components/Profile/Educationinfo/Educationinfo";
+import AcademicScreen from "./src/Components/Profile/Academicsinfo/Academicsinfo";
+import GeneralScreen from "./src/Components/Profile/Generalinfo/Generalinfo";
+import ExperienceScreen from "./src/Components/Profile/Experienceinfo/Experienceinfo";
+import CoursesScreen from "./src/Components/Profile/Coursesinfo/Coursesinfo";
+import AccountScreen from "./src/Components/Profile/Accountsinfo/Accountsinfo";
+
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
@@ -99,12 +105,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = props => {
+  const TutorialsSCreen = (props) => {
     const navigation = useNavigation();
-    const showTutorial = val => {
+    const showTutorial = (val) => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -130,15 +136,15 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
   return (
     <AuthContext.Provider value={authContext}>
@@ -219,6 +225,61 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="EducationForm"
                   component={EducationInfoFormScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="GeneralForm"
+                  component={GeneralScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="AcademicForm"
+                  component={AcademicScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="ExperienceForm"
+                  component={ExperienceScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="CoursesForm"
+                  component={CoursesScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="AccountForm"
+                  component={AccountScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

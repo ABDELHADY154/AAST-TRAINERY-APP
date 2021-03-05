@@ -59,14 +59,14 @@ export class EducationCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
                     size={30}
                     color="#1E4274"
                     onPress={() => {
-                      this.props.navigation.navigate("EducationForm");
+                      this.props.navigation.navigate("AccountForm");
                     }}
                   />
                 )}
@@ -186,7 +186,7 @@ export class ExperienceCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -323,7 +323,7 @@ export class CoursesCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -448,7 +448,7 @@ export class SkillsCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
