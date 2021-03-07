@@ -13,6 +13,7 @@ import { axios } from "../../Config/Axios";
 import { Icon } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 
@@ -101,7 +102,6 @@ export default class HomeScreen extends Component {
   constructor() {
     super();
     this.state = {
-      userData: {},
       token: "",
     };
   }
@@ -113,25 +113,10 @@ export default class HomeScreen extends Component {
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-
-  async componentDidMount() {
-    try {
-      var config = await AsyncStorage.getItem("config");
-      var parsedConfig = JSON.parse(config);
-    } catch (e) {
-      console.log(e);
-    }
-    axios
-      .get("/A/get-profile", parsedConfig)
-      .then(response => {
-        this.setState({
-          userData: response.data.response.data,
-        });
-      })
-      .catch(err => {
-        console.log(err.response.data);
-      });
-  }
+  ProfileScreen = props => {
+    const navigation = useNavigation();
+    return <Profile {...props} navigation={navigation} />;
+  };
   render() {
     // console.log(this.props.userSignOut());
     return (
@@ -158,7 +143,7 @@ export default class HomeScreen extends Component {
         <Tab.Screen name="Activity" component={Activity} />
         <Tab.Screen name="Coaching" component={CareerCoaching} />
         <Tab.Screen name="Notifications" component={Notification} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Profile" component={this.ProfileScreen} />
       </Tab.Navigator>
     );
   }

@@ -18,6 +18,8 @@ import { Avatar, IconButton } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { ExperienceTab } from "./ExperienceTab";
 import { PersonalTab } from "./PersonalTab";
+import { useNavigation } from "@react-navigation/native";
+
 const Tab = createMaterialTopTabNavigator();
 
 export default class ProfileScreen extends Component {
@@ -25,10 +27,13 @@ export default class ProfileScreen extends Component {
     modalVisible: false,
     image: null,
   };
-  setModalVisible = (visible) => {
+  setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
-
+  ExperienceTabScreen = props => {
+    const navigation = useNavigation();
+    return <ExperienceTab {...props} navigation={navigation} />;
+  };
   // async componentDidMount() {
   //   await axios
   //     .get("/A/student/get-profile")
@@ -163,7 +168,7 @@ export default class ProfileScreen extends Component {
           }}
         >
           <Tab.Screen name="Personal Info" component={PersonalTab} />
-          <Tab.Screen name="Experience" component={ExperienceTab} />
+          <Tab.Screen name="Experience" component={this.ExperienceTabScreen} />
         </Tab.Navigator>
 
         <StatusBar style="auto" />

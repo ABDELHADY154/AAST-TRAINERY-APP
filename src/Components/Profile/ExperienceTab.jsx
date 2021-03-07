@@ -18,7 +18,7 @@ export class ExperienceTab extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <EducationCard />
+            <EducationCard navigation={this.props.navigation} />
             <ExperienceCard />
             <CoursesCard />
             <SkillsCard />
@@ -65,7 +65,9 @@ export class EducationCard extends Component {
                     icon="plus-box"
                     size={30}
                     color="#1E4274"
-                    onPress={() => {}}
+                    onPress={() => {
+                      this.props.navigation.navigate("AccountForm");
+                    }}
                   />
                 )}
               />
@@ -578,7 +580,12 @@ export class SkillsCard extends Component {
                     flexDirection: "row",
                   }}
                 >
-                  <View>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                    }}
+                  >
                     <Chip
                       style={{ height: 30, marginRight: 6 }}
                       textStyle={{
