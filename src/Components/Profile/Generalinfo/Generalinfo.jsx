@@ -31,6 +31,10 @@ class GeneralInfo extends Component {
       country: "",
       city: "",
       studentName: "",
+      gender: "",
+      checked: "",
+      nationality: "",
+      phoneNumber: "",
     };
 
     // /A/student/profile/personal
@@ -52,8 +56,6 @@ class GeneralInfo extends Component {
         break;
       }
     }
-
-    console.log(itemValue);
   };
   getCityList = code => {
     axios
@@ -68,6 +70,7 @@ class GeneralInfo extends Component {
 
   onChange = (e, selectedDate) => {
     try {
+      console.log(selectedDate);
       const currentDate = selectedDate || this.state.date;
       this.setState({ show: Platform.OS === "ios" });
       this.setState({ date: currentDate });
@@ -89,6 +92,24 @@ class GeneralInfo extends Component {
       .get("/countriesList")
       .then(res => {
         this.setState({ countriesList: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    axios
+      .get("/A/student/profile/personal")
+      .then(res => {
+        this.setState({
+          studentName: res.data.response.data.fullName,
+          gender: res.data.response.data.gender,
+          date: res.data.response.data.dob,
+          nationality: res.data.response.data.nationality,
+          country: res.data.response.data.country,
+          city: res.data.response.data.city,
+          phoneNumber: res.data.response.data.phoneNumber,
+          checked: res.data.response.data.gender == "male" ? "first" : "second",
+        });
+        this.countryOnchangeHandler(this.state.country, 0);
       })
       .catch(err => {
         console.log(err);
@@ -131,6 +152,7 @@ class GeneralInfo extends Component {
               }}
               label="Full Name"
               labelStyle={styles.labelStyle}
+              value={this.state.studentName}
               onChangeText={value => this.setState({ studentName: value })}
             />
             <Text
@@ -252,6 +274,7 @@ class GeneralInfo extends Component {
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
                 }}
+                value={this.state.nationality}
                 label="Nationality"
                 labelStyle={styles.labelStyle}
                 onChangeText={value => this.setState({ nationality: value })}
@@ -323,6 +346,7 @@ class GeneralInfo extends Component {
                   borderBottomWidth: 2,
                 }}
                 label="Phone Number"
+                value={this.state.phoneNumber}
                 labelStyle={styles.labelStyle}
                 // onChangeText={value => this.setState({ regNo: value })}
               />

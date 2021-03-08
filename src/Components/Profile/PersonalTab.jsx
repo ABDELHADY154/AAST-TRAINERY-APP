@@ -24,8 +24,6 @@ import { ReviewsCard } from "./ReviewsCard";
 import Carousel from "react-native-snap-carousel";
 import * as Progress from "react-native-progress";
 
-import { ReviewsCard } from "./ReviewsCard";
-
 export function PersonalTab(props) {
   const navigation = useNavigation();
   return <PersonalTabForm navigation={navigation} {...props} />;
