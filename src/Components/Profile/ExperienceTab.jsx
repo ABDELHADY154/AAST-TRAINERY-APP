@@ -30,6 +30,10 @@ export class ExperienceTab extends Component {
         this.setState({
           educations: response.data.response.data.educations,
           work_experience: response.data.response.data.work_experience,
+          courses: response.data.response.data.courses,
+          skills: response.data.response.data.skills,
+          interests: response.data.response.data.interests,
+          languages: response.data.response.data.languages,
         });
         console.log(response.data.response.data);
       })
@@ -152,8 +156,271 @@ export class ExperienceTab extends Component {
               </Card>
             </View>
             {/* course */}
-            <CoursesCard />
-            <SkillsCard />
+            <View>
+              <Card
+                style={{
+                  width: "95%",
+                  marginLeft: 9,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderColor: "#CCCCCC",
+                }}
+              >
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Courses"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {}}
+                    />
+                  )}
+                />
+                {this.state.courses ? (
+                  this.state.courses.map((e) => {
+                    return (
+                      <CoursesCard
+                        key={e.id}
+                        id={e.id}
+                        course_name={e.course_name}
+                        course_provider={e.course_provider}
+                        cred={e.cred}
+                        cred_url={e.cred_url}
+                        navigation={this.props.navigation}
+                      />
+                    );
+                  })
+                ) : (
+                  <Text></Text>
+                )}
+              </Card>
+            </View>
+            {/* skills */}
+            <View>
+              <Card
+                style={{
+                  width: "95%",
+                  marginLeft: 9,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderColor: "#CCCCCC",
+                }}
+              >
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Skills"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {}}
+                    />
+                  )}
+                />
+                <Card.Content>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flex: 1,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flex: 1,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Octicons
+                        name="primitive-dot"
+                        size={24}
+                        color="#CD8930"
+                        style={{
+                          justifyContent: "flex-start",
+                          marginRight: 5,
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <Title
+                          style={{
+                            fontSize: 16,
+                            color: "#1E4274",
+                            fontWeight: "bold",
+
+                            color: "#1E4274",
+                            lineHeight: 19,
+                          }}
+                        >
+                          Tools and Fields of Expertise
+                        </Title>
+                      </View>
+                    </View>
+                  </View>
+                  {this.state.skills ? (
+                    this.state.skills.map((e) => {
+                      return (
+                        <SkillsCard
+                          key={e.id}
+                          id={e.id}
+                          skill_name={e.skill_name}
+                          years_of_exp={e.years_of_exp}
+                          navigation={this.props.navigation}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text></Text>
+                  )}
+                </Card.Content>
+                <Card.Content>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flex: 1,
+                      marginTop: 20,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flex: 1,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Octicons
+                        name="primitive-dot"
+                        size={24}
+                        color="#CD8930"
+                        style={{
+                          justifyContent: "flex-start",
+                          marginRight: 5,
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <Title
+                          style={{
+                            fontSize: 16,
+                            color: "#1E4274",
+                            fontWeight: "bold",
+                            flex: 1,
+                            justifyContent: "flex-start",
+                            color: "#1E4274",
+                            lineHeight: 19,
+                          }}
+                        >
+                          Intrests
+                        </Title>
+                      </View>
+                    </View>
+                    <MaterialIcons
+                      name="mode-edit"
+                      size={24}
+                      color="#CD8930"
+                      style={{ justifyContent: "flex-end" }}
+                      onPress={() => {}}
+                    />
+                  </View>
+
+                  {this.state.interests ? (
+                    this.state.interests.map((e) => {
+                      return (
+                        <Interests
+                          key={e.id}
+                          id={e.id}
+                          interest={e.interest}
+                          navigation={this.props.navigation}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text></Text>
+                  )}
+                </Card.Content>
+                <Card.Content>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      flex: 1,
+                      marginTop: 20,
+                    }}
+                  >
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flex: 1,
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Octicons
+                        name="primitive-dot"
+                        size={24}
+                        color="#CD8930"
+                        style={{
+                          justifyContent: "flex-start",
+                          marginRight: 5,
+                        }}
+                      />
+                      <View
+                        style={{
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <Title
+                          style={{
+                            fontSize: 16,
+                            color: "#1E4274",
+                            fontWeight: "bold",
+
+                            color: "#1E4274",
+                            lineHeight: 19,
+                          }}
+                        >
+                          Languages
+                        </Title>
+                      </View>
+                    </View>
+                  </View>
+                  {this.state.languages ? (
+                    this.state.languages.map((e) => {
+                      return (
+                        <Languages
+                          key={e.id}
+                          id={e.id}
+                          language={e.language}
+                          level={e.level}
+                          navigation={this.props.navigation}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text></Text>
+                  )}
+                </Card.Content>
+              </Card>
+            </View>
           </View>
         </ScrollView>
         <StatusBar style="light" />
@@ -369,96 +636,68 @@ export class CoursesCard extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View>
-            <Card
+          <Card.Content>
+            <View
               style={{
-                width: "95%",
-                marginLeft: 9,
-                marginBottom: 10,
-                borderWidth: 1,
-                borderColor: "#CCCCCC",
+                flexDirection: "row",
+                flex: 1,
               }}
             >
-              <Card.Title
-                style={{ marginLeft: 1 }}
-                title="Courses"
-                titleStyle={{
-                  color: "#CD8930",
-                  fontSize: 18,
-                  fontWeight: "bold",
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  alignItems: "flex-start",
                 }}
-                right={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="plus-box"
-                    size={30}
-                    color="#1E4274"
-                    onPress={() => {}}
-                  />
-                )}
-              />
-              <Card.Content>
+              >
+                <Octicons
+                  name="primitive-dot"
+                  size={24}
+                  color="#CD8930"
+                  style={{
+                    justifyContent: "flex-start",
+                    marginRight: 5,
+                  }}
+                />
                 <View
                   style={{
-                    flexDirection: "row",
-                    flex: 1,
+                    justifyContent: "flex-end",
                   }}
                 >
-                  <View
+                  <Title
                     style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        IDE Academy
-                      </Title>
-                    </View>
-                  </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
-                </View>
-                <View style={{ marginLeft: 18 }}>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
+                      fontSize: 16,
                       color: "#1E4274",
+                      fontWeight: "bold",
+                      flex: 1,
+                      justifyContent: "flex-start",
+                      color: "#1E4274",
+                      lineHeight: 19,
                     }}
                   >
-                    Full-Stack Developer
-                  </Paragraph>
-                  <Paragraph
+                    {this.props.course_provider}
+                  </Title>
+                </View>
+              </View>
+              <MaterialIcons
+                name="mode-edit"
+                size={24}
+                color="#CD8930"
+                style={{ justifyContent: "flex-end" }}
+                onPress={() => {}}
+              />
+            </View>
+            <View style={{ marginLeft: 18 }}>
+              <Paragraph
+                style={{
+                  // marginHorizontal: 23,
+                  fontSize: 14,
+                  color: "#1E4274",
+                }}
+              >
+                {this.props.course_name}
+              </Paragraph>
+              {/* <Paragraph
                     style={{
                       // marginHorizontal: 23,
                       fontSize: 14,
@@ -466,23 +705,21 @@ export class CoursesCard extends Component {
                     }}
                   >
                     Sep 2007 to Jun 2017
-                  </Paragraph>
-                  <Button
-                    type="text"
-                    style={{
-                      fontSize: 14,
-                      alignItems: "flex-start",
-                      marginLeft: -16,
-                    }}
-                    onPress={() => {}}
-                    color="#CD8930"
-                  >
-                    See credential
-                  </Button>
-                </View>
-              </Card.Content>
-            </Card>
-          </View>
+                  </Paragraph> */}
+              <Button
+                type="text"
+                style={{
+                  fontSize: 14,
+                  alignItems: "flex-start",
+                  marginLeft: -16,
+                }}
+                onPress={() => {}}
+                color="#CD8930"
+              >
+                See credential
+              </Button>
+            </View>
+          </Card.Content>
         </ScrollView>
         <StatusBar style="auto" />
       </View>
@@ -496,302 +733,129 @@ export class SkillsCard extends Component {
       starCount: 3,
     };
   }
-
   onStarRatingPress(rating) {
     this.setState({
       starCount: rating,
     });
   }
-
+  render() {
+    return (
+      <View
+        style={{
+          // marginLeft: 18,
+          flexDirection: "row",
+        }}
+      >
+        <Paragraph
+          style={{
+            // marginHorizontal: 23,
+            fontSize: 14,
+            color: "#1E4274",
+            flex: 1,
+            justifyContent: "flex-start",
+          }}
+        >
+          {this.props.skill_name}
+        </Paragraph>
+        <MaterialIcons
+          name="mode-edit"
+          size={24}
+          color="#CD8930"
+          style={{ justifyContent: "flex-end" }}
+        />
+      </View>
+    );
+  }
+}
+export class Interests extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      starCount: 3,
+    };
+  }
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating,
+    });
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View
+          style={{
+            marginLeft: 18,
+            width: "90%",
+            flexDirection: "row",
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              flexWrap: "wrap",
+            }}
+          >
+            <Chip
+              style={{ height: 30, marginRight: 6 }}
+              textStyle={{
+                fontSize: 14,
+                color: "#1E4274",
+              }} // onPress={() => console.log("Pressed")}
+            >
+              {this.props.interest}
+            </Chip>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
+export class Languages extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      starCount: 3,
+    };
+  }
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating,
+    });
+  }
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <Card
+            <View
               style={{
-                width: "95%",
-                marginLeft: 9,
-                marginBottom: 10,
-                borderWidth: 1,
-                borderColor: "#CCCCCC",
+                marginLeft: 18,
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              <Card.Title
-                style={{ marginLeft: 1 }}
-                title="Skills"
-                titleStyle={{
-                  color: "#CD8930",
-                  fontSize: 18,
-                  fontWeight: "bold",
+              <Paragraph
+                style={{
+                  flex: 1,
+                  justifyContent: "flex-start",
+                  fontSize: 14,
+                  color: "#1E4274",
+                  marginRight: 50,
                 }}
-                right={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="plus-box"
-                    size={30}
-                    color="#1E4274"
-                    onPress={() => {}}
-                  />
-                )}
+              >
+                {this.props.language}
+              </Paragraph>
+
+              <StarRating
+                fullStarColor={"#CD8930"}
+                starSize={20}
+                disabled={false}
+                maxStars={5}
+                rating={this.state.starCount}
+                selectedStar={this.props.level}
+                style={{ flex: 1, justifyContent: "center" }}
               />
-              <Card.Content>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flex: 1,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        Tools and Fields of Expertise
-                      </Title>
-                    </View>
-                  </View>
-                  {/* <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  /> */}
-                </View>
-
-                <View
-                  style={{
-                    // marginLeft: 18,
-                    flexDirection: "row",
-                  }}
-                >
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                      flex: 1,
-                      justifyContent: "flex-start",
-                    }}
-                  >
-                    Adobe Photoshop
-                  </Paragraph>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                  />
-                </View>
-              </Card.Content>
-              <Card.Content>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flex: 1,
-                    marginTop: 20,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        Intrests
-                      </Title>
-                    </View>
-                  </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
-                </View>
-                <View
-                  style={{
-                    marginLeft: 18,
-                    width: "90%",
-                    flexDirection: "row",
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flexWrap: "wrap",
-                    }}
-                  >
-                    <Chip
-                      style={{ height: 30, marginRight: 6 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Graphic Design
-                    </Chip>
-                    <Chip
-                      style={{ height: 30, marginRight: 6 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                        // paddingTop: -5,
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Graphic Design
-                    </Chip>
-                    <Chip
-                      style={{ height: 30, marginRight: 6 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                        // paddingTop: -5,
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Graphic Design
-                    </Chip>
-                    <Chip
-                      style={{ height: 30, marginRight: 6 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                        // paddingTop: -5,
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Graphic Design
-                    </Chip>
-                    <Chip
-                      style={{ height: 30, marginRight: 6 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                        // paddingTop: -5,
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Graphic Design
-                    </Chip>
-                  </View>
-                </View>
-              </Card.Content>
-              <Card.Content>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flex: 1,
-                    marginTop: 20,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        Languages
-                      </Title>
-                    </View>
-                  </View>
-                </View>
-                <View
-                  style={{
-                    marginLeft: 18,
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Paragraph
-                    style={{
-                      flex: 1,
-                      justifyContent: "flex-start",
-                      fontSize: 14,
-                      color: "#1E4274",
-                      marginRight: 50,
-                    }}
-                  >
-                    Arabic
-                  </Paragraph>
-
-                  <StarRating
+              {/* <StarRating
                     fullStarColor={"#CD8930"}
                     starSize={20}
                     disabled={false}
@@ -799,27 +863,18 @@ export class SkillsCard extends Component {
                     rating={this.state.starCount}
                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                     style={{ flex: 1, justifyContent: "center" }}
-                  />
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{
-                      flex: 1,
-                      justifyContent: "flex-end",
-                      alignSelf: "flex-end",
-                    }}
-                  />
-                  {/* <StarRating
-                    fullStarColor={"#CD8930"}
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.state.starCount}
-                    selectedStar={(rating) => this.onStarRatingPress(rating)}
                   /> */}
-                </View>
-              </Card.Content>
-            </Card>
+              <MaterialIcons
+                name="mode-edit"
+                size={24}
+                color="#CD8930"
+                style={{
+                  flex: 1,
+                  justifyContent: "flex-end",
+                  alignSelf: "flex-end",
+                }}
+              />
+            </View>
           </View>
         </ScrollView>
         <StatusBar style="auto" />
