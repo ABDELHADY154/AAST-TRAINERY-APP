@@ -28,22 +28,22 @@ export default class ProfileScreen extends Component {
     modalVisible: false,
     image: null,
   };
-  setModalVisible = (visible) => {
+  setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
-  ExperienceTabScreen = (props) => {
+  ExperienceTabScreen = props => {
     const navigation = useNavigation();
     return <ExperienceTab {...props} navigation={navigation} />;
   };
-  componentDidMount() {
-    axios
+  async componentDidMount() {
+    await axios
       .get("/A/student/get-profile")
-      .then((response) => {
+      .then(response => {
         this.setState({
-          id: response.data.response.data.fullName.id,
+          // id: response.data.response.data.fullName.id,
           name: response.data.response.data.name,
         });
-        console.log(response.data.response.data);
+        console.log(response.data.response);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
@@ -154,7 +154,7 @@ export default class ProfileScreen extends Component {
                 marginBottom: 15,
               }}
             >
-              {/* {this.state.name} */}
+              {this.state.name}
             </Text>
           </View>
         </View>
