@@ -4,7 +4,6 @@ import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import { IconButton } from "react-native-paper";
-import { axios } from "../../Config/Axios";
 
 import {
   AdvisorCard,
@@ -41,7 +40,6 @@ export default class ExploreScreen extends Component {
               AsyncStorage.removeItem("userData");
               AsyncStorage.removeItem("userToken");
               AsyncStorage.removeItem("config");
-              axios.defaults.headers.common["Authorization"] = ``;
               this.props.logout();
             }}
           />

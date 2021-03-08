@@ -28,9 +28,6 @@ class LoginForm extends Component {
   async storeToken(token) {
     try {
       await AsyncStorage.setItem("userToken", token);
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      // console.log(axios);
-      console.log(axios.defaults.headers.common);
     } catch (error) {
       console.log("Something went wrong", error);
     }

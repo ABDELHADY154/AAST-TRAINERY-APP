@@ -53,7 +53,6 @@ class RegisterForm extends Component {
   async storeToken(token) {
     try {
       await AsyncStorage.setItem("userToken", JSON.stringify(token));
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     } catch (error) {
       console.log("Something went wrong", error);
     }
@@ -62,7 +61,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -91,7 +90,7 @@ class RegisterForm extends Component {
     };
     axios
       .post("/register", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -104,10 +103,10 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email,
+          this.state.userData.email
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data.errors);
         if (error.response.data.errors.name) {
           this.setState({
@@ -173,7 +172,9 @@ class RegisterForm extends Component {
                   }}
                   label="Student Name"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ studentName: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentName: value })
+                  }
                 />
                 {this.state.studentNameErr != "" ? (
                   <View
@@ -217,7 +218,9 @@ class RegisterForm extends Component {
                   }}
                   label="Student Email"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ studentEmail: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentEmail: value })
+                  }
                 />
                 {this.state.studentEmailErr != "" ? (
                   <View
@@ -283,7 +286,9 @@ class RegisterForm extends Component {
                   }
                   labelStyle={styles.labelPassword}
                   secureTextEntry={this.state.showPass}
-                  onChangeText={value => this.setState({ studentPass: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentPass: value })
+                  }
                 />
                 {this.state.studentPassErr != "" ? (
                   <View
@@ -350,7 +355,7 @@ class RegisterForm extends Component {
                   }
                   labelStyle={styles.labelPassword}
                   secureTextEntry={this.state.showConfPass}
-                  onChangeText={value =>
+                  onChangeText={(value) =>
                     this.setState({ studentConPass: value })
                   }
                 />
@@ -365,7 +370,7 @@ class RegisterForm extends Component {
                   }}
                   label="Registration Number"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ regNo: value })}
+                  onChangeText={(value) => this.setState({ regNo: value })}
                 />
                 {this.state.regNoErr != "" ? (
                   <View
@@ -432,7 +437,7 @@ class RegisterForm extends Component {
                     }
                   >
                     <Picker.Item label="Not Set" value="0" />
-                    {this.state.departments.map(key => {
+                    {this.state.departments.map((key) => {
                       return (
                         <Picker.Item
                           label={key.dep_name}
