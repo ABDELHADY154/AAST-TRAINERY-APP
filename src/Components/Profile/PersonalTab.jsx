@@ -33,13 +33,13 @@ export class PersonalTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(response.data.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -187,7 +187,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    age
+                    {this.state.userData.age}
                   </Text>
                 </View>
                 <View
@@ -215,7 +215,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    nationality
+                    {this.state.userData.nationality}
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 2 }}>
@@ -237,7 +237,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    address
+                    {this.state.userData.city} , {this.state.userData.country}
                   </Text>
                 </View>
               </View>
@@ -286,7 +286,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    01012355664
+                    {this.state.userData.phone_number}
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 2 }}>
@@ -309,7 +309,7 @@ export class PersonalTab extends Component {
                       width: "80%",
                     }}
                   >
-                    CollegeEmail@college.edu
+                    {this.state.userData.email}
                   </Text>
                 </View>
               </View>
@@ -363,7 +363,7 @@ export class PersonalTab extends Component {
                       width: "78%",
                     }}
                   >
-                    Arab Academy for science and technology
+                    {this.state.userData.country}
                   </Text>
                 </View>
                 <View
@@ -392,7 +392,7 @@ export class PersonalTab extends Component {
                       width: "80%",
                     }}
                   >
-                    Business Information Systems
+                    {this.state.userData.department}
                   </Text>
                 </View>
                 <View
@@ -420,7 +420,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    3.89
+                    {this.state.userData.gpa}
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 5 }}>
@@ -441,9 +441,7 @@ export class PersonalTab extends Component {
                       fontSize: 14,
                       color: "#1E4274",
                     }}
-                  >
-                    2017-2021
-                  </Text>
+                  ></Text>
                 </View>
                 <View
                   style={{
@@ -470,7 +468,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    7
+                    {this.state.userData.period}
                   </Text>
                 </View>
               </View>

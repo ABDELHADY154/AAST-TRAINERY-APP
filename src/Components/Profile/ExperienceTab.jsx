@@ -19,19 +19,21 @@ export class ExperienceTab extends Component {
     super();
     this.state = {
       educations: [],
+      work_experience: [],
     };
   }
 
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
-      .then(response => {
+      .then((response) => {
         this.setState({
           educations: response.data.response.data.educations,
+          work_experience: response.data.response.data.work_experience,
         });
         console.log(response.data.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -60,7 +62,7 @@ export class ExperienceTab extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                       }}
-                      right={props => (
+                      right={(props) => (
                         <IconButton
                           {...props}
                           icon="plus-box"
@@ -73,7 +75,7 @@ export class ExperienceTab extends Component {
                       )}
                     />
                     {this.state.educations ? (
-                      this.state.educations.map(e => {
+                      this.state.educations.map((e) => {
                         return (
                           <EducationCard
                             key={e.id}
@@ -94,7 +96,62 @@ export class ExperienceTab extends Component {
                 </View>
               </ScrollView>
             </View>
-            <ExperienceCard />
+            {/* experiance */}
+            <View>
+              <Card
+                style={{
+                  width: "95%",
+                  marginLeft: 9,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderColor: "#CCCCCC",
+                }}
+              >
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Work Experience"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {}}
+                    />
+                  )}
+                />
+                {this.state.work_experience ? (
+                  this.state.work_experience.map((e) => {
+                    return (
+                      <ExperienceCard
+                        key={e.id}
+                        id={e.id}
+                        job_title={e.job_title}
+                        company_name={e.company_name}
+                        company_website={e.company_website}
+                        city={e.city}
+                        country={e.country}
+                        from={e.from}
+                        to={e.to}
+                        duration={e.duration}
+                        experience_type={e.experience_type}
+                        cred={e.cred}
+                        cred_url={e.cred_url}
+                        navigation={this.props.navigation}
+                      />
+                    );
+                  })
+                ) : (
+                  <Text></Text>
+                )}
+              </Card>
+            </View>
+            {/* course */}
             <CoursesCard />
             <SkillsCard />
           </View>
@@ -206,132 +263,102 @@ export class ExperienceCard extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View>
-            <Card
+          <Card.Content>
+            <View
               style={{
-                width: "95%",
-                marginLeft: 9,
-                marginBottom: 10,
-                borderWidth: 1,
-                borderColor: "#CCCCCC",
+                flexDirection: "row",
+                flex: 1,
               }}
             >
-              <Card.Title
-                style={{ marginLeft: 1 }}
-                title="Work Experience"
-                titleStyle={{
-                  color: "#CD8930",
-                  fontSize: 18,
-                  fontWeight: "bold",
+              <View
+                style={{
+                  flexDirection: "row",
+                  flex: 1,
+                  alignItems: "flex-start",
                 }}
-                right={props => (
-                  <IconButton
-                    {...props}
-                    icon="plus-box"
-                    size={30}
-                    color="#1E4274"
-                    onPress={() => {}}
-                  />
-                )}
-              />
-              <Card.Content>
+              >
+                <Octicons
+                  name="primitive-dot"
+                  size={24}
+                  color="#CD8930"
+                  style={{
+                    justifyContent: "flex-start",
+                    marginRight: 5,
+                  }}
+                />
                 <View
                   style={{
-                    flexDirection: "row",
-                    flex: 1,
+                    justifyContent: "flex-end",
                   }}
                 >
-                  <View
+                  <Title
                     style={{
-                      flexDirection: "row",
+                      fontSize: 16,
+                      color: "#1E4274",
+                      fontWeight: "bold",
                       flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        Web Developer at Qowwa Technologies
-                      </Title>
-                    </View>
-                  </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
-                </View>
-                <View style={{ marginLeft: 18 }}>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
+                      justifyContent: "flex-start",
                       color: "#1E4274",
+                      lineHeight: 19,
                     }}
                   >
-                    Alexandria Governorate, Egypt
-                  </Paragraph>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Jan 2020 to Feb 2020
-                  </Paragraph>
-                  <View style={{ flexDirection: "row" }}>
-                    <Button
-                      type="text"
-                      style={{
-                        fontSize: 14,
-                        alignItems: "flex-start",
-                        marginLeft: -16,
-                      }}
-                      onPress={() => {}}
-                      color="#CD8930"
-                    >
-                      See credential
-                    </Button>
-                    <Chip
-                      style={{ height: 30 }}
-                      textStyle={{
-                        fontSize: 14,
-                        color: "#1E4274",
-                        // paddingTop: -5,
-                      }} // onPress={() => console.log("Pressed")}
-                    >
-                      Internship
-                    </Chip>
-                  </View>
+                    {this.props.job_title}
+                  </Title>
                 </View>
-              </Card.Content>
-            </Card>
-          </View>
+              </View>
+              <MaterialIcons
+                name="mode-edit"
+                size={24}
+                color="#CD8930"
+                style={{ justifyContent: "flex-end" }}
+                onPress={() => {}}
+              />
+            </View>
+            <View style={{ marginLeft: 18 }}>
+              <Paragraph
+                style={{
+                  // marginHorizontal: 23,
+                  fontSize: 14,
+                  color: "#1E4274",
+                }}
+              >
+                {this.props.city}, {this.props.country}
+              </Paragraph>
+              <Paragraph
+                style={{
+                  // marginHorizontal: 23,
+                  fontSize: 14,
+                  color: "#1E4274",
+                }}
+              >
+                {this.props.from} to {this.props.to}
+              </Paragraph>
+              <View style={{ flexDirection: "row" }}>
+                <Button
+                  type="text"
+                  style={{
+                    fontSize: 14,
+                    alignItems: "flex-start",
+                    marginLeft: -16,
+                  }}
+                  onPress={() => {}}
+                  color="#CD8930"
+                >
+                  See credential
+                </Button>
+                <Chip
+                  style={{ height: 30 }}
+                  textStyle={{
+                    fontSize: 14,
+                    color: "#1E4274",
+                    // paddingTop: -5,
+                  }} // onPress={() => console.log("Pressed")}
+                >
+                  {this.props.experience_type}
+                </Chip>
+              </View>
+            </View>
+          </Card.Content>
         </ScrollView>
       </View>
     );
@@ -360,7 +387,7 @@ export class CoursesCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -498,7 +525,7 @@ export class SkillsCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -770,7 +797,7 @@ export class SkillsCard extends Component {
                     disabled={false}
                     maxStars={5}
                     rating={this.state.starCount}
-                    selectedStar={rating => this.onStarRatingPress(rating)}
+                    selectedStar={(rating) => this.onStarRatingPress(rating)}
                     style={{ flex: 1, justifyContent: "center" }}
                   />
                   <MaterialIcons
