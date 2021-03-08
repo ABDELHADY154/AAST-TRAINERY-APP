@@ -15,18 +15,91 @@ import {
 import StarRating from "react-native-star-rating";
 
 export class ExperienceTab extends Component {
+  constructor() {
+    super();
+    this.state = {
+      educations: [],
+    };
+  }
+
+  async componentDidMount() {
+    await axios
+      .get("/A/student/get-profileExperience")
+      .then(response => {
+        this.setState({
+          educations: response.data.response.data.educations,
+        });
+        console.log(response.data.response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   render() {
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <EducationCard navigation={this.props.navigation} />
+            <View style={styles.container}>
+              <ScrollView>
+                <View>
+                  <Card
+                    style={{
+                      width: "95%",
+                      marginLeft: 9,
+                      marginBottom: 10,
+                      borderWidth: 1,
+                      borderColor: "#CCCCCC",
+                    }}
+                  >
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Education"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      right={props => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {
+                            this.props.navigation.navigate("AccountForm");
+                          }}
+                        />
+                      )}
+                    />
+                    {this.state.educations ? (
+                      this.state.educations.map(e => {
+                        return (
+                          <EducationCard
+                            key={e.id}
+                            id={e.id}
+                            school_name={e.school_name}
+                            city={e.city}
+                            country={e.country}
+                            from={e.from}
+                            to={e.to}
+                            navigation={this.props.navigation}
+                          />
+                        );
+                      })
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </Card>
+                </View>
+              </ScrollView>
+            </View>
             <ExperienceCard />
             <CoursesCard />
             <SkillsCard />
           </View>
         </ScrollView>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </View>
     );
   }
@@ -41,127 +114,90 @@ const styles = StyleSheet.create({
 export class EducationCard extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <ScrollView>
-          <View>
-            <Card
+      <Card.Content>
+        <View
+          style={{
+            flexDirection: "row",
+            flex: 1,
+          }}
+        >
+          <View
+            style={{
+              flexDirection: "row",
+              flex: 1,
+              alignItems: "flex-start",
+            }}
+          >
+            <Octicons
+              name="primitive-dot"
+              size={24}
+              color="#CD8930"
               style={{
-                width: "95%",
-                marginLeft: 9,
-                marginBottom: 10,
-                borderWidth: 1,
-                borderColor: "#CCCCCC",
+                justifyContent: "flex-start",
+                marginRight: 5,
+              }}
+            />
+            <View
+              style={{
+                justifyContent: "flex-end",
               }}
             >
-              <Card.Title
-                style={{ marginLeft: 1 }}
-                title="Education"
-                titleStyle={{
-                  color: "#CD8930",
-                  fontSize: 18,
+              <Title
+                style={{
+                  fontSize: 16,
+                  color: "#1E4274",
                   fontWeight: "bold",
+                  flex: 1,
+                  justifyContent: "flex-start",
+                  color: "#1E4274",
+                  lineHeight: 19,
                 }}
-                right={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="plus-box"
-                    size={30}
-                    color="#1E4274"
-                    onPress={() => {
-                      this.props.navigation.navigate("AccountForm");
-                    }}
-                  />
-                )}
-              />
-              <Card.Content>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flex: 1,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
-                    <View
-                      style={{
-                        justifyContent: "flex-end",
-                      }}
-                    >
-                      <Title
-                        style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
-                          color: "#1E4274",
-                          lineHeight: 19,
-                        }}
-                      >
-                        Sidi Gaber Language School (SLS)
-                      </Title>
-                    </View>
-                  </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
-                </View>
-                <View style={{ marginLeft: 18 }}>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Alexandria Governorate, Egypt
-                  </Paragraph>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Sep 2007 to Jun 2017
-                  </Paragraph>
-                  <Button
-                    type="text"
-                    style={{
-                      fontSize: 14,
-                      alignItems: "flex-start",
-                      marginLeft: -16,
-                    }}
-                    onPress={() => {}}
-                    color="#CD8930"
-                  >
-                    See credential
-                  </Button>
-                </View>
-              </Card.Content>
-            </Card>
+              >
+                {this.props.school_name}
+              </Title>
+            </View>
           </View>
-        </ScrollView>
-        <StatusBar style="auto" />
-      </View>
+          <MaterialIcons
+            name="mode-edit"
+            size={24}
+            color="#CD8930"
+            style={{ justifyContent: "flex-end" }}
+            onPress={() => {}}
+          />
+        </View>
+        <View style={{ marginLeft: 18 }}>
+          <Paragraph
+            style={{
+              // marginHorizontal: 23,
+              fontSize: 14,
+              color: "#1E4274",
+            }}
+          >
+            {this.props.city}, {this.props.country}
+          </Paragraph>
+          <Paragraph
+            style={{
+              // marginHorizontal: 23,
+              fontSize: 14,
+              color: "#1E4274",
+            }}
+          >
+            {this.props.from} to {this.props.to}
+          </Paragraph>
+          <Button
+            type="text"
+            style={{
+              fontSize: 14,
+              alignItems: "flex-start",
+              marginLeft: -16,
+            }}
+            onPress={() => {}}
+            color="#CD8930"
+          >
+            See credential
+          </Button>
+        </View>
+      </Card.Content>
     );
   }
 }
@@ -188,7 +224,7 @@ export class ExperienceCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -297,7 +333,6 @@ export class ExperienceCard extends Component {
             </Card>
           </View>
         </ScrollView>
-        <StatusBar style="auto" />
       </View>
     );
   }
@@ -325,7 +360,7 @@ export class CoursesCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -463,7 +498,7 @@ export class SkillsCard extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                right={(props) => (
+                right={props => (
                   <IconButton
                     {...props}
                     icon="plus-box"
@@ -735,7 +770,7 @@ export class SkillsCard extends Component {
                     disabled={false}
                     maxStars={5}
                     rating={this.state.starCount}
-                    selectedStar={(rating) => this.onStarRatingPress(rating)}
+                    selectedStar={rating => this.onStarRatingPress(rating)}
                     style={{ flex: 1, justifyContent: "center" }}
                   />
                   <MaterialIcons

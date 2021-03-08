@@ -18,7 +18,7 @@ import { Avatar, IconButton } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { ExperienceTab } from "./ExperienceTab";
 import { PersonalTab } from "./PersonalTab";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -27,32 +27,31 @@ export default class ProfileScreen extends Component {
     name: "",
     modalVisible: false,
     image: null,
+    userData: {},
   };
   setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
-  ExperienceTabScreen = props => {
-    const navigation = useNavigation();
-    return <ExperienceTab {...props} navigation={navigation} />;
-  };
+
   async componentDidMount() {
     await axios
-      .get("/A/student/get-profile")
+      .get("/A/student/studentImg")
       .then(response => {
         this.setState({
-          // id: response.data.response.data.fullName.id,
-          name: response.data.response.data.name,
+          userData: response.data.response.data,
         });
-        console.log(response.data.response);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
       });
   }
-
+  ExperienceTabScreen = props => {
+    const { navigation } = useNavigation();
+    const route = useRoute();
+    return <ExperienceTab {...props} navigation={navigation} />;
+  };
   render() {
     const { modalVisible } = this.state;
-
     return (
       <View style={styles.container}>
         {/* Header */}
@@ -105,7 +104,7 @@ export default class ProfileScreen extends Component {
                   }}
                   size={110}
                   // source={{ uri: this.state.image }}
-                  source={require("../../assets/Images/Tutorials/Tutorial3.png")}
+                  source={{ uri: this.state.userData.image }}
                 />
                 <FontAwesome
                   name="camera"
@@ -155,7 +154,7 @@ export default class ProfileScreen extends Component {
                 marginBottom: 15,
               }}
             >
-              {this.state.name}
+              {this.state.userData.fullName}
             </Text>
           </View>
         </View>
@@ -174,7 +173,7 @@ export default class ProfileScreen extends Component {
           <Tab.Screen name="Experience" component={this.ExperienceTabScreen} />
         </Tab.Navigator>
 
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </View>
     );
   }

@@ -26,35 +26,22 @@ import { ReviewsCard } from "./ReviewsCard";
 export class PersonalTab extends Component {
   state = {
     // fullName: "",
-    gender: "",
-    dob: "",
-    nationality: "",
-    country: "",
-    city: "",
-    phoneNumber: "",
-    progress: 20,
     progressWithOnComplete: 0,
     progressCustomized: 0,
+    userData: {},
   };
   async componentDidMount() {
-    // await axios
-    //   .get("/A/student/profile/personal")
-    //   .then(response => {
-    //     this.setState({
-    //       id: response.data.response.data.id,
-    //       // fullName: response.data.response.data.fullName,
-    //       gender: response.data.response.data.gender,
-    //       dob: response.data.response.data.dob,
-    //       nationality: response.data.response.data.nationality,
-    //       country: response.data.response.data.country,
-    //       city: response.data.response.data.city,
-    //       phoneNumber: response.data.response.data.phoneNumber,
-    //     });
-    //     console.log(response.data.response.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
+    await axios
+      .get("/A/student/get-profilePersonal")
+      .then(response => {
+        this.setState({
+          userData: response.data.response.data,
+        });
+        console.log(response.data.response.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
@@ -104,7 +91,11 @@ export class PersonalTab extends Component {
                   marginVertical: 10,
                 }}
               >
-                <Progress.Bar progress={0.3} width={310} color={"#1E4274"} />
+                <Progress.Bar
+                  progress={this.state.userData.profile_score}
+                  width={310}
+                  color={"#1E4274"}
+                />
               </View>
               <Text
                 style={{
@@ -168,7 +159,7 @@ export class PersonalTab extends Component {
                       color: "#1E4274",
                     }}
                   >
-                    gender
+                    {this.state.userData.gender}
                   </Text>
                 </View>
                 <View
@@ -564,7 +555,7 @@ export class PersonalTab extends Component {
             </View>
           </View>
         </ScrollView>
-        <StatusBar style="auto" />
+        <StatusBar style="light" />
       </View>
     );
   }
