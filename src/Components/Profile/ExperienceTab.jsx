@@ -20,7 +20,17 @@ export class ExperienceTab extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <EducationCard navigation={this.props.navigation} />
+            <EducationCard
+              navigation={this.props.navigation}
+              school_name={this.props.school_name}
+              country={this.props.country}
+              city={this.props.city}
+              id={this.props.id}
+              from={this.props.from}
+              to={this.props.to}
+              credential={this.props.credential}
+              credential_url={this.props.credential_url}
+            />
             <ExperienceCard />
             <CoursesCard />
             <SkillsCard />
@@ -39,7 +49,16 @@ const styles = StyleSheet.create({
 });
 
 export class EducationCard extends Component {
+  state = {
+    educations: this.props.educations ? this.props.educations : [],
+  };
+
+  // componentDidMount() {
+
+  // }
   render() {
+    let id = this.props.id;
+
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -55,7 +74,7 @@ export class EducationCard extends Component {
             >
               <Card.Title
                 style={{ marginLeft: 1 }}
-                title="Education"
+                // title={this.props.school_name}
                 titleStyle={{
                   color: "#CD8930",
                   fontSize: 18,
@@ -73,90 +92,94 @@ export class EducationCard extends Component {
                   />
                 )}
               />
-              <Card.Content>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    flex: 1,
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      alignItems: "flex-start",
-                    }}
-                  >
-                    <Octicons
-                      name="primitive-dot"
-                      size={24}
-                      color="#CD8930"
-                      style={{
-                        justifyContent: "flex-start",
-                        marginRight: 5,
-                      }}
-                    />
+              {this.state.educations.map((edu) => {
+                return (
+                  <Card.Content>
                     <View
                       style={{
-                        justifyContent: "flex-end",
+                        flexDirection: "row",
+                        flex: 1,
                       }}
                     >
-                      <Title
+                      <View
                         style={{
-                          fontSize: 16,
-                          color: "#1E4274",
-                          fontWeight: "bold",
+                          flexDirection: "row",
                           flex: 1,
-                          justifyContent: "flex-start",
-                          color: "#1E4274",
-                          lineHeight: 19,
+                          alignItems: "flex-start",
                         }}
                       >
-                        Sidi Gaber Language School (SLS)
-                      </Title>
+                        <Octicons
+                          name="primitive-dot"
+                          size={24}
+                          color="#CD8930"
+                          style={{
+                            justifyContent: "flex-start",
+                            marginRight: 5,
+                          }}
+                        />
+                        <View
+                          style={{
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          <Title
+                            style={{
+                              fontSize: 16,
+                              color: "#1E4274",
+                              fontWeight: "bold",
+                              flex: 1,
+                              justifyContent: "flex-start",
+                              color: "#1E4274",
+                              lineHeight: 19,
+                            }}
+                          >
+                            {edu.school_name}
+                          </Title>
+                        </View>
+                      </View>
+                      <MaterialIcons
+                        name="mode-edit"
+                        size={24}
+                        color="#CD8930"
+                        style={{ justifyContent: "flex-end" }}
+                        onPress={() => {}}
+                      />
                     </View>
-                  </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
-                </View>
-                <View style={{ marginLeft: 18 }}>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Alexandria Governorate, Egypt
-                  </Paragraph>
-                  <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Sep 2007 to Jun 2017
-                  </Paragraph>
-                  <Button
-                    type="text"
-                    style={{
-                      fontSize: 14,
-                      alignItems: "flex-start",
-                      marginLeft: -16,
-                    }}
-                    onPress={() => {}}
-                    color="#CD8930"
-                  >
-                    See credential
-                  </Button>
-                </View>
-              </Card.Content>
+                    <View style={{ marginLeft: 18 }}>
+                      <Paragraph
+                        style={{
+                          // marginHorizontal: 23,
+                          fontSize: 14,
+                          color: "#1E4274",
+                        }}
+                      >
+                        Alexandria Governorate, Egypt
+                      </Paragraph>
+                      <Paragraph
+                        style={{
+                          // marginHorizontal: 23,
+                          fontSize: 14,
+                          color: "#1E4274",
+                        }}
+                      >
+                        Sep 2007 to Jun 2017
+                      </Paragraph>
+                      <Button
+                        type="text"
+                        style={{
+                          fontSize: 14,
+                          alignItems: "flex-start",
+                          marginLeft: -16,
+                        }}
+                        onPress={() => {}}
+                        color="#CD8930"
+                      >
+                        See credential
+                      </Button>
+                    </View>
+                  </Card.Content>
+                );
+              })}
             </Card>
           </View>
         </ScrollView>

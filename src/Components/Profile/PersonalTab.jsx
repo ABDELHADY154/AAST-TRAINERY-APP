@@ -24,39 +24,6 @@ import * as Progress from "react-native-progress";
 import { ReviewsCard } from "./ReviewsCard";
 
 export class PersonalTab extends Component {
-  state = {
-    // fullName: "",
-    gender: "",
-    dob: "",
-    nationality: "",
-    country: "",
-    city: "",
-    phoneNumber: "",
-    progress: 20,
-    progressWithOnComplete: 0,
-    progressCustomized: 0,
-  };
-  async componentDidMount() {
-    // await axios
-    //   .get("/A/student/profile/personal")
-    //   .then(response => {
-    //     this.setState({
-    //       id: response.data.response.data.id,
-    //       // fullName: response.data.response.data.fullName,
-    //       gender: response.data.response.data.gender,
-    //       dob: response.data.response.data.dob,
-    //       nationality: response.data.response.data.nationality,
-    //       country: response.data.response.data.country,
-    //       city: response.data.response.data.city,
-    //       phoneNumber: response.data.response.data.phoneNumber,
-    //     });
-    //     console.log(response.data.response.data);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  }
-
   render() {
     return (
       <View style={styles.container}>
