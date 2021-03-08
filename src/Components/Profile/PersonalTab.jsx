@@ -1,7 +1,14 @@
 import React, { Component, useState, useEffect } from "react";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { View, StyleSheet, ScrollView, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Button,
+  Alert,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   Feather,
@@ -11,10 +18,44 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import Carousel from "react-native-snap-carousel";
+import * as Progress from "react-native-progress";
 
 import { ReviewsCard } from "./ReviewsCard";
 
 export class PersonalTab extends Component {
+  state = {
+    // fullName: "",
+    gender: "",
+    dob: "",
+    nationality: "",
+    country: "",
+    city: "",
+    phoneNumber: "",
+    progress: 20,
+    progressWithOnComplete: 0,
+    progressCustomized: 0,
+  };
+  async componentDidMount() {
+    await axios
+      .get("/A/student/profile/personal")
+      .then((response) => {
+        this.setState({
+          id: response.data.response.data.name.id,
+          // fullName: response.data.response.data.fullName,
+          gender: response.data.response.data.gender,
+          dob: response.data.response.data.dob,
+          nationality: response.data.response.data.nationality,
+          country: response.data.response.data.country,
+          city: response.data.response.data.city,
+          phoneNumber: response.data.response.data.phoneNumber,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -43,6 +84,7 @@ export class PersonalTab extends Component {
                     fontSize: 14,
                     color: "#1E4274",
                     width: "90%",
+                    marginVertical: 5,
                   }}
                 >
                   Check out these steps for a professional Profile
@@ -56,58 +98,18 @@ export class PersonalTab extends Component {
                   Steps to complete your profile
                 </Text>
               </View>
-              {/* <View style={{ flex: 1 }}>
-              <ProgressSteps
-                progressBarColor="blue"
-                borderWidth={8}
-                // activeStepIconBorderColor="blue"
-                activeStepIconBorderColor="blue"
-                activeStepIconColor="red"
-                activeStepNumColor="#fff"
-                completedCheckColor="orange"
-                // activeStep="#000"
+              <View
+                style={{
+                  marginVertical: 10,
+                }}
               >
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-                <ProgressStep>
-                  <View>
-                    <Text>This is the content within step 1!</Text>
-                  </View>
-                </ProgressStep>
-              </ProgressSteps>
-            </View> */}
+                <Progress.Bar progress={0.3} width={310} color={"#1E4274"} />
+              </View>
               <Text
                 style={{
                   fontSize: 14,
                   color: "#1E4274",
+                  marginBottom: 10,
                 }}
               >
                 Complete your general information
@@ -140,7 +142,13 @@ export class PersonalTab extends Component {
                 />
               </View>
               <View style={{ marginTop: 5 }}>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -162,7 +170,13 @@ export class PersonalTab extends Component {
                     gender
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -184,7 +198,13 @@ export class PersonalTab extends Component {
                     age
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -252,7 +272,13 @@ export class PersonalTab extends Component {
                 />
               </View>
               <View style={{ marginTop: 7 }}>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       marginRight: 7,
@@ -319,7 +345,13 @@ export class PersonalTab extends Component {
                 />
               </View>
               <View style={{ marginTop: 5 }}>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -342,7 +374,13 @@ export class PersonalTab extends Component {
                     Arab Academy for science and technology
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -365,7 +403,13 @@ export class PersonalTab extends Component {
                     Business Information Systems
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -387,7 +431,7 @@ export class PersonalTab extends Component {
                     3.89
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", marginBottom: 5 }}>
                   <Text
                     style={{
                       // marginRight: 145,
@@ -409,7 +453,13 @@ export class PersonalTab extends Component {
                     2017-2021
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 2,
+                    marginBottom: 5,
+                  }}
+                >
                   <Text
                     style={{
                       // marginRight: 145,
@@ -509,9 +559,7 @@ export class PersonalTab extends Component {
                   Reviews
                 </Text>
               </View>
-              <View style={{ marginTop: 10 }}>
-                <ReviewsCard />
-              </View>
+              <View style={{ marginTop: 10 }}></View>
             </View>
           </View>
         </ScrollView>

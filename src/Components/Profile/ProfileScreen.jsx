@@ -24,29 +24,31 @@ const Tab = createMaterialTopTabNavigator();
 
 export default class ProfileScreen extends Component {
   state = {
+    name: "",
     modalVisible: false,
     image: null,
   };
-  setModalVisible = visible => {
+  setModalVisible = (visible) => {
     this.setState({ modalVisible: visible });
   };
-  ExperienceTabScreen = props => {
+  ExperienceTabScreen = (props) => {
     const navigation = useNavigation();
     return <ExperienceTab {...props} navigation={navigation} />;
   };
-  // async componentDidMount() {
-  //   await axios
-  //     .get("/A/student/get-profile")
-  //     .then((res) => {
-  //       this.setState({
-  //         image: res.data.response.data.image,
-  //       });
-  //       console.log(res.data.response.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // }
+  componentDidMount() {
+    axios
+      .get("/A/student/get-profile")
+      .then((response) => {
+        this.setState({
+          id: response.data.response.data.fullName.id,
+          name: response.data.response.data.name,
+        });
+        console.log(response.data.response.data);
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+      });
+  }
   render() {
     const { modalVisible } = this.state;
 
@@ -152,7 +154,7 @@ export default class ProfileScreen extends Component {
                 marginBottom: 15,
               }}
             >
-              name
+              {/* {this.state.name} */}
             </Text>
           </View>
         </View>

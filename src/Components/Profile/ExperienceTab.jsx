@@ -506,8 +506,7 @@ export class SkillsCard extends Component {
                           fontSize: 16,
                           color: "#1E4274",
                           fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
+
                           color: "#1E4274",
                           lineHeight: 19,
                         }}
@@ -516,24 +515,38 @@ export class SkillsCard extends Component {
                       </Title>
                     </View>
                   </View>
-                  <MaterialIcons
+                  {/* <MaterialIcons
                     name="mode-edit"
                     size={24}
                     color="#CD8930"
                     style={{ justifyContent: "flex-end" }}
                     onPress={() => {}}
-                  />
+                  /> */}
                 </View>
-                <View style={{ marginLeft: 18 }}>
+
+                <View
+                  style={{
+                    // marginLeft: 18,
+                    flexDirection: "row",
+                  }}
+                >
                   <Paragraph
                     style={{
                       // marginHorizontal: 23,
                       fontSize: 14,
                       color: "#1E4274",
+                      flex: 1,
+                      justifyContent: "flex-start",
                     }}
                   >
                     Adobe Photoshop
                   </Paragraph>
+                  <MaterialIcons
+                    name="mode-edit"
+                    size={24}
+                    color="#CD8930"
+                    style={{ justifyContent: "flex-end" }}
+                  />
                 </View>
               </Card.Content>
               <Card.Content>
@@ -687,8 +700,7 @@ export class SkillsCard extends Component {
                           fontSize: 16,
                           color: "#1E4274",
                           fontWeight: "bold",
-                          flex: 1,
-                          justifyContent: "flex-start",
+
                           color: "#1E4274",
                           lineHeight: 19,
                         }}
@@ -697,13 +709,6 @@ export class SkillsCard extends Component {
                       </Title>
                     </View>
                   </View>
-                  <MaterialIcons
-                    name="mode-edit"
-                    size={24}
-                    color="#CD8930"
-                    style={{ justifyContent: "flex-end" }}
-                    onPress={() => {}}
-                  />
                 </View>
                 <View
                   style={{
@@ -714,7 +719,8 @@ export class SkillsCard extends Component {
                 >
                   <Paragraph
                     style={{
-                      // marginHorizontal: 23,
+                      flex: 1,
+                      justifyContent: "flex-start",
                       fontSize: 14,
                       color: "#1E4274",
                       marginRight: 50,
@@ -722,6 +728,7 @@ export class SkillsCard extends Component {
                   >
                     Arabic
                   </Paragraph>
+
                   <StarRating
                     fullStarColor={"#CD8930"}
                     starSize={20}
@@ -729,6 +736,17 @@ export class SkillsCard extends Component {
                     maxStars={5}
                     rating={this.state.starCount}
                     selectedStar={(rating) => this.onStarRatingPress(rating)}
+                    style={{ flex: 1, justifyContent: "center" }}
+                  />
+                  <MaterialIcons
+                    name="mode-edit"
+                    size={24}
+                    color="#CD8930"
+                    style={{
+                      flex: 1,
+                      justifyContent: "flex-end",
+                      alignSelf: "flex-end",
+                    }}
                   />
                   {/* <StarRating
                     fullStarColor={"#CD8930"}
