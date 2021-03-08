@@ -25,79 +25,23 @@ const Tab = createMaterialTopTabNavigator();
 export default class ProfileScreen extends Component {
   state = {
     name: "",
-    email: "",
-    start_year: 0,
-    end_year: 0,
-    date_of_birth: "",
-    age: 0,
-    gpa: 0,
-    reg_no: 0,
-    gender: "",
-    period: "",
-    nationality: "",
-    country: "",
-    city: "",
-    profile_updated: 0,
-    phone_number: "",
-    profile_score: 0,
-    address: "",
-    educations: [],
-    work_experience: [],
-    courses: [],
-    skills: [],
-    interests: [],
-    languages: [],
     modalVisible: false,
     image: null,
   };
-  setModalVisible = (visible) => {
+  setModalVisible = visible => {
     this.setState({ modalVisible: visible });
   };
-  ExperienceTabScreen = (props) => {
+  ExperienceTabScreen = props => {
     const navigation = useNavigation();
-    return (
-      <ExperienceTab
-        navigation={navigation}
-        educations={this.state.educations}
-        // country={props.country}
-        // city={props.city}
-        // id={props.id}
-        // from={props.from}
-        // to={props.to}
-        // credential={props.credential}
-        // credential_url={props.credential_url}
-        {...props}
-      />
-    );
+    return <ExperienceTab {...props} navigation={navigation} />;
   };
   async componentDidMount() {
     await axios
       .get("/A/student/get-profile")
-      .then((response) => {
+      .then(response => {
         this.setState({
           // id: response.data.response.data.fullName.id,
           name: response.data.response.data.name,
-          email: response.data.response.data.email,
-          start_year: response.data.response.data.start_year,
-          end_year: response.data.response.data.end_year,
-          date_of_birth: response.data.response.data.date_of_birth,
-          age: response.data.response.data.age,
-          reg_no: response.data.response.data.reg_no,
-          gender: response.data.response.data.gender,
-          period: response.data.response.data.period,
-          gpa: response.data.response.data.gpa,
-          nationality: response.data.response.data.nationality,
-          city: response.data.response.data.city,
-          country: response.data.response.data.country,
-          phone_number: response.data.response.data.phone_number,
-          educations: response.data.response.data.educations,
-          profile_updated: response.data.response.data.profile_updated,
-          profile_score: response.data.response.data.profile_score,
-          work_experience: response.data.response.data.work_experience,
-          courses: response.data.response.data.courses,
-          skills: response.data.response.data.skills,
-          interests: response.data.response.data.interests,
-          languages: response.data.response.data.languages,
         });
         console.log(response.data.response);
       })
