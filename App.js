@@ -14,7 +14,7 @@ import GeneralScreen from "./src/Components/Profile/Generalinfo/Generalinfo";
 import ExperienceScreen from "./src/Components/Profile/Experienceinfo/Experienceinfo";
 import CoursesScreen from "./src/Components/Profile/Coursesinfo/Coursesinfo";
 import AccountScreen from "./src/Components/Profile/Accountsinfo/Accountsinfo";
-
+import { axios } from "./src/Config/Axios";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
@@ -53,6 +53,7 @@ function EducationInfoFormScreen(props) {
   const navigation = useNavigation();
   return <EducationScreen {...props} navigation={navigation} />;
 }
+
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -124,6 +125,7 @@ export default function App({ navigation }) {
           "SF-M": require("./assets/fonts/SF-Compact-Display-Medium.otf"),
         });
         userToken = await AsyncStorage.getItem("userToken");
+        axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
       } catch (e) {
         console.log(e);
       }

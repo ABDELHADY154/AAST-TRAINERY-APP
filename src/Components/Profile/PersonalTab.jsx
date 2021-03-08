@@ -18,12 +18,17 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+
+import { ReviewsCard } from "./ReviewsCard";
 import Carousel from "react-native-snap-carousel";
 import * as Progress from "react-native-progress";
 
-import { ReviewsCard } from "./ReviewsCard";
-
-export class PersonalTab extends Component {
+export function PersonalTab(props) {
+  const navigation = useNavigation();
+  return <PersonalTabForm navigation={navigation} {...props} />;
+}
+class PersonalTabForm extends Component {
   state = {
     // fullName: "",
     progressWithOnComplete: 0,
@@ -33,13 +38,13 @@ export class PersonalTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(response.data.response.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -130,6 +135,9 @@ export class PersonalTab extends Component {
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  onPress={() => {
+                    this.props.navigation.navigate("GeneralForm");
+                  }}
                   style={{ justifyContent: "flex-end" }}
                 />
               </View>
