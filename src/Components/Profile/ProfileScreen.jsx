@@ -49,6 +49,7 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
+
   render() {
     const { modalVisible } = this.state;
 
