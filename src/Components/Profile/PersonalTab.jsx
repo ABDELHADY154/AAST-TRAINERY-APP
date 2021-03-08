@@ -11,10 +11,15 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import { ReviewsCard } from "./ReviewsCard";
 
-export class PersonalTab extends Component {
+export function PersonalTab(props) {
+  const navigation = useNavigation();
+  return <PersonalTabForm navigation={navigation} {...props} />;
+}
+class PersonalTabForm extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -136,6 +141,9 @@ export class PersonalTab extends Component {
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  onPress={() => {
+                    this.props.navigation.navigate("GeneralForm");
+                  }}
                   style={{ justifyContent: "flex-end" }}
                 />
               </View>
