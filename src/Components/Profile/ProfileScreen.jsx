@@ -7,14 +7,15 @@ import {
   StyleSheet,
   Text,
   Alert,
-  Modal,
+  // Modal,
   Pressable,
   Platform,
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
-import { Avatar, IconButton } from "react-native-paper";
+import { Avatar, IconButton, Modal, Portal } from "react-native-paper";
+
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { ExperienceTab } from "./ExperienceTab";
 import { PersonalTab } from "./PersonalTab";
@@ -25,18 +26,15 @@ const Tab = createMaterialTopTabNavigator();
 export default class ProfileScreen extends Component {
   state = {
     name: "",
-    modalVisible: false,
     image: null,
     userData: {},
-  };
-  setModalVisible = visible => {
-    this.setState({ modalVisible: visible });
+    visible: false,
   };
 
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -45,13 +43,19 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExperienceTabScreen = props => {
+  ExperienceTabScreen = (props) => {
     const { navigation } = useNavigation();
     const route = useRoute();
     return <ExperienceTab {...props} navigation={navigation} />;
   };
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+  hideModal = () => {
+    this.setState({ visible: false });
+    // this.props.navigation.navigate("SignIn");
+  };
   render() {
-    const { modalVisible } = this.state;
     return (
       <View style={styles.container}>
         {/* Header */}
@@ -96,7 +100,7 @@ export default class ProfileScreen extends Component {
             <View>
               <Pressable
                 // style={[styles.button, styles.buttonOpen]}
-                onPress={() => this.setModalVisible(true)}
+                onPress={this.showModal}
               >
                 <Avatar.Image
                   style={{
@@ -121,7 +125,52 @@ export default class ProfileScreen extends Component {
                   }}
                 />
               </Pressable>
-              <Modal
+              <Portal>
+                <Modal
+                  visible={this.state.visible}
+                  onDismiss={this.hideModal}
+                  contentContainerStyle={{
+                    backgroundColor: "white",
+                    padding: 20,
+                    width: 294,
+                    height: 280,
+                    alignSelf: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  {/* <View style={styles.centeredView}>
+                    <View style={styles.modalView}> */}
+                  <Text style={styles.modalText}>
+                    Change Your Profile Picture
+                  </Text>
+
+                  <View
+                    style={{
+                      justifyContent: "center",
+                      // alignItems: "center",
+                      // alignSelf: "center",
+                    }}
+                  >
+                    <ProfileImg />
+                    <Pressable
+                      style={[styles.button, styles.buttonClose]}
+                      // onPress={}
+                    >
+                      <Text style={styles.textStyle}>Upload</Text>
+                    </Pressable>
+                  </View>
+
+                  {/* <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => this.setModalVisible(!modalVisible)}
+                      >
+                        <Text style={styles.textStyle}>Close</Text>
+                      </Pressable> */}
+                  {/* </View>
+                  </View> */}
+                </Modal>
+              </Portal>
+              {/* <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
@@ -144,7 +193,7 @@ export default class ProfileScreen extends Component {
                     </Pressable>
                   </View>
                 </View>
-              </Modal>
+              </Modal> */}
             </View>
             <Text
               style={{
@@ -189,30 +238,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.7)",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 55,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   button: {
     borderRadius: 13,
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {},
   buttonClose: {
-    marginTop: 20,
-    paddingHorizontal: 70,
+    marginTop: 15,
+    // paddingHorizontal: 70,
     backgroundColor: "#1E4274",
   },
   textStyle: {
@@ -276,13 +309,17 @@ export function ProfileImg() {
 
   return (
     <View style={{ marginBottom: 15 }}>
-      <View stye={{ alignItems: "center", justifyContent: "space-around" }}>
+      <View stye={{ alignItems: "center" }}>
         {image && (
           <Avatar.Image
             style={{
               backgroundColor: "transparent",
+              // flex: 1,
+              // alignItems: "center",
+              alignSelf: "center",
+              justifyContent: "center",
             }}
-            size={150}
+            size={80}
             source={{ uri: image }}
           />
         )}
@@ -291,7 +328,7 @@ export function ProfileImg() {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-around",
+          justifyContent: "center",
           marginTop: 20,
         }}
       >
