@@ -348,6 +348,11 @@ export class ExperienceTab extends Component {
                     this.state.interests.map((e) => {
                       return (
                         <Interests
+                          style={{
+                            flexDirection: "row",
+                            flexWrap: "wrap",
+                            width: "85%",
+                          }}
                           key={e.id}
                           id={e.id}
                           interest={e.interest}
@@ -464,6 +469,7 @@ export class EducationCard extends Component {
             <View
               style={{
                 justifyContent: "flex-end",
+                width: "85%",
               }}
             >
               <Title
@@ -475,6 +481,8 @@ export class EducationCard extends Component {
                   justifyContent: "flex-start",
                   color: "#1E4274",
                   lineHeight: 19,
+                  flexDirection: "row",
+                  flexWrap: "wrap",
                 }}
               >
                 {this.props.school_name}
@@ -495,6 +503,9 @@ export class EducationCard extends Component {
               // marginHorizontal: 23,
               fontSize: 14,
               color: "#1E4274",
+              width: "85%",
+              flexDirection: "row",
+              flexWrap: "wrap",
             }}
           >
             {this.props.city}, {this.props.country}
@@ -516,6 +527,7 @@ export class EducationCard extends Component {
               marginLeft: -16,
             }}
             onPress={() => {}}
+            openURL={this.props.cred_url}
             color="#CD8930"
           >
             See credential
@@ -556,6 +568,7 @@ export class ExperienceCard extends Component {
                 <View
                   style={{
                     justifyContent: "flex-end",
+                    width: "85%",
                   }}
                 >
                   <Title
@@ -565,6 +578,8 @@ export class ExperienceCard extends Component {
                       fontWeight: "bold",
                       flex: 1,
                       justifyContent: "flex-start",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
                       color: "#1E4274",
                       lineHeight: 19,
                     }}
@@ -587,6 +602,8 @@ export class ExperienceCard extends Component {
                   // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
+                  width: "80%",
+                  flexWrap: "wrap",
                 }}
               >
                 {this.props.city}, {this.props.country}
@@ -600,11 +617,13 @@ export class ExperienceCard extends Component {
               >
                 {this.props.from} to {this.props.to}
               </Paragraph>
-              <View style={{ flexDirection: "row" }}>
+              <View style={{ flexDirection: "row", flex: 1 }}>
                 <Button
                   type="text"
                   style={{
                     fontSize: 14,
+                    // flex: 1,
+                    // justifyContent: "flex-start",
                     alignItems: "flex-start",
                     marginLeft: -16,
                   }}
@@ -618,8 +637,10 @@ export class ExperienceCard extends Component {
                   textStyle={{
                     fontSize: 14,
                     color: "#1E4274",
-                    // paddingTop: -5,
-                  }} // onPress={() => console.log("Pressed")}
+                    // flex: 1,
+                    // justifyContent: "center",
+                    alignItems: "center",
+                  }}
                 >
                   {this.props.experience_type}
                 </Chip>
@@ -662,6 +683,7 @@ export class CoursesCard extends Component {
                 <View
                   style={{
                     justifyContent: "flex-end",
+                    width: "85%",
                   }}
                 >
                   <Title
@@ -673,6 +695,8 @@ export class CoursesCard extends Component {
                       justifyContent: "flex-start",
                       color: "#1E4274",
                       lineHeight: 19,
+                      flexDirection: "row",
+                      flexWrap: "wrap",
                     }}
                   >
                     {this.props.course_provider}
@@ -693,6 +717,9 @@ export class CoursesCard extends Component {
                   // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                  width: "85%",
                 }}
               >
                 {this.props.course_name}
@@ -785,26 +812,23 @@ export class Interests extends Component {
         <View
           style={{
             marginLeft: 18,
-            width: "90%",
             flexDirection: "row",
+            flexWrap: "wrap",
+            margin: 4,
+            // marginLeft: 0,
           }}
         >
-          <View
-            style={{
+          <Chip
+            style={{ height: 30, marginRight: 6 }}
+            textStyle={{
+              fontSize: 14,
+              color: "#1E4274",
               flexDirection: "row",
               flexWrap: "wrap",
-            }}
+            }} // onPress={() => console.log("Pressed")}
           >
-            <Chip
-              style={{ height: 30, marginRight: 6 }}
-              textStyle={{
-                fontSize: 14,
-                color: "#1E4274",
-              }} // onPress={() => console.log("Pressed")}
-            >
-              {this.props.interest}
-            </Chip>
-          </View>
+            {this.props.interest}
+          </Chip>
         </View>
       </View>
     );
@@ -826,34 +850,38 @@ export class Languages extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <View>
-            <View
+          <View
+            style={{
+              marginLeft: 18,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Paragraph
               style={{
-                marginLeft: 18,
-                flexDirection: "row",
-                alignItems: "center",
+                flex: 1,
+                justifyContent: "flex-start",
+                fontSize: 14,
+                color: "#1E4274",
+                alignItems: "flex-start",
               }}
             >
-              <Paragraph
-                style={{
-                  flex: 1,
-                  justifyContent: "flex-start",
-                  fontSize: 14,
-                  color: "#1E4274",
-                  marginRight: 50,
-                }}
-              >
-                {this.props.language}
-              </Paragraph>
+              {this.props.language}
+            </Paragraph>
 
+            <View>
               <StarRating
                 fullStarColor={"#CD8930"}
                 starSize={20}
                 disabled={false}
                 maxStars={5}
-                rating={this.state.starCount}
-                selectedStar={this.props.level}
-                style={{ flex: 1, justifyContent: "center" }}
+                rating={this.props.level}
+                // selectedStar={this.props.level}
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
               />
               {/* <StarRating
                     fullStarColor={"#CD8930"}
@@ -864,16 +892,16 @@ export class Languages extends Component {
                     selectedStar={(rating) => this.onStarRatingPress(rating)}
                     style={{ flex: 1, justifyContent: "center" }}
                   /> */}
-              <MaterialIcons
-                name="mode-edit"
-                size={24}
-                color="#CD8930"
-                style={{
-                  flex: 1,
-                  justifyContent: "flex-end",
-                  alignSelf: "flex-end",
-                }}
-              />
+            </View>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "flex-end",
+                alignSelf: "flex-end",
+                alignItems: "flex-end",
+              }}
+            >
+              <MaterialIcons name="mode-edit" size={24} color="#CD8930" />
             </View>
           </View>
         </ScrollView>

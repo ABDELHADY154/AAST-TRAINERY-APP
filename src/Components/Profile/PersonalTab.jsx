@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component, useState, useEffect, useRef } from "react";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -18,7 +18,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-import Carousel from "react-native-snap-carousel";
+
 import * as Progress from "react-native-progress";
 
 import { ReviewsCard } from "./ReviewsCard";
@@ -256,12 +256,12 @@ export class PersonalTab extends Component {
                 >
                   Contact Information
                 </Text>
-                <MaterialIcons
+                {/* <MaterialIcons
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
                   style={{ justifyContent: "flex-end" }}
-                />
+                /> */}
               </View>
               <View style={{ marginTop: 7 }}>
                 <View
@@ -549,7 +549,9 @@ export class PersonalTab extends Component {
                   Reviews
                 </Text>
               </View>
-              <View style={{ marginTop: 10 }}></View>
+              <View style={{ marginTop: 10 }}>
+                <ReviewsCard />
+              </View>
             </View>
           </View>
         </ScrollView>
