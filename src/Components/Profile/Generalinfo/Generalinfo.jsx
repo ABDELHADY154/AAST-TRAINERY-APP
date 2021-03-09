@@ -14,38 +14,63 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
-
-// import DatePicker from "react-native-datepicker";
-// import { CountryPicker } from "react-native-country-picker-modal";
+import { axios } from "../../../Config/Axios";
 export default function GeneralInfoFormScreen(props) {
   const navigation = useNavigation();
   return <GeneralInfo navigation={navigation} {...props} />;
 }
 class GeneralInfo extends Component {
-  // state = {
-  //   studentName: "",
-  //   gender: "",
-  //   checked: "",
-  //   dateOfBirth: "",
-  //   nationality: "",
-  //   country: "",
-  //   city: "",
-  //   phone_Number: "",
-  // };
-  // const [date, setDate] = useState(new Date(1598051730000));
-  // const [mode, setMode] = useState('date');
-  // const [show, setShow] = useState(false);
   constructor() {
     super();
     this.state = {
       date: new Date(1598051730000),
       mode: "date",
       show: false,
+      countriesList: {},
+      citiesList: {},
+      country: "",
+      city: "",
+      studentName: "",
+      gender: "",
+      checked: "",
+      nationality: "",
+      phoneNumber: "",
     };
+
+    // /A/student/profile/personal
+    //     \{
+    //   "name": "Full Name",
+    //   "phone_number": "+201000011111",
+    //   "city": "Cairo",
+    //   "gender": "male",
+    //   "country": "Egypt",
+    //   "nationality": "Egyptian",
+    //   "date_of_birth": "1997-04-15"
+    // }
   }
+  countryOnchangeHandler = (itemValue, index) => {
+    this.setState({ country: itemValue });
+    for (const key in this.state.countriesList) {
+      if (this.state.countriesList[key] == itemValue) {
+        this.getCityList(key);
+        break;
+      }
+    }
+  };
+  getCityList = code => {
+    axios
+      .get(`/stateList/${code}`)
+      .then(res => {
+        this.setState({ citiesList: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   onChange = (e, selectedDate) => {
     try {
+      console.log(selectedDate);
       const currentDate = selectedDate || this.state.date;
       this.setState({ show: Platform.OS === "ios" });
       this.setState({ date: currentDate });
@@ -53,7 +78,7 @@ class GeneralInfo extends Component {
       console.log(error);
     }
   };
-  showMode = (currentMode) => {
+  showMode = currentMode => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
@@ -62,7 +87,38 @@ class GeneralInfo extends Component {
     this.showMode("date");
   };
 
+  componentDidMount() {
+    axios
+      .get("/countriesList")
+      .then(res => {
+        this.setState({ countriesList: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    axios
+      .get("/A/student/profile/personal")
+      .then(res => {
+        this.setState({
+          studentName: res.data.response.data.fullName,
+          gender: res.data.response.data.gender,
+          date: res.data.response.data.dob,
+          nationality: res.data.response.data.nationality,
+          country: res.data.response.data.country,
+          city: res.data.response.data.city,
+          phoneNumber: res.data.response.data.phoneNumber,
+          checked: res.data.response.data.gender == "male" ? "first" : "second",
+        });
+        this.countryOnchangeHandler(this.state.country, 0);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
   render() {
+    console.log(this.state.studentName);
+    const countries =
+      this.state.countriesList !== {} ? this.state.countriesList : {};
     return (
       <View style={styles.container}>
         {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
@@ -96,7 +152,8 @@ class GeneralInfo extends Component {
               }}
               label="Full Name"
               labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              value={this.state.studentName}
+              onChangeText={value => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -217,9 +274,10 @@ class GeneralInfo extends Component {
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
                 }}
+                value={this.state.nationality}
                 label="Nationality"
                 labelStyle={styles.labelStyle}
-                onChangeText={(value) => this.setState({ nationality: value })}
+                onChangeText={value => this.setState({ nationality: value })}
               />
               <Text style={styles.gender}>Country</Text>
               <View style={styles.boxContainer}>
@@ -239,21 +297,13 @@ class GeneralInfo extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"EGYPT"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
-                  // }
+                  selectedValue={this.state.country}
+                  onValueChange={this.countryOnchangeHandler}
                 >
                   <Picker.Item label="Choose Your Country" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.country_name}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                  {Object.entries(this.state.countriesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
               <Text style={styles.gender}>City</Text>
@@ -274,21 +324,16 @@ class GeneralInfo extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"Alexandria"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
-                  // }
+                  selectedValue={this.state.city}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ city: itemValue });
+                  }}
                 >
                   <Picker.Item label="Choose Your City" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.country_name}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+
+                  {Object.entries(this.state.citiesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
               <Input
@@ -301,6 +346,7 @@ class GeneralInfo extends Component {
                   borderBottomWidth: 2,
                 }}
                 label="Phone Number"
+                value={this.state.phoneNumber}
                 labelStyle={styles.labelStyle}
                 // onChangeText={value => this.setState({ regNo: value })}
               />

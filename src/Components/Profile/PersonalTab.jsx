@@ -19,11 +19,16 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-import * as Progress from "react-native-progress";
+import { useNavigation } from "@react-navigation/native";
 
 import { ReviewsCard } from "./ReviewsCard";
+import * as Progress from "react-native-progress";
 
-export class PersonalTab extends Component {
+export function PersonalTab(props) {
+  const navigation = useNavigation();
+  return <PersonalTabForm navigation={navigation} {...props} />;
+}
+class PersonalTabForm extends Component {
   state = {
     // fullName: "",
     progressWithOnComplete: 0,
@@ -130,6 +135,9 @@ export class PersonalTab extends Component {
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  onPress={() => {
+                    this.props.navigation.navigate("GeneralForm");
+                  }}
                   style={{ justifyContent: "flex-end" }}
                 />
               </View>
