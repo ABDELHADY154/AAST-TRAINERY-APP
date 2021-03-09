@@ -21,7 +21,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 
 import { ReviewsCard } from "./ReviewsCard";
-import Carousel from "react-native-snap-carousel";
 import * as Progress from "react-native-progress";
 
 export function PersonalTab(props) {
@@ -38,13 +37,13 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(response.data.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
