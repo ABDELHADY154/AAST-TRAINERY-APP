@@ -18,9 +18,7 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
-
 import { useNavigation } from "@react-navigation/native";
-
 import { ReviewsCard } from "./ReviewsCard";
 import * as Progress from "react-native-progress";
 
@@ -449,7 +447,10 @@ class PersonalTabForm extends Component {
                       fontSize: 14,
                       color: "#1E4274",
                     }}
-                  ></Text>
+                  >
+                    {this.state.userData.start_year} -
+                    {this.state.userData.end_year}
+                  </Text>
                 </View>
                 <View
                   style={{

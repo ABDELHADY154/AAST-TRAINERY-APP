@@ -343,26 +343,31 @@ export class ExperienceTab extends Component {
                       onPress={() => {}}
                     />
                   </View>
-
-                  {this.state.interests ? (
-                    this.state.interests.map((e) => {
-                      return (
-                        <Interests
-                          style={{
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                            width: "85%",
-                          }}
-                          key={e.id}
-                          id={e.id}
-                          interest={e.interest}
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
+                  <View
+                  // style={{ flexWrap: "wrap", flexDirection: "row" }}
+                  >
+                    {this.state.interests ? (
+                      this.state.interests.map((e) => {
+                        return (
+                          <Interests
+                            style={
+                              {
+                                // flexDirection: "row",
+                                // flexWrap: "wrap",
+                                // width: "85%",
+                              }
+                            }
+                            key={e.id}
+                            id={e.id}
+                            interest={e.interest}
+                            navigation={this.props.navigation}
+                          />
+                        );
+                      })
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </View>
                 </Card.Content>
                 <Card.Content>
                   <View
