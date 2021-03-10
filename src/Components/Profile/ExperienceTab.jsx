@@ -13,8 +13,13 @@ import {
   Chip,
 } from "react-native-paper";
 import StarRating from "react-native-star-rating";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-export class ExperienceTab extends Component {
+export function ExperienceTab(props) {
+  const navigation = useNavigation();
+  return <ExperienceTabForm navigation={navigation} {...props} />;
+}
+export class ExperienceTabForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -228,7 +233,9 @@ export class ExperienceTab extends Component {
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.navigate("Skillinfo");
+                      }}
                     />
                   )}
                 />
@@ -754,17 +761,6 @@ export class CoursesCard extends Component {
   }
 }
 export class SkillsCard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      starCount: 3,
-    };
-  }
-  onStarRatingPress(rating) {
-    this.setState({
-      starCount: rating,
-    });
-  }
   render() {
     return (
       <View
@@ -789,6 +785,9 @@ export class SkillsCard extends Component {
           size={24}
           color="#CD8930"
           style={{ justifyContent: "flex-end" }}
+          onPress={() => {
+            this.props.navigation.navigate("Skillinfo");
+          }}
         />
       </View>
     );
