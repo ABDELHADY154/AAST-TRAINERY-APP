@@ -21,12 +21,134 @@ export default class ExploreScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View
+        {/* <View
+          style={{
+            height: 100,
+            width: "100%",
+            backgroundColor: "#fff",
+          }}
+        ></View> */}
+        {/* title: title,
+                    headerStyle: {
+                      backgroundColor: "white",
+                    },
+                    headerTintColor: "#1E4274",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: 20,
+                    },
+                    headerLeft: () => (
+                      <IconButton
+                        icon="menu"
+                        type="text"
+                        size={40}
+                        color="#1E4274"
+                        onPress={() => {
+                          AsyncStorage.removeItem("userData");
+                          AsyncStorage.removeItem("userToken");
+                          AsyncStorage.removeItem("config");
+                          axios.defaults.headers.common["Authorization"] = ``;
+                          dispatch({ type: "SIGN_OUT" });
+                        }}
+                      />
+                    ),
+                    headerRight: () => (
+                      <Feather
+                        name="search"
+                        size={28}
+                        color="#1E4274"
+                        style={{
+                          marginRight: 15,
+                        }}
+                        onPress={() => {
+                          this.props.navigation.navigate("Search");
+                        }}
+                      />
+                    ), */}
+        {/* <View
+          style={{
+            marginTop: 40,
+            width: "100%",
+            flexDirection: "row",
+            flexWrap: "nowrap",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <IconButton
+            icon="menu"
+            type="text"
+            size={40}
+            color="#1E4274"
+            style={
+              {
+                // alignSelf: "flex-start",
+                // alignContent: "flex-start",
+                // flex: 1,
+                // marginRight: -14,
+                // width: "30%",
+                // alignSelf: "center",
+                // flex: 4,
+                // marginRight: 110,
+              }
+            }
+            onPress={() => {
+              AsyncStorage.removeItem("userData");
+              AsyncStorage.removeItem("userToken");
+              AsyncStorage.removeItem("config");
+              axios.defaults.headers.common["Authorization"] = ``;
+              this.props.logout();
+            }}
+          />
+          <Text
+            style={
+              {
+                // flex: 1,
+                // // width: "30%",
+                // // flex: 3,
+                // justifyContent: "center",
+                // // marginLeft: 110,
+                // // alignItems: "center",
+                // // marginRight: 115,
+                // fontSize: 16,
+                // alignSelf: "center",
+                // color: "#1E4274",
+                // fontWeight: "bold",
+              }
+            }
+          >
+            Explore
+          </Text>
+          <Feather
+            name="search"
+            size={28}
+            color="#1E4274"
+            style={
+              {
+                // flex: 1,
+                // alignSelf: "center",
+                // width: "30%",
+                // flex: 4,
+                // marginLeft: 30,
+                // flex: 1,
+                // justifyContent: "flex-end",
+              }
+            }
+            onPress={() => {
+              this.props.navigation.navigate("Search");
+            }}
+          />
+        </View> */}
+        {/* <View
           style={{
             flexDirection: "row",
-            // justifyContent: "center",
+            justifyContent: "center",
             alignItems: "center",
-            marginTop: 40,
+            marginTop: 35,
+            width: "100%",
           }}
         >
           <IconButton
@@ -35,7 +157,12 @@ export default class ExploreScreen extends Component {
             size={40}
             color="#1E4274"
             style={{
-              marginRight: 110,
+              flex: 1,
+              // marginRight: -14,
+              // width: "30%",
+              alignSelf: "center",
+              // flex: 4,
+              // marginRight: 110,
             }}
             onPress={() => {
               AsyncStorage.removeItem("userData");
@@ -48,12 +175,15 @@ export default class ExploreScreen extends Component {
 
           <Text
             style={{
-              // justifyContent: "center",
+              flex: 1,
+              // width: "30%",
+              // flex: 3,
+              justifyContent: "center",
               // marginLeft: 110,
-              alignItems: "center",
-              marginRight: 115,
+              // alignItems: "center",
+              // marginRight: 115,
               fontSize: 16,
-
+              alignSelf: "center",
               color: "#1E4274",
               fontWeight: "bold",
             }}
@@ -65,15 +195,19 @@ export default class ExploreScreen extends Component {
             size={28}
             color="#1E4274"
             style={{
+              flex: 1,
+              alignSelf: "center",
+              // width: "30%",
+              // flex: 4,
               // marginLeft: 30,
               // flex: 1,
-              justifyContent: "flex-end",
+              // justifyContent: "flex-end",
             }}
             onPress={() => {
               this.props.navigation.navigate("Search");
             }}
           />
-        </View>
+        </View> */}
         <ScrollView>
           <AdvisorCard />
           <CompanyCard />
@@ -89,11 +223,11 @@ export default class ExploreScreen extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
+    width: "100%",
     flexDirection: "column",
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    // marginTop: 10,
     backgroundColor: "#fff",
   },
 });
