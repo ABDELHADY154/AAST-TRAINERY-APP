@@ -57,13 +57,13 @@ class GeneralInfo extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -78,7 +78,7 @@ class GeneralInfo extends Component {
       console.log(error);
     }
   };
-  showMode = currentMode => {
+  showMode = (currentMode) => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
@@ -90,15 +90,15 @@ class GeneralInfo extends Component {
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then(res => {
+      .then((res) => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -111,7 +111,7 @@ class GeneralInfo extends Component {
         });
         this.countryOnchangeHandler(this.state.country, 0);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -153,7 +153,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={value => this.setState({ studentName: value })}
+              onChangeText={(value) => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -277,7 +277,7 @@ class GeneralInfo extends Component {
                 value={this.state.nationality}
                 label="Nationality"
                 labelStyle={styles.labelStyle}
-                onChangeText={value => this.setState({ nationality: value })}
+                onChangeText={(value) => this.setState({ nationality: value })}
               />
               <Text style={styles.gender}>Country</Text>
               <View style={styles.boxContainer}>
@@ -390,7 +390,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: 360,
+    width: "87%",
     marginLeft: 10,
     // marginTop: 10,
     borderColor: "#1E4275",
