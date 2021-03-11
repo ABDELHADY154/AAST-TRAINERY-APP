@@ -6,39 +6,50 @@ import {
   SafeAreaView,
   ScrollView,
   Platform,
+  TouchableOpacity,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
-import StarRating from "react-native-star-rating";
+import TagInput from "react-native-tags-input";
 
-export default function LanguageFormScreen(props) {
+export default function InterestsFormScreen(props) {
   const navigation = useNavigation();
-  return <Language navigation={navigation} {...props} />;
+  return <Interests navigation={navigation} {...props} />;
 }
-class Language extends Component {
+class Interests extends Component {
   constructor() {
     super();
     this.state = {
       id: 0,
-      language: "",
-      level: 0,
-      languageIdErr: "",
-      languageErr: "",
-      levelErr: "",
+      tag: "",
+      tags: {
+        tagsArray: [],
+      },
+      interestIdErr: "",
+      interestErr: "",
     };
+    // console.log(this.state.tag);
   }
-
+  updateTagState = (state) => {
+    this.setState({
+      tags: state,
+      // tag: this.state.tagsArray,
+    });
+    console.log(this.state.tags);
+    // console.log(this.state.tag);
+    // console.log(this.state.tagsArray);
+  };
   componentDidMount() {
     axios
-      .get("/A/student/profile/language")
+      .get("/A/student/profile/interest")
       .then((res) => {
         this.setState({
           id: res.data.response.data.id,
-          language: res.data.response.data.language,
-          level: res.data.response.data.level,
+          // tag: res.data.response.data.interest,
+          tagsArray: res.data.response.data.interests,
         });
         console.log(response.data.response.data);
       })
@@ -48,45 +59,39 @@ class Language extends Component {
   }
   handleSubmitSkills = () => {
     var body = {
-      language: this.state.language,
+      // interest: this.state.tag,
       id: this.state.id,
-      level: this.state.level,
+      interests: this.state.tags,
     };
     axios
-      .post("/A/student/profile/language", body)
+      .post("/A/student/profile/interest", body)
       .then((response) => {
         this.setState({
           id: response.data.response.id,
-          language: response.data.response.language,
-          level: response.data.response.level,
+          tags: response.data.response.interests,
+          // tags: response.data.response.interest,
         });
+        console.log(response.data.response.data);
       })
       .catch((error) => {
         // console.log(error.response.data.errors);
-        if (error.response.data.errors.id) {
+        if (error.response.data.errors.interests) {
           this.setState({
-            languageIdErr: error.response.data.errors.id,
+            interestIdErr: error.response.data.errors.interests,
           });
         }
-        if (error.response.data.errors.language) {
-          this.setState({
-            languageErr: error.response.data.errors.language,
-          });
-        }
-        if (error.response.data.errors.level) {
-          this.setState({
-            levelErr: error.response.data.errors.level,
-          });
-        }
+        // if (error.response.data.errors.interest) {
+        //   this.setState({
+        //     interestErr: error.response.data.errors.interest,
+        //   });
+        // }
       });
   };
 
   render() {
-    console.log(this.state.skill_name);
+    console.log(this.state.tagsArray);
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -96,96 +101,38 @@ class Language extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
-        <Text style={styles.title}>Language </Text>
+        <Text style={styles.title}>Interests </Text>
 
         <View style={{ width: "93%" }}>
           <ScrollView>
-            <Input
-              containerStyle={{
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: "5%",
+            <TagInput
+              placeholder="Tags..."
+              tagStyle={{
+                backgroundColor: "#fff",
+                // borderColor: "#1E4275",
+                // borderWidth: 1,
+                // color: "#1E4275",
+                // fill: "#1E4275",
               }}
-              autoCompleteType="name"
-              textContentType="name"
-              keyboardType="default"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
+              containerStyle={{ marginLeft: "5%" }}
               inputContainerStyle={{
-                borderColor: "#1E4274",
+                borderColor: "#1E4275",
                 borderBottomWidth: 2,
+                width: "100%",
               }}
-              label="Language"
+              inputStyle={{ color: "#1E4275" }}
+              label="Press comma or Enter to add a tag"
               labelStyle={{
                 color: "#1E4274",
                 fontSize: 16,
                 fontFamily: "SF-M",
                 fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: 15,
               }}
-              value={this.state.language}
-              onChangeText={(value) => this.setState({ language: value })}
+              updateState={this.updateTagState}
+              tags={this.state.tags}
+              keysForTag={","}
             />
-            {this.state.skillErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "center",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: -10,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.languageErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <View
-              style={{
-                width: "93%",
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: "5%",
-              }}
-            >
-              <Text
-                style={{
-                  color: "#1E4274",
-                  fontSize: 16,
-                  fontFamily: "SF-M",
-                  fontWeight: "normal",
-                  marginBottom: 10,
-                  marginTop: 15,
-                }}
-              >
-                Level of Experience
-              </Text>
-              <StarRating
-                fullStarColor={"#CD8930"}
-                starSize={35}
-                disabled={false}
-                maxStars={5}
-                rating={this.state.level}
-                selectedStar={(value) => this.setState({ level: value })}
-                style={{
-                  justifyContent: "center",
-                  alignSelf: "center",
-                  marginLeft: "5%",
-                }}
-              />
-            </View>
-
-            {this.state.yearsExpErr != "" ? (
+            {this.state.interestsErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -202,7 +149,7 @@ class Language extends Component {
                     textAlign: "left",
                   }}
                 >
-                  {this.state.levelErr}
+                  {this.state.interestErr}
                 </Text>
               </View>
             ) : (

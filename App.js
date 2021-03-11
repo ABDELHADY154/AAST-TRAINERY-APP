@@ -16,6 +16,7 @@ import CoursesScreen from "./src/Components/Profile/Coursesinfo/Coursesinfo";
 import AccountScreen from "./src/Components/Profile/Accountsinfo/Accountsinfo";
 import Skillinfo from "./src/Components/Profile/Skillinfo/Skillinfo";
 import Language from "./src/Components/Profile/Skillinfo/Language";
+import Interests from "./src/Components/Profile/Skillinfo/Interests";
 import { axios } from "./src/Config/Axios";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -251,17 +252,6 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
-                {/* <Stack.Screen
-                  name="Skills"
-                  component={SkillInfoFormScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                /> */}
                 <Stack.Screen
                   name="Skillinfo"
                   component={Skillinfo}
@@ -276,6 +266,17 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="Language"
                   component={Language}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Interests"
+                  component={Interests}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
