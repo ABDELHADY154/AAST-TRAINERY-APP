@@ -34,7 +34,7 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -43,7 +43,7 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExperienceTabScreen = (props) => {
+  ExperienceTabScreen = props => {
     const { navigation } = useNavigation();
     const route = useRoute();
     return <ExperienceTab {...props} navigation={navigation} />;
@@ -60,7 +60,7 @@ export default class ProfileScreen extends Component {
       <View style={styles.container}>
         {/* Header */}
         <View style={{ backgroundColor: "#1E4274" }}>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -95,9 +95,9 @@ export default class ProfileScreen extends Component {
             >
               Profile
             </Text>
-          </View>
-          <View style={{ alignItems: "center", marginTop: -15 }}>
-            <View>
+          </View> */}
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <View style={{ marginTop: 20 }}>
               <Pressable
                 // style={[styles.button, styles.buttonOpen]}
                 onPress={this.showModal}
@@ -159,41 +159,8 @@ export default class ProfileScreen extends Component {
                       <Text style={styles.textStyle}>Upload</Text>
                     </Pressable>
                   </View>
-
-                  {/* <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => this.setModalVisible(!modalVisible)}
-                      >
-                        <Text style={styles.textStyle}>Close</Text>
-                      </Pressable> */}
-                  {/* </View>
-                  </View> */}
                 </Modal>
               </Portal>
-              {/* <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  this.setModalVisible(!modalVisible);
-                }}
-              >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Text style={styles.modalText}>
-                      Change Your Profile Picture
-                    </Text>
-                    <ProfileImg />
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={() => this.setModalVisible(!modalVisible)}
-                    >
-                      <Text style={styles.textStyle}>Close</Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </Modal> */}
             </View>
             <Text
               style={{
@@ -231,6 +198,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: "center",
   },
   centeredView: {
     flex: 1,

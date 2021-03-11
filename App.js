@@ -18,20 +18,19 @@ import { axios } from "./src/Config/Axios";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
+
 import {
   DefaultTheme,
   configureFonts,
   Provider as PaperProvider,
 } from "react-native-paper";
 import { isLoading } from "expo-font";
+import { Button } from "react-native";
 const AuthContext = React.createContext();
 
-function Trainery(props) {
-  const navigation = useNavigation();
-  const { signOut } = React.useContext(AuthContext);
-  return <Home {...props} navigation={navigation} userSignOut={signOut} />;
-}
 function SignUpScreen(props) {
   const navigation = useNavigation();
   const { signUp } = React.useContext(AuthContext);
@@ -148,11 +147,28 @@ export default function App({ navigation }) {
     }),
     [],
   );
+
+  const Trainery = props => {
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    return (
+      <Home
+        {...props}
+        navigation={navigation}
+        route={route}
+        logout={() => {
+          dispatch({ type: "SIGN_OUT" });
+        }}
+      />
+    );
+  };
+
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName="App">
             {state.isLoading ? (
               <>
                 <Stack.Screen
@@ -216,13 +232,58 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="App"
                   component={Trainery}
-                  options={{
+                  // options={{
+                  //   cardStyle: { backgroundColor: "#fff" },
+                  //   animationTypeForReplace: state.isSignout ? "pop" : "push",
+                  //   header: () => {
+                  //     "none";
+                  //   },
+                  // }}
+
+                  options={({ route }) => ({
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
+                    title: "App",
+                    headerStyle: {
+                      backgroundColor: "white",
                     },
-                  }}
+                    headerTintColor: "#1E4274",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: 20,
+                    },
+                    headerLeft: () => (
+                      <IconButton
+                        icon="menu"
+                        type="text"
+                        size={40}
+                        color="#1E4274"
+                        onPress={() => {
+                          AsyncStorage.removeItem("userData");
+                          AsyncStorage.removeItem("userToken");
+                          AsyncStorage.removeItem("config");
+                          axios.defaults.headers.common["Authorization"] = ``;
+                          dispatch({ type: "SIGN_OUT" });
+                        }}
+                      />
+                    ),
+                    headerRight: () => (
+                      <Feather
+                        name="search"
+                        size={28}
+                        color="#1E4274"
+                        style={{
+                          marginRight: 20,
+                        }}
+                        onPress={() => {
+                          this.props.navigation.navigate("Search");
+                        }}
+                      />
+                    ),
+                  })}
                 />
                 <Stack.Screen
                   name="EducationForm"
