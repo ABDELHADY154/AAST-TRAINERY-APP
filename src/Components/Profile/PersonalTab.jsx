@@ -136,7 +136,7 @@ class PersonalTabForm extends Component {
                   size={24}
                   color="#CD8930"
                   onPress={() => {
-                    this.props.navigation.navigate("Interests");
+                    this.props.navigation.navigate("GeneralForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
                 />
@@ -341,6 +341,9 @@ class PersonalTabForm extends Component {
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  onPress={() => {
+                    this.props.navigation.navigate("AcademicForm");
+                  }}
                   style={{ justifyContent: "flex-end" }}
                 />
               </View>
@@ -449,7 +452,10 @@ class PersonalTabForm extends Component {
                       fontSize: 14,
                       color: "#1E4274",
                     }}
-                  ></Text>
+                  >
+                    {this.state.userData.start_year} -{" "}
+                    {this.state.userData.end_year}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -499,6 +505,9 @@ class PersonalTabForm extends Component {
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  onPress={() => {
+                    this.props.navigation.navigate("AccountForm");
+                  }}
                   style={{ justifyContent: "flex-end" }}
                 />
               </View>

@@ -74,20 +74,13 @@ class Interests extends Component {
         console.log(response.data.response.data);
       })
       .catch((error) => {
-        // console.log(error.response.data.errors);
         if (error.response.data.errors.interests) {
           this.setState({
             interestIdErr: error.response.data.errors.interests,
           });
         }
-        // if (error.response.data.errors.interest) {
-        //   this.setState({
-        //     interestErr: error.response.data.errors.interest,
-        //   });
-        // }
       });
   };
-
   render() {
     console.log(this.state.tagsArray);
     return (
@@ -102,7 +95,6 @@ class Interests extends Component {
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Interests </Text>
-
         <View style={{ width: "93%" }}>
           <ScrollView>
             <TagInput

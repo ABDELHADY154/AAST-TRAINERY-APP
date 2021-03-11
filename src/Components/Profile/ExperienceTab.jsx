@@ -13,7 +13,7 @@ import {
   Chip,
 } from "react-native-paper";
 import StarRating from "react-native-star-rating";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 export function ExperienceTab(props) {
   const navigation = useNavigation();
@@ -298,50 +298,33 @@ export class ExperienceTabForm extends Component {
                     <Text></Text>
                   )}
                 </Card.Content>
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Intrests"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {}}
+                    />
+                  )}
+                />
                 <Card.Content>
                   <View
                     style={{
                       flexDirection: "row",
-                      flex: 1,
-                      marginTop: 20,
+                      // flex: 1,
+                      justifyContent: "flex-end",
+                      marginTop: -5,
                     }}
                   >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flex: 1,
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Octicons
-                        name="primitive-dot"
-                        size={24}
-                        color="#CD8930"
-                        style={{
-                          justifyContent: "flex-start",
-                          marginRight: 5,
-                        }}
-                      />
-                      <View
-                        style={{
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Title
-                          style={{
-                            fontSize: 16,
-                            color: "#1E4274",
-                            fontWeight: "bold",
-                            flex: 1,
-                            justifyContent: "flex-start",
-                            color: "#1E4274",
-                            lineHeight: 19,
-                          }}
-                        >
-                          Intrests
-                        </Title>
-                      </View>
-                    </View>
                     <MaterialIcons
                       name="mode-edit"
                       size={24}
@@ -350,71 +333,47 @@ export class ExperienceTabForm extends Component {
                       onPress={() => {}}
                     />
                   </View>
-
-                  {this.state.interests ? (
-                    this.state.interests.map((e) => {
-                      return (
-                        <Interests
-                          style={{
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                            width: "85%",
-                          }}
-                          key={e.id}
-                          id={e.id}
-                          interest={e.interest}
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
                 </Card.Content>
-                <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                      marginTop: 20,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flex: 1,
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Octicons
-                        name="primitive-dot"
-                        size={24}
-                        color="#CD8930"
+                {this.state.interests ? (
+                  this.state.interests.map((e) => {
+                    return (
+                      <Interests
                         style={{
-                          justifyContent: "flex-start",
-                          marginRight: 5,
+                          flexDirection: "row",
+                          flexWrap: "wrap",
+                          width: "85%",
                         }}
+                        key={e.id}
+                        id={e.id}
+                        interest={e.interest}
+                        navigation={this.props.navigation}
                       />
-                      <View
-                        style={{
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Title
-                          style={{
-                            fontSize: 16,
-                            color: "#1E4274",
-                            fontWeight: "bold",
-
-                            color: "#1E4274",
-                            lineHeight: 19,
-                          }}
-                        >
-                          Languages
-                        </Title>
-                      </View>
-                    </View>
-                  </View>
+                    );
+                  })
+                ) : (
+                  <Text></Text>
+                )}
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Languages"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {
+                        this.props.navigation.navigate("Language");
+                      }}
+                    />
+                  )}
+                />
+                <Card.Content style={{ marginLeft: -15 }}>
                   {this.state.languages ? (
                     this.state.languages.map((e) => {
                       return (
