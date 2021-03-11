@@ -12,7 +12,7 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import DateTimePicker from "@react-native-community/datetimepicker";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 export default function GeneralInfoFormScreen(props) {
@@ -68,24 +68,24 @@ class GeneralInfo extends Component {
       });
   };
 
-  onChange = (e, selectedDate) => {
-    try {
-      console.log(selectedDate);
-      const currentDate = selectedDate || this.state.date;
-      this.setState({ show: Platform.OS === "ios" });
-      this.setState({ date: currentDate });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  showMode = (currentMode) => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
-  };
+  // onChange = (e, selectedDate) => {
+  //   try {
+  //     console.log(selectedDate);
+  //     const currentDate = selectedDate || this.state.date;
+  //     this.setState({ show: Platform.OS === "ios" });
+  //     this.setState({ date: currentDate });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // showMode = (currentMode) => {
+  //   this.setState({ show: true });
+  //   this.setState({ mode: currentMode });
+  // };
 
-  showDatepicker = () => {
-    this.showMode("date");
-  };
+  // showDatepicker = () => {
+  //   this.showMode("date");
+  // };
 
   componentDidMount() {
     axios
@@ -128,7 +128,7 @@ class GeneralInfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 350,
+            marginRight: 310,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -221,7 +221,7 @@ class GeneralInfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 15,
-                  marginLeft: 10,
+                  marginLeft: -15,
                   marginBottom: -20,
                 }}
               >
@@ -230,7 +230,7 @@ class GeneralInfo extends Component {
               <View>
                 <View>
                   <Feather
-                    onPress={this.showDatepicker}
+                    // onPress={this.showDatepicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -239,21 +239,21 @@ class GeneralInfo extends Component {
                       marginLeft: 340,
                     }}
                   ></Feather>
-                  <Button
+                  {/* <Button
                     title={this.state.date}
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
-                      marginLeft: 10,
+                      width: "108%",
+                      marginLeft: -15,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       marginTop: -30,
                     }}
-                  />
+                  /> */}
                 </View>
-                {this.state.show && (
+                {/* {this.state.show && (
                   <DateTimePicker
                     testID="dateTimePicker"
                     value={this.state.date}
@@ -261,7 +261,7 @@ class GeneralInfo extends Component {
                     display="default"
                     onChange={this.onChange}
                   />
-                )}
+                )} */}
               </View>
 
               <Input
@@ -273,14 +273,50 @@ class GeneralInfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
+                  marginLeft: -25,
+                  width: "115%",
                 }}
                 value={this.state.nationality}
                 label="Nationality"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  marginTop: 15,
+                  marginLeft: -25,
+                }}
                 onChangeText={(value) => this.setState({ nationality: value })}
               />
-              <Text style={styles.gender}>Country</Text>
-              <View style={styles.boxContainer}>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 0,
+                  marginLeft: -16,
+                }}
+              >
+                Country
+              </Text>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "108%",
+                  marginLeft: -17,
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -306,8 +342,34 @@ class GeneralInfo extends Component {
                   })}
                 </Picker>
               </View>
-              <Text style={styles.gender}>City</Text>
-              <View style={styles.boxContainer}>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 15,
+                  marginLeft: -15,
+                }}
+              >
+                City
+              </Text>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "107.5%",
+                  marginLeft: -17,
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -344,10 +406,20 @@ class GeneralInfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
+                  marginLeft: -29,
+                  width: "116%",
                 }}
                 label="Phone Number"
                 value={this.state.phoneNumber}
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -5,
+                  marginTop: 15,
+                  marginLeft: -27,
+                }}
                 // onChangeText={value => this.setState({ regNo: value })}
               />
             </View>
@@ -381,7 +453,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -140,
+    marginLeft: -100,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -411,12 +483,12 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: "87%",
-    marginLeft: 10,
+    width: "107%",
+    marginLeft: -14,
     // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,
