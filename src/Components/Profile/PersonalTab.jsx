@@ -38,13 +38,13 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
-        console.log(response.data.response.data);
+        console.log(this.state.userData);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -449,7 +449,9 @@ class PersonalTabForm extends Component {
                       fontSize: 14,
                       color: "#1E4274",
                     }}
-                  ></Text>
+                  >
+                    {this.state.userData.start_year}
+                  </Text>
                 </View>
                 <View
                   style={{
@@ -563,7 +565,7 @@ class PersonalTabForm extends Component {
             </View>
           </View>
         </ScrollView>
-        <StatusBar style="light" />
+        <StatusBar style="Light" />
       </View>
     );
   }

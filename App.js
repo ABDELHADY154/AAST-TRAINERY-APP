@@ -21,6 +21,7 @@ import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
+import Drawer from "./src/Components/Drawer/Drawer";
 
 import {
   DefaultTheme,
@@ -52,7 +53,6 @@ function EducationInfoFormScreen(props) {
   const navigation = useNavigation();
   return <EducationScreen {...props} navigation={navigation} />;
 }
-
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -242,7 +242,7 @@ export default function App({ navigation }) {
 
                   options={({ route }) => ({
                     cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    animationTypeForReplace: state.isSignout ? "pop" : "pop",
                     title: "App",
                     headerStyle: {
                       backgroundColor: "white",
@@ -285,6 +285,7 @@ export default function App({ navigation }) {
                     ),
                   })}
                 />
+
                 <Stack.Screen
                   name="EducationForm"
                   component={EducationInfoFormScreen}
