@@ -12,6 +12,8 @@ import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
+import StarRating from "react-native-star-rating";
+
 export default function LanguageFormScreen(props) {
   const navigation = useNavigation();
   return <Language navigation={navigation} {...props} />;
@@ -21,22 +23,22 @@ class Language extends Component {
     super();
     this.state = {
       id: 0,
-      skill_name: "",
-      years_of_exp: 0,
-      skillIdErr: "",
-      yearsExpErr: "",
-      skillErr: "",
+      language: "",
+      level: 0,
+      languageIdErr: "",
+      languageErr: "",
+      levelErr: "",
     };
   }
 
   componentDidMount() {
     axios
-      .get("/A/student/profile/skill")
+      .get("/A/student/profile/language")
       .then((res) => {
         this.setState({
           id: res.data.response.data.id,
-          skill_name: res.data.response.data.skill_name,
-          years_of_exp: res.data.response.data.years_of_exp,
+          language: res.data.response.data.language,
+          level: res.data.response.data.level,
         });
         console.log(response.data.response.data);
       })
@@ -46,34 +48,34 @@ class Language extends Component {
   }
   handleSubmitSkills = () => {
     var body = {
-      skill_name: this.state.skill_name,
+      language: this.state.language,
       id: this.state.id,
-      years_of_exp: this.state.years_of_exp,
+      level: this.state.level,
     };
     axios
-      .post("/A/student/profile/skill", body)
+      .post("/A/student/profile/language", body)
       .then((response) => {
         this.setState({
           id: response.data.response.id,
-          skill_name: response.data.response.skill_name,
-          years_of_exp: response.data.response.years_of_exp,
+          language: response.data.response.language,
+          level: response.data.response.level,
         });
       })
       .catch((error) => {
         // console.log(error.response.data.errors);
         if (error.response.data.errors.id) {
           this.setState({
-            skillIdErr: error.response.data.errors.id,
+            languageIdErr: error.response.data.errors.id,
           });
         }
-        if (error.response.data.errors.years_of_exp) {
+        if (error.response.data.errors.language) {
           this.setState({
-            yearsExpErr: error.response.data.errors.years_of_exp,
+            languageErr: error.response.data.errors.language,
           });
         }
-        if (error.response.data.errors.skill_name) {
+        if (error.response.data.errors.level) {
           this.setState({
-            skillErr: error.response.data.errors.skill_name,
+            levelErr: error.response.data.errors.level,
           });
         }
       });
@@ -94,7 +96,7 @@ class Language extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
-        <Text style={styles.title}>Skills </Text>
+        <Text style={styles.title}>Language </Text>
 
         <View style={{ width: "93%" }}>
           <ScrollView>
@@ -113,7 +115,7 @@ class Language extends Component {
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
               }}
-              label="Skill Name"
+              label="Language"
               labelStyle={{
                 color: "#1E4274",
                 fontSize: 16,
@@ -122,8 +124,8 @@ class Language extends Component {
                 marginBottom: -10,
                 marginTop: 15,
               }}
-              value={this.state.skill_name}
-              onChangeText={(value) => this.setState({ skill_name: value })}
+              value={this.state.language}
+              onChangeText={(value) => this.setState({ language: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -142,37 +144,49 @@ class Language extends Component {
                     textAlign: "left",
                   }}
                 >
-                  {this.state.skillErr}
+                  {this.state.languageErr}
                 </Text>
               </View>
             ) : (
               <Text></Text>
             )}
-            <Input
-              containerStyle={{
+            <View
+              style={{
+                width: "93%",
                 justifyContent: "center",
                 alignSelf: "center",
                 marginLeft: "5%",
               }}
-              keyboardType="number-pad"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
-              inputContainerStyle={{
-                borderColor: "#1E4274",
-                borderBottomWidth: 2,
-              }}
-              label="Years of Experience "
-              labelStyle={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: 15,
-              }}
-              value={this.state.years_of_exp}
-              onChangeText={(value) => this.setState({ years_of_exp: value })}
-            />
+            >
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: 10,
+                  marginTop: 15,
+                }}
+              >
+                Level
+              </Text>
+              <StarRating
+                fullStarColor={"#CD8930"}
+                starSize={35}
+                disabled={false}
+                maxStars={5}
+                rating={this.state.level}
+                selectedStar={(value) => this.setState({ level: value })}
+                style={{
+                  justifyContent: "center",
+                  alignSelf: "center",
+                  marginLeft: "5%",
+                }}
+                // value={}
+                // onChangeText={(value) => this.setState({ level: value })}
+              />
+            </View>
+
             {this.state.yearsExpErr != "" ? (
               <View
                 style={{
@@ -180,7 +194,7 @@ class Language extends Component {
                   alignSelf: "center",
                   flexDirection: "row",
                   width: "91.5%",
-                  marginTop: -10,
+                  marginTop: 10,
                 }}
               >
                 <Text
@@ -190,7 +204,7 @@ class Language extends Component {
                     textAlign: "left",
                   }}
                 >
-                  {this.state.yearsExpErr}
+                  {this.state.levelErr}
                 </Text>
               </View>
             ) : (
