@@ -44,7 +44,7 @@ class GeneralInfo extends Component {
   constructor() {
     super();
     this.state = {
-      date: new Date(1598051730000),
+      date: "",
       mode: "date",
       show: false,
       countriesList: {},
@@ -77,7 +77,7 @@ class GeneralInfo extends Component {
     this.setState({ isDatePickerVisible: false });
   };
   handleConfirm = date => {
-    // console.log("A date has been picked: ", date);
+    console.log("A date has been picked: ", date);
     this.setState({ date: date.toISOString().split("T")[0] });
     this.hideDatePicker();
   };
@@ -283,12 +283,11 @@ class GeneralInfo extends Component {
                       marginTop: 20,
                       alignSelf: "flex-end",
                     }}
-                    onPress={this.showDatePicker}
+                    // onPress={this.showDatePicker}
                   ></Feather>
 
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showDatePicker}
                     color="transparent"
                     style={{
                       width: "108%",
@@ -297,10 +296,11 @@ class GeneralInfo extends Component {
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
-
                       marginTop: -30,
                     }}
-                  />
+                  >
+                    <Text>{this.state.date}</Text>
+                  </Button>
                 </View>
                 {/* {this.state.show && (
                   <DateTimePicker
