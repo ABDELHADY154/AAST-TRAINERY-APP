@@ -18,8 +18,17 @@ import {
   MaterialIcons,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import {
+  Card,
+  // Button,
+  Avatar,
+  IconButton,
+  Title,
+  Paragraph,
+} from "react-native-paper";
 
 import { useNavigation } from "@react-navigation/native";
+import CardSilder from "react-native-cards-slider";
 
 import { ReviewsCard } from "./ReviewsCard";
 import * as Progress from "react-native-progress";
@@ -552,6 +561,7 @@ class PersonalTabForm extends Component {
                 </View>
               </View>
             </View>
+
             <View style={{ marginTop: 10 }}>
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
@@ -566,9 +576,125 @@ class PersonalTabForm extends Component {
                   Reviews
                 </Text>
               </View>
-              <View style={{ marginTop: 10 }}>
-                <ReviewsCard />
-              </View>
+              <CardSilder style={{ marginTop: 30 }}>
+                <View
+                  style={{
+                    // height: 170,
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+                    // backgroundColor: "skyblue",
+                  }}
+                >
+                  <Card
+                    style={{
+                      // width: "90%",
+                      marginLeft: 18,
+                      borderWidth: 1,
+                      marginBottom: 10,
+
+                      borderColor: "#CCCCCC",
+                    }}
+                  >
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Qowwa"
+                      titleStyle={{
+                        color: "#1E4274",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      subtitle="Web develober"
+                      subtitleStyle={{
+                        color: "#1E4274",
+                        fontSize: 14,
+                        marginTop: -3,
+                      }}
+                      left={(props) => (
+                        <Card.Cover
+                          style={{ height: 45, width: 45, borderRadius: 5 }}
+                          source={{
+                            uri:
+                              "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      <Paragraph
+                        style={{
+                          fontSize: 14,
+                          color: "#1E4274",
+                          lineHeight: 19,
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Consectetur dictumst nisi blandit ornare viverra
+                        eleifend Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit.
+                      </Paragraph>
+                    </Card.Content>
+                  </Card>
+                </View>
+                <View
+                  style={{
+                    // height: 170,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    // backgroundColor: "skyblue",
+                  }}
+                >
+                  <Card
+                    style={{
+                      // width: "90%",
+                      marginLeft: 18,
+                      borderWidth: 1,
+                      marginBottom: 10,
+
+                      borderColor: "#CCCCCC",
+                    }}
+                  >
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Qowwa"
+                      titleStyle={{
+                        color: "#1E4274",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      subtitle="Web develober"
+                      subtitleStyle={{
+                        color: "#1E4274",
+                        fontSize: 14,
+                        marginTop: -3,
+                      }}
+                      left={(props) => (
+                        <Card.Cover
+                          style={{ height: 45, width: 45, borderRadius: 5 }}
+                          source={{
+                            uri:
+                              "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      <Paragraph
+                        style={{
+                          fontSize: 14,
+                          color: "#1E4274",
+                          lineHeight: 19,
+                        }}
+                      >
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Consectetur dictumst nisi blandit ornare viverra
+                        eleifend Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit.
+                      </Paragraph>
+                    </Card.Content>
+                  </Card>
+                </View>
+              </CardSilder>
+              {/* <ReviewsCard /> */}
             </View>
           </View>
         </ScrollView>

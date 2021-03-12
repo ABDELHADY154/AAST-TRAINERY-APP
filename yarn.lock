@@ -5956,6 +5956,11 @@
   dependencies:
     "prop-types" "^15.5.10"
 
+"react-native-cards-slider@^0.1.2":
+  "integrity" "sha1-ITSJxIBkkpp+dqwOk1LLYKWb/QM="
+  "resolved" "https://registry.npmjs.org/react-native-cards-slider/-/react-native-cards-slider-0.1.2.tgz"
+  "version" "0.1.2"
+
 "react-native-drawer@2.5.1":
   "integrity" "sha512-cxcQNbSWy5sbGi7anSVp6EDr6JarOBMY9lbFOeLFeVYbONiudoqRKbgEsSDgSw3/LFCLvUXK5zdjXCOedeytxQ=="
   "resolved" "https://registry.npmjs.org/react-native-drawer/-/react-native-drawer-2.5.1.tgz"
