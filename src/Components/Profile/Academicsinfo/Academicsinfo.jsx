@@ -210,6 +210,7 @@ class Academicinfo extends Component {
                   alignContent: "flex-start",
                   justifyContent: "flex-start",
                   marginLeft: "-4%",
+                  width: "107%",
                 }}
                 label="GPA"
                 labelStyle={{
