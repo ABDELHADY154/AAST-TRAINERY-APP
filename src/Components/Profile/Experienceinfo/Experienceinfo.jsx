@@ -72,7 +72,7 @@ class ExpInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
+            marginRight: 310,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -83,8 +83,34 @@ class ExpInfoForm extends Component {
 
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
-            <Text style={styles.gender}>Experience Type</Text>
-            <View style={styles.boxContainer}>
+            <Text
+              style={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginTop: 15,
+                marginLeft: 5,
+              }}
+            >
+              Experience Type
+            </Text>
+            <View
+              style={{
+                backgroundColor: "transparent",
+                width: "95%",
+                marginLeft: 5,
+                // marginTop: 10,
+                borderColor: "#1E4275",
+                borderTopWidth: 0,
+                borderRightWidth: 0,
+                borderLeftWidth: 0,
+                borderBottomWidth: 2,
+                borderRadius: 0,
+                // marginBottom: 10,
+                alignSelf: "flex-start",
+              }}
+            >
               <Picker
                 mode="dialog"
                 style={{
@@ -95,6 +121,7 @@ class ExpInfoForm extends Component {
                   borderLeftWidth: 0,
                   borderBottomWidth: 10,
                   borderRadius: 0,
+                  marginLeft: -10,
                 }}
                 placeholder="Select your SIM"
                 placeholderStyle={{ color: "#1E4275" }}
@@ -129,9 +156,18 @@ class ExpInfoForm extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                marginLeft: -6,
               }}
               label="Job Title"
-              labelStyle={styles.labelStyle}
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginTop: 15,
+                marginLeft: -5,
+              }}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
             <Input
@@ -144,6 +180,7 @@ class ExpInfoForm extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                marginLeft: -8,
               }}
               label="Company Name"
               labelStyle={{
@@ -153,6 +190,7 @@ class ExpInfoForm extends Component {
                 fontWeight: "normal",
                 marginBottom: -10,
                 marginTop: -10,
+                marginLeft: -8,
               }}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
@@ -164,12 +202,27 @@ class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: 10,
+                  marginLeft: -20,
                 }}
               >
                 Country
               </Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "110.5%",
+                  marginLeft: -20,
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -204,7 +257,22 @@ class ExpInfoForm extends Component {
                 </Picker>
               </View>
               <Text style={styles.gender}>City</Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "110.5%",
+                  marginLeft: -20,
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -248,7 +316,7 @@ class ExpInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      marginLeft: 275,
                     }}
                   ></Feather>
                   <Button
@@ -256,12 +324,13 @@ class ExpInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
-                      marginLeft: 10,
+                      width: "111%",
+                      marginLeft: -21,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       marginTop: -35,
+                      borderRadius: 0,
                     }}
                   />
                 </View>
@@ -285,7 +354,7 @@ class ExpInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      marginLeft: 275,
                     }}
                   ></Feather>
                   <Button
@@ -293,12 +362,13 @@ class ExpInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
-                      marginLeft: 10,
+                      width: "111%",
+                      marginLeft: -21,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       marginTop: -35,
+                      borderRadius: 0,
                     }}
                   />
                 </View>
@@ -313,7 +383,11 @@ class ExpInfoForm extends Component {
                 )}
               </View>
               <Input
-                style={styles.input}
+                style={{
+                  backgroundColor: "transparent",
+                  height: 35,
+                  marginLeft: 2,
+                }}
                 textContentType="name"
                 keyboardType="default"
                 textAlign="left"
@@ -321,9 +395,19 @@ class ExpInfoForm extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
+                  marginLeft: -35,
+                  width: "118.2%",
                 }}
                 label="Credentials URL"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  marginTop: 15,
+                  marginLeft: -32,
+                }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 onChangeText={(value) =>
@@ -342,7 +426,7 @@ class ExpInfoForm extends Component {
                     fontFamily: "SF-M",
                     fontWeight: "normal",
                     marginBottom: 5,
-                    marginLeft: 10,
+                    marginLeft: -23,
                   }}
                 >
                   Credentials Upload{" "}
@@ -350,10 +434,10 @@ class ExpInfoForm extends Component {
                 <Button
                   style={{
                     borderRadius: 5,
-                    width: "10%",
+                    width: "11%",
                     height: "36%",
                     marginTop: -4,
-                    marginLeft: "49%",
+                    marginLeft: "52%",
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
@@ -393,7 +477,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -250,
+    marginLeft: -210,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -402,7 +486,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -412,10 +496,12 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     marginBottom: -10,
     marginTop: 15,
+    marginLeft: 0,
   },
   input: {
     backgroundColor: "transparent",
     height: 35,
+    marginLeft: -20,
   },
   gender: {
     color: "#1E4274",
@@ -423,11 +509,11 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: 10,
+    marginLeft: -20,
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: 360,
+    width: "95%",
     marginLeft: 10,
     // marginTop: 10,
     borderColor: "#1E4275",

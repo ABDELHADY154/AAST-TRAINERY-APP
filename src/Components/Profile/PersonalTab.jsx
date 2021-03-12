@@ -47,13 +47,13 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(this.state.userData);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -145,7 +145,7 @@ class PersonalTabForm extends Component {
                   size={24}
                   color="#CD8930"
                   onPress={() => {
-                    this.props.navigation.navigate("GeneralForm");
+                    this.props.navigation.navigate("CoursesForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
                 />
@@ -273,6 +273,7 @@ class PersonalTabForm extends Component {
                 >
                   Contact Information
                 </Text>
+
                 {/* <MaterialIcons
                   name="mode-edit"
                   size={24}
@@ -354,6 +355,9 @@ class PersonalTabForm extends Component {
                     this.props.navigation.navigate("AcademicForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
+                  onPress={() => {
+                    this.props.navigation.navigate("AcademicForm");
+                  }}
                 />
               </View>
               <View style={{ marginTop: 5 }}>
@@ -519,6 +523,9 @@ class PersonalTabForm extends Component {
                     this.props.navigation.navigate("AccountForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
+                  onPress={() => {
+                    this.props.navigation.navigate("AccountForm");
+                  }}
                 />
               </View>
               <View style={{ marginTop: 10 }}>

@@ -13,7 +13,12 @@ import {
   Chip,
 } from "react-native-paper";
 import StarRating from "react-native-star-rating";
+import { useNavigation } from "@react-navigation/native";
 
+// export function ExperienceTabForm(props) {
+//   const navigation = useNavigation();
+//   return <ExperienceTab navigation={navigation} {...props} />;
+// }
 export class ExperienceTab extends Component {
   constructor() {
     super();
@@ -73,7 +78,7 @@ export class ExperienceTab extends Component {
                           size={30}
                           color="#1E4274"
                           onPress={() => {
-                            this.props.navigation.navigate("AccountForm");
+                            this.props.navigation.navigate("EducationForm");
                           }}
                         />
                       )}
