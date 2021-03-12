@@ -48,13 +48,13 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(this.state.userData);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -538,7 +538,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.facebook,
+                              this.state.userData.accounts.facebook
                             );
                           }}
                         />
@@ -553,7 +553,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.instagram,
+                              this.state.userData.accounts.instagram
                             );
                           }}
                         />
@@ -568,7 +568,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.youtube,
+                              this.state.userData.accounts.youtube
                             );
                           }}
                         />
@@ -583,7 +583,22 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.linkedin,
+                              this.state.userData.accounts.linkedin
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.behance ? (
+                        <Entypo
+                          name="behance"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.behance
                             );
                           }}
                         />
@@ -598,7 +613,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.github,
+                              this.state.userData.accounts.github
                             );
                           }}
                         />
@@ -613,7 +628,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.website,
+                              this.state.userData.accounts.website
                             );
                           }}
                         />
@@ -636,13 +651,13 @@ class PersonalTabForm extends Component {
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
-                    // marginRight: 145,
+                    marginBottom: 10,
                   }}
                 >
                   Reviews
                 </Text>
               </View>
-              <CardSilder style={{ marginTop: 30 }}>
+              {/* <CardSilder style={{ marginTop: 30 }}>
                 <View
                   style={{
                     // height: 170,
@@ -675,7 +690,7 @@ class PersonalTabForm extends Component {
                         fontSize: 14,
                         marginTop: -3,
                       }}
-                      left={props => (
+                      left={(props) => (
                         <Card.Cover
                           style={{ height: 45, width: 45, borderRadius: 5 }}
                           source={{
@@ -733,7 +748,7 @@ class PersonalTabForm extends Component {
                         fontSize: 14,
                         marginTop: -3,
                       }}
-                      left={props => (
+                      left={(props) => (
                         <Card.Cover
                           style={{ height: 45, width: 45, borderRadius: 5 }}
                           source={{
@@ -759,8 +774,8 @@ class PersonalTabForm extends Component {
                     </Card.Content>
                   </Card>
                 </View>
-              </CardSilder>
-              {/* <ReviewsCard /> */}
+              </CardSilder> */}
+              <ReviewsCard />
             </View>
           </View>
         </ScrollView>
