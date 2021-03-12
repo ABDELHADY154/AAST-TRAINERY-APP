@@ -72,19 +72,20 @@ class CoursesInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
-            // flex: 1,
             marginTop: 45,
-            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Courses</Text>
 
-        <View style={styles.inputContainer}>
-          <ScrollView style={styles.scrollView}>
+        <View style={{ width: "93%" }}>
+          <ScrollView>
             <Input
-              style={styles.input}
+              containerStyle={{
+                justifyContent: "center",
+                alignSelf: "center",
+                marginLeft: "5%",
+              }}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -95,8 +96,16 @@ class CoursesInfoForm extends Component {
                 borderBottomWidth: 2,
               }}
               label="Course Name"
-              labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginTop: 15,
+              }}
+              //value={this.state.coursename}
+              //onChangeText={(value) => this.setState({ coursename: value })}
             />
             <Input
               style={styles.input}
@@ -316,17 +325,13 @@ class CoursesInfoForm extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
-    marginLeft: -270,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
+    marginLeft: "5%",
   },
 
   inputContainer: {
