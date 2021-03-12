@@ -36,8 +36,9 @@ class Academicinfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 310,
-            // flex: 1,
+            alignSelf: "flex-start",
+            marginLeft: "7%",
+
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -118,18 +119,36 @@ class Academicinfo extends Component {
                 </Picker>
               </View>
               <Input
-                style={styles.input}
+                style={{
+                  alignSelf: "flex-start",
+
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  height: 35,
+                }}
                 keyboardType="number-pad"
                 textAlign="left"
                 inputStyle={{ color: "#1E4275" }}
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
-                  width: "114.55%",
-                  marginLeft: -10,
+                  marginLeft: "-3%",
+                  width: "106%",
                 }}
                 label="Registration Number"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  marginLeft: "-3%",
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  alignContent: "flex-start",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  alignSelf: "flex-start",
+                  marginTop: 15,
+                }}
                 // onChangeText={value => this.setState({ regNo: value })}
               />
               <Text
@@ -139,7 +158,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
 
-                  marginLeft: 0,
+                  // marginLeft: 10,
                 }}
               >
                 Term Period
@@ -179,18 +198,34 @@ class Academicinfo extends Component {
                 </Picker>
               </View>
               <Input
-                style={styles.input}
+                // style={styles.input}
                 keyboardType="number-pad"
                 textAlign="left"
                 inputStyle={{ color: "#1E4275" }}
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
-                  width: "117%",
-                  marginLeft: -12,
+                  alignSelf: "flex-start",
+                  alignItems: "flex-start",
+                  alignContent: "flex-start",
+                  justifyContent: "flex-start",
+                  marginLeft: "-4%",
+                  width: "107%",
                 }}
                 label="GPA"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  alignContent: "flex-start",
+                  alignItems: "flex-start",
+                  justifyContent: "flex-start",
+                  alignSelf: "flex-start",
+                  marginTop: 15,
+                  marginLeft: "-3%",
+                }}
                 // onChangeText={value => this.setState({ StudentGpa: value })}
               />
               <Text
@@ -200,7 +235,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
 
-                  marginLeft: 0,
+                  // marginLeft: 10,
                 }}
               >
                 Start Year
@@ -246,7 +281,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 20,
-                  marginLeft: 0,
+                  // marginLeft: 10,
                 }}
               >
                 End Year
@@ -314,9 +349,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
+    width: "100%",
   },
   title: {
-    marginLeft: -206,
+    alignSelf: "flex-start",
+    marginLeft: "9.5%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -324,10 +362,14 @@ const styles = StyleSheet.create({
   },
 
   inputContainer: {
+    // alignContent: "flex-start",
+    // alignItems: "flex-start",
+    // alignContent: "flex-start",
+    // justifyContent: "flex-start",
+    // alignSelf: "flex-start",
     flex: 1,
-    width: "87%",
+    width: "90%",
     alignSelf: "center",
-    marginLeft: -15,
   },
   labelStyle: {
     color: "#1E4274",
@@ -335,14 +377,23 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginBottom: -10,
+    alignContent: "flex-start",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    alignSelf: "flex-start",
     marginTop: 15,
-    marginLeft: -10,
   },
   input: {
+    alignSelf: "flex-start",
+
+    alignContent: "flex-start",
     backgroundColor: "transparent",
     height: 35,
   },
   gender: {
+    alignSelf: "flex-start",
+
+    alignContent: "flex-start",
     color: "#1E4274",
     fontSize: 16,
     fontFamily: "SF-M",
@@ -351,16 +402,21 @@ const styles = StyleSheet.create({
     // marginLeft: 10,
   },
   boxContainer: {
-    backgroundColor: "transparent",
-    width: "107%",
+    alignSelf: "flex-start",
 
+    alignContent: "flex-start",
+    backgroundColor: "transparent",
+    width: "100%",
+    justifyContent: "flex-start",
+
+    // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 2,
     borderRadius: 0,
-
+    // marginBottom: 10,
     alignSelf: "flex-start",
   },
   button: {

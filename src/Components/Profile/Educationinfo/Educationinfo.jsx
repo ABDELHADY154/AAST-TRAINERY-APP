@@ -10,12 +10,12 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { useNavigation } from "@react-navigation/native";
 
-//  function EduInfoFormScren(props) {
-//   const navigation = useNavigation();
-//   return <EduInfoForm navigation={navigation} {...props} />;
-// }
+export default function EduInfoFormScren(props) {
+  const navigation = useNavigation();
+  return <EduInfoForm navigation={navigation} {...props} />;
+}
 // import { CountryPicker } from "react-native-country-picker-modal";
-export default class EduInfoForm extends Component {
+class EduInfoForm extends Component {
   // state = {
   //   SchoolName: "",
   //   countryname: "",
@@ -51,7 +51,7 @@ export default class EduInfoForm extends Component {
       console.log(error);
     }
   };
-  showMode = currentMode => {
+  showMode = (currentMode) => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
@@ -60,9 +60,6 @@ export default class EduInfoForm extends Component {
     this.showMode("date");
   };
 
-  componentDidMount() {
-    console.log(this.props.route.params.id);
-  }
   render() {
     return (
       <View style={styles.container}>
@@ -73,7 +70,8 @@ export default class EduInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 310,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -94,13 +92,20 @@ export default class EduInfoForm extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                width: "107%",
               }}
               label="School Name"
               labelStyle={styles.labelStyle}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
 
-            <View style={styles.inputContainer}>
+            <View
+              style={{
+                flex: 1,
+                width: "87%",
+                alignSelf: "center",
+              }}
+            >
               <Text
                 style={{
                   color: "#1E4274",
@@ -108,13 +113,28 @@ export default class EduInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: -14,
-                  marginBottom: -10,
+                  marginLeft: "-5%",
                 }}
               >
                 Country
               </Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "113%",
+                  alignSelf: "flex-start",
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                  marginLeft: "-5.5%",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -148,8 +168,35 @@ export default class EduInfoForm extends Component {
                     })} */}
                 </Picker>
               </View>
-              <Text style={styles.gender}>City</Text>
-              <View style={styles.boxContainer}>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 15,
+                  marginLeft: "-5%",
+                }}
+              >
+                City
+              </Text>
+              <View
+                style={{
+                  backgroundColor: "transparent",
+                  width: "113%",
+                  alignSelf: "flex-start",
+                  // marginTop: 10,
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  // marginBottom: 10,
+                  alignSelf: "flex-start",
+                  marginLeft: "-5.5%",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -183,7 +230,19 @@ export default class EduInfoForm extends Component {
                     })} */}
                 </Picker>
               </View>
-              <Text style={styles.gender}>From</Text>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 10,
+                  marginLeft: "-5%",
+                  marginBottom: -10,
+                }}
+              >
+                From
+              </Text>
               <View>
                 <View>
                   <Feather
@@ -193,7 +252,7 @@ export default class EduInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 277,
+                      alignSelf: "flex-end",
                     }}
                   ></Feather>
                   <Button
@@ -201,15 +260,13 @@ export default class EduInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: "110%",
-                      marginLeft: 10,
+                      width: "117%",
+                      marginLeft: "-5%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
-                      marginTop: -35,
                       borderRadius: 0,
-
-                      marginLeft: -17,
+                      marginTop: -35,
                     }}
                   />
                 </View>
@@ -223,7 +280,19 @@ export default class EduInfoForm extends Component {
                   />
                 )}
               </View>
-              <Text style={styles.gender}>To</Text>
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 10,
+                  marginLeft: "-5%",
+                  marginBottom: -10,
+                }}
+              >
+                From
+              </Text>
               <View>
                 <View>
                   <Feather
@@ -233,7 +302,7 @@ export default class EduInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 277,
+                      alignSelf: "flex-end",
                     }}
                   ></Feather>
                   <Button
@@ -241,14 +310,13 @@ export default class EduInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: "110%",
-                      marginLeft: 10,
+                      width: "117%",
+                      marginLeft: "-5%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
                       marginTop: -35,
-                      marginLeft: -17,
                     }}
                   />
                 </View>
@@ -271,8 +339,8 @@ export default class EduInfoForm extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
-                  marginLeft: -29,
-                  width: "118.2%",
+                  width: "122%",
+                  marginLeft: "-10%",
                 }}
                 label="Credentials URL"
                 labelStyle={{
@@ -282,11 +350,11 @@ export default class EduInfoForm extends Component {
                   fontWeight: "normal",
                   marginBottom: -10,
                   marginTop: 15,
-                  marginLeft: -29,
+                  marginLeft: "-10%",
                 }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={value =>
+                onChangeText={(value) =>
                   this.setState({ EducationCredURL: value })
                 }
               />
@@ -302,10 +370,10 @@ export default class EduInfoForm extends Component {
                     fontFamily: "SF-M",
                     fontWeight: "normal",
                     marginBottom: 5,
-                    marginLeft: -20,
+                    marginLeft: "-6%",
                   }}
                 >
-                  Credentials Upload{" "}
+                  Credentials Upload
                 </Text>
                 <Button
                   style={{
@@ -313,7 +381,7 @@ export default class EduInfoForm extends Component {
                     width: "11%",
                     height: "36%",
                     marginTop: -4,
-                    marginLeft: "52%",
+                    marginLeft: "49%",
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
@@ -351,9 +419,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
-    marginLeft: -215,
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -383,12 +454,12 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: -15,
+    // marginLeft: 10,
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: "109%",
-    marginLeft: -15,
+    width: "107%",
+    alignSelf: "flex-start",
     // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,
@@ -403,6 +474,5 @@ const styles = StyleSheet.create({
     width: "auto",
     borderRadius: 50,
     marginTop: 40,
-    alignItems: "center",
   },
 });

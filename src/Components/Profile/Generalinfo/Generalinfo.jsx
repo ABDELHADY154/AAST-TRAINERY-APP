@@ -16,10 +16,27 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
+// import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
+// import DatePicker from "@dietime/react-native-date-picker";
+// import { DatePickerModal } from "react-native-paper-dates";
 
 export default function GeneralInfoFormScreen(props) {
+  // function SingleDatePage() {
+  //   const [visible, setVisible] = React.useState(false);
+  //   const onDismiss = React.useCallback(() => {
+  //     setVisible(false);
+  //   }, [setVisible]);
+  //   const onChange = React.useCallback(({ date }) => {
+  //     setVisible(false);
+  //     console.log({ date });
+  //   }, []);
+  //   const date = new Date();
+  // }
+
+  // const [date, setDate] = useState();
+
   const navigation = useNavigation();
   return <GeneralInfo navigation={navigation} {...props} />;
 }
@@ -149,7 +166,8 @@ class GeneralInfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 310,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -263,11 +281,36 @@ class GeneralInfo extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 20,
-                      marginLeft: 277,
+                      alignSelf: "flex-end",
                     }}
                     onPress={this.showDatePicker}
                   ></Feather>
+
+                  <Button
+                    title={this.state.date}
+                    onPress={this.showDatepicker}
+                    color="transparent"
+                    style={{
+                      width: "108%",
+                      marginLeft: -15,
+                      borderColor: "transparent",
+                      borderBottomColor: "#1E4274",
+                      borderBottomWidth: 2,
+                      borderRadius: 0,
+
+                      marginTop: -30,
+                    }}
+                  />
                 </View>
+                {/* {this.state.show && (
+                  <DateTimePicker
+                    testID="dateTimePicker"
+                    value={this.state.date}
+                    mode={this.state.mode}
+                    display="default"
+                    onChange={this.onChange}
+                  />
+                )} */}
               </View>
 
               <Input
@@ -450,10 +493,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
-    marginLeft: -100,
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -488,7 +533,7 @@ const styles = StyleSheet.create({
   boxContainer: {
     backgroundColor: "transparent",
     width: "107%",
-    marginLeft: -14,
+    alignSelf: "flex-start",
     // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,

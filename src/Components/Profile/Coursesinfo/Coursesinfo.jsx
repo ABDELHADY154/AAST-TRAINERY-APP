@@ -72,19 +72,24 @@ class CoursesInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
-            // flex: 1,
-            marginTop: 45,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
+
+            marginTop: "40%",
             marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Courses</Text>
 
-        <View style={styles.inputContainer}>
-          <ScrollView style={styles.scrollView}>
+        <View style={{ width: "93%" }}>
+          <ScrollView>
             <Input
-              style={styles.input}
+              containerStyle={{
+                justifyContent: "center",
+                alignSelf: "center",
+                marginLeft: "5%",
+              }}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -95,8 +100,16 @@ class CoursesInfoForm extends Component {
                 borderBottomWidth: 2,
               }}
               label="Course Name"
-              labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginTop: 15,
+              }}
+              //value={this.state.coursename}
+              //onChangeText={(value) => this.setState({ coursename: value })}
             />
             <Input
               style={styles.input}
@@ -108,9 +121,12 @@ class CoursesInfoForm extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                marginLeft: "2.5%",
+                width: "99%",
               }}
               label="Course Provider"
               labelStyle={{
+                marginLeft: "2.5%",
                 color: "#1E4274",
                 fontSize: 16,
                 fontFamily: "SF-M",
@@ -121,7 +137,10 @@ class CoursesInfoForm extends Component {
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
             <Input
-              style={styles.input}
+              style={{
+                backgroundColor: "transparent",
+                height: 35,
+              }}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -130,9 +149,12 @@ class CoursesInfoForm extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                marginLeft: "2.5%",
+                width: "99%",
               }}
               label="Company Name"
               labelStyle={{
+                marginLeft: "2.5%",
                 color: "#1E4274",
                 fontSize: 16,
                 fontFamily: "SF-M",
@@ -142,7 +164,7 @@ class CoursesInfoForm extends Component {
               }}
               // onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-            <View style={styles.inputContainer}>
+            <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
               <Text
                 style={{
                   color: "#1E4274",
@@ -150,7 +172,7 @@ class CoursesInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: 10,
+                  marginLeft: "-2%",
                   marginBottom: -10,
                 }}
               >
@@ -165,7 +187,7 @@ class CoursesInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      alignSelf: "flex-end",
                     }}
                   ></Feather>
                   <Button
@@ -173,11 +195,12 @@ class CoursesInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
-                      marginLeft: 10,
+                      width: "107.5%",
+                      marginLeft: "-2%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
+                      borderRadius: 0,
                       marginTop: -35,
                     }}
                   />
@@ -199,7 +222,7 @@ class CoursesInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: 10,
+                  marginLeft: "-2%",
                   marginBottom: -10,
                 }}
               >
@@ -214,7 +237,7 @@ class CoursesInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      alignSelf: "flex-end",
                     }}
                   ></Feather>
                   <Button
@@ -222,11 +245,12 @@ class CoursesInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
-                      marginLeft: 10,
+                      width: "107.5%",
+                      marginLeft: "-2%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
+                      borderRadius: 0,
                       marginTop: -35,
                     }}
                   />
@@ -250,9 +274,19 @@ class CoursesInfoForm extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
+                  width: "114.5%",
+                  marginLeft: "-6%",
                 }}
                 label="Credentials URL"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  marginTop: 15,
+                  marginLeft: "-6%",
+                }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 onChangeText={(value) =>
@@ -271,15 +305,15 @@ class CoursesInfoForm extends Component {
                     fontFamily: "SF-M",
                     fontWeight: "normal",
                     marginBottom: 5,
-                    marginLeft: 10,
+                    marginLeft: "-2%",
                   }}
                 >
-                  Credentials Upload{" "}
+                  Credentials Upload
                 </Text>
                 <Button
                   style={{
                     borderRadius: 5,
-                    width: "10%",
+                    width: "11%",
                     height: "46%",
                     marginTop: -4,
                     marginLeft: "49%",
@@ -320,9 +354,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
-    marginLeft: -270,
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -331,7 +368,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -352,22 +389,9 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
-  boxContainer: {
-    backgroundColor: "transparent",
-    width: 360,
-    marginLeft: 10,
-    // marginTop: 10,
-    borderColor: "#1E4275",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 2,
-    borderRadius: 0,
-    // marginBottom: 10,
-    alignSelf: "flex-start",
-  },
+
   button: {
     width: "auto",
     borderRadius: 50,
