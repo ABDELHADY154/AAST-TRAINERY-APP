@@ -155,7 +155,8 @@ class GeneralInfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 310,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
