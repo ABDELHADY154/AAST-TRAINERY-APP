@@ -31,6 +31,18 @@ export default class ProfileScreen extends Component {
     visible: false,
   };
 
+  afterImageUpload = async () => {
+    await axios
+      .get("/A/student/studentImg")
+      .then(response => {
+        this.setState({
+          userData: response.data.response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+      });
+  };
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
@@ -57,51 +69,37 @@ export default class ProfileScreen extends Component {
   getImage = image => {
     this.setState({ image: image });
   };
-  // async updateImage = () => {
-  //   await axios.
-  // }
+  updateImage = async () => {
+    var formData = new FormData();
+    let uriParts = this.state.image.split(".");
+    let fileType = uriParts[uriParts.length - 1];
+    formData.append("image", {
+      uri: this.state.image,
+      name: `${this.state.title}.${fileType}`,
+      type: `image/${fileType}`,
+    });
+
+    await axios({
+      method: "post",
+      url: "/A/student/profile/image",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(e => {
+        console.log(e);
+        this.setState({ visible: false });
+        this.afterImageUpload();
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  };
   render() {
     console.log(this.state.image);
     return (
       <View style={styles.container}>
         {/* Header */}
         <View style={{ backgroundColor: "#1E4274" }}>
-          {/* <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              alignItems: "center",
-              marginTop: 30,
-            }}
-          >
-            <IconButton
-              icon="menu"
-              type="text"
-              size={40}
-              color="#fff"
-              style={{
-                marginRight: 110,
-              }}
-              onPress={() => {
-                AsyncStorage.removeItem("userData");
-                AsyncStorage.removeItem("userToken");
-                AsyncStorage.removeItem("config");
-                this.props.logout();
-              }}
-            />
-
-            <Text
-              style={{
-                alignItems: "center",
-                marginRight: 165,
-                fontSize: 16,
-                color: "#fff",
-                fontWeight: "bold",
-              }}
-            >
-              Profile
-            </Text>
-          </View> */}
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <View style={{ marginTop: 20 }}>
               <Pressable
@@ -158,7 +156,9 @@ export default class ProfileScreen extends Component {
                       style={[styles.button, styles.buttonClose]}
                       // onPress={}
                     >
-                      <Text style={styles.textStyle}>Upload</Text>
+                      <Text style={styles.textStyle} onPress={this.updateImage}>
+                        Upload
+                      </Text>
                     </Pressable>
                   </View>
                 </Modal>
@@ -232,7 +232,6 @@ const styles = StyleSheet.create({
 });
 
 export class ProfileImg extends Component {
-  // const [image, setImage] = useState(null);
   state = {
     image: null,
   };
@@ -247,18 +246,6 @@ export class ProfileImg extends Component {
       }
     }
   }
-  // useEffect(() => {
-  //   (async () => {
-  //     if (Platform.OS !== "web") {
-  //       const {
-  //         status,
-  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //       if (status !== "granted") {
-  //         alert("Sorry, we need camera roll permissions to make this work!");
-  //       }
-  //     }
-  //   })();
-  // }, []);
 
   pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -267,8 +254,6 @@ export class ProfileImg extends Component {
       aspect: [4, 3],
       quality: 1,
     });
-
-    // console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });
@@ -283,8 +268,6 @@ export class ProfileImg extends Component {
       aspect: [4, 3],
       quality: 1,
     });
-
-    // console.log(result);
 
     if (!result.cancelled) {
       this.setState({ image: result.uri });

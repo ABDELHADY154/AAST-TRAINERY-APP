@@ -14,27 +14,10 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-// import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
-// import DatePicker from "@dietime/react-native-date-picker";
-// import { DatePickerModal } from "react-native-paper-dates";
 
 export default function GeneralInfoFormScreen(props) {
-  // function SingleDatePage() {
-  //   const [visible, setVisible] = React.useState(false);
-  //   const onDismiss = React.useCallback(() => {
-  //     setVisible(false);
-  //   }, [setVisible]);
-  //   const onChange = React.useCallback(({ date }) => {
-  //     setVisible(false);
-  //     console.log({ date });
-  //   }, []);
-  //   const date = new Date();
-  // }
-
-  // const [date, setDate] = useState();
-
   const navigation = useNavigation();
   return <GeneralInfo navigation={navigation} {...props} />;
 }
@@ -78,53 +61,33 @@ class GeneralInfo extends Component {
     }
   };
 
-
   getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  // onChange = (e, selectedDate) => {
-  //   try {
-  //     console.log(selectedDate);
-  //     const currentDate = selectedDate || this.state.date;
-  //     this.setState({ show: Platform.OS === "ios" });
-  //     this.setState({ date: currentDate });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // showMode = (currentMode) => {
-  //   this.setState({ show: true });
-  //   this.setState({ mode: currentMode });
-  // };
-
-  // showDatepicker = () => {
-  //   this.showMode("date");
-  // };
-
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           console.log(this.state.country);
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then((res) => {
+      .then(res => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -135,8 +98,6 @@ class GeneralInfo extends Component {
           phoneNumber: res.data.response.data.phoneNumber,
           checked: res.data.response.data.gender == "male" ? "first" : "second",
         });
-
-        // this.getCityList(this.state.code);
       })
 
       .catch(err => {
@@ -144,9 +105,6 @@ class GeneralInfo extends Component {
       });
   }
   render() {
-    console.log(this.state.code);
-    const countries =
-      this.state.countriesList !== {} ? this.state.countriesList : {};
     return (
       <View style={styles.container}>
         {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
@@ -181,7 +139,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={(value) => this.setState({ studentName: value })}
+              onChangeText={value => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -345,7 +303,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={(value) => this.setState({ nationality: value })}
+                onChangeText={value => this.setState({ nationality: value })}
               />
               <Text
                 style={{
@@ -481,13 +439,6 @@ class GeneralInfo extends Component {
                 // onChangeText={value => this.setState({ regNo: value })}
               />
             </View>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
             <Button
               style={styles.button}
               color="#1E4275"

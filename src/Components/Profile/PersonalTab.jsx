@@ -8,6 +8,7 @@ import {
   Text,
   Button,
   Alert,
+  Linking,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -47,18 +48,19 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
         console.log(this.state.userData);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
 
   render() {
+    console.log(this.state.userData.accounts);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -145,7 +147,7 @@ class PersonalTabForm extends Component {
                   size={24}
                   color="#CD8930"
                   onPress={() => {
-                    this.props.navigation.navigate("CoursesForm");
+                    this.props.navigation.navigate("GeneralForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
                 />
@@ -468,7 +470,6 @@ class PersonalTabForm extends Component {
                   >
                     {this.state.userData.start_year} -{" "}
                     {this.state.userData.end_year}
-
                   </Text>
                 </View>
                 <View
@@ -523,49 +524,106 @@ class PersonalTabForm extends Component {
                     this.props.navigation.navigate("AccountForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
-                  onPress={() => {
-                    this.props.navigation.navigate("AccountForm");
-                  }}
                 />
               </View>
               <View style={{ marginTop: 10 }}>
                 <View style={{ flexDirection: "row" }}>
-                  <FontAwesome
-                    name="facebook"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <Feather
-                    name="instagram"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome5
-                    name="youtube"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome5
-                    name="linkedin-in"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome
-                    name="github"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <Entypo
-                    name="link"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
+                  {this.state.userData.accounts ? (
+                    <>
+                      {this.state.userData.accounts.facebook ? (
+                        <FontAwesome
+                          name="facebook"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.facebook,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.instagram ? (
+                        <Feather
+                          name="instagram"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.instagram,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.youtube ? (
+                        <FontAwesome5
+                          name="youtube"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.youtube,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.linkedin ? (
+                        <FontAwesome5
+                          name="linkedin-in"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.linkedin,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.github ? (
+                        <FontAwesome
+                          name="github"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.github,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.website ? (
+                        <Entypo
+                          name="link"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.website,
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                    </>
+                  ) : (
+                    <Text></Text>
+                  )}
                 </View>
               </View>
             </View>
@@ -617,7 +675,7 @@ class PersonalTabForm extends Component {
                         fontSize: 14,
                         marginTop: -3,
                       }}
-                      left={(props) => (
+                      left={props => (
                         <Card.Cover
                           style={{ height: 45, width: 45, borderRadius: 5 }}
                           source={{
@@ -675,7 +733,7 @@ class PersonalTabForm extends Component {
                         fontSize: 14,
                         marginTop: -3,
                       }}
-                      left={(props) => (
+                      left={props => (
                         <Card.Cover
                           style={{ height: 45, width: 45, borderRadius: 5 }}
                           source={{

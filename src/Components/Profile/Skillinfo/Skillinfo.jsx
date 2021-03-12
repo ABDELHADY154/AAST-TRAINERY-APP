@@ -32,7 +32,7 @@ class Skillinfo extends Component {
   componentDidMount() {
     axios
       .get("/A/student/profile/skill")
-      .then((res) => {
+      .then(res => {
         this.setState({
           id: res.data.response.data.id,
           skill_name: res.data.response.data.skill_name,
@@ -40,7 +40,7 @@ class Skillinfo extends Component {
         });
         console.log(response.data.response.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -52,14 +52,14 @@ class Skillinfo extends Component {
     };
     axios
       .post("/A/student/profile/skill", body)
-      .then((response) => {
+      .then(response => {
         this.setState({
           id: response.data.response.id,
           skill_name: response.data.response.skill_name,
           years_of_exp: response.data.response.years_of_exp,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         // console.log(error.response.data.errors);
         if (error.response.data.errors.id) {
           this.setState({
@@ -123,7 +123,7 @@ class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.skill_name}
-              onChangeText={(value) => this.setState({ skill_name: value })}
+              onChangeText={value => this.setState({ skill_name: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -154,7 +154,8 @@ class Skillinfo extends Component {
                 alignSelf: "center",
                 marginLeft: "5%",
               }}
-              keyboardType="number-pad"
+              // keyboardType="number-pad"
+              // keyboardType="number-pad"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -171,7 +172,7 @@ class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.years_of_exp}
-              onChangeText={(value) => this.setState({ years_of_exp: value })}
+              onChangeText={value => this.setState({ years_of_exp: value })}
             />
             {this.state.yearsExpErr != "" ? (
               <View
