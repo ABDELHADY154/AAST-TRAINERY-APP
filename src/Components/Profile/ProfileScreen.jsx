@@ -53,9 +53,15 @@ export default class ProfileScreen extends Component {
   };
   hideModal = () => {
     this.setState({ visible: false });
-    // this.props.navigation.navigate("SignIn");
   };
+  getImage = image => {
+    this.setState({ image: image });
+  };
+  // async updateImage = () => {
+  //   await axios.
+  // }
   render() {
+    console.log(this.state.image);
     return (
       <View style={styles.container}>
         {/* Header */}
@@ -151,7 +157,7 @@ export default class ProfileScreen extends Component {
                       // alignSelf: "center",
                     }}
                   >
-                    <ProfileImg />
+                    <ProfileImg image={this.getImage} />
                     <Pressable
                       style={[styles.button, styles.buttonClose]}
                       // onPress={}
@@ -229,23 +235,36 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ProfileImg() {
-  const [image, setImage] = useState(null);
+export class ProfileImg extends Component {
+  // const [image, setImage] = useState(null);
+  state = {
+    image: null,
+  };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
+  async componentDidMount() {
+    if (Platform.OS !== "web") {
+      const {
+        status,
+      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
-    })();
-  }, []);
+    }
+  }
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== "web") {
+  //       const {
+  //         status,
+  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //       if (status !== "granted") {
+  //         alert("Sorry, we need camera roll permissions to make this work!");
+  //       }
+  //     }
+  //   })();
+  // }, []);
 
-  const pickImage = async () => {
+  pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -253,14 +272,15 @@ export function ProfileImg() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      this.setState({ image: result.uri });
+      this.props.image(result.uri);
     }
   };
 
-  const imageFromCamera = async () => {
+  imageFromCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -268,55 +288,58 @@ export function ProfileImg() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      this.setState({ image: result.uri });
+      this.props.image(result.uri);
     }
   };
 
-  return (
-    <View style={{ marginBottom: 15 }}>
-      <View stye={{ alignItems: "center" }}>
-        {image && (
-          <Avatar.Image
+  render() {
+    return (
+      <View style={{ marginBottom: 15 }}>
+        <View stye={{ alignItems: "center" }}>
+          {this.state.image && (
+            <Avatar.Image
+              style={{
+                backgroundColor: "transparent",
+                // flex: 1,
+                // alignItems: "center",
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+              size={80}
+              source={{ uri: this.state.image }}
+            />
+          )}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
+          <TouchableOpacity
+            onPress={this.imageFromCamera}
             style={{
-              backgroundColor: "transparent",
-              // flex: 1,
-              // alignItems: "center",
-              alignSelf: "center",
-              justifyContent: "center",
+              marginRight: 15,
             }}
-            size={80}
-            source={{ uri: image }}
-          />
-        )}
+          >
+            <FontAwesome name="camera" size={30} color="#1E4274" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.pickImage}
+            style={{
+              marginLeft: 15,
+            }}
+          >
+            <Entypo name="images" size={30} color="#1E4274" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-          marginTop: 20,
-        }}
-      >
-        <TouchableOpacity
-          onPress={imageFromCamera}
-          style={{
-            marginRight: 15,
-          }}
-        >
-          <FontAwesome name="camera" size={30} color="#1E4274" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            marginLeft: 15,
-          }}
-        >
-          <Entypo name="images" size={30} color="#1E4274" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  }
 }

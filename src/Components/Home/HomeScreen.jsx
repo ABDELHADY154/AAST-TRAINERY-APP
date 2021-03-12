@@ -211,6 +211,7 @@ export default class HomeScreen extends Component {
           <AnimatedTabBar
             tabs={tabs}
             {...props}
+            duration={950}
             style={{
               backgroundColor: "#1E4275",
               borderRadius: 150,
