@@ -282,7 +282,7 @@ class GeneralInfo extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 20,
-                      marginLeft: 340,
+                      marginLeft: 277,
                     }}
                   ></Feather>
 
@@ -296,6 +296,8 @@ class GeneralInfo extends Component {
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
+                                            borderRadius: 0,
+
                       marginTop: -30,
                     }}
                   /> */}

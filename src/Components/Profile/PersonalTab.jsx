@@ -136,7 +136,7 @@ class PersonalTabForm extends Component {
                   size={24}
                   color="#CD8930"
                   onPress={() => {
-                    this.props.navigation.navigate("GeneralForm");
+                    this.props.navigation.navigate("CoursesForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
                 />

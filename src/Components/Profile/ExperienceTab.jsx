@@ -15,12 +15,11 @@ import {
 import StarRating from "react-native-star-rating";
 import { useNavigation } from "@react-navigation/native";
 
-export function ExperienceTabForm(props) {
-  const navigation = useNavigation();
-  return <ExperienceTab navigation={navigation} {...props} />;
-}
-// export
-class ExperienceTab extends Component {
+// export function ExperienceTabForm(props) {
+//   const navigation = useNavigation();
+//   return <ExperienceTab navigation={navigation} {...props} />;
+// }
+export class ExperienceTab extends Component {
   constructor() {
     super();
     this.state = {

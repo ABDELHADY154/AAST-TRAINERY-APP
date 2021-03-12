@@ -70,7 +70,7 @@ class EduInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
+            marginRight: 310,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -105,7 +105,7 @@ class EduInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: 10,
+                  marginLeft: -14,
                   marginBottom: -10,
                 }}
               >
@@ -190,7 +190,7 @@ class EduInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      marginLeft: 277,
                     }}
                   ></Feather>
                   <Button
@@ -198,12 +198,15 @@ class EduInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
+                      width: "110%",
                       marginLeft: 10,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       marginTop: -35,
+                      borderRadius: 0,
+
+                      marginLeft: -17,
                     }}
                   />
                 </View>
@@ -227,7 +230,7 @@ class EduInfoForm extends Component {
                     color="#1E4274"
                     style={{
                       marginTop: 10,
-                      marginLeft: 340,
+                      marginLeft: 277,
                     }}
                   ></Feather>
                   <Button
@@ -235,12 +238,14 @@ class EduInfoForm extends Component {
                     onPress={this.showDatepicker}
                     color="transparent"
                     style={{
-                      width: 360,
+                      width: "110%",
                       marginLeft: 10,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
+                      borderRadius: 0,
                       marginTop: -35,
+                      marginLeft: -17,
                     }}
                   />
                 </View>
@@ -263,9 +268,19 @@ class EduInfoForm extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
+                  marginLeft: -29,
+                  width: "118.2%",
                 }}
                 label="Credentials URL"
-                labelStyle={styles.labelStyle}
+                labelStyle={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: -10,
+                  marginTop: 15,
+                  marginLeft: -29,
+                }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 onChangeText={(value) =>
@@ -284,7 +299,7 @@ class EduInfoForm extends Component {
                     fontFamily: "SF-M",
                     fontWeight: "normal",
                     marginBottom: 5,
-                    marginLeft: 10,
+                    marginLeft: -20,
                   }}
                 >
                   Credentials Upload{" "}
@@ -292,10 +307,10 @@ class EduInfoForm extends Component {
                 <Button
                   style={{
                     borderRadius: 5,
-                    width: "10%",
+                    width: "11%",
                     height: "36%",
                     marginTop: -4,
-                    marginLeft: "49%",
+                    marginLeft: "52%",
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
@@ -335,7 +350,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -250,
+    marginLeft: -215,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -344,7 +359,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -365,12 +380,12 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: 10,
+    marginLeft: -15,
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: 360,
-    marginLeft: 10,
+    width: "109%",
+    marginLeft: -15,
     // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,
@@ -385,5 +400,6 @@ const styles = StyleSheet.create({
     width: "auto",
     borderRadius: 50,
     marginTop: 40,
+    alignItems: "center",
   },
 });
