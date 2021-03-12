@@ -72,7 +72,8 @@ class AccountInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -258,9 +259,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
-    marginLeft: -256,
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -269,7 +273,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
