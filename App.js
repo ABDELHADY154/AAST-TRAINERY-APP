@@ -14,24 +14,27 @@ import GeneralScreen from "./src/Components/Profile/Generalinfo/Generalinfo";
 import ExperienceScreen from "./src/Components/Profile/Experienceinfo/Experienceinfo";
 import CoursesScreen from "./src/Components/Profile/Coursesinfo/Coursesinfo";
 import AccountScreen from "./src/Components/Profile/Accountsinfo/Accountsinfo";
+import Skillinfo from "./src/Components/Profile/Skillinfo/Skillinfo";
+import Language from "./src/Components/Profile/Skillinfo/Language";
+import Interests from "./src/Components/Profile/Skillinfo/Interests";
 import { axios } from "./src/Config/Axios";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { IconButton } from "react-native-paper";
+import { Feather } from "@expo/vector-icons";
+// import Drawer from "./src/Components/Drawer/Drawer";
+
 import {
   DefaultTheme,
   configureFonts,
   Provider as PaperProvider,
 } from "react-native-paper";
 import { isLoading } from "expo-font";
+import { Button } from "react-native";
 const AuthContext = React.createContext();
 
-function Trainery(props) {
-  const navigation = useNavigation();
-  const { signOut } = React.useContext(AuthContext);
-  return <Home {...props} navigation={navigation} userSignOut={signOut} />;
-}
 function SignUpScreen(props) {
   const navigation = useNavigation();
   const { signUp } = React.useContext(AuthContext);
@@ -106,12 +109,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = props => {
+  const TutorialsSCreen = (props) => {
     const navigation = useNavigation();
-    const showTutorial = val => {
+    const showTutorial = (val) => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -138,21 +141,38 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
+
+  const Trainery = props => {
+    const navigation = useNavigation();
+    const route = useRoute();
+
+    return (
+      <Home
+        {...props}
+        navigation={navigation}
+        route={route}
+        logout={() => {
+          dispatch({ type: "SIGN_OUT" });
+        }}
+      />
+    );
+  };
+
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator initialRouteName="App">
             {state.isLoading ? (
               <>
                 <Stack.Screen
@@ -216,14 +236,60 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="App"
                   component={Trainery}
-                  options={{
+                  // options={{
+                  //   cardStyle: { backgroundColor: "#fff" },
+                  //   animationTypeForReplace: state.isSignout ? "pop" : "push",
+                  //   header: () => {
+                  //     "none";
+                  //   },
+                  // }}
+
+                  options={({ route }) => ({
                     cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
+                    animationTypeForReplace: state.isSignout ? "pop" : "pop",
+                    title: "App",
+                    headerStyle: {
+                      backgroundColor: "white",
                     },
-                  }}
+                    headerTintColor: "#1E4274",
+                    headerTitleStyle: {
+                      fontWeight: "bold",
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      fontSize: 20,
+                    },
+                    headerLeft: () => (
+                      <IconButton
+                        icon="menu"
+                        type="text"
+                        size={40}
+                        color="#1E4274"
+                        onPress={() => {
+                          AsyncStorage.removeItem("userData");
+                          AsyncStorage.removeItem("userToken");
+                          AsyncStorage.removeItem("config");
+                          axios.defaults.headers.common["Authorization"] = ``;
+                          dispatch({ type: "SIGN_OUT" });
+                        }}
+                      />
+                    ),
+                    headerRight: () => (
+                      <Feather
+                        name="search"
+                        size={28}
+                        color="#1E4274"
+                        style={{
+                          marginRight: 20,
+                        }}
+                        onPress={() => {
+                          this.props.navigation.navigate("Search");
+                        }}
+                      />
+                    ),
+                  })}
                 />
+
                 <Stack.Screen
                   name="EducationForm"
                   component={EducationInfoFormScreen}
@@ -238,6 +304,39 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="GeneralForm"
                   component={GeneralScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Skillinfo"
+                  component={Skillinfo}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Language"
+                  component={Language}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Interests"
+                  component={Interests}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

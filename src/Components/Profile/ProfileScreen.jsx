@@ -7,14 +7,15 @@ import {
   StyleSheet,
   Text,
   Alert,
-  Modal,
+  // Modal,
   Pressable,
   Platform,
   TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome, Entypo } from "@expo/vector-icons";
-import { Avatar, IconButton } from "react-native-paper";
+import { Avatar, IconButton, Modal, Portal } from "react-native-paper";
+
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { ExperienceTab } from "./ExperienceTab";
 import { PersonalTab } from "./PersonalTab";
@@ -25,12 +26,9 @@ const Tab = createMaterialTopTabNavigator();
 export default class ProfileScreen extends Component {
   state = {
     name: "",
-    modalVisible: false,
     image: null,
     userData: {},
-  };
-  setModalVisible = visible => {
-    this.setState({ modalVisible: visible });
+    visible: false,
   };
 
   async componentDidMount() {
@@ -50,13 +48,25 @@ export default class ProfileScreen extends Component {
     const route = useRoute();
     return <ExperienceTab {...props} navigation={navigation} />;
   };
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+  hideModal = () => {
+    this.setState({ visible: false });
+  };
+  getImage = image => {
+    this.setState({ image: image });
+  };
+  // async updateImage = () => {
+  //   await axios.
+  // }
   render() {
-    const { modalVisible } = this.state;
+    console.log(this.state.image);
     return (
       <View style={styles.container}>
         {/* Header */}
         <View style={{ backgroundColor: "#1E4274" }}>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -91,12 +101,12 @@ export default class ProfileScreen extends Component {
             >
               Profile
             </Text>
-          </View>
-          <View style={{ alignItems: "center", marginTop: -15 }}>
-            <View>
+          </View> */}
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <View style={{ marginTop: 20 }}>
               <Pressable
                 // style={[styles.button, styles.buttonOpen]}
-                onPress={() => this.setModalVisible(true)}
+                onPress={this.showModal}
               >
                 <Avatar.Image
                   style={{
@@ -121,30 +131,38 @@ export default class ProfileScreen extends Component {
                   }}
                 />
               </Pressable>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  this.setModalVisible(!modalVisible);
-                }}
-              >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Text style={styles.modalText}>
-                      Change Your Profile Picture
-                    </Text>
-                    <ProfileImg />
+              <Portal>
+                <Modal
+                  visible={this.state.visible}
+                  onDismiss={this.hideModal}
+                  contentContainerStyle={{
+                    backgroundColor: "white",
+                    padding: 20,
+                    width: 294,
+                    height: 280,
+                    alignSelf: "center",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Text style={styles.modalText}>
+                    Change Your Profile Picture
+                  </Text>
+
+                  <View
+                    style={{
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ProfileImg image={this.getImage} />
                     <Pressable
                       style={[styles.button, styles.buttonClose]}
-                      onPress={() => this.setModalVisible(!modalVisible)}
+                      // onPress={}
                     >
-                      <Text style={styles.textStyle}>Close</Text>
+                      <Text style={styles.textStyle}>Upload</Text>
                     </Pressable>
                   </View>
-                </View>
-              </Modal>
+                </Modal>
+              </Portal>
             </View>
             <Text
               style={{
@@ -182,6 +200,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    justifyContent: "center",
   },
   centeredView: {
     flex: 1,
@@ -189,30 +208,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.7)",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 55,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
   button: {
     borderRadius: 13,
     padding: 10,
     elevation: 2,
   },
-  buttonOpen: {},
   buttonClose: {
-    marginTop: 20,
-    paddingHorizontal: 70,
+    marginTop: 15,
+    // paddingHorizontal: 70,
     backgroundColor: "#1E4274",
   },
   textStyle: {
@@ -228,23 +231,36 @@ const styles = StyleSheet.create({
   },
 });
 
-export function ProfileImg() {
-  const [image, setImage] = useState(null);
+export class ProfileImg extends Component {
+  // const [image, setImage] = useState(null);
+  state = {
+    image: null,
+  };
 
-  useEffect(() => {
-    (async () => {
-      if (Platform.OS !== "web") {
-        const {
-          status,
-        } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-        if (status !== "granted") {
-          alert("Sorry, we need camera roll permissions to make this work!");
-        }
+  async componentDidMount() {
+    if (Platform.OS !== "web") {
+      const {
+        status,
+      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        alert("Sorry, we need camera roll permissions to make this work!");
       }
-    })();
-  }, []);
+    }
+  }
+  // useEffect(() => {
+  //   (async () => {
+  //     if (Platform.OS !== "web") {
+  //       const {
+  //         status,
+  //       } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //       if (status !== "granted") {
+  //         alert("Sorry, we need camera roll permissions to make this work!");
+  //       }
+  //     }
+  //   })();
+  // }, []);
 
-  const pickImage = async () => {
+  pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -252,14 +268,15 @@ export function ProfileImg() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      this.setState({ image: result.uri });
+      this.props.image(result.uri);
     }
   };
 
-  const imageFromCamera = async () => {
+  imageFromCamera = async () => {
     let result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -267,51 +284,58 @@ export function ProfileImg() {
       quality: 1,
     });
 
-    console.log(result);
+    // console.log(result);
 
     if (!result.cancelled) {
-      setImage(result.uri);
+      this.setState({ image: result.uri });
+      this.props.image(result.uri);
     }
   };
 
-  return (
-    <View style={{ marginBottom: 15 }}>
-      <View stye={{ alignItems: "center", justifyContent: "space-around" }}>
-        {image && (
-          <Avatar.Image
+  render() {
+    return (
+      <View style={{ marginBottom: 15 }}>
+        <View stye={{ alignItems: "center" }}>
+          {this.state.image && (
+            <Avatar.Image
+              style={{
+                backgroundColor: "transparent",
+                // flex: 1,
+                // alignItems: "center",
+                alignSelf: "center",
+                justifyContent: "center",
+              }}
+              size={80}
+              source={{ uri: this.state.image }}
+            />
+          )}
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
+          }}
+        >
+          <TouchableOpacity
+            onPress={this.imageFromCamera}
             style={{
-              backgroundColor: "transparent",
+              marginRight: 15,
             }}
-            size={150}
-            source={{ uri: image }}
-          />
-        )}
+          >
+            <FontAwesome name="camera" size={30} color="#1E4274" />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={this.pickImage}
+            style={{
+              marginLeft: 15,
+            }}
+          >
+            <Entypo name="images" size={30} color="#1E4274" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-around",
-          marginTop: 20,
-        }}
-      >
-        <TouchableOpacity
-          onPress={imageFromCamera}
-          style={{
-            marginRight: 15,
-          }}
-        >
-          <FontAwesome name="camera" size={30} color="#1E4274" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={pickImage}
-          style={{
-            marginLeft: 15,
-          }}
-        >
-          <Entypo name="images" size={30} color="#1E4274" />
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
+    );
+  }
 }

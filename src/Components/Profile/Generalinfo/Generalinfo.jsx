@@ -54,10 +54,10 @@ class GeneralInfo extends Component {
       checked: "",
       nationality: "",
       phoneNumber: "",
+      code: null,
     };
 
     // /A/student/profile/personal
-    //     \{
     //   "name": "Full Name",
     //   "phone_number": "+201000011111",
     //   "city": "Cairo",
@@ -68,15 +68,18 @@ class GeneralInfo extends Component {
     // }
   }
   countryOnchangeHandler = (itemValue, index) => {
-    this.setState({ country: itemValue });
     for (const key in this.state.countriesList) {
       if (this.state.countriesList[key] == itemValue) {
         this.getCityList(key);
+        this.setState({ code: key });
+        this.setState({ country: itemValue });
         break;
       }
     }
   };
-  getCityList = (code) => {
+
+
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
       .then((res) => {
@@ -111,6 +114,10 @@ class GeneralInfo extends Component {
       .get("/countriesList")
       .then((res) => {
         this.setState({ countriesList: res.data });
+        if (this.state.country !== "") {
+          console.log(this.state.country);
+          this.countryOnchangeHandler(this.state.country);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -128,14 +135,16 @@ class GeneralInfo extends Component {
           phoneNumber: res.data.response.data.phoneNumber,
           checked: res.data.response.data.gender == "male" ? "first" : "second",
         });
-        this.countryOnchangeHandler(this.state.country, 0);
+
+        // this.getCityList(this.state.code);
       })
-      .catch((err) => {
-        console.log(err);
+
+      .catch(err => {
+        console.log(err.response);
       });
   }
   render() {
-    // console.log(this.state.studentName);
+    console.log(this.state.code);
     const countries =
       this.state.countriesList !== {} ? this.state.countriesList : {};
     return (
@@ -500,6 +509,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
   },
   title: {
     marginLeft: -100,
