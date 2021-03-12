@@ -427,7 +427,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export class EducationCard extends Component {
+export function EducationCard(props) {
+  const navigation = useNavigation();
+  return <EducationCardSample navigation={navigation} {...props} />;
+}
+export class EducationCardSample extends Component {
   render() {
     return (
       <Card.Content>
@@ -481,7 +485,11 @@ export class EducationCard extends Component {
             size={24}
             color="#CD8930"
             style={{ justifyContent: "flex-end" }}
-            onPress={() => {}}
+            onPress={() => {
+              this.props.navigation.push("EducationForm", {
+                id: this.props.id,
+              });
+            }}
           />
         </View>
         <View style={{ marginLeft: 18 }}>

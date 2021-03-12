@@ -60,6 +60,9 @@ export default class EduInfoForm extends Component {
     this.showMode("date");
   };
 
+  componentDidMount() {
+    console.log(this.props.route.params.id);
+  }
   render() {
     return (
       <View style={styles.container}>
