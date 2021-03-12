@@ -570,13 +570,14 @@ class PersonalTabForm extends Component {
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
+                    marginBottom: 10,
                     // marginRight: 145,
                   }}
                 >
                   Reviews
                 </Text>
               </View>
-              <CardSilder style={{ marginTop: 30 }}>
+              {/* <CardSilder style={{ marginTop: 30 }}>
                 <View
                   style={{
                     // height: 170,
@@ -693,8 +694,8 @@ class PersonalTabForm extends Component {
                     </Card.Content>
                   </Card>
                 </View>
-              </CardSilder>
-              {/* <ReviewsCard /> */}
+              </CardSilder> */}
+              <ReviewsCard />
             </View>
           </View>
         </ScrollView>
