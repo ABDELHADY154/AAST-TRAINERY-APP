@@ -144,8 +144,6 @@ export default class ProfileScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  {/* <View style={styles.centeredView}>
-                    <View style={styles.modalView}> */}
                   <Text style={styles.modalText}>
                     Change Your Profile Picture
                   </Text>
@@ -153,8 +151,6 @@ export default class ProfileScreen extends Component {
                   <View
                     style={{
                       justifyContent: "center",
-                      // alignItems: "center",
-                      // alignSelf: "center",
                     }}
                   >
                     <ProfileImg image={this.getImage} />
