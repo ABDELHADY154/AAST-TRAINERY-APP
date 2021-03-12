@@ -72,7 +72,11 @@ class CoursesInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginTop: 45,
+            alignSelf: "flex-start",
+            marginLeft: "6%",
+
+            marginTop: "20%",
+            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
@@ -325,18 +329,25 @@ class CoursesInfoForm extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
-    marginLeft: "5%",
   },
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
