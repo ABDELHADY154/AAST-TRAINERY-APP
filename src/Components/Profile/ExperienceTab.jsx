@@ -13,7 +13,12 @@ import {
   Chip,
 } from "react-native-paper";
 import StarRating from "react-native-star-rating";
+import { useNavigation } from "@react-navigation/native";
 
+export default function ExperiencForm(props) {
+  const navigation = useNavigation();
+  return <ExperienceTab navigation={navigation} {...props} />;
+}
 export class ExperienceTab extends Component {
   constructor() {
     super();
@@ -73,7 +78,7 @@ export class ExperienceTab extends Component {
                           size={30}
                           color="#1E4274"
                           onPress={() => {
-                            this.props.navigation.navigate("AccountForm");
+                            this.props.navigation.navigate("EducationForm");
                           }}
                         />
                       )}
@@ -125,7 +130,9 @@ export class ExperienceTab extends Component {
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.navigate("ExperienceForm");
+                      }}
                     />
                   )}
                 />
@@ -299,7 +306,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -326,7 +333,6 @@ export class ExperienceTab extends Component {
                     />
                   </View>
 
-
                   {this.state.interests ? (
                     this.state.interests.map(e => {
                       return (
@@ -348,7 +354,7 @@ export class ExperienceTab extends Component {
                   )}
                 </Card.Content>
                 {this.state.interests ? (
-                  this.state.interests.map((e) => {
+                  this.state.interests.map(e => {
                     return (
                       <Interests
                         style={
@@ -376,7 +382,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -421,7 +427,11 @@ const styles = StyleSheet.create({
   },
 });
 
-export class EducationCard extends Component {
+export function EducationCard(props) {
+  const navigation = useNavigation();
+  return <EducationCardSample navigation={navigation} {...props} />;
+}
+export class EducationCardSample extends Component {
   render() {
     return (
       <Card.Content>
@@ -475,7 +485,11 @@ export class EducationCard extends Component {
             size={24}
             color="#CD8930"
             style={{ justifyContent: "flex-end" }}
-            onPress={() => {}}
+            onPress={() => {
+              this.props.navigation.push("EducationForm", {
+                id: this.props.id,
+              });
+            }}
           />
         </View>
         <View style={{ marginLeft: 18 }}>

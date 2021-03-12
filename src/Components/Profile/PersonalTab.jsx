@@ -8,6 +8,7 @@ import {
   Text,
   Button,
   Alert,
+  Linking,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -59,6 +60,7 @@ class PersonalTabForm extends Component {
   }
 
   render() {
+    console.log(this.state.userData.accounts);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -273,6 +275,7 @@ class PersonalTabForm extends Component {
                 >
                   Contact Information
                 </Text>
+
                 {/* <MaterialIcons
                   name="mode-edit"
                   size={24}
@@ -354,6 +357,9 @@ class PersonalTabForm extends Component {
                     this.props.navigation.navigate("AcademicForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
+                  onPress={() => {
+                    this.props.navigation.navigate("AcademicForm");
+                  }}
                 />
               </View>
               <View style={{ marginTop: 5 }}>
@@ -522,42 +528,117 @@ class PersonalTabForm extends Component {
               </View>
               <View style={{ marginTop: 10 }}>
                 <View style={{ flexDirection: "row" }}>
-                  <FontAwesome
-                    name="facebook"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <Feather
-                    name="instagram"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome5
-                    name="youtube"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome5
-                    name="linkedin-in"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <FontAwesome
-                    name="github"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
-                  <Entypo
-                    name="link"
-                    size={28}
-                    color="#1E4274"
-                    style={{ marginRight: 25 }}
-                  />
+                  {this.state.userData.accounts ? (
+                    <>
+                      {this.state.userData.accounts.facebook ? (
+                        <FontAwesome
+                          name="facebook"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.facebook
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.instagram ? (
+                        <Feather
+                          name="instagram"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.instagram
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.youtube ? (
+                        <FontAwesome5
+                          name="youtube"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.youtube
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.linkedin ? (
+                        <FontAwesome5
+                          name="linkedin-in"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.linkedin
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.behance ? (
+                        <Entypo
+                          name="behance"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.behance
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.github ? (
+                        <FontAwesome
+                          name="github"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.github
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                      {this.state.userData.accounts.website ? (
+                        <Entypo
+                          name="link"
+                          size={28}
+                          color="#1E4274"
+                          style={{ marginRight: 25 }}
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.website
+                            );
+                          }}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
+                    </>
+                  ) : (
+                    <Text></Text>
+                  )}
                 </View>
               </View>
             </View>
@@ -570,13 +651,13 @@ class PersonalTabForm extends Component {
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
-                    // marginRight: 145,
+                    marginBottom: 10,
                   }}
                 >
                   Reviews
                 </Text>
               </View>
-              <CardSilder style={{ marginTop: 30 }}>
+              {/* <CardSilder style={{ marginTop: 30 }}>
                 <View
                   style={{
                     // height: 170,
@@ -693,8 +774,8 @@ class PersonalTabForm extends Component {
                     </Card.Content>
                   </Card>
                 </View>
-              </CardSilder>
-              {/* <ReviewsCard /> */}
+              </CardSilder> */}
+              <ReviewsCard />
             </View>
           </View>
         </ScrollView>

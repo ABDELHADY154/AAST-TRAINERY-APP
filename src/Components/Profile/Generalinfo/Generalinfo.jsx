@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 // import { useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import { CommonActions } from "@react-navigation/native";
 
 import {
   StyleSheet,
@@ -55,6 +57,7 @@ class GeneralInfo extends Component {
       nationality: "",
       phoneNumber: "",
       code: null,
+      isDatePickerVisible: false,
     };
 
     // /A/student/profile/personal
@@ -67,6 +70,17 @@ class GeneralInfo extends Component {
     //   "date_of_birth": "1997-04-15"
     // }
   }
+  showDatePicker = () => {
+    this.setState({ isDatePickerVisible: true });
+  };
+  hideDatePicker = () => {
+    this.setState({ isDatePickerVisible: false });
+  };
+  handleConfirm = date => {
+    // console.log("A date has been picked: ", date);
+    this.setState({ date: date.toISOString().split("T")[0] });
+    this.hideDatePicker();
+  };
   countryOnchangeHandler = (itemValue, index) => {
     for (const key in this.state.countriesList) {
       if (this.state.countriesList[key] == itemValue) {
@@ -78,52 +92,53 @@ class GeneralInfo extends Component {
     }
   };
 
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
-  // onChange = (e, selectedDate) => {
-  //   try {
-  //     console.log(selectedDate);
-  //     const currentDate = selectedDate || this.state.date;
-  //     this.setState({ show: Platform.OS === "ios" });
-  //     this.setState({ date: currentDate });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // showMode = (currentMode) => {
-  //   this.setState({ show: true });
-  //   this.setState({ mode: currentMode });
-  // };
-
-  // showDatepicker = () => {
-  //   this.showMode("date");
-  // };
-
+  handleSubmit = async () => {
+    const data = {
+      name: this.state.studentName,
+      phone_number: this.state.phoneNumber,
+      city: this.state.city,
+      gender: this.state.gender,
+      country: this.state.country,
+      nationality: this.state.nationality,
+      date_of_birth: this.state.date,
+    };
+    await axios
+      .put("/A/student/profile/personal", data)
+      .then(res => {
+        console.log(res.response);
+        this.props.navigation.push("App", { screen: "Profile" });
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  };
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           console.log(this.state.country);
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then((res) => {
+      .then(res => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -134,18 +149,14 @@ class GeneralInfo extends Component {
           phoneNumber: res.data.response.data.phoneNumber,
           checked: res.data.response.data.gender == "male" ? "first" : "second",
         });
-
-        // this.getCityList(this.state.code);
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
       });
   }
   render() {
-    console.log(this.state.code);
-    const countries =
-      this.state.countriesList !== {} ? this.state.countriesList : {};
+    console.log(this.state.date);
     return (
       <View style={styles.container}>
         {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
@@ -181,7 +192,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={(value) => this.setState({ studentName: value })}
+              onChangeText={value => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -257,35 +268,14 @@ class GeneralInfo extends Component {
               </Text>
               <View>
                 <View>
-                  {/* <DatePickerModal
-                    mode="single"
-                    visible={visible}
-                    onDismiss={onDismiss}
-                    date={date}
-                    onConfirm={onChange}
-                    saveLabel="Save" // optional
-                    label="Select date" // optional
-                    animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
-                    locale={"en"} // optional, default is automically detected by your system
-                    // validRange={{
-                    //   startDate: new Date(2021, 1, 2),  // optional
-                    //   endDate: new Date(), // optional
-                    // }}
-                    // onChange={} // same props as onConfirm but triggered without confirmed by user
-                    // saveLabel="Save" // optional
-                    // label="Select date" // optional
-                    // animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  <DateTimePickerModal
+                    isVisible={this.state.isDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleConfirm}
+                    onCancel={this.hideDatePicker}
                   />
-                  <Button onPress={() => setVisible(true)}>Pick date</Button> */}
-
-                  {/* <Text>{date ? date.toDateString() : "Select date..."}</Text>
-                  <DatePicker
-                    value={date}
-                    onChange={(value) => setDate(value)}
-                  /> */}
 
                   <Feather
-                    // onPress={this.showDatepicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -293,6 +283,7 @@ class GeneralInfo extends Component {
                       marginTop: 20,
                       alignSelf: "flex-end",
                     }}
+                    onPress={this.showDatePicker}
                   ></Feather>
 
                   <Button
@@ -345,7 +336,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={(value) => this.setState({ nationality: value })}
+                onChangeText={value => this.setState({ nationality: value })}
               />
               <Text
                 style={{
@@ -484,14 +475,7 @@ class GeneralInfo extends Component {
             <Button
               style={styles.button}
               color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
+              onPress={this.handleSubmit}
             >
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
