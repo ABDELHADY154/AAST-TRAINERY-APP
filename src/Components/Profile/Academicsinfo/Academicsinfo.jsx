@@ -36,7 +36,7 @@ class Academicinfo extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
+            marginRight: 310,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -125,6 +125,8 @@ class Academicinfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
+                  width: "114.55%",
+                  marginLeft: -10,
                 }}
                 label="Registration Number"
                 labelStyle={styles.labelStyle}
@@ -137,7 +139,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
 
-                  marginLeft: 10,
+                  marginLeft: 0,
                 }}
               >
                 Term Period
@@ -184,6 +186,8 @@ class Academicinfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
+                  width: "117%",
+                  marginLeft: -12,
                 }}
                 label="GPA"
                 labelStyle={styles.labelStyle}
@@ -196,7 +200,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
 
-                  marginLeft: 10,
+                  marginLeft: 0,
                 }}
               >
                 Start Year
@@ -242,7 +246,7 @@ class Academicinfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 20,
-                  marginLeft: 10,
+                  marginLeft: 0,
                 }}
               >
                 End Year
@@ -312,7 +316,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -240,
+    marginLeft: -206,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -321,8 +325,9 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
+    marginLeft: -15,
   },
   labelStyle: {
     color: "#1E4274",
@@ -331,6 +336,7 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     marginBottom: -10,
     marginTop: 15,
+    marginLeft: -10,
   },
   input: {
     backgroundColor: "transparent",
@@ -342,20 +348,19 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    marginLeft: 10,
+    // marginLeft: 10,
   },
   boxContainer: {
     backgroundColor: "transparent",
-    width: 360,
-    marginLeft: 10,
-    // marginTop: 10,
+    width: "107%",
+
     borderColor: "#1E4275",
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 2,
     borderRadius: 0,
-    // marginBottom: 10,
+
     alignSelf: "flex-start",
   },
   button: {

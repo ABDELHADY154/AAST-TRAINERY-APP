@@ -72,7 +72,7 @@ class AccountInfoForm extends Component {
           size={36}
           color="#1E4274"
           style={{
-            marginRight: 340,
+            marginRight: 310,
             // flex: 1,
             marginTop: 45,
             marginBottom: 15,
@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   title: {
-    marginLeft: -256,
+    marginLeft: -220,
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: 380,
+    width: "87%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -284,28 +284,7 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     height: 35,
   },
-  gender: {
-    color: "#1E4274",
-    fontSize: 16,
-    fontFamily: "SF-M",
-    fontWeight: "normal",
-    marginTop: 15,
-    marginLeft: 10,
-  },
-  boxContainer: {
-    backgroundColor: "transparent",
-    width: 360,
-    marginLeft: 10,
-    // marginTop: 10,
-    borderColor: "#1E4275",
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    borderBottomWidth: 2,
-    borderRadius: 0,
-    // marginBottom: 10,
-    alignSelf: "flex-start",
-  },
+
   button: {
     width: "auto",
     borderRadius: 50,

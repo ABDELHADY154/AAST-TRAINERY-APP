@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+// import { useState } from "react";
+
 import {
   StyleSheet,
   Text,
@@ -15,7 +17,24 @@ import { Button } from "galio-framework";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
+// import DatePicker from "@dietime/react-native-date-picker";
+// import { DatePickerModal } from "react-native-paper-dates";
+
 export default function GeneralInfoFormScreen(props) {
+  // function SingleDatePage() {
+  //   const [visible, setVisible] = React.useState(false);
+  //   const onDismiss = React.useCallback(() => {
+  //     setVisible(false);
+  //   }, [setVisible]);
+  //   const onChange = React.useCallback(({ date }) => {
+  //     setVisible(false);
+  //     console.log({ date });
+  //   }, []);
+  //   const date = new Date();
+  // }
+
+  // const [date, setDate] = useState();
+
   const navigation = useNavigation();
   return <GeneralInfo navigation={navigation} {...props} />;
 }
@@ -116,7 +135,7 @@ class GeneralInfo extends Component {
       });
   }
   render() {
-    console.log(this.state.studentName);
+    // console.log(this.state.studentName);
     const countries =
       this.state.countriesList !== {} ? this.state.countriesList : {};
     return (
@@ -229,6 +248,33 @@ class GeneralInfo extends Component {
               </Text>
               <View>
                 <View>
+                  {/* <DatePickerModal
+                    mode="single"
+                    visible={visible}
+                    onDismiss={onDismiss}
+                    date={date}
+                    onConfirm={onChange}
+                    saveLabel="Save" // optional
+                    label="Select date" // optional
+                    animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                    locale={"en"} // optional, default is automically detected by your system
+                    // validRange={{
+                    //   startDate: new Date(2021, 1, 2),  // optional
+                    //   endDate: new Date(), // optional
+                    // }}
+                    // onChange={} // same props as onConfirm but triggered without confirmed by user
+                    // saveLabel="Save" // optional
+                    // label="Select date" // optional
+                    // animationType="slide" // optional, default is 'slide' on ios/android and 'none' on web
+                  />
+                  <Button onPress={() => setVisible(true)}>Pick date</Button> */}
+
+                  {/* <Text>{date ? date.toDateString() : "Select date..."}</Text>
+                  <DatePicker
+                    value={date}
+                    onChange={(value) => setDate(value)}
+                  /> */}
+
                   <Feather
                     // onPress={this.showDatepicker}
                     name="calendar"
@@ -239,6 +285,7 @@ class GeneralInfo extends Component {
                       marginLeft: 340,
                     }}
                   ></Feather>
+
                   {/* <Button
                     title={this.state.date}
                     onPress={this.showDatepicker}
