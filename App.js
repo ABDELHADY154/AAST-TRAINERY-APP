@@ -54,7 +54,8 @@ function ForgetPassScreen(props) {
 }
 function EducationInfoFormScreen(props) {
   const navigation = useNavigation();
-  return <EducationScreen {...props} navigation={navigation} />;
+  const route = useRoute();
+  return <EducationScreen {...props} navigation={navigation} route={route} />;
 }
 
 const Stack = createStackNavigator();

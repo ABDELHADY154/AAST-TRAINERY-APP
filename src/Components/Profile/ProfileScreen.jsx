@@ -55,11 +55,11 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExperienceTabScreen = props => {
-    const { navigation } = useNavigation();
-    const route = useRoute();
-    return <ExperienceTab {...props} navigation={navigation} />;
-  };
+  // ExperienceTabScreen = props => {
+  //   const { navigation } = useNavigation();
+  //   const route = useRoute();
+  //   return <ExperienceTab {...props} navigation={navigation} />;
+  // };
   showModal = () => {
     this.setState({ visible: true });
   };
@@ -188,7 +188,7 @@ export default class ProfileScreen extends Component {
           }}
         >
           <Tab.Screen name="Personal Info" component={PersonalTab} />
-          <Tab.Screen name="Experience" component={this.ExperienceTabScreen} />
+          <Tab.Screen name="Experience" component={ExperienceTab} />
         </Tab.Navigator>
 
         <StatusBar style="light" />

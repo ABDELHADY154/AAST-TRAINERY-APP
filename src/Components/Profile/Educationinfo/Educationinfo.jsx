@@ -10,12 +10,12 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { useNavigation } from "@react-navigation/native";
 
-export default function EduInfoFormScren(props) {
-  const navigation = useNavigation();
-  return <EduInfoForm navigation={navigation} {...props} />;
-}
+//  function EduInfoFormScren(props) {
+//   const navigation = useNavigation();
+//   return <EduInfoForm navigation={navigation} {...props} />;
+// }
 // import { CountryPicker } from "react-native-country-picker-modal";
-class EduInfoForm extends Component {
+export default class EduInfoForm extends Component {
   // state = {
   //   SchoolName: "",
   //   countryname: "",
@@ -51,7 +51,7 @@ class EduInfoForm extends Component {
       console.log(error);
     }
   };
-  showMode = (currentMode) => {
+  showMode = currentMode => {
     this.setState({ show: true });
     this.setState({ mode: currentMode });
   };
@@ -60,6 +60,9 @@ class EduInfoForm extends Component {
     this.showMode("date");
   };
 
+  componentDidMount() {
+    console.log(this.props.route.params.id);
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -283,7 +286,7 @@ class EduInfoForm extends Component {
                 }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />
