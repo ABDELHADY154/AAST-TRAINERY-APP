@@ -138,8 +138,6 @@ export default class ProfileScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  {/* <View style={styles.centeredView}>
-                    <View style={styles.modalView}> */}
                   <Text style={styles.modalText}>
                     Change Your Profile Picture
                   </Text>
@@ -147,8 +145,6 @@ export default class ProfileScreen extends Component {
                   <View
                     style={{
                       justifyContent: "center",
-                      // alignItems: "center",
-                      // alignSelf: "center",
                     }}
                   >
                     <ProfileImg />
@@ -159,41 +155,8 @@ export default class ProfileScreen extends Component {
                       <Text style={styles.textStyle}>Upload</Text>
                     </Pressable>
                   </View>
-
-                  {/* <Pressable
-                        style={[styles.button, styles.buttonClose]}
-                        onPress={() => this.setModalVisible(!modalVisible)}
-                      >
-                        <Text style={styles.textStyle}>Close</Text>
-                      </Pressable> */}
-                  {/* </View>
-                  </View> */}
                 </Modal>
               </Portal>
-              {/* <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                  this.setModalVisible(!modalVisible);
-                }}
-              >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <Text style={styles.modalText}>
-                      Change Your Profile Picture
-                    </Text>
-                    <ProfileImg />
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      onPress={() => this.setModalVisible(!modalVisible)}
-                    >
-                      <Text style={styles.textStyle}>Close</Text>
-                    </Pressable>
-                  </View>
-                </View>
-              </Modal> */}
             </View>
             <Text
               style={{

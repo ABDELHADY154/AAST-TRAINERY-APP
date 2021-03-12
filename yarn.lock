@@ -5956,6 +5956,11 @@
   dependencies:
     "prop-types" "^15.5.10"
 
+"react-native-cards-slider@^0.1.2":
+  "integrity" "sha1-ITSJxIBkkpp+dqwOk1LLYKWb/QM="
+  "resolved" "https://registry.npmjs.org/react-native-cards-slider/-/react-native-cards-slider-0.1.2.tgz"
+  "version" "0.1.2"
+
 "react-native-drawer@2.5.1":
   "integrity" "sha512-cxcQNbSWy5sbGi7anSVp6EDr6JarOBMY9lbFOeLFeVYbONiudoqRKbgEsSDgSw3/LFCLvUXK5zdjXCOedeytxQ=="
   "resolved" "https://registry.npmjs.org/react-native-drawer/-/react-native-drawer-2.5.1.tgz"
@@ -6139,6 +6144,13 @@
   "integrity" "sha512-2hxLkBnZtEKFDyfvNO5EUywhy3f/EiLOBO8SWqKj4BMBTO0QwnybaPE5MVF00Fhz+VA4+h/iI40Dkrrtq70dGg=="
   "resolved" "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-2.15.2.tgz"
   "version" "2.15.2"
+
+"react-native-tags-input@^1.0.10":
+  "integrity" "sha512-0uaHZXGZssBpdkYgW/eakk0sa6elVuYAPQePAc617MugoHj3uJtKchMEXe4rf20sKbLKvOnbWV8ku95yyQwkMw=="
+  "resolved" "https://registry.npmjs.org/react-native-tags-input/-/react-native-tags-input-1.0.10.tgz"
+  "version" "1.0.10"
+  dependencies:
+    "prop-types" "^15.7.2"
 
 "react-native-vector-icons@^4.5.0":
   "integrity" "sha512-rpfhfPiXCK2PX1nrNhdxSMrEGB/Gw/SvKoPM0G2wAkSoqynnes19K0VYI+Up7DqR1rFIpE4hP2erpT1tNx2tfg=="

@@ -14,6 +14,9 @@ import GeneralScreen from "./src/Components/Profile/Generalinfo/Generalinfo";
 import ExperienceScreen from "./src/Components/Profile/Experienceinfo/Experienceinfo";
 import CoursesScreen from "./src/Components/Profile/Coursesinfo/Coursesinfo";
 import AccountScreen from "./src/Components/Profile/Accountsinfo/Accountsinfo";
+import Skillinfo from "./src/Components/Profile/Skillinfo/Skillinfo";
+import Language from "./src/Components/Profile/Skillinfo/Language";
+import Interests from "./src/Components/Profile/Skillinfo/Interests";
 import { axios } from "./src/Config/Axios";
 import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -53,7 +56,10 @@ function EducationInfoFormScreen(props) {
   const navigation = useNavigation();
   return <EducationScreen {...props} navigation={navigation} />;
 }
-
+// function SkillInfoFormScreen(props) {
+//   const navigation = useNavigation();
+//   return <Skillinfo {...props} navigation={navigation} />;
+// }
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -106,12 +112,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = props => {
+  const TutorialsSCreen = (props) => {
     const navigation = useNavigation();
-    const showTutorial = val => {
+    const showTutorial = (val) => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -138,15 +144,15 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
   return (
     <AuthContext.Provider value={authContext}>
@@ -238,6 +244,39 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="GeneralForm"
                   component={GeneralScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Skillinfo"
+                  component={Skillinfo}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Language"
+                  component={Language}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Interests"
+                  component={Interests}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
