@@ -81,7 +81,7 @@ export default class Skillinfo extends Component {
       return await axios
         .post("/A/student/profile/skill", body)
         .then((response) => {
-          this.setState(console.log(this.response.data));
+          this.props.navigation.push("App", { screen: "Profile" });
         })
         .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
@@ -97,11 +97,11 @@ export default class Skillinfo extends Component {
         });
     }
   };
-  handleDeleteSkills = async (e) => {
+  handleSubmit = async (e) => {
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
       .then((response) => {
-        this.setState({});
+        this.props.navigation.push("App", { screen: "Profile" });
       })
       .catch((error) => {
         if (error.response.data.errors.years_of_exp) {
@@ -243,14 +243,9 @@ export default class Skillinfo extends Component {
                   <Button
                     style={styles.button}
                     color="#1E4275"
-                    // onPress={this.submit}
+                    onPress={this.handleSubmitSkills}
                   >
-                    <Text
-                      style={{ color: "white", fontSize: 18 }}
-                      onPress={this.handleSubmitSkills}
-                    >
-                      Update
-                    </Text>
+                    <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
                   </Button>
                   <Button
                     style={{
@@ -280,7 +275,7 @@ export default class Skillinfo extends Component {
                   <Button
                     style={styles.button}
                     color="#1E4275"
-                    onPress={this.handleSubmitSkills}
+                    onPress={this.handleSubmit}
                   >
                     <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
                   </Button>

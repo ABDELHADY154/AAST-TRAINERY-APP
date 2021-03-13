@@ -62,6 +62,11 @@ function SkillinfoFormScreen(props) {
   const route = useRoute();
   return <Skillinfo {...props} navigation={navigation} route={route} />;
 }
+function LanguageFormScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Language {...props} navigation={navigation} route={route} />;
+}
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -330,7 +335,7 @@ export default function App({ navigation }) {
                 />
                 <Stack.Screen
                   name="Language"
-                  component={Language}
+                  component={LanguageFormScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

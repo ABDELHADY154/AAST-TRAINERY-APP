@@ -373,7 +373,7 @@ export class ExperienceTab extends Component {
                       size={30}
                       color="#1E4274"
                       onPress={() => {
-                        this.props.navigation.navigate("Language");
+                        this.props.navigation.navigate("Language", { id: 0 });
                       }}
                     />
                   )}
@@ -814,6 +814,10 @@ export class Interests extends Component {
     );
   }
 }
+export function Language(props) {
+  const navigation = useNavigation();
+  return <LanguageSample navigation={navigation} {...props} />;
+}
 export class Languages extends Component {
   constructor(props) {
     super(props);
@@ -881,7 +885,16 @@ export class Languages extends Component {
                 alignItems: "flex-end",
               }}
             >
-              <MaterialIcons name="mode-edit" size={24} color="#CD8930" />
+              <MaterialIcons
+                name="mode-edit"
+                size={24}
+                color="#CD8930"
+                onPress={() => {
+                  this.props.navigation.push("Language", {
+                    id: this.props.id,
+                  });
+                }}
+              />
             </View>
           </View>
         </ScrollView>
