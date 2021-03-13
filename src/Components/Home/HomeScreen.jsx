@@ -108,7 +108,7 @@ export default class HomeScreen extends Component {
     };
   }
 
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     useFocusEffect(
@@ -154,12 +154,12 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -201,7 +201,7 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Profile {...props} navigation={navigation} />;
@@ -209,10 +209,80 @@ export default class HomeScreen extends Component {
   render() {
     var drawerContent = (
       <View>
-        <View />
-        <View>
-          <View>
-            <Text>Drawer Content</Text>
+        <View style={{ marginTop: 50 }}>
+          <View
+            style={{
+              backgroundColor: "#1E4274",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="edit"
+              size={16}
+              color="#fff"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#fff" }}>Edit Profile</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="edit"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Generate CV</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="edit"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Portfolio</Text>
+            <FontAwesome
+              name="dollar"
+              size={16}
+              color="#1E4274"
+              style={{ paddingLeft: 7 }}
+            />
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="settings"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Account settings</Text>
           </View>
         </View>
       </View>
@@ -246,7 +316,7 @@ export default class HomeScreen extends Component {
       >
         <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
