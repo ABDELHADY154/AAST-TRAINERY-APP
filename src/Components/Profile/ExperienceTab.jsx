@@ -11,6 +11,7 @@ import {
   Title,
   Paragraph,
   Chip,
+  List,
 } from "react-native-paper";
 import StarRating from "react-native-star-rating";
 import { useNavigation } from "@react-navigation/native";
@@ -27,7 +28,13 @@ export class ExperienceTab extends Component {
       work_experience: [],
     };
   }
-
+  // state = {
+  //   expanded: true,
+  // };
+  // _handlePress = () =>
+  //   this.setState({
+  //     expanded: !this.state.expanded,
+  //   });
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
@@ -46,13 +53,26 @@ export class ExperienceTab extends Component {
         console.log(err);
       });
   }
+
   render() {
+    // const [expanded, setExpanded] = React.useState(true);
+
+    // const handlePress = () => setExpanded(!expanded);
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <View style={styles.container}>
-              <ScrollView>
+            <List.AccordionGroup>
+              {/* education*/}
+              <List.Accordion
+                id="1"
+                title="Education"
+                // left={(props) => <List.Icon {...props} icon="folder" />}
+                // theme={{ colors: { primary: "#CD8930" } }}
+                titleStyle={{ color: "#1E4274" }}
+                // expanded={this.state.expanded}
+                // onPress={this._handlePress}
+              >
                 <View>
                   <Card
                     style={{
@@ -65,7 +85,7 @@ export class ExperienceTab extends Component {
                   >
                     <Card.Title
                       style={{ marginLeft: 1 }}
-                      title="Education"
+                      title="Add Education"
                       titleStyle={{
                         color: "#CD8930",
                         fontSize: 18,
@@ -103,304 +123,286 @@ export class ExperienceTab extends Component {
                     )}
                   </Card>
                 </View>
-              </ScrollView>
-            </View>
-            {/* experiance */}
-            <View>
-              <Card
-                style={{
-                  width: "95%",
-                  marginLeft: 9,
-                  marginBottom: 10,
-                  borderWidth: 1,
-                  borderColor: "#CCCCCC",
-                }}
+              </List.Accordion>
+              {/* experiance */}
+              <List.Accordion
+                id="2"
+                title="Work Experience"
+                titleStyle={{ color: "#1E4274" }}
               >
-                <Card.Title
-                  style={{ marginLeft: 1 }}
-                  title="Work Experience"
-                  titleStyle={{
-                    color: "#CD8930",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                  right={(props) => (
-                    <IconButton
-                      {...props}
-                      icon="plus-box"
-                      size={30}
-                      color="#1E4274"
-                      onPress={() => {
-                        this.props.navigation.navigate("ExperienceForm");
-                      }}
-                    />
-                  )}
-                />
-                {this.state.work_experience ? (
-                  this.state.work_experience.map((e) => {
-                    return (
-                      <ExperienceCard
-                        key={e.id}
-                        id={e.id}
-                        job_title={e.job_title}
-                        company_name={e.company_name}
-                        company_website={e.company_website}
-                        city={e.city}
-                        country={e.country}
-                        from={e.from}
-                        to={e.to}
-                        duration={e.duration}
-                        experience_type={e.experience_type}
-                        cred={e.cred}
-                        cred_url={e.cred_url}
-                        navigation={this.props.navigation}
-                      />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
-              </Card>
-            </View>
-            {/* course */}
-            <View>
-              <Card
-                style={{
-                  width: "95%",
-                  marginLeft: 9,
-                  marginBottom: 10,
-                  borderWidth: 1,
-                  borderColor: "#CCCCCC",
-                }}
-              >
-                <Card.Title
-                  style={{ marginLeft: 1 }}
-                  title="Courses"
-                  titleStyle={{
-                    color: "#CD8930",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                  right={(props) => (
-                    <IconButton
-                      {...props}
-                      icon="plus-box"
-                      size={30}
-                      color="#1E4274"
-                      onPress={() => {}}
-                    />
-                  )}
-                />
-                {this.state.courses ? (
-                  this.state.courses.map((e) => {
-                    return (
-                      <CoursesCard
-                        key={e.id}
-                        id={e.id}
-                        course_name={e.course_name}
-                        course_provider={e.course_provider}
-                        cred={e.cred}
-                        cred_url={e.cred_url}
-                        navigation={this.props.navigation}
-                      />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
-              </Card>
-            </View>
-            {/* skills */}
-            <View>
-              <Card
-                style={{
-                  width: "95%",
-                  marginLeft: 9,
-                  marginBottom: 10,
-                  borderWidth: 1,
-                  borderColor: "#CCCCCC",
-                }}
-              >
-                <Card.Title
-                  style={{ marginLeft: 1 }}
-                  title="Skills"
-                  titleStyle={{
-                    color: "#CD8930",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                  right={(props) => (
-                    <IconButton
-                      {...props}
-                      icon="plus-box"
-                      size={30}
-                      color="#1E4274"
-                      onPress={() => {
-                        this.props.navigation.push("Skillinfo", { id: 0 });
-                      }}
-                    />
-                  )}
-                />
-                <Card.Content>
-                  <View
+                <View style={{ marginLeft: "-16%" }}>
+                  <Card
                     style={{
-                      flexDirection: "row",
-                      flex: 1,
+                      width: "95%",
+                      marginLeft: 9,
+                      marginBottom: 10,
+                      borderWidth: 1,
+                      borderColor: "#CCCCCC",
                     }}
                   >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flex: 1,
-                        alignItems: "flex-start",
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Work Experience"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
                       }}
-                    >
-                      <Octicons
-                        name="primitive-dot"
-                        size={24}
-                        color="#CD8930"
-                        style={{
-                          justifyContent: "flex-start",
-                          marginRight: 5,
-                        }}
-                      />
-                      <View
-                        style={{
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Title
-                          style={{
-                            fontSize: 16,
-                            color: "#1E4274",
-                            fontWeight: "bold",
-
-                            color: "#1E4274",
-                            lineHeight: 19,
+                      right={(props) => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {
+                            this.props.navigation.navigate("ExperienceForm");
                           }}
-                        >
-                          Tools and Fields of Expertise
-                        </Title>
-                      </View>
-                    </View>
-                  </View>
-                  {this.state.skills ? (
-                    this.state.skills.map((e) => {
-                      return (
-                        <SkillsCard
-                          key={e.id}
-                          id={e.id}
-                          skill_name={e.skill_name}
-                          years_of_exp={e.years_of_exp}
-                          navigation={this.props.navigation}
                         />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
-                </Card.Content>
-                <Card.Title
-                  style={{ marginLeft: 1 }}
-                  title="Intrests"
-                  titleStyle={{
-                    color: "#CD8930",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                  right={(props) => (
-                    <IconButton
-                      {...props}
-                      icon="plus-box"
-                      size={30}
-                      color="#1E4274"
-                      onPress={() => {
-                        this.props.navigation.push("Interests", { id: 0 });
-                      }}
+                      )}
                     />
-                  )}
-                />
-                <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      justifyContent: "flex-end",
-                      marginTop: -5,
-                    }}
-                  >
-                    <MaterialIcons
-                      name="mode-edit"
-                      size={24}
-                      color="#CD8930"
-                      style={{ justifyContent: "flex-end" }}
-                      onPress={() => {
-                        this.props.navigation.push("Interests", { id: 0 });
-                      }}
-                    />
-                  </View>
-                  <View style={{ marginLeft: -17 }}>
-                    {this.state.interests ? (
-                      <View
-                        style={{
-                          flexWrap: "wrap",
-                          // width: "25%",
-                        }}
-                      >
-                        {this.state.interests.map((e) => {
-                          return (
-                            <Interests
-                              key={e.id}
-                              id={e.id}
-                              interest={e.interest}
-                              navigation={this.props.navigation}
-                            />
-                          );
-                        })}
-                      </View>
+                    {this.state.work_experience ? (
+                      this.state.work_experience.map((e) => {
+                        return (
+                          <ExperienceCard
+                            key={e.id}
+                            id={e.id}
+                            job_title={e.job_title}
+                            company_name={e.company_name}
+                            company_website={e.company_website}
+                            city={e.city}
+                            country={e.country}
+                            from={e.from}
+                            to={e.to}
+                            duration={e.duration}
+                            experience_type={e.experience_type}
+                            cred={e.cred}
+                            cred_url={e.cred_url}
+                            navigation={this.props.navigation}
+                          />
+                        );
+                      })
                     ) : (
                       <Text></Text>
                     )}
-                  </View>
-                </Card.Content>
-                <Card.Title
-                  style={{ marginLeft: 1 }}
-                  title="Languages"
-                  titleStyle={{
-                    color: "#CD8930",
-                    fontSize: 18,
-                    fontWeight: "bold",
-                  }}
-                  right={(props) => (
-                    <IconButton
-                      {...props}
-                      icon="plus-box"
-                      size={30}
-                      color="#1E4274"
-                      onPress={() => {
-                        this.props.navigation.push("Language", { id: 0 });
+                  </Card>
+                </View>
+              </List.Accordion>
+              {/* course */}
+              <List.Accordion
+                id="3"
+                title="Courses"
+                titleStyle={{ color: "#1E4274" }}
+              >
+                <View style={{ marginLeft: "-16%" }}>
+                  <Card
+                    style={{
+                      width: "95%",
+                      marginLeft: 9,
+                      marginBottom: 10,
+                      borderWidth: 1,
+                      borderColor: "#CCCCCC",
+                    }}
+                  >
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Courses"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
                       }}
-                    />
-                  )}
-                />
-                <Card.Content style={{ marginLeft: -15 }}>
-                  {this.state.languages ? (
-                    this.state.languages.map((e) => {
-                      return (
-                        <Languages
-                          key={e.id}
-                          id={e.id}
-                          language={e.language}
-                          level={e.level}
-                          navigation={this.props.navigation}
+                      right={(props) => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {}}
                         />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
-                </Card.Content>
-              </Card>
-            </View>
+                      )}
+                    />
+                    {this.state.courses ? (
+                      this.state.courses.map((e) => {
+                        return (
+                          <CoursesCard
+                            key={e.id}
+                            id={e.id}
+                            course_name={e.course_name}
+                            course_provider={e.course_provider}
+                            cred={e.cred}
+                            cred_url={e.cred_url}
+                            navigation={this.props.navigation}
+                          />
+                        );
+                      })
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </Card>
+                </View>
+              </List.Accordion>
+              {/* skills */}
+              <List.Accordion
+                id="4"
+                title="Skills"
+                titleStyle={{ color: "#1E4274" }}
+              >
+                <View style={{ marginLeft: "-16%" }}>
+                  <Card
+                    style={{
+                      width: "95%",
+                      marginLeft: 9,
+                      marginBottom: 10,
+                      borderWidth: 1,
+                      borderColor: "#CCCCCC",
+                    }}
+                  >
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Tools and Fields of Expertise"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      right={(props) => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {
+                            this.props.navigation.push("Skillinfo", {
+                              id: 0,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      {this.state.skills ? (
+                        this.state.skills.map((e) => {
+                          return (
+                            <SkillsCard
+                              key={e.id}
+                              id={e.id}
+                              skill_name={e.skill_name}
+                              years_of_exp={e.years_of_exp}
+                              navigation={this.props.navigation}
+                            />
+                          );
+                        })
+                      ) : (
+                        <Text></Text>
+                      )}
+                    </Card.Content>
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Intrests"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      right={(props) => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {
+                            this.props.navigation.push("Interests", {
+                              id: 0,
+                            });
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-end",
+                          marginTop: -5,
+                        }}
+                      >
+                        <MaterialIcons
+                          name="mode-edit"
+                          size={24}
+                          color="#CD8930"
+                          style={{ justifyContent: "flex-end" }}
+                          onPress={() => {
+                            this.props.navigation.push("Interests", {
+                              id: 0,
+                            });
+                          }}
+                        />
+                      </View>
+                      <View style={{ marginLeft: -17 }}>
+                        {this.state.interests ? (
+                          <View
+                            style={{
+                              flexWrap: "wrap",
+                              // width: "25%",
+                            }}
+                          >
+                            {this.state.interests.map((e) => {
+                              return (
+                                <Interests
+                                  key={e.id}
+                                  id={e.id}
+                                  interest={e.interest}
+                                  navigation={this.props.navigation}
+                                />
+                              );
+                            })}
+                          </View>
+                        ) : (
+                          <Text></Text>
+                        )}
+                      </View>
+                    </Card.Content>
+                    <Card.Title
+                      style={{ marginLeft: 1 }}
+                      title="Languages"
+                      titleStyle={{
+                        color: "#CD8930",
+                        fontSize: 18,
+                        fontWeight: "bold",
+                      }}
+                      right={(props) => (
+                        <IconButton
+                          {...props}
+                          icon="plus-box"
+                          size={30}
+                          color="#1E4274"
+                          onPress={() => {
+                            this.props.navigation.push("Language", { id: 0 });
+                          }}
+                        />
+                      )}
+                    />
+                    <Card.Content style={{ marginLeft: -15 }}>
+                      {this.state.languages ? (
+                        this.state.languages.map((e) => {
+                          return (
+                            <Languages
+                              key={e.id}
+                              id={e.id}
+                              language={e.language}
+                              level={e.level}
+                              navigation={this.props.navigation}
+                            />
+                          );
+                        })
+                      ) : (
+                        <Text></Text>
+                      )}
+                    </Card.Content>
+                  </Card>
+                </View>
+              </List.Accordion>
+            </List.AccordionGroup>
           </View>
         </ScrollView>
         <StatusBar style="light" />
