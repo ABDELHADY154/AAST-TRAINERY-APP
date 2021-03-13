@@ -14,11 +14,11 @@ import { Icon } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
-import { Feather } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
-
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 const tabs = {
   Explore: {
     labelStyle: {
@@ -105,10 +105,11 @@ export default class HomeScreen extends Component {
     super();
     this.state = {
       token: "",
+      drawerRef: null,
     };
   }
 
-  ExploreScreen = (props) => {
+  ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     useFocusEffect(
@@ -128,9 +129,10 @@ export default class HomeScreen extends Component {
                 size={40}
                 color="#1E4274"
                 onPress={() => {
+                  this.state.drawerRef.openDrawer();
+                  // Drawer.defaultProps.
+                  // this.props.drawer.openLeftDrawer();
                   // this.props.navigation.toggleDrawer();
-
-                  Drawer.openDrawer();
                   // AsyncStorage.removeItem("userData");
                   // AsyncStorage.removeItem("userToken");
                   // AsyncStorage.removeItem("config");
@@ -154,12 +156,12 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-  ProfileScreen = (props) => {
+  ProfileScreen = props => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -201,15 +203,19 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
+
+  setDrawerRef = ref => {
+    this.setState({ drawerRef: ref });
+  };
   render() {
     var drawerContent = (
       <View>
-        <View style={{ marginTop: 50 }}>
+        <View style={{ height: "100%", backgroundColor: "#fff" }}>
           <View
             style={{
               backgroundColor: "#1E4274",
@@ -290,8 +296,8 @@ export default class HomeScreen extends Component {
     // customize drawer's style (Optional)
     var customStyles = {
       drawer: {
-        shadowColor: "#000",
-        shadowOpacity: 0.4,
+        shadowColor: "#fff",
+        shadowOpacity: 0.9,
         shadowRadius: 10,
       },
       mask: {}, // style of mask if it is enabled
@@ -300,12 +306,13 @@ export default class HomeScreen extends Component {
     // console.log(this.props.userSignOut());
     return (
       <Drawer
-        style={styles.container}
+        ref={this.setDrawerRef}
+        style={styles.drawer}
         drawerWidth={300}
         drawerContent={drawerContent}
         type={Drawer.types.Overlay}
-        customStyles={{ drawer: styles.drawer }}
-        drawerPosition={Drawer.positions.Right}
+        customStyles={{ drawer: customStyles.drawer }}
+        drawerPosition={Drawer.positions.Left}
         onDrawerOpen={() => {
           console.log("Drawer is opened");
         }}
@@ -316,7 +323,7 @@ export default class HomeScreen extends Component {
       >
         <Tab.Navigator
           shifting={true}
-          tabBar={(props) => (
+          tabBar={props => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
@@ -352,5 +359,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  drawer: {
+    height: "100%",
+    backgroundColor: "#fff",
   },
 });

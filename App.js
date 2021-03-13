@@ -24,7 +24,7 @@ import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import Drawer from "./src/Components/Drawer/Drawer";
+import Drawer from "react-native-drawer-menu";
 // import Drawer from "./src/Components/Drawer/Drawer";
 
 import {
@@ -163,6 +163,7 @@ export default function App({ navigation }) {
         {...props}
         navigation={navigation}
         route={route}
+        drawer={new Drawer()}
         logout={() => {
           dispatch({ type: "SIGN_OUT" });
         }}
