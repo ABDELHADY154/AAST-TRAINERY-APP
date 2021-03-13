@@ -150,8 +150,8 @@ export class ReviewsCard extends Component {
       <View>
         <Card
           style={{
-            width: "90%",
-            marginLeft: 18,
+            // width: "95%",
+            // marginLeft: 10,
             borderWidth: 1,
             marginBottom: 10,
 

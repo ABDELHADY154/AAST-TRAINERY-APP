@@ -5928,11 +5928,6 @@
   dependencies:
     "prop-types" "^15.5.10"
 
-"react-native-cards-slider@^0.1.2":
-  "integrity" "sha1-ITSJxIBkkpp+dqwOk1LLYKWb/QM="
-  "resolved" "https://registry.npmjs.org/react-native-cards-slider/-/react-native-cards-slider-0.1.2.tgz"
-  "version" "0.1.2"
-
 "react-native-drawer@2.5.1":
   "integrity" "sha512-cxcQNbSWy5sbGi7anSVp6EDr6JarOBMY9lbFOeLFeVYbONiudoqRKbgEsSDgSw3/LFCLvUXK5zdjXCOedeytxQ=="
   "resolved" "https://registry.npmjs.org/react-native-drawer/-/react-native-drawer-2.5.1.tgz"
@@ -6117,6 +6112,13 @@
   "integrity" "sha512-t41ZlktJnG0D6sva/xL06mDDIkglMwnWIKhRPC2Ll6iP4fUVqv4bXtxMP1HhHwQmlT6B9FQMU1/RF+VqpK3a1A=="
   "resolved" "https://registry.npmjs.org/react-native-swiper-flatlist/-/react-native-swiper-flatlist-3.0.14.tgz"
   "version" "3.0.14"
+
+"react-native-swiper@^1.6.0":
+  "integrity" "sha512-OnkTTZi+9uZUgy0uz1I9oYDhCU3z36lZn+LFsk9FXPRelxb/KeABzvPs3r3SrHWy1aA67KGtSFj0xNK2QD0NJQ=="
+  "resolved" "https://registry.npmjs.org/react-native-swiper/-/react-native-swiper-1.6.0.tgz"
+  "version" "1.6.0"
+  dependencies:
+    "prop-types" "^15.5.10"
 
 "react-native-tab-view@^2.15.2":
   "integrity" "sha512-ac2DmT7+l13wzIFqtbfXn4wwfgtPoKzWjjZyrK1t+T8sdemuUvD4zIt+UImg03fu3s3VD8Wh/fBrIdcqQyZJWg=="
