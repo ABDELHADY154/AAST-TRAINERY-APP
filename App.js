@@ -24,6 +24,7 @@ import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
+import Drawer from "./src/Components/Drawer/Drawer";
 // import Drawer from "./src/Components/Drawer/Drawer";
 
 import {
@@ -234,6 +235,17 @@ export default function App({ navigation }) {
               )
             ) : (
               <>
+                <Stack.Screen
+                  name="SideMenu"
+                  component={Drawer}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
                 <Stack.Screen
                   name="App"
                   component={Trainery}

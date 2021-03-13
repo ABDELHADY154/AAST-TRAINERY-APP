@@ -16,11 +16,12 @@ import {
 } from "../Cards/Cards";
 
 import { Feather } from "@expo/vector-icons";
-
+import Drawer from "../Drawer/Drawer";
 export default class ExploreScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Drawer />
         {/* <View
           style={{
             height: 100,

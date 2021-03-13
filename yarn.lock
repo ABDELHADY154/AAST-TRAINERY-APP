@@ -5849,6 +5849,11 @@ react-native-cards-slider@^0.1.2:
   resolved "https://registry.npmjs.org/react-native-cards-slider/-/react-native-cards-slider-0.1.2.tgz"
   integrity sha1-ITSJxIBkkpp+dqwOk1LLYKWb/QM=
 
+react-native-drawer-menu@^0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/react-native-drawer-menu/-/react-native-drawer-menu-0.2.5.tgz#098a5ede6456f6066bb608dabe72b5c297e9a704"
+  integrity sha512-cZpq7xGRC/fiJB1du+hR0jN0TX0oy8hF/kxEqOzcC0jzSNOtKlZuja4MW2aJPzg/LlflNy1L3KUpDYyWUdl1IA==
+
 react-native-drawer@2.5.1:
   version "2.5.1"
   resolved "https://registry.npmjs.org/react-native-drawer/-/react-native-drawer-2.5.1.tgz"
