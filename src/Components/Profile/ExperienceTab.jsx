@@ -236,7 +236,7 @@ export class ExperienceTab extends Component {
                       size={30}
                       color="#1E4274"
                       onPress={() => {
-                        this.props.navigation.navigate("Skillinfo", { id: 0 });
+                        this.props.navigation.push("Skillinfo", { id: 0 });
                       }}
                     />
                   )}
@@ -373,7 +373,7 @@ export class ExperienceTab extends Component {
                       size={30}
                       color="#1E4274"
                       onPress={() => {
-                        this.props.navigation.navigate("Language", { id: 0 });
+                        this.props.navigation.push("Language", { id: 0 });
                       }}
                     />
                   )}

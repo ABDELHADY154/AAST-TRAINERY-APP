@@ -97,7 +97,7 @@ export default class Skillinfo extends Component {
         });
     }
   };
-  handleSubmit = async (e) => {
+  handleDelete = async (e) => {
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
       .then((response) => {
@@ -190,7 +190,10 @@ export default class Skillinfo extends Component {
                 marginLeft: "5%",
               }}
               // keyboardType="number-pad"
-              keyboardType="number-pad"
+              // keyboardType="number-pad"
+              // numericvalue
+              // keyboardType={"numeric"}
+              keyboardType="numeric"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -258,7 +261,7 @@ export default class Skillinfo extends Component {
                       backgroundColor: "#fff",
                     }}
                     color="#1E4275"
-                    onPress={this.handleDeleteSkills}
+                    onPress={this.handleDelete}
                   >
                     <Text
                       style={{

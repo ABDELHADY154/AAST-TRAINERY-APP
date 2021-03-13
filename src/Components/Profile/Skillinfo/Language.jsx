@@ -61,10 +61,9 @@ export default class Language extends Component {
     };
     if (this.props.route.params.id !== 0) {
       return await axios
-        .put(`/A/student/profile/language${this.props.route.params.id}`, body)
+        .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
         .then((res) => {
           this.props.navigation.push("App", { screen: "Profile" });
-          // console.log(res.data.response.data);
         })
         .catch((error) => {
           if (error.response.data.errors.level) {
@@ -77,6 +76,7 @@ export default class Language extends Component {
               languageErr: error.response.data.errors.language,
             });
           }
+          // console.log(error.response.data);
         });
     } else {
       return await axios
@@ -98,7 +98,25 @@ export default class Language extends Component {
         });
     }
   };
-
+  handleDelete = async (e) => {
+    await axios
+      .delete(`/A/student/profile/language/${this.props.route.params.id}`)
+      .then((response) => {
+        this.props.navigation.push("App", { screen: "Profile" });
+      })
+      .catch((error) => {
+        if (error.response.data.errors.level) {
+          this.setState({
+            levelErr: error.response.data.errors.level,
+          });
+        }
+        if (error.response.data.errors.language) {
+          this.setState({
+            languageErr: error.response.data.errors.language,
+          });
+        }
+      });
+  };
   render() {
     console.log(this.state.skill_name);
     return (
@@ -252,7 +270,7 @@ export default class Language extends Component {
                       backgroundColor: "#fff",
                     }}
                     color="#1E4275"
-                    onPress={this.handleDeleteSkills}
+                    onPress={this.handleDelete}
                   >
                     <Text
                       style={{
