@@ -192,7 +192,7 @@ export default class Skillinfo extends Component {
               // keyboardType="number-pad"
               // keyboardType="number-pad"
               // numericvalue
-              // keyboardType={"numeric"}
+              keyboardType={"numeric"}
               keyboardType="numeric"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
@@ -209,8 +209,10 @@ export default class Skillinfo extends Component {
                 marginBottom: -10,
                 marginTop: 15,
               }}
-              value={this.state.years_of_exp}
-              onChangeText={(value) => this.setState({ years_of_exp: value })}
+              value={this.state.years_of_exp.toString()}
+              onChangeText={(value) =>
+                this.setState({ years_of_exp: value.toString() })
+              }
             />
             {this.state.yearsExpErr != "" ? (
               <View
