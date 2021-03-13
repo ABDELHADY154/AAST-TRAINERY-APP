@@ -336,47 +336,28 @@ export class ExperienceTab extends Component {
                   </View>
                   <View style={{ marginLeft: -17 }}>
                     {this.state.interests ? (
-                      this.state.interests.map((e) => {
-                        return (
-                          <Interests
-                            style={{
-                              flexDirection: "row",
-                              flexWrap: "wrap",
-                              width: "85%",
-                            }}
-                            key={e.id}
-                            id={e.id}
-                            interest={e.interest}
-                            navigation={this.props.navigation}
-                          />
-                        );
-                      })
+                      <View
+                        style={{
+                          flexWrap: "wrap",
+                          // width: "25%",
+                        }}
+                      >
+                        {this.state.interests.map((e) => {
+                          return (
+                            <Interests
+                              key={e.id}
+                              id={e.id}
+                              interest={e.interest}
+                              navigation={this.props.navigation}
+                            />
+                          );
+                        })}
+                      </View>
                     ) : (
                       <Text></Text>
                     )}
                   </View>
                 </Card.Content>
-                {this.state.interests ? (
-                  this.state.interests.map((e) => {
-                    return (
-                      <Interests
-                        style={
-                          {
-                            // flexDirection: "row",
-                            // flexWrap: "wrap",
-                            // width: "85%",
-                          }
-                        }
-                        key={e.id}
-                        id={e.id}
-                        interest={e.interest}
-                        navigation={this.props.navigation}
-                      />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
                 <Card.Title
                   style={{ marginLeft: 1 }}
                   title="Languages"
@@ -809,22 +790,14 @@ export class Interests extends Component {
       starCount: 3,
     };
   }
-  onStarRatingPress(rating) {
-    this.setState({
-      starCount: rating,
-    });
-  }
   render() {
     return (
       <View style={styles.container}>
         <View
           style={{
             marginLeft: 18,
-            flexDirection: "row",
             flexWrap: "wrap",
             margin: 4,
-
-            // marginLeft: 0,
           }}
         >
           <Chip
@@ -832,9 +805,7 @@ export class Interests extends Component {
             textStyle={{
               fontSize: 14,
               color: "#1E4274",
-              flexDirection: "row",
-              flexWrap: "wrap",
-            }} // onPress={() => console.log("Pressed")}
+            }}
           >
             {this.props.interest}
           </Chip>

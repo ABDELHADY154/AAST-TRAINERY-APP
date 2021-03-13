@@ -36,7 +36,7 @@ export default class Skillinfo extends Component {
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
-          console.log(res.data.response.data);
+          console.log(res.data.response.data.years_of_exp);
         })
         .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
@@ -59,12 +59,11 @@ export default class Skillinfo extends Component {
       id: this.state.id,
       years_of_exp: this.state.years_of_exp,
     };
-
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/skill/${this.props.route.params.id}`, body)
-        .then((response) => {
-          this.setState(console.log(this.response.data));
+        .then((res) => {
+          this.props.navigation.push("App", { screen: "Profile" });
         })
         .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
@@ -121,8 +120,6 @@ export default class Skillinfo extends Component {
     console.log(this.state.skill_name);
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -193,7 +190,7 @@ export default class Skillinfo extends Component {
                 marginLeft: "5%",
               }}
               // keyboardType="number-pad"
-              // keyboardType="number-pad"
+              keyboardType="number-pad"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
