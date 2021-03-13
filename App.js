@@ -67,6 +67,11 @@ function LanguageFormScreen(props) {
   const route = useRoute();
   return <Language {...props} navigation={navigation} route={route} />;
 }
+function InterestsFormScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Interests {...props} navigation={navigation} route={route} />;
+}
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -346,7 +351,7 @@ export default function App({ navigation }) {
                 />
                 <Stack.Screen
                   name="Interests"
-                  component={Interests}
+                  component={InterestsFormScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

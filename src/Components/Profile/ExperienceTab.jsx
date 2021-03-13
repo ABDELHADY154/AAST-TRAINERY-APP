@@ -314,7 +314,9 @@ export class ExperienceTab extends Component {
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.push("Interests", { id: 0 });
+                      }}
                     />
                   )}
                 />
@@ -331,7 +333,9 @@ export class ExperienceTab extends Component {
                       size={24}
                       color="#CD8930"
                       style={{ justifyContent: "flex-end" }}
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.push("Interests", { id: 0 });
+                      }}
                     />
                   </View>
                   <View style={{ marginLeft: -17 }}>
@@ -783,7 +787,11 @@ export class SkillsCardSample extends Component {
     );
   }
 }
-export class Interests extends Component {
+export function Interests(props) {
+  const navigation = useNavigation();
+  return <InterestsSample navigation={navigation} {...props} />;
+}
+export class InterestsSample extends Component {
   constructor(props) {
     super(props);
     this.state = {
