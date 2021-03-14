@@ -62,68 +62,69 @@ export class ExperienceTab extends Component {
       <View style={styles.container}>
         <ScrollView>
           <View>
+            <View>
+              <Card
+                style={{
+                  width: "95%",
+                  marginLeft: 9,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderColor: "#CCCCCC",
+                }}
+              >
+                <Card.Title
+                  style={{ marginLeft: 1 }}
+                  title="Add Education"
+                  titleStyle={{
+                    color: "#CD8930",
+                    fontSize: 18,
+                    fontWeight: "bold",
+                  }}
+                  right={(props) => (
+                    <IconButton
+                      {...props}
+                      icon="plus-box"
+                      size={30}
+                      color="#1E4274"
+                      onPress={() => {
+                        this.props.navigation.navigate("EducationForm");
+                      }}
+                    />
+                  )}
+                />
+                <List.Accordion
+                  id="1"
+                  title="Education"
+                  // left={(props) => <List.Icon {...props} icon="folder" />}
+                  // theme={{ colors: { primary: "#CD8930" } }}
+                  titleStyle={{ color: "#1E4274" }}
+                  // expanded={this.state.expanded}
+                  // onPress={this._handlePress}
+                >
+                  {this.state.educations ? (
+                    this.state.educations.map((e) => {
+                      return (
+                        <EducationCard
+                          key={e.id}
+                          id={e.id}
+                          school_name={e.school_name}
+                          city={e.city}
+                          country={e.country}
+                          from={e.from}
+                          to={e.to}
+                          navigation={this.props.navigation}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text></Text>
+                  )}
+                </List.Accordion>
+              </Card>
+            </View>
             <List.AccordionGroup>
               {/* education*/}
-              <List.Accordion
-                id="1"
-                title="Education"
-                // left={(props) => <List.Icon {...props} icon="folder" />}
-                // theme={{ colors: { primary: "#CD8930" } }}
-                titleStyle={{ color: "#1E4274" }}
-                // expanded={this.state.expanded}
-                // onPress={this._handlePress}
-              >
-                <View>
-                  <Card
-                    style={{
-                      width: "95%",
-                      marginLeft: 9,
-                      marginBottom: 10,
-                      borderWidth: 1,
-                      borderColor: "#CCCCCC",
-                    }}
-                  >
-                    <Card.Title
-                      style={{ marginLeft: 1 }}
-                      title="Add Education"
-                      titleStyle={{
-                        color: "#CD8930",
-                        fontSize: 18,
-                        fontWeight: "bold",
-                      }}
-                      right={(props) => (
-                        <IconButton
-                          {...props}
-                          icon="plus-box"
-                          size={30}
-                          color="#1E4274"
-                          onPress={() => {
-                            this.props.navigation.navigate("EducationForm");
-                          }}
-                        />
-                      )}
-                    />
-                    {this.state.educations ? (
-                      this.state.educations.map((e) => {
-                        return (
-                          <EducationCard
-                            key={e.id}
-                            id={e.id}
-                            school_name={e.school_name}
-                            city={e.city}
-                            country={e.country}
-                            from={e.from}
-                            to={e.to}
-                            navigation={this.props.navigation}
-                          />
-                        );
-                      })
-                    ) : (
-                      <Text></Text>
-                    )}
-                  </Card>
-                </View>
-              </List.Accordion>
+
               {/* experiance */}
               <List.Accordion
                 id="2"
