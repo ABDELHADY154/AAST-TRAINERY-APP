@@ -10,15 +10,18 @@ import Activity from "../Activity/ActivityScreen";
 import CareerCoaching from "../CareerCoaching/CareerCoaching";
 import Notification from "../Notification/Notification";
 import { axios } from "../../Config/Axios";
-import { Icon } from "react-native-elements";
+import { Icon, Divider } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 const tabs = {
   Explore: {
     labelStyle: {
@@ -109,7 +112,7 @@ export default class HomeScreen extends Component {
     };
   }
 
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     useFocusEffect(
@@ -156,12 +159,12 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -203,13 +206,13 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -220,9 +223,10 @@ export default class HomeScreen extends Component {
             style={{
               backgroundColor: "#1E4274",
               padding: 15,
-              fontSize: 22,
+              fontSize: 30,
               flexDirection: "row",
               alignItems: "center",
+              marginTop: 10,
             }}
           >
             <Feather
@@ -242,9 +246,9 @@ export default class HomeScreen extends Component {
               alignItems: "center",
             }}
           >
-            <Feather
-              name="edit"
-              size={16}
+            <MaterialCommunityIcons
+              name="newspaper-variant-outline"
+              size={20}
               color="#1E4274"
               style={{ paddingRight: 7 }}
             />
@@ -268,8 +272,8 @@ export default class HomeScreen extends Component {
             <Text style={{ color: "#1E4274" }}>Portfolio</Text>
             <FontAwesome
               name="dollar"
-              size={16}
-              color="#1E4274"
+              size={15}
+              color="#CD8930"
               style={{ paddingLeft: 7 }}
             />
           </View>
@@ -289,6 +293,57 @@ export default class HomeScreen extends Component {
               style={{ paddingRight: 7 }}
             />
             <Text style={{ color: "#1E4274" }}>Account settings</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="info"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>About Us</Text>
+          </View>
+          <Divider style={{ backgroundColor: "#ccc" }} />
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#1E4274" }}>Help center</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#1E4274" }}>Terms and conditions</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#1E4274" }}>Log Out</Text>
           </View>
         </View>
       </View>
@@ -323,7 +378,7 @@ export default class HomeScreen extends Component {
       >
         <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
