@@ -55,7 +55,21 @@ function EducationInfoFormScreen(props) {
   const route = useRoute();
   return <EducationScreen {...props} navigation={navigation} route={route} />;
 }
-
+function SkillinfoFormScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Skillinfo {...props} navigation={navigation} route={route} />;
+}
+function LanguageFormScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Language {...props} navigation={navigation} route={route} />;
+}
+function InterestsFormScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Interests {...props} navigation={navigation} route={route} />;
+}
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
@@ -108,12 +122,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = props => {
+  const TutorialsSCreen = (props) => {
     const navigation = useNavigation();
-    const showTutorial = val => {
+    const showTutorial = (val) => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -140,18 +154,18 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
 
-  const Trainery = props => {
+  const Trainery = (props) => {
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -305,7 +319,7 @@ export default function App({ navigation }) {
                 />
                 <Stack.Screen
                   name="Skillinfo"
-                  component={Skillinfo}
+                  component={SkillinfoFormScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
@@ -316,7 +330,7 @@ export default function App({ navigation }) {
                 />
                 <Stack.Screen
                   name="Language"
-                  component={Language}
+                  component={LanguageFormScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
@@ -327,7 +341,7 @@ export default function App({ navigation }) {
                 />
                 <Stack.Screen
                   name="Interests"
-                  component={Interests}
+                  component={InterestsFormScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

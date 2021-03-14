@@ -15,11 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import TagInput from "react-native-tags-input";
 
-export default function InterestsFormScreen(props) {
-  const navigation = useNavigation();
-  return <Interests navigation={navigation} {...props} />;
-}
-class Interests extends Component {
+export default class Interests extends Component {
   constructor() {
     super();
     this.state = {
@@ -36,11 +32,8 @@ class Interests extends Component {
   updateTagState = (state) => {
     this.setState({
       tags: state,
-      // tag: this.state.tagsArray,
     });
     console.log(this.state.tags);
-    // console.log(this.state.tag);
-    // console.log(this.state.tagsArray);
   };
   componentDidMount() {
     axios
@@ -54,35 +47,62 @@ class Interests extends Component {
         console.log(response.data.response.data);
       })
       .catch((err) => {
-        console.log(err);
-      });
-  }
-  handleSubmitSkills = () => {
-    var body = {
-      // interest: this.state.tag,
-      id: this.state.id,
-      interests: this.state.tags,
-    };
-    axios
-      .post("/A/student/profile/interest", body)
-      .then((response) => {
-        this.setState({
-          id: response.data.response.id,
-          tags: response.data.response.interests,
-          // tags: response.data.response.interest,
-        });
-        console.log(response.data.response.data);
-      })
-      .catch((error) => {
         if (error.response.data.errors.interests) {
           this.setState({
             interestIdErr: error.response.data.errors.interests,
           });
         }
       });
+  }
+
+  handleSubmitSkills = async () => {
+    const data = {
+      interests: [
+        {
+          interest: "",
+        },
+        {
+          interest: "",
+        },
+      ],
+    };
+    console.log(data);
+    // var body = {
+    //   skill_name: this.state.skill_name,
+    //   id: this.state.id,
+    //   years_of_exp: this.state.years_of_exp,
+    // };
+    if (this.props.route.params.id !== 0) {
+      return await axios
+        .put(`/A/student/profile/interest/${this.props.route.params.id}`, body)
+        .then((res) => {
+          this.props.navigation.push("App", { screen: "Profile" });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.interests) {
+            this.setState({
+              interestIdErr: error.response.data.errors.interests,
+            });
+          }
+        });
+    } else {
+      return await axios
+        .post("/A/student/profile/interest", body)
+        .then((response) => {
+          this.props.navigation.push("App", { screen: "Profile" });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.interests) {
+            this.setState({
+              interestIdErr: error.response.data.errors.interests,
+            });
+          }
+        });
+    }
   };
+
   render() {
-    console.log(this.state.tagsArray);
+    console.log(this.state.tags.tags);
     return (
       <View style={styles.container}>
         <Feather

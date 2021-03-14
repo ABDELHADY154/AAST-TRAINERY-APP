@@ -14,11 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import StarRating from "react-native-star-rating";
 
-export default function LanguageFormScreen(props) {
-  const navigation = useNavigation();
-  return <Language navigation={navigation} {...props} />;
-}
-class Language extends Component {
+export default class Language extends Component {
   constructor() {
     super();
     this.state = {
@@ -30,42 +26,88 @@ class Language extends Component {
       levelErr: "",
     };
   }
-
-  componentDidMount() {
-    axios
-      .get("/A/student/profile/language")
-      .then((res) => {
-        this.setState({
-          id: res.data.response.data.id,
-          language: res.data.response.data.language,
-          level: res.data.response.data.level,
+  async componentDidMount() {
+    if (this.props.route.params.id !== 0) {
+      await axios
+        .get(`/A/student/profile/language/${this.props.route.params.id}`)
+        .then((res) => {
+          this.setState({
+            id: res.data.response.data.id,
+            language: res.data.response.data.language,
+            level: res.data.response.data.level,
+          });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.level) {
+            this.setState({
+              levelErr: error.response.data.errors.level,
+            });
+          }
+          if (error.response.data.errors.language) {
+            this.setState({
+              languageErr: error.response.data.errors.language,
+            });
+          }
         });
-        console.log(response.data.response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }
+    console.log(this.props.route.params.id);
   }
-  handleSubmitSkills = () => {
+
+  handleSubmit = async () => {
     var body = {
       language: this.state.language,
       id: this.state.id,
       level: this.state.level,
     };
-    axios
-      .post("/A/student/profile/language", body)
-      .then((response) => {
-        this.setState({
-          id: response.data.response.id,
-          language: response.data.response.language,
-          level: response.data.response.level,
+    if (this.props.route.params.id !== 0) {
+      return await axios
+        .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
+        .then((res) => {
+          this.props.navigation.push("App", { screen: "Profile" });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.level) {
+            this.setState({
+              levelErr: error.response.data.errors.level,
+            });
+          }
+          if (error.response.data.errors.language) {
+            this.setState({
+              languageErr: error.response.data.errors.language,
+            });
+          }
+          // console.log(error.response.data);
         });
+    } else {
+      return await axios
+        .post("/A/student/profile/language", body)
+        .then((response) => {
+          this.props.navigation.push("App", { screen: "Profile" });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.level) {
+            this.setState({
+              levelErr: error.response.data.errors.level,
+            });
+          }
+          if (error.response.data.errors.language) {
+            this.setState({
+              languageErr: error.response.data.errors.language,
+            });
+          }
+        });
+    }
+  };
+  handleDelete = async (e) => {
+    await axios
+      .delete(`/A/student/profile/language/${this.props.route.params.id}`)
+      .then((response) => {
+        this.props.navigation.push("App", { screen: "Profile" });
       })
       .catch((error) => {
-        // console.log(error.response.data.errors);
-        if (error.response.data.errors.id) {
+        if (error.response.data.errors.level) {
           this.setState({
-            languageIdErr: error.response.data.errors.id,
+            levelErr: error.response.data.errors.level,
           });
         }
         if (error.response.data.errors.language) {
@@ -73,14 +115,8 @@ class Language extends Component {
             languageErr: error.response.data.errors.language,
           });
         }
-        if (error.response.data.errors.level) {
-          this.setState({
-            levelErr: error.response.data.errors.level,
-          });
-        }
       });
   };
-
   render() {
     console.log(this.state.skill_name);
     return (
@@ -127,7 +163,7 @@ class Language extends Component {
               value={this.state.language}
               onChangeText={(value) => this.setState({ language: value })}
             />
-            {this.state.skillErr != "" ? (
+            {this.state.languageErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -185,7 +221,7 @@ class Language extends Component {
               />
             </View>
 
-            {this.state.yearsExpErr != "" ? (
+            {this.state.levelErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -214,42 +250,49 @@ class Language extends Component {
                 marginLeft: "5%",
               }}
             >
-              <Button
-                style={styles.button}
-                color="#1E4275"
-                onPress={this.handleSubmitSkills}
-              >
-                <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-              </Button>
-              <Button
-                style={styles.button}
-                color="#1E4275"
-                // onPress={this.submit}
-              >
-                <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
-              </Button>
-              <Button
-                style={{
-                  border: 2,
-                  borderColor: "#F44336",
-                  borderWidth: 1,
-                  width: "auto",
-                  borderRadius: 50,
-                  marginTop: 20,
-                  backgroundColor: "#fff",
-                }}
-                color="#1E4275"
-                // onPress={this.handleDeleteSkills}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                  }}
-                >
-                  Delete
-                </Text>
-              </Button>
+              {this.props.route.params.id !== 0 ? (
+                <View>
+                  <Button
+                    style={styles.button}
+                    color="#1E4275"
+                    onPress={this.handleSubmit}
+                  >
+                    <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
+                  </Button>
+                  <Button
+                    style={{
+                      border: 2,
+                      borderColor: "#F44336",
+                      borderWidth: 1,
+                      width: "auto",
+                      borderRadius: 50,
+                      marginTop: 20,
+                      backgroundColor: "#fff",
+                    }}
+                    color="#1E4275"
+                    onPress={this.handleDelete}
+                  >
+                    <Text
+                      style={{
+                        color: "#F44336",
+                        fontSize: 18,
+                      }}
+                    >
+                      Delete
+                    </Text>
+                  </Button>
+                </View>
+              ) : (
+                <View>
+                  <Button
+                    style={styles.button}
+                    color="#1E4275"
+                    onPress={this.handleSubmit}
+                  >
+                    <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
+                  </Button>
+                </View>
+              )}
             </View>
           </ScrollView>
         </View>
