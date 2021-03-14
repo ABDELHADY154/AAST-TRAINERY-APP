@@ -338,12 +338,12 @@ export class ExperienceTab extends Component {
                       }}
                     />
                   </View>
-                  <View style={{ marginLeft: -17 }}>
+                  <View style={{ flex: 1 }}>
                     {this.state.interests ? (
                       <View
                         style={{
                           flexWrap: "wrap",
-                          // width: "25%",
+                          flexDirection: "row",
                         }}
                       >
                         {this.state.interests.map((e) => {
@@ -483,7 +483,6 @@ export class EducationCardSample extends Component {
         <View style={{ marginLeft: 18 }}>
           <Paragraph
             style={{
-              // marginHorizontal: 23,
               fontSize: 14,
               color: "#1E4274",
               width: "85%",
@@ -495,7 +494,6 @@ export class EducationCardSample extends Component {
           </Paragraph>
           <Paragraph
             style={{
-              // marginHorizontal: 23,
               fontSize: 14,
               color: "#1E4274",
             }}
@@ -582,7 +580,6 @@ export class ExperienceCard extends Component {
             <View style={{ marginLeft: 18 }}>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                   width: "80%",
@@ -593,7 +590,6 @@ export class ExperienceCard extends Component {
               </Paragraph>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                 }}
@@ -605,8 +601,6 @@ export class ExperienceCard extends Component {
                   type="text"
                   style={{
                     fontSize: 14,
-                    // flex: 1,
-                    // justifyContent: "flex-start",
                     alignItems: "flex-start",
                     marginLeft: -16,
                   }}
@@ -620,8 +614,6 @@ export class ExperienceCard extends Component {
                   textStyle={{
                     fontSize: 14,
                     color: "#1E4274",
-                    // flex: 1,
-                    // justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
@@ -697,7 +689,6 @@ export class CoursesCard extends Component {
             <View style={{ marginLeft: 18 }}>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                   flexDirection: "row",
@@ -707,15 +698,6 @@ export class CoursesCard extends Component {
               >
                 {this.props.course_name}
               </Paragraph>
-              {/* <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Sep 2007 to Jun 2017
-                  </Paragraph> */}
               <Button
                 type="text"
                 style={{
@@ -757,13 +739,11 @@ export class SkillsCardSample extends Component {
     return (
       <View
         style={{
-          // marginLeft: 18,
           flexDirection: "row",
         }}
       >
         <Paragraph
           style={{
-            // marginHorizontal: 23,
             fontSize: 14,
             color: "#1E4274",
             flex: 1,
@@ -792,32 +772,24 @@ export function Interests(props) {
   return <InterestsSample navigation={navigation} {...props} />;
 }
 export class InterestsSample extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      starCount: 3,
-    };
-  }
   render() {
     return (
-      <View style={styles.container}>
-        <View
-          style={{
-            marginLeft: 18,
-            flexWrap: "wrap",
-            margin: 4,
+      <View
+        style={{
+          flexWrap: "wrap",
+          marginBottom: 5,
+          marginRight: 3,
+        }}
+      >
+        <Chip
+          style={{ height: 30 }}
+          textStyle={{
+            fontSize: 14,
+            color: "#1E4274",
           }}
         >
-          <Chip
-            style={{ height: 30, marginRight: 6 }}
-            textStyle={{
-              fontSize: 14,
-              color: "#1E4274",
-            }}
-          >
-            {this.props.interest}
-          </Chip>
-        </View>
+          {this.props.interest}
+        </Chip>
       </View>
     );
   }
@@ -868,22 +840,12 @@ export class Languages extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.props.level}
-                // selectedStar={this.props.level}
                 style={{
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               />
-              {/* <StarRating
-                    fullStarColor={"#CD8930"}
-                    starSize={20}
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.state.starCount}
-                    selectedStar={(rating) => this.onStarRatingPress(rating)}
-                    style={{ flex: 1, justifyContent: "center" }}
-                  /> */}
             </View>
             <View
               style={{
