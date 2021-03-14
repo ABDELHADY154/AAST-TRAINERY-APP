@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useCallback } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Easing } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
@@ -10,14 +10,18 @@ import Activity from "../Activity/ActivityScreen";
 import CareerCoaching from "../CareerCoaching/CareerCoaching";
 import Notification from "../Notification/Notification";
 import { axios } from "../../Config/Axios";
-import { Icon } from "react-native-elements";
+import { Icon, Divider } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { IconButton } from "react-native-paper";
-import { Feather } from "@expo/vector-icons";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
-
+import Drawer from "react-native-drawer-menu";
+import {
+  Feather,
+  FontAwesome,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 const tabs = {
   Explore: {
     labelStyle: {
@@ -104,6 +108,8 @@ export default class HomeScreen extends Component {
     super();
     this.state = {
       token: "",
+      drawerRef: null,
+      drawerIsOpened: false,
     };
   }
 
@@ -119,6 +125,7 @@ export default class HomeScreen extends Component {
             headerStyle: {
               backgroundColor: "#fff",
             },
+
             headerTintColor: "#1E4274",
             headerLeft: () => (
               <IconButton
@@ -127,11 +134,9 @@ export default class HomeScreen extends Component {
                 size={40}
                 color="#1E4274"
                 onPress={() => {
-                  AsyncStorage.removeItem("userData");
-                  AsyncStorage.removeItem("userToken");
-                  AsyncStorage.removeItem("config");
-                  axios.defaults.headers.common["Authorization"] = ``;
-                  this.props.logout();
+                  this.state.drawerIsOpened == false
+                    ? this.state.drawerRef.openDrawer()
+                    : this.state.drawerRef.closeDrawer();
                 }}
               />
             ),
@@ -174,11 +179,9 @@ export default class HomeScreen extends Component {
                 size={40}
                 color="#fff"
                 onPress={() => {
-                  AsyncStorage.removeItem("userData");
-                  AsyncStorage.removeItem("userToken");
-                  AsyncStorage.removeItem("config");
-                  axios.defaults.headers.common["Authorization"] = ``;
-                  this.props.logout();
+                  this.state.drawerIsOpened == false
+                    ? this.state.drawerRef.openDrawer()
+                    : this.state.drawerRef.closeDrawer();
                 }}
               />
             ),
@@ -202,36 +205,208 @@ export default class HomeScreen extends Component {
 
     return <Profile {...props} navigation={navigation} />;
   };
+
+  setDrawerRef = ref => {
+    this.setState({ drawerRef: ref });
+  };
   render() {
-    // console.log(this.props.userSignOut());
-    return (
-      <Tab.Navigator
-        shifting={true}
-        tabBar={props => (
-          <AnimatedTabBar
-            tabs={tabs}
-            {...props}
-            duration={950}
+    var drawerContent = (
+      <View>
+        <View style={{ height: "100%", backgroundColor: "#fff" }}>
+          <View
             style={{
-              backgroundColor: "#1E4275",
-              borderRadius: 150,
-              justifyContent: "center",
+              backgroundColor: "#1E4274",
+              padding: 15,
+              fontSize: 30,
+              flexDirection: "row",
               alignItems: "center",
-              width: "99.9%",
-              height: 63,
-              alignSelf: "center",
+              marginTop: 10,
             }}
-            itemOuterSpace={9}
-            itemInnerSpace={7}
-          />
-        )}
+          >
+            <Feather
+              name="edit"
+              size={16}
+              color="#fff"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#fff" }}>Edit Profile</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="newspaper-variant-outline"
+              size={20}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Generate CV</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="edit"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Portfolio</Text>
+            <FontAwesome
+              name="dollar"
+              size={15}
+              color="#CD8930"
+              style={{ paddingLeft: 7 }}
+            />
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="settings"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>Account settings</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Feather
+              name="info"
+              size={16}
+              color="#1E4274"
+              style={{ paddingRight: 7 }}
+            />
+            <Text style={{ color: "#1E4274" }}>About Us</Text>
+          </View>
+          <Divider style={{ backgroundColor: "#ccc" }} />
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#1E4274" }}>Help center</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "#1E4274" }}>Terms and conditions</Text>
+          </View>
+          <View
+            style={{
+              backgroundColor: "#fff",
+              padding: 15,
+              fontSize: 22,
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{ color: "#1E4274" }}
+              onPress={() => {
+                AsyncStorage.removeItem("userData");
+                AsyncStorage.removeItem("userToken");
+                AsyncStorage.removeItem("config");
+                axios.defaults.headers.common["Authorization"] = ``;
+                this.props.logout();
+              }}
+            >
+              Log Out
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+    var customStyles = {
+      drawer: {
+        shadowColor: "#fff",
+        shadowOpacity: 0.9,
+        shadowRadius: 10,
+      },
+      mask: {},
+      main: {},
+    };
+    return (
+      <Drawer
+        ref={this.setDrawerRef}
+        style={styles.drawer}
+        drawerWidth={300}
+        drawerContent={drawerContent}
+        type={Drawer.types.Replace}
+        customStyles={{ drawer: customStyles.drawer }}
+        drawerPosition={Drawer.positions.Left}
+        onDrawerOpen={() => {
+          this.setState({ drawerIsOpened: true });
+        }}
+        onDrawerClose={() => {
+          this.setState({ drawerIsOpened: false });
+        }}
+        easingFunc={Easing.ease}
       >
-        <Tab.Screen name="Explore" component={this.ExploreScreen} />
-        <Tab.Screen name="Activity" component={Activity} />
-        <Tab.Screen name="Coaching" component={CareerCoaching} />
-        <Tab.Screen name="Notifications" component={Notification} />
-        <Tab.Screen name="Profile" component={this.ProfileScreen} />
-      </Tab.Navigator>
+        <Tab.Navigator
+          shifting={true}
+          tabBar={props => (
+            <AnimatedTabBar
+              tabs={tabs}
+              {...props}
+              duration={950}
+              style={{
+                backgroundColor: "#1E4275",
+                borderRadius: 150,
+                justifyContent: "center",
+                alignItems: "center",
+                width: "99.9%",
+                height: 63,
+                alignSelf: "center",
+              }}
+              itemOuterSpace={9}
+              itemInnerSpace={7}
+            />
+          )}
+        >
+          <Tab.Screen name="Explore" component={this.ExploreScreen} />
+          <Tab.Screen name="Activity" component={Activity} />
+          <Tab.Screen name="Coaching" component={CareerCoaching} />
+          <Tab.Screen name="Notifications" component={Notification} />
+          <Tab.Screen name="Profile" component={this.ProfileScreen} />
+        </Tab.Navigator>
+      </Drawer>
     );
   }
 }
@@ -242,5 +417,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  drawer: {
+    height: "100%",
+    backgroundColor: "#fff",
   },
 });

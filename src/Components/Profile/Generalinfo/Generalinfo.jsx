@@ -19,24 +19,8 @@ import { Button } from "galio-framework";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
-// import DatePicker from "@dietime/react-native-date-picker";
-// import { DatePickerModal } from "react-native-paper-dates";
 
 export default function GeneralInfoFormScreen(props) {
-  // function SingleDatePage() {
-  //   const [visible, setVisible] = React.useState(false);
-  //   const onDismiss = React.useCallback(() => {
-  //     setVisible(false);
-  //   }, [setVisible]);
-  //   const onChange = React.useCallback(({ date }) => {
-  //     setVisible(false);
-  //     console.log({ date });
-  //   }, []);
-  //   const date = new Date();
-  // }
-
-  // const [date, setDate] = useState();
-
   const navigation = useNavigation();
   return <GeneralInfo navigation={navigation} {...props} />;
 }
@@ -59,16 +43,6 @@ class GeneralInfo extends Component {
       code: null,
       isDatePickerVisible: false,
     };
-
-    // /A/student/profile/personal
-    //   "name": "Full Name",
-    //   "phone_number": "+201000011111",
-    //   "city": "Cairo",
-    //   "gender": "male",
-    //   "country": "Egypt",
-    //   "nationality": "Egyptian",
-    //   "date_of_birth": "1997-04-15"
-    // }
   }
   showDatePicker = () => {
     this.setState({ isDatePickerVisible: true });

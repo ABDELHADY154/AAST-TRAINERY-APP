@@ -16,7 +16,6 @@ import {
 } from "../Cards/Cards";
 
 import { Feather } from "@expo/vector-icons";
-
 export default class ExploreScreen extends Component {
   render() {
     return (
