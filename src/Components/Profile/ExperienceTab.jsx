@@ -31,7 +31,7 @@ export class ExperienceTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
-      .then(response => {
+      .then((response) => {
         this.setState({
           educations: response.data.response.data.educations,
           work_experience: response.data.response.data.work_experience,
@@ -42,7 +42,7 @@ export class ExperienceTab extends Component {
         });
         console.log(response.data.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -71,7 +71,7 @@ export class ExperienceTab extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                       }}
-                      right={props => (
+                      right={(props) => (
                         <IconButton
                           {...props}
                           icon="plus-box"
@@ -84,7 +84,7 @@ export class ExperienceTab extends Component {
                       )}
                     />
                     {this.state.educations ? (
-                      this.state.educations.map(e => {
+                      this.state.educations.map((e) => {
                         return (
                           <EducationCard
                             key={e.id}
@@ -124,7 +124,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -137,7 +137,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.work_experience ? (
-                  this.state.work_experience.map(e => {
+                  this.state.work_experience.map((e) => {
                     return (
                       <ExperienceCard
                         key={e.id}
@@ -181,7 +181,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -192,7 +192,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.courses ? (
-                  this.state.courses.map(e => {
+                  this.state.courses.map((e) => {
                     return (
                       <CoursesCard
                         key={e.id}
@@ -229,13 +229,15 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.push("Skillinfo", { id: 0 });
+                      }}
                     />
                   )}
                 />
@@ -283,7 +285,7 @@ export class ExperienceTab extends Component {
                     </View>
                   </View>
                   {this.state.skills ? (
-                    this.state.skills.map(e => {
+                    this.state.skills.map((e) => {
                       return (
                         <SkillsCard
                           key={e.id}
@@ -306,13 +308,15 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.push("Interests", { id: 0 });
+                      }}
                     />
                   )}
                 />
@@ -329,51 +333,35 @@ export class ExperienceTab extends Component {
                       size={24}
                       color="#CD8930"
                       style={{ justifyContent: "flex-end" }}
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.push("Interests", { id: 0 });
+                      }}
                     />
                   </View>
-
-                  {this.state.interests ? (
-                    this.state.interests.map(e => {
-                      return (
-                        <Interests
-                          style={{
-                            flexDirection: "row",
-                            flexWrap: "wrap",
-                            width: "85%",
-                          }}
-                          key={e.id}
-                          id={e.id}
-                          interest={e.interest}
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
+                  <View style={{ flex: 1 }}>
+                    {this.state.interests ? (
+                      <View
+                        style={{
+                          flexWrap: "wrap",
+                          flexDirection: "row",
+                        }}
+                      >
+                        {this.state.interests.map((e) => {
+                          return (
+                            <Interests
+                              key={e.id}
+                              id={e.id}
+                              interest={e.interest}
+                              navigation={this.props.navigation}
+                            />
+                          );
+                        })}
+                      </View>
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </View>
                 </Card.Content>
-                {this.state.interests ? (
-                  this.state.interests.map(e => {
-                    return (
-                      <Interests
-                        style={
-                          {
-                            // flexDirection: "row",
-                            // flexWrap: "wrap",
-                            // width: "85%",
-                          }
-                        }
-                        key={e.id}
-                        id={e.id}
-                        interest={e.interest}
-                        navigation={this.props.navigation}
-                      />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
                 <Card.Title
                   style={{ marginLeft: 1 }}
                   title="Languages"
@@ -382,21 +370,21 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
                       onPress={() => {
-                        this.props.navigation.navigate("Language");
+                        this.props.navigation.push("Language", { id: 0 });
                       }}
                     />
                   )}
                 />
                 <Card.Content style={{ marginLeft: -15 }}>
                   {this.state.languages ? (
-                    this.state.languages.map(e => {
+                    this.state.languages.map((e) => {
                       return (
                         <Languages
                           key={e.id}
@@ -495,7 +483,6 @@ export class EducationCardSample extends Component {
         <View style={{ marginLeft: 18 }}>
           <Paragraph
             style={{
-              // marginHorizontal: 23,
               fontSize: 14,
               color: "#1E4274",
               width: "85%",
@@ -507,7 +494,6 @@ export class EducationCardSample extends Component {
           </Paragraph>
           <Paragraph
             style={{
-              // marginHorizontal: 23,
               fontSize: 14,
               color: "#1E4274",
             }}
@@ -594,7 +580,6 @@ export class ExperienceCard extends Component {
             <View style={{ marginLeft: 18 }}>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                   width: "80%",
@@ -605,7 +590,6 @@ export class ExperienceCard extends Component {
               </Paragraph>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                 }}
@@ -617,8 +601,6 @@ export class ExperienceCard extends Component {
                   type="text"
                   style={{
                     fontSize: 14,
-                    // flex: 1,
-                    // justifyContent: "flex-start",
                     alignItems: "flex-start",
                     marginLeft: -16,
                   }}
@@ -632,8 +614,6 @@ export class ExperienceCard extends Component {
                   textStyle={{
                     fontSize: 14,
                     color: "#1E4274",
-                    // flex: 1,
-                    // justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
@@ -709,7 +689,6 @@ export class CoursesCard extends Component {
             <View style={{ marginLeft: 18 }}>
               <Paragraph
                 style={{
-                  // marginHorizontal: 23,
                   fontSize: 14,
                   color: "#1E4274",
                   flexDirection: "row",
@@ -719,15 +698,6 @@ export class CoursesCard extends Component {
               >
                 {this.props.course_name}
               </Paragraph>
-              {/* <Paragraph
-                    style={{
-                      // marginHorizontal: 23,
-                      fontSize: 14,
-                      color: "#1E4274",
-                    }}
-                  >
-                    Sep 2007 to Jun 2017
-                  </Paragraph> */}
               <Button
                 type="text"
                 style={{
@@ -748,7 +718,12 @@ export class CoursesCard extends Component {
     );
   }
 }
-export class SkillsCard extends Component {
+
+export function SkillsCard(props) {
+  const navigation = useNavigation();
+  return <SkillsCardSample navigation={navigation} {...props} />;
+}
+export class SkillsCardSample extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -764,13 +739,11 @@ export class SkillsCard extends Component {
     return (
       <View
         style={{
-          // marginLeft: 18,
           flexDirection: "row",
         }}
       >
         <Paragraph
           style={{
-            // marginHorizontal: 23,
             fontSize: 14,
             color: "#1E4274",
             flex: 1,
@@ -784,50 +757,46 @@ export class SkillsCard extends Component {
           size={24}
           color="#CD8930"
           style={{ justifyContent: "flex-end" }}
+          onPress={() => {
+            this.props.navigation.push("Skillinfo", {
+              id: this.props.id,
+            });
+          }}
         />
       </View>
     );
   }
 }
-export class Interests extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      starCount: 3,
-    };
-  }
-  onStarRatingPress(rating) {
-    this.setState({
-      starCount: rating,
-    });
-  }
+export function Interests(props) {
+  const navigation = useNavigation();
+  return <InterestsSample navigation={navigation} {...props} />;
+}
+export class InterestsSample extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <View
-          style={{
-            marginLeft: 18,
-            flexDirection: "row",
-            flexWrap: "wrap",
-            margin: 4,
-            // marginLeft: 0,
+      <View
+        style={{
+          flexWrap: "wrap",
+          marginBottom: 5,
+          marginRight: 3,
+        }}
+      >
+        <Chip
+          style={{ height: 30 }}
+          textStyle={{
+            fontSize: 14,
+            color: "#1E4274",
           }}
         >
-          <Chip
-            style={{ height: 30, marginRight: 6 }}
-            textStyle={{
-              fontSize: 14,
-              color: "#1E4274",
-              flexDirection: "row",
-              flexWrap: "wrap",
-            }} // onPress={() => console.log("Pressed")}
-          >
-            {this.props.interest}
-          </Chip>
-        </View>
+          {this.props.interest}
+        </Chip>
       </View>
     );
   }
+}
+export function Language(props) {
+  const navigation = useNavigation();
+  return <LanguageSample navigation={navigation} {...props} />;
 }
 export class Languages extends Component {
   constructor(props) {
@@ -871,22 +840,12 @@ export class Languages extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.props.level}
-                // selectedStar={this.props.level}
                 style={{
                   flex: 1,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               />
-              {/* <StarRating
-                    fullStarColor={"#CD8930"}
-                    starSize={20}
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.state.starCount}
-                    selectedStar={(rating) => this.onStarRatingPress(rating)}
-                    style={{ flex: 1, justifyContent: "center" }}
-                  /> */}
             </View>
             <View
               style={{
@@ -896,7 +855,16 @@ export class Languages extends Component {
                 alignItems: "flex-end",
               }}
             >
-              <MaterialIcons name="mode-edit" size={24} color="#CD8930" />
+              <MaterialIcons
+                name="mode-edit"
+                size={24}
+                color="#CD8930"
+                onPress={() => {
+                  this.props.navigation.push("Language", {
+                    id: this.props.id,
+                  });
+                }}
+              />
             </View>
           </View>
         </ScrollView>
