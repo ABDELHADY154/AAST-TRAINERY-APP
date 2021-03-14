@@ -109,10 +109,11 @@ export default class HomeScreen extends Component {
     this.state = {
       token: "",
       drawerRef: null,
+      drawerIsOpened: false,
     };
   }
 
-  ExploreScreen = (props) => {
+  ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     useFocusEffect(
@@ -124,6 +125,7 @@ export default class HomeScreen extends Component {
             headerStyle: {
               backgroundColor: "#fff",
             },
+
             headerTintColor: "#1E4274",
             headerLeft: () => (
               <IconButton
@@ -132,15 +134,9 @@ export default class HomeScreen extends Component {
                 size={40}
                 color="#1E4274"
                 onPress={() => {
-                  this.state.drawerRef.openDrawer();
-                  // Drawer.defaultProps.
-                  // this.props.drawer.openLeftDrawer();
-                  // this.props.navigation.toggleDrawer();
-                  // AsyncStorage.removeItem("userData");
-                  // AsyncStorage.removeItem("userToken");
-                  // AsyncStorage.removeItem("config");
-                  // axios.defaults.headers.common["Authorization"] = ``;
-                  // this.props.logout();
+                  this.state.drawerIsOpened == false
+                    ? this.state.drawerRef.openDrawer()
+                    : this.state.drawerRef.closeDrawer();
                 }}
               />
             ),
@@ -159,12 +155,12 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-  ProfileScreen = (props) => {
+  ProfileScreen = props => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -183,11 +179,9 @@ export default class HomeScreen extends Component {
                 size={40}
                 color="#fff"
                 onPress={() => {
-                  AsyncStorage.removeItem("userData");
-                  AsyncStorage.removeItem("userToken");
-                  AsyncStorage.removeItem("config");
-                  axios.defaults.headers.common["Authorization"] = ``;
-                  this.props.logout();
+                  this.state.drawerIsOpened == false
+                    ? this.state.drawerRef.openDrawer()
+                    : this.state.drawerRef.closeDrawer();
                 }}
               />
             ),
@@ -206,13 +200,13 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = (ref) => {
+  setDrawerRef = ref => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -343,42 +337,51 @@ export default class HomeScreen extends Component {
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "#1E4274" }}>Log Out</Text>
+            <Text
+              style={{ color: "#1E4274" }}
+              onPress={() => {
+                AsyncStorage.removeItem("userData");
+                AsyncStorage.removeItem("userToken");
+                AsyncStorage.removeItem("config");
+                axios.defaults.headers.common["Authorization"] = ``;
+                this.props.logout();
+              }}
+            >
+              Log Out
+            </Text>
           </View>
         </View>
       </View>
     );
-    // customize drawer's style (Optional)
     var customStyles = {
       drawer: {
         shadowColor: "#fff",
         shadowOpacity: 0.9,
         shadowRadius: 10,
       },
-      mask: {}, // style of mask if it is enabled
-      main: {}, // style of main board
+      mask: {},
+      main: {},
     };
-    // console.log(this.props.userSignOut());
     return (
       <Drawer
         ref={this.setDrawerRef}
         style={styles.drawer}
         drawerWidth={300}
         drawerContent={drawerContent}
-        type={Drawer.types.Overlay}
+        type={Drawer.types.Replace}
         customStyles={{ drawer: customStyles.drawer }}
         drawerPosition={Drawer.positions.Left}
         onDrawerOpen={() => {
-          console.log("Drawer is opened");
+          this.setState({ drawerIsOpened: true });
         }}
         onDrawerClose={() => {
-          console.log("Drawer is closed");
+          this.setState({ drawerIsOpened: false });
         }}
         easingFunc={Easing.ease}
       >
         <Tab.Navigator
           shifting={true}
-          tabBar={(props) => (
+          tabBar={props => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}

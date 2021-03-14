@@ -24,8 +24,6 @@ import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
-import Drawer from "react-native-drawer-menu";
-// import Drawer from "./src/Components/Drawer/Drawer";
 
 import {
   DefaultTheme,
@@ -50,7 +48,6 @@ function SignInScreen(props) {
 }
 function ForgetPassScreen(props) {
   const navigation = useNavigation();
-  // const { signIn } = React.useContext(AuthContext);userLogin={signIn}
   return <ForgetPass {...props} navigation={navigation} />;
 }
 function EducationInfoFormScreen(props) {
@@ -163,7 +160,6 @@ export default function App({ navigation }) {
         {...props}
         navigation={navigation}
         route={route}
-        drawer={new Drawer()}
         logout={() => {
           dispatch({ type: "SIGN_OUT" });
         }}
@@ -237,27 +233,8 @@ export default function App({ navigation }) {
             ) : (
               <>
                 <Stack.Screen
-                  name="SideMenu"
-                  component={Drawer}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
                   name="App"
                   component={Trainery}
-                  // options={{
-                  //   cardStyle: { backgroundColor: "#fff" },
-                  //   animationTypeForReplace: state.isSignout ? "pop" : "push",
-                  //   header: () => {
-                  //     "none";
-                  //   },
-                  // }}
-
                   options={({ route }) => ({
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "pop",
