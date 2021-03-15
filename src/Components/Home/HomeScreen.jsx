@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useCallback } from "react";
-import { StyleSheet, Text, View, Easing } from "react-native";
+import { StyleSheet, Text, View, Easing, Image } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
@@ -13,7 +13,7 @@ import { axios } from "../../Config/Axios";
 import { Icon, Divider } from "react-native-elements";
 import AnimatedTabBar from "@gorhom/animated-tabbar";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { IconButton } from "react-native-paper";
+import { IconButton, Avatar } from "react-native-paper";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
@@ -113,7 +113,7 @@ export default class HomeScreen extends Component {
     };
   }
 
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
     useFocusEffect(
@@ -155,12 +155,12 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Explore {...props} navigation={navigation} logout={signOut} />;
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -200,24 +200,61 @@ export default class HomeScreen extends Component {
             ),
           });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
     var drawerContent = (
       <View>
-        <View style={{ height: "100%", backgroundColor: "#fff" }}>
+        <View
+          style={{
+            height: "100%",
+            backgroundColor: "#fff",
+            // justifyContent: "center",
+          }}
+        >
+          {/* <View style={{ backgroundColor: "#1e4274", height: 100 }}>
+            <Avatar.Image
+              style={{
+                backgroundColor: "transparent",
+              }}
+              size={110}
+              // source={{ uri: this.state.image }}
+              source={{ uri: this.state.userData.image }}
+            />
+          </View> */}
+          {/* <View>
+            <Image
+              source={require("../../assets/Images/logoBlue.png")}
+              style={{
+                width: 230,
+                height: 50,
+                // marginTop: 15,
+                marginBottom: 5,
+                alignSelf: "center",
+              }}
+            />
+            <Text
+              style={{
+                color: "#1E4274",
+                alignSelf: "center",
+                marginBottom: 5,
+                fontSize: 14,
+              }}
+            >
+              Our Business Is Your Career
+            </Text>
+          </View> */}
           <View
             style={{
               backgroundColor: "#1E4274",
               padding: 15,
-              fontSize: 30,
               flexDirection: "row",
               alignItems: "center",
               marginTop: 10,
@@ -229,13 +266,12 @@ export default class HomeScreen extends Component {
               color="#fff"
               style={{ paddingRight: 7 }}
             />
-            <Text style={{ color: "#fff" }}>Edit Profile</Text>
+            <Text style={{ color: "#fff", fontSize: 16 }}>Edit Profile</Text>
           </View>
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
@@ -246,13 +282,12 @@ export default class HomeScreen extends Component {
               color="#1E4274"
               style={{ paddingRight: 7 }}
             />
-            <Text style={{ color: "#1E4274" }}>Generate CV</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>Generate CV</Text>
           </View>
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
@@ -263,7 +298,7 @@ export default class HomeScreen extends Component {
               color="#1E4274"
               style={{ paddingRight: 7 }}
             />
-            <Text style={{ color: "#1E4274" }}>Portfolio</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>Portfolio</Text>
             <FontAwesome
               name="dollar"
               size={15}
@@ -275,7 +310,6 @@ export default class HomeScreen extends Component {
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
@@ -286,13 +320,14 @@ export default class HomeScreen extends Component {
               color="#1E4274"
               style={{ paddingRight: 7 }}
             />
-            <Text style={{ color: "#1E4274" }}>Account settings</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              Account settings
+            </Text>
           </View>
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
@@ -303,42 +338,41 @@ export default class HomeScreen extends Component {
               color="#1E4274"
               style={{ paddingRight: 7 }}
             />
-            <Text style={{ color: "#1E4274" }}>About Us</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>About Us</Text>
           </View>
           <Divider style={{ backgroundColor: "#ccc" }} />
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "#1E4274" }}>Help center</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>Help center</Text>
           </View>
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
-            <Text style={{ color: "#1E4274" }}>Terms and conditions</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              Terms and conditions
+            </Text>
           </View>
           <View
             style={{
               backgroundColor: "#fff",
               padding: 15,
-              fontSize: 22,
               flexDirection: "row",
               alignItems: "center",
             }}
           >
             <Text
-              style={{ color: "#1E4274" }}
+              style={{ color: "#1E4274", fontSize: 16 }}
               onPress={() => {
                 AsyncStorage.removeItem("userData");
                 AsyncStorage.removeItem("userToken");
@@ -381,7 +415,7 @@ export default class HomeScreen extends Component {
       >
         <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
