@@ -739,30 +739,56 @@ export class SkillsCardSample extends Component {
     return (
       <View
         style={{
+          marginLeft: 18,
           flexDirection: "row",
+          alignItems: "center",
         }}
       >
         <Paragraph
           style={{
-            fontSize: 14,
-            color: "#1E4274",
             flex: 1,
             justifyContent: "flex-start",
+            fontSize: 14,
+            color: "#1E4274",
+            alignItems: "flex-start",
           }}
         >
           {this.props.skill_name}
         </Paragraph>
-        <MaterialIcons
-          name="mode-edit"
-          size={24}
-          color="#CD8930"
-          style={{ justifyContent: "flex-end" }}
-          onPress={() => {
-            this.props.navigation.push("Skillinfo", {
-              id: this.props.id,
-            });
+
+        <View>
+          <StarRating
+            fullStarColor={"#CD8930"}
+            starSize={20}
+            disabled={false}
+            maxStars={5}
+            rating={this.props.years_of_exp}
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        </View>
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "flex-end",
+            alignSelf: "flex-end",
+            alignItems: "flex-end",
           }}
-        />
+        >
+          <MaterialIcons
+            name="mode-edit"
+            size={24}
+            color="#CD8930"
+            onPress={() => {
+              this.props.navigation.push("Skillinfo", {
+                id: this.props.id,
+              });
+            }}
+          />
+        </View>
       </View>
     );
   }

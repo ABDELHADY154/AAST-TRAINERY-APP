@@ -12,6 +12,7 @@ import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
+import StarRating from "react-native-star-rating";
 
 export default class Skillinfo extends Component {
   constructor() {
@@ -183,7 +184,43 @@ export default class Skillinfo extends Component {
             ) : (
               <Text></Text>
             )}
-            <Input
+            <View
+              style={{
+                width: "93%",
+                justifyContent: "center",
+                alignSelf: "center",
+                marginLeft: "5%",
+              }}
+            >
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginBottom: 10,
+                  marginTop: 15,
+                }}
+              >
+                Level of Experience
+              </Text>
+              <StarRating
+                fullStarColor={"#CD8930"}
+                starSize={35}
+                disabled={false}
+                maxStars={5}
+                rating={this.state.years_of_exp}
+                selectedStar={(years_of_exp) =>
+                  this.setState({ years_of_exp: years_of_exp })
+                }
+                style={{
+                  justifyContent: "center",
+                  alignSelf: "center",
+                  marginLeft: "5%",
+                }}
+              />
+            </View>
+            {/* <Input
               containerStyle={{
                 justifyContent: "center",
                 alignSelf: "center",
@@ -213,7 +250,7 @@ export default class Skillinfo extends Component {
               onChangeText={(value) =>
                 this.setState({ years_of_exp: value.toString() })
               }
-            />
+            /> */}
             {this.state.yearsExpErr != "" ? (
               <View
                 style={{
