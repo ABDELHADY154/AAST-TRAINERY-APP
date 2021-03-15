@@ -5,6 +5,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import { IconButton } from "react-native-paper";
 import { axios } from "../../Config/Axios";
+import { Header } from "react-native-elements";
+import Drawer from "react-native-drawer-menu";
 
 import {
   AdvisorCard,
@@ -207,6 +209,7 @@ export default class ExploreScreen extends Component {
             }}
           />
         </View> */}
+
         <ScrollView>
           <AdvisorCard />
           <CompanyCard />
@@ -215,7 +218,7 @@ export default class ExploreScreen extends Component {
           <AdsCardImgOnly />
           <PromotedCard />
         </ScrollView>
-        <StatusBar style="auto" />
+        {/* <StatusBar style="auto" /> */}
       </View>
     );
   }
