@@ -191,7 +191,7 @@ export default class ProfileScreen extends Component {
           <Tab.Screen name="Experience" component={ExperienceTab} />
         </Tab.Navigator>
 
-        <StatusBar style="light" />
+        {/* <StatusBar style="auto" /> */}
       </View>
     );
   }

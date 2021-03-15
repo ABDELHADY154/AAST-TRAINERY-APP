@@ -31,7 +31,7 @@ export class ExperienceTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
-      .then((response) => {
+      .then(response => {
         this.setState({
           educations: response.data.response.data.educations,
           work_experience: response.data.response.data.work_experience,
@@ -42,7 +42,7 @@ export class ExperienceTab extends Component {
         });
         console.log(response.data.response.data);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -71,20 +71,22 @@ export class ExperienceTab extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                       }}
-                      right={(props) => (
+                      right={props => (
                         <IconButton
                           {...props}
                           icon="plus-box"
                           size={30}
                           color="#1E4274"
                           onPress={() => {
-                            this.props.navigation.navigate("EducationForm");
+                            this.props.navigation.push("EducationForm", {
+                              id: 0,
+                            });
                           }}
                         />
                       )}
                     />
                     {this.state.educations ? (
-                      this.state.educations.map((e) => {
+                      this.state.educations.map(e => {
                         return (
                           <EducationCard
                             key={e.id}
@@ -124,7 +126,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -137,7 +139,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.work_experience ? (
-                  this.state.work_experience.map((e) => {
+                  this.state.work_experience.map(e => {
                     return (
                       <ExperienceCard
                         key={e.id}
@@ -181,7 +183,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -192,7 +194,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.courses ? (
-                  this.state.courses.map((e) => {
+                  this.state.courses.map(e => {
                     return (
                       <CoursesCard
                         key={e.id}
@@ -229,7 +231,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -285,7 +287,7 @@ export class ExperienceTab extends Component {
                     </View>
                   </View>
                   {this.state.skills ? (
-                    this.state.skills.map((e) => {
+                    this.state.skills.map(e => {
                       return (
                         <SkillsCard
                           key={e.id}
@@ -308,7 +310,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -346,7 +348,7 @@ export class ExperienceTab extends Component {
                           flexDirection: "row",
                         }}
                       >
-                        {this.state.interests.map((e) => {
+                        {this.state.interests.map(e => {
                           return (
                             <Interests
                               key={e.id}
@@ -370,7 +372,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={(props) => (
+                  right={props => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -384,7 +386,7 @@ export class ExperienceTab extends Component {
                 />
                 <Card.Content style={{ marginLeft: -15 }}>
                   {this.state.languages ? (
-                    this.state.languages.map((e) => {
+                    this.state.languages.map(e => {
                       return (
                         <Languages
                           key={e.id}
@@ -403,7 +405,6 @@ export class ExperienceTab extends Component {
             </View>
           </View>
         </ScrollView>
-        <StatusBar style="light" />
       </View>
     );
   }
@@ -713,7 +714,6 @@ export class CoursesCard extends Component {
             </View>
           </Card.Content>
         </ScrollView>
-        <StatusBar style="light" />
       </View>
     );
   }
@@ -868,7 +868,6 @@ export class Languages extends Component {
             </View>
           </View>
         </ScrollView>
-        <StatusBar style="light" />
       </View>
     );
   }

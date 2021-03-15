@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import React, { Component, useCallback } from "react";
-import { StyleSheet, Text, View, Easing } from "react-native";
+import { StyleSheet, Text, View, Easing, Animated } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
@@ -17,6 +17,9 @@ import { IconButton } from "react-native-paper";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
+import { HeaderStyleInterpolators } from "@react-navigation/stack";
+import { Header } from "react-native-elements";
+
 import {
   Feather,
   FontAwesome,
@@ -110,55 +113,43 @@ export default class HomeScreen extends Component {
       token: "",
       drawerRef: null,
       drawerIsOpened: false,
+      fadeAnim: new Animated.Value(0),
+      headerTitle: "",
     };
   }
+
+  // fadeIn = () => {
+  //   // Will change fadeAnim value to 1 in 5 seconds
+  //   Animated.timing(this.state.fadeAnim, {
+  //     toValue: 1,
+  //     duration: 100,
+  //     useNativeDriver: true,
+  //   }).start();
+  // };
 
   ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
+    const setTitle = title => {
+      this.setState({ headerTitle: title });
+    };
     useFocusEffect(
       useCallback(() => {
         const stackNavigator = navigation.dangerouslyGetParent();
         if (stackNavigator) {
-          stackNavigator.setOptions({
-            title: "Explore",
-            headerStyle: {
-              backgroundColor: "#fff",
-            },
-
-            headerTintColor: "#1E4274",
-            headerLeft: () => (
-              <IconButton
-                icon="menu"
-                type="text"
-                size={40}
-                color="#1E4274"
-                onPress={() => {
-                  this.state.drawerIsOpened == false
-                    ? this.state.drawerRef.openDrawer()
-                    : this.state.drawerRef.closeDrawer();
-                }}
-              />
-            ),
-            headerRight: () => (
-              <Feather
-                name="search"
-                size={28}
-                color="#1E4274"
-                style={{
-                  marginRight: 20,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate("Search");
-                }}
-              />
-            ),
-          });
+          this.setState({ headerTitle: "Explore" });
         }
       }, [navigation]),
     );
 
-    return <Explore {...props} navigation={navigation} logout={signOut} />;
+    return (
+      <Explore
+        {...props}
+        navigation={navigation}
+        logout={signOut}
+        // drawer={}
+      />
+    );
   };
   ProfileScreen = props => {
     const navigation = useNavigation();
@@ -166,39 +157,7 @@ export default class HomeScreen extends Component {
       useCallback(() => {
         const stackNavigator = navigation.dangerouslyGetParent();
         if (stackNavigator) {
-          stackNavigator.setOptions({
-            title: "Profile",
-            headerStyle: {
-              backgroundColor: "#1E4274",
-            },
-            headerTintColor: "#fff",
-            headerLeft: () => (
-              <IconButton
-                icon="menu"
-                type="text"
-                size={40}
-                color="#fff"
-                onPress={() => {
-                  this.state.drawerIsOpened == false
-                    ? this.state.drawerRef.openDrawer()
-                    : this.state.drawerRef.closeDrawer();
-                }}
-              />
-            ),
-            headerRight: () => (
-              <Feather
-                name="search"
-                size={28}
-                color="#fff"
-                style={{
-                  marginRight: 20,
-                }}
-                onPress={() => {
-                  this.props.navigation.navigate("Search");
-                }}
-              />
-            ),
-          });
+          this.setState({ headerTitle: "Profile" });
         }
       }, [navigation]),
     );
@@ -212,7 +171,12 @@ export default class HomeScreen extends Component {
   render() {
     var drawerContent = (
       <View>
-        <View style={{ height: "100%", backgroundColor: "#fff" }}>
+        <View
+          style={{
+            height: "100%",
+            backgroundColor: "#fff",
+          }}
+        >
           <View
             style={{
               backgroundColor: "#1E4274",
@@ -362,13 +326,24 @@ export default class HomeScreen extends Component {
       mask: {},
       main: {},
     };
+    const config = {
+      animation: "spring",
+      config: {
+        stiffness: 1000,
+        damping: 500,
+        mass: 3,
+        overshootClamping: true,
+        restDisplacementThreshold: 0.01,
+        restSpeedThreshold: 0.01,
+      },
+    };
     return (
       <Drawer
         ref={this.setDrawerRef}
         style={styles.drawer}
         drawerWidth={300}
         drawerContent={drawerContent}
-        type={Drawer.types.Replace}
+        type={Drawer.types.Overlay}
         customStyles={{ drawer: customStyles.drawer }}
         drawerPosition={Drawer.positions.Left}
         onDrawerOpen={() => {
@@ -376,9 +351,64 @@ export default class HomeScreen extends Component {
         }}
         onDrawerClose={() => {
           this.setState({ drawerIsOpened: false });
+          // this.props.navigation.setOptions({ headerShown: true });
         }}
         easingFunc={Easing.ease}
       >
+        <Header
+          leftComponent={{
+            icon: "menu",
+            color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275",
+            size: 39,
+            onPress: () => {
+              this.state.drawerIsOpened == false
+                ? this.state.drawerRef.openDrawer()
+                : this.state.drawerRef.closeDrawer();
+            },
+          }}
+          centerComponent={{
+            text: this.state.headerTitle,
+            style: {
+              color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275", //"#1E4275",
+              fontSize: 20,
+              fontWeight: "bold",
+              marginTop: 7,
+            },
+          }}
+          // rightComponent={{ icon: "search", color: "#1E4275", size: 35 }}
+          rightComponent={
+            <Feather
+              name="search"
+              size={28}
+              color={this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"}
+              style={{
+                marginTop: 6,
+              }}
+              onPress={() => {
+                this.props.navigation.navigate("Search");
+              }}
+            />
+          }
+          backgroundColor={
+            this.state.headerTitle == "Profile" ? "#1E4274" : "#fff"
+          }
+          containerStyle={{
+            // width: "95%",
+            paddingHorizontal: "5%",
+            alignSelf: "center",
+            // shadowColor:
+            //   this.state.headerTitle == "Profile" ? "#1E4274" : "#000",
+            shadowColor: "#000",
+            shadowOffset: {
+              width: 0,
+              height: 10,
+            },
+            shadowOpacity: 0.9,
+            shadowRadius: 60,
+
+            borderBottomColor: "transparent",
+          }}
+        />
         <Tab.Navigator
           shifting={true}
           tabBar={props => (
@@ -406,6 +436,11 @@ export default class HomeScreen extends Component {
           <Tab.Screen name="Notifications" component={Notification} />
           <Tab.Screen name="Profile" component={this.ProfileScreen} />
         </Tab.Navigator>
+        {this.state.headerTitle == "Profile" ? (
+          <StatusBar style="light" animated={true} showHideTransition="slide" />
+        ) : (
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
+        )}
       </Drawer>
     );
   }
@@ -423,3 +458,90 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
 });
+
+// stackNavigator.setOptions({
+//   title: "Profile",
+//   headerStyle: {
+//     backgroundColor: "#1E4274",
+//   },
+//   cardOverlayEnabled: true,
+//   headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
+//   headerTitleStyle: {
+//     fontWeight: "bold",
+//     alignSelf: "center",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     fontSize: 20,
+//   },
+//   headerTintColor: "#fff",
+//   headerLeft: () => (
+//     <IconButton
+//       icon="menu"
+//       type="text"
+//       size={40}
+//       color="#fff"
+//       onPress={() => {
+//         this.state.drawerIsOpened == false
+//           ? this.state.drawerRef.openDrawer()
+//           : this.state.drawerRef.closeDrawer();
+//       }}
+//     />
+//   ),
+//   headerRight: () => (
+//     <Feather
+//       name="search"
+//       size={28}
+//       color="#fff"
+//       style={{
+//         marginRight: 20,
+//       }}
+//       onPress={() => {
+//         this.props.navigation.navigate("Search");
+//       }}
+//     />
+//   ),
+// });
+// stackNavigator.setOptions({
+//   title: "Explore",
+//   headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
+//   cardOverlayEnabled: false,
+//   headerStyle: {
+//     backgroundColor: "#fff",
+//   },
+//   headerMode: "float",
+
+//   headerTitleStyle: {
+//     fontWeight: "bold",
+//     alignSelf: "center",
+//     justifyContent: "center",
+//     alignItems: "center",
+//     fontSize: 20,
+//   },
+//   headerTintColor: "#1E4274",
+//   headerLeft: () => (
+//     <IconButton
+//       icon="menu"
+//       type="text"
+//       size={40}
+//       color="#1E4274"
+//       onPress={() => {
+//         this.state.drawerIsOpened == false
+//           ? this.state.drawerRef.openDrawer()
+//           : this.state.drawerRef.closeDrawer();
+//       }}
+//     />
+//   ),
+//   headerRight: () => (
+//     <Feather
+//       name="search"
+//       size={28}
+//       color="#1E4274"
+//       style={{
+//         marginRight: 20,
+//       }}
+//       onPress={() => {
+//         this.props.navigation.navigate("Search");
+//       }}
+//     />
+//   ),
+// });

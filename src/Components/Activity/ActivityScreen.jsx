@@ -64,7 +64,6 @@ export default class ActivityScreen extends Component {
         >
           <Text>Profile Logout</Text>
         </Button> */}
-        <StatusBar style="auto" />
       </View>
     );
   }

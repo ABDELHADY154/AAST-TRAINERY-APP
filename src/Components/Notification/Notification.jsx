@@ -62,7 +62,6 @@ export default class Notification extends Component {
         >
           <Text>Profile Logout</Text>
         </Button> */}
-        <StatusBar style="auto" />
       </View>
     );
   }
@@ -73,5 +72,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: "#fff",
   },
 });

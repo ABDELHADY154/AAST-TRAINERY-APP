@@ -39,7 +39,7 @@ class GeneralInfo extends Component {
       gender: "",
       checked: "",
       nationality: "",
-      phoneNumber: "",
+      phoneNumber: 0,
       code: null,
       isDatePickerVisible: false,
     };
@@ -423,7 +423,7 @@ class GeneralInfo extends Component {
               </View>
               <Input
                 style={styles.input}
-                keyboardType="number-pad"
+                keyboardType="numeric"
                 textAlign="left"
                 inputStyle={{ color: "#1E4275" }}
                 inputContainerStyle={{
@@ -433,7 +433,9 @@ class GeneralInfo extends Component {
                   width: "116%",
                 }}
                 label="Phone Number"
+                textContentType="telephoneNumber"
                 value={this.state.phoneNumber}
+                // value={this.state.phoneNumber}
                 labelStyle={{
                   color: "#1E4274",
                   fontSize: 16,
@@ -443,7 +445,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -27,
                 }}
-                // onChangeText={value => this.setState({ regNo: value })}
+                onChangeText={value => this.setState({ phoneNumber: value })}
               />
             </View>
             <Button
