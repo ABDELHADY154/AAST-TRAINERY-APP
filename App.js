@@ -24,6 +24,7 @@ import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { IconButton } from "react-native-paper";
 import { Feather } from "@expo/vector-icons";
+import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
 
 import {
   DefaultTheme,
@@ -122,12 +123,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    }
+    },
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = (props) => {
+  const TutorialsSCreen = props => {
     const navigation = useNavigation();
-    const showTutorial = (val) => {
+    const showTutorial = val => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -150,22 +151,40 @@ export default function App({ navigation }) {
       }, 2000);
     };
     bootstrapAsync();
+    const backAction = () => {
+      Alert.alert("Hold on!", "Are you sure you want to exit Trainery?", [
+        {
+          text: "NO",
+          onPress: () => null,
+          style: "cancel",
+        },
+        { text: "YES", onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction,
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signIn: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async (data) => {
+      signUp: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    []
+    [],
   );
 
-  const Trainery = (props) => {
+  const Trainery = props => {
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -217,6 +236,7 @@ export default function App({ navigation }) {
                     component={SignInScreen}
                     options={{
                       animationTypeForReplace: state.isSignout ? "pop" : "push",
+
                       header: () => {
                         "none";
                       },
@@ -253,45 +273,9 @@ export default function App({ navigation }) {
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "pop",
                     title: "App",
-                    headerStyle: {
-                      backgroundColor: "white",
+                    header: () => {
+                      "none";
                     },
-                    headerTintColor: "#1E4274",
-                    headerTitleStyle: {
-                      fontWeight: "bold",
-                      alignSelf: "center",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      fontSize: 20,
-                    },
-                    headerLeft: () => (
-                      <IconButton
-                        icon="menu"
-                        type="text"
-                        size={40}
-                        color="#1E4274"
-                        onPress={() => {
-                          AsyncStorage.removeItem("userData");
-                          AsyncStorage.removeItem("userToken");
-                          AsyncStorage.removeItem("config");
-                          axios.defaults.headers.common["Authorization"] = ``;
-                          dispatch({ type: "SIGN_OUT" });
-                        }}
-                      />
-                    ),
-                    headerRight: () => (
-                      <Feather
-                        name="search"
-                        size={28}
-                        color="#1E4274"
-                        style={{
-                          marginRight: 20,
-                        }}
-                        onPress={() => {
-                          this.props.navigation.navigate("Search");
-                        }}
-                      />
-                    ),
                   })}
                 />
 
@@ -402,3 +386,44 @@ export default function App({ navigation }) {
     </AuthContext.Provider>
   );
 }
+// headerStyle: {
+//   backgroundColor: "white",
+// },
+
+// headerMode: "float",
+// headerTintColor: "#1E4274",
+// headerTitleStyle: {
+//   fontWeight: "bold",
+//   alignSelf: "center",
+//   justifyContent: "center",
+//   alignItems: "center",
+//   fontSize: 20,
+// },
+// headerLeft: () => (
+//   <IconButton
+//     icon="menu"
+//     type="text"
+//     size={40}
+//     color="#1E4274"
+//     onPress={() => {
+//       AsyncStorage.removeItem("userData");
+//       AsyncStorage.removeItem("userToken");
+//       AsyncStorage.removeItem("config");
+//       axios.defaults.headers.common["Authorization"] = ``;
+//       dispatch({ type: "SIGN_OUT" });
+//     }}
+//   />
+// ),
+// headerRight: () => (
+//   <Feather
+//     name="search"
+//     size={28}
+//     color="#1E4274"
+//     style={{
+//       marginRight: 20,
+//     }}
+//     onPress={() => {
+//       this.props.navigation.navigate("Search");
+//     }}
+//   />
+// ),

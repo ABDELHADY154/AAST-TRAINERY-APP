@@ -5,59 +5,201 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import { DocumentPicker } from "expo-document-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-
+import { axios } from "../../../Config/Axios";
 import { useNavigation } from "@react-navigation/native";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as DocumentPicker from "expo-document-picker";
 
-export default function EduInfoFormScren(props) {
-  const navigation = useNavigation();
-  return <EduInfoForm navigation={navigation} {...props} />;
-}
-// import { CountryPicker } from "react-native-country-picker-modal";
-class EduInfoForm extends Component {
-  // state = {
-  //   SchoolName: "",
-  //   countryname: "",
-  //   cityname: "",
-  //   EducationFrom: "",
-  //   EducationTo: "",
-  //   EducationCredURL: "",
-  //   EducationCredUpload: "",
-  // };
-  constructor() {
-    super();
-    this.state = {
-      date: new Date(1598051730000),
-      mode: "date",
-      show: false,
-    };
+export default class EduInfoForm extends Component {
+  state = {
+    SchoolName: "",
+    country: "",
+    city: "",
+    EducationFrom: "",
+    EducationTo: "",
+    EducationCredURL: null,
+    EducationCredUpload: null,
+    countriesList: {},
+    citiesList: [],
+    code: "",
+    isFromDatePickerVisible: false,
+    isToDatePickerVisible: false,
+  };
+  showFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: true });
+  };
+  hideFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: false });
+  };
+  handleFromConfirm = date => {
+    console.log("A date has been picked: ", date);
+    this.setState({ EducationFrom: date.toISOString().split("T")[0] });
+    this.hideFromDatePicker();
+  };
+  showToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: true });
+  };
+  hideToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: false });
+  };
+  handleToConfirm = date => {
+    console.log("A date has been picked: ", date);
+    this.setState({ EducationTo: date.toISOString().split("T")[0] });
+    this.hideToDatePicker();
+  };
+  countryOnchangeHandler = (itemValue, index) => {
+    for (const key in this.state.countriesList) {
+      if (this.state.countriesList[key] == itemValue) {
+        this.getCityList(key);
+        this.setState({ code: key });
+        this.setState({ country: itemValue });
+        break;
+      }
+    }
+  };
+  getCityList = code => {
+    axios
+      .get(`/stateList/${code}`)
+      .then(res => {
+        this.setState({ citiesList: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  handleSubmit = async () => {
+    var formData = new FormData();
+
+    formData.append("school_name", this.state.SchoolName);
+    formData.append("city", this.state.city);
+    formData.append("country", this.state.country);
+    formData.append("from", this.state.EducationFrom);
+    formData.append("to", this.state.EducationTo);
+    formData.append("cred_url", this.state.EducationCredURL);
+    if (this.state.EducationCredUpload !== null) {
+      let uriParts = this.state.EducationCredUpload.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.EducationCredUpload,
+        name: `${this.state.SchoolName}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: "/A/student/profile/education",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(res => {
+        console.log(res.response);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  };
+
+  handleUpdateSubmit = async () => {
+    var formData = new FormData();
+    formData.append("school_name", this.state.SchoolName);
+    formData.append("city", this.state.city);
+    formData.append("country", this.state.country);
+    formData.append("from", this.state.EducationFrom);
+    formData.append("to", this.state.EducationTo);
+    formData.append("cred_url", this.state.EducationCredURL);
+    if (this.state.EducationCredUpload !== null) {
+      let uriParts = this.state.EducationCredUpload.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.EducationCredUpload,
+        name: `${this.state.SchoolName}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: `/A/student/profile/education/${this.props.route.params.id}`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(res => {
+        console.log(res.response);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
+  };
+  async componentDidMount() {
+    axios
+      .get("/countriesList")
+      .then(res => {
+        this.setState({ countriesList: res.data });
+        if (this.state.country !== "") {
+          console.log(this.state.country);
+          this.countryOnchangeHandler(this.state.country);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    if (this.props.route.params.id > 0) {
+      await axios
+        .get(`/A/student/profile/education/${this.props.route.params.id}`)
+        .then(res => {
+          this.setState({
+            SchoolName: res.data.response.data.school_name,
+            country: res.data.response.data.country,
+            city: res.data.response.data.city,
+            EducationFrom: res.data.response.data.from,
+            EducationTo: res.data.response.data.to,
+            EducationCredURL: res.data.response.data.credential_url,
+          });
+          console.log(this.props.route.params.id);
+
+          console.log(res.data.response.data);
+        })
+        .catch(err => {
+          console.log(err.response);
+        });
+    }
   }
+
   _pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      alert(result.uri);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
+    let result = await DocumentPicker.getDocumentAsync({});
+    // console.log(result);
+    if (result) {
+      this.setState({ EducationCredUpload: result.uri });
     }
-  };
-  onChange = (e, selectedDate) => {
-    try {
-      const currentDate = selectedDate || this.state.date;
-      this.setState({ show: Platform.OS === "ios" });
-      this.setState({ date: currentDate });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  showMode = (currentMode) => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
   };
 
-  showDatepicker = () => {
-    this.showMode("date");
+  handleDelete = async () => {
+    await axios
+      .delete(`/A/student/profile/education/${this.props.route.params.id}`)
+      .then(res => {
+        console.log(res);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -72,7 +214,6 @@ class EduInfoForm extends Component {
           style={{
             alignSelf: "flex-start",
             marginLeft: "6%",
-            // flex: 1,
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -96,7 +237,8 @@ class EduInfoForm extends Component {
               }}
               label="School Name"
               labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.SchoolName}
+              onChangeText={value => this.setState({ SchoolName: value })}
             />
 
             <View
@@ -123,14 +265,12 @@ class EduInfoForm extends Component {
                   backgroundColor: "transparent",
                   width: "113%",
                   alignSelf: "flex-start",
-                  // marginTop: 10,
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
                   borderBottomWidth: 2,
                   borderRadius: 0,
-                  // marginBottom: 10,
                   alignSelf: "flex-start",
                   marginLeft: "-5.5%",
                 }}
@@ -151,21 +291,13 @@ class EduInfoForm extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"EGYPT"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
-                  // }
+                  selectedValue={this.state.country}
+                  onValueChange={this.countryOnchangeHandler}
                 >
-                  <Picker.Item label="Choose The Country" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.countryname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                  <Picker.Item label="Choose Your Country" value="0" />
+                  {Object.entries(this.state.countriesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
               <Text
@@ -213,21 +345,15 @@ class EduInfoForm extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"Alexandria"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ city: itemValue })
-                  // }
+                  selectedValue={this.state.city}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ city: itemValue });
+                  }}
                 >
                   <Picker.Item label="Choose The City" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.cityname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                  {Object.entries(this.state.citiesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
               <Text
@@ -245,8 +371,14 @@ class EduInfoForm extends Component {
               </Text>
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isFromDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleFromConfirm}
+                    onCancel={this.hideFromDatePicker}
+                  />
                   <Feather
-                    onPress={this.showDatepicker}
+                    onPress={this.showFromDatePicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -255,30 +387,31 @@ class EduInfoForm extends Component {
                       alignSelf: "flex-end",
                     }}
                   ></Feather>
+
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
                       width: "117%",
                       marginLeft: "-5%",
                       borderColor: "transparent",
+
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.EducationFrom}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
               <Text
                 style={{
@@ -291,12 +424,18 @@ class EduInfoForm extends Component {
                   marginBottom: -10,
                 }}
               >
-                From
+                To
               </Text>
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isToDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleToConfirm}
+                    onCancel={this.hideToDatePicker}
+                  />
                   <Feather
-                    onPress={this.showDatepicker}
+                    onPress={this.showToDatePicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -306,8 +445,7 @@ class EduInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
                       width: "117%",
@@ -318,17 +456,17 @@ class EduInfoForm extends Component {
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.EducationTo}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
               <Input
                 style={styles.input}
@@ -354,7 +492,8 @@ class EduInfoForm extends Component {
                 }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
+                value={this.state.EducationCredURL}
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />
@@ -391,20 +530,47 @@ class EduInfoForm extends Component {
                 </Button>
               </View>
             </View>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
-            </Button>
+            {this.props.route.params.id > 0 ? (
+              <View>
+                <Button
+                  style={styles.button}
+                  color="#1E4275"
+                  onPress={this.handleUpdateSubmit}
+                >
+                  <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
+                </Button>
+                <Button
+                  style={{
+                    border: 2,
+                    borderColor: "#F44336",
+                    borderWidth: 1,
+                    width: "auto",
+                    borderRadius: 50,
+                    marginTop: 20,
+                    backgroundColor: "#fff",
+                  }}
+                  color="#1E4275"
+                  onPress={this.handleDelete}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 18,
+                    }}
+                  >
+                    Delete
+                  </Text>
+                </Button>
+              </View>
+            ) : (
+              <Button
+                style={styles.button}
+                color="#1E4275"
+                onPress={this.handleSubmit}
+              >
+                <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
+              </Button>
+            )}
           </ScrollView>
         </View>
       </View>
