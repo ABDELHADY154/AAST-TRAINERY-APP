@@ -28,7 +28,7 @@ export default class Interests extends Component {
       interestErr: "",
     };
   }
-  updateTagState = state => {
+  updateTagState = (state) => {
     this.setState({
       tags: state,
     });
@@ -37,8 +37,8 @@ export default class Interests extends Component {
     const interestArr = [];
     await axios
       .get("/A/student/profile/interest")
-      .then(res => {
-        res.data.response.data.forEach(element => {
+      .then((res) => {
+        res.data.response.data.forEach((element) => {
           interestArr.push(element.interest);
         });
         this.setState({
@@ -47,7 +47,7 @@ export default class Interests extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   }
@@ -57,28 +57,26 @@ export default class Interests extends Component {
       interests: [],
     };
 
-    this.state.tags.tagsArray.forEach(el => {
+    this.state.tags.tagsArray.forEach((el) => {
       data.interests.push({ interest: el });
     });
 
     await axios
       .put("/A/student/profile/interest", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
             screen: "Experience",
           },
         });
-        console.log(res.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -86,27 +84,25 @@ export default class Interests extends Component {
           size={36}
           color="#1E4274"
           style={{
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             marginTop: 45,
+            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Interests </Text>
-        <View style={{ width: "93%" }}>
+        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
           <ScrollView>
             <TagInput
               placeholder="Tags..."
               tagStyle={{
                 backgroundColor: "#fff",
-                // borderColor: "#1E4275",
-                // borderWidth: 1,
-                // color: "#1E4275",
-                // fill: "#1E4275",
               }}
-              containerStyle={{ marginLeft: "5%" }}
               inputContainerStyle={{
                 borderColor: "#1E4275",
                 borderBottomWidth: 2,
-                width: "100%",
+                width: "107%",
               }}
               inputStyle={{ color: "#1E4275" }}
               label="Press comma or Enter to add a tag"
@@ -167,13 +163,20 @@ export default class Interests extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
-    marginLeft: "5%",
   },
   button: {
     width: "auto",

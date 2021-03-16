@@ -50,7 +50,6 @@ export default class Language extends Component {
           }
         });
     }
-    console.log(this.props.route.params.id);
   }
 
   handleSubmit = async () => {
@@ -76,7 +75,6 @@ export default class Language extends Component {
               languageErr: error.response.data.errors.language,
             });
           }
-          // console.log(error.response.data);
         });
     } else {
       return await axios
@@ -118,23 +116,23 @@ export default class Language extends Component {
       });
   };
   render() {
-    console.log(this.state.skill_name);
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
           color="#1E4274"
           style={{
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             marginTop: 45,
+            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Language </Text>
 
-        <View style={{ width: "93%" }}>
+        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
           <ScrollView>
             <Input
               containerStyle={{
@@ -150,6 +148,7 @@ export default class Language extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                width: "107%",
               }}
               label="Language"
               labelStyle={{
@@ -220,7 +219,6 @@ export default class Language extends Component {
                 }}
               />
             </View>
-
             {this.state.levelErr != "" ? (
               <View
                 style={{
@@ -304,13 +302,20 @@ export default class Language extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
-    marginLeft: "5%",
   },
   button: {
     width: "auto",

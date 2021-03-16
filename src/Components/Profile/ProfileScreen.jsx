@@ -7,7 +7,6 @@ import {
   StyleSheet,
   Text,
   Alert,
-  // Modal,
   Pressable,
   Platform,
   TouchableOpacity,
@@ -34,7 +33,7 @@ export default class ProfileScreen extends Component {
   afterImageUpload = async () => {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -46,7 +45,7 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -55,18 +54,13 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  // ExperienceTabScreen = props => {
-  //   const { navigation } = useNavigation();
-  //   const route = useRoute();
-  //   return <ExperienceTab {...props} navigation={navigation} />;
-  // };
   showModal = () => {
     this.setState({ visible: true });
   };
   hideModal = () => {
     this.setState({ visible: false });
   };
-  getImage = image => {
+  getImage = (image) => {
     this.setState({ image: image });
   };
   updateImage = async () => {
@@ -85,33 +79,27 @@ export default class ProfileScreen extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(e => {
-        console.log(e);
+      .then((e) => {
         this.setState({ visible: false });
         this.afterImageUpload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
   render() {
-    console.log(this.state.image);
     return (
       <View style={styles.container}>
         {/* Header */}
         <View style={{ backgroundColor: "#1E4274" }}>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             <View style={{ marginTop: 20 }}>
-              <Pressable
-                // style={[styles.button, styles.buttonOpen]}
-                onPress={this.showModal}
-              >
+              <Pressable onPress={this.showModal}>
                 <Avatar.Image
                   style={{
                     backgroundColor: "transparent",
                   }}
                   size={110}
-                  // source={{ uri: this.state.image }}
                   source={{ uri: this.state.userData.image }}
                 />
                 <FontAwesome
@@ -120,7 +108,6 @@ export default class ProfileScreen extends Component {
                   color="#1E4274"
                   style={{
                     borderRadius: 20,
-                    // width: 40,
                     backgroundColor: "#fff",
                     paddingVertical: 7,
                     paddingHorizontal: 8,
@@ -152,10 +139,7 @@ export default class ProfileScreen extends Component {
                     }}
                   >
                     <ProfileImg image={this.getImage} />
-                    <Pressable
-                      style={[styles.button, styles.buttonClose]}
-                      // onPress={}
-                    >
+                    <Pressable style={[styles.button, styles.buttonClose]}>
                       <Text style={styles.textStyle} onPress={this.updateImage}>
                         Upload
                       </Text>
@@ -191,8 +175,6 @@ export default class ProfileScreen extends Component {
           <Tab.Screen name="Personal Info" component={PersonalTab} />
           <Tab.Screen name="Experience" component={ExperienceTab} />
         </Tab.Navigator>
-
-        {/* <StatusBar style="auto" /> */}
       </View>
     );
   }
@@ -216,7 +198,6 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     marginTop: 15,
-    // paddingHorizontal: 70,
     backgroundColor: "#1E4274",
   },
   textStyle: {
@@ -284,8 +265,6 @@ export class ProfileImg extends Component {
             <Avatar.Image
               style={{
                 backgroundColor: "transparent",
-                // flex: 1,
-                // alignItems: "center",
                 alignSelf: "center",
                 justifyContent: "center",
               }}

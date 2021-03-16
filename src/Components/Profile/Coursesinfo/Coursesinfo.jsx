@@ -8,6 +8,7 @@ import { Button } from "galio-framework";
 import { DocumentPicker } from "expo-document-picker";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
 
 export default function CoursesInfoFormscreen(props) {
   const navigation = useNavigation();
@@ -341,6 +342,7 @@ class CoursesInfoForm extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

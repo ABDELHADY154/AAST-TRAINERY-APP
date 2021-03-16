@@ -9,6 +9,7 @@ import { axios } from "../../../Config/Axios";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
+import { StatusBar } from "expo-status-bar";
 
 export default class EduInfoForm extends Component {
   state = {
@@ -31,7 +32,7 @@ export default class EduInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     console.log("A date has been picked: ", date);
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
@@ -42,7 +43,7 @@ export default class EduInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     console.log("A date has been picked: ", date);
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
@@ -57,13 +58,13 @@ export default class EduInfoForm extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -92,7 +93,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -101,7 +102,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
@@ -129,7 +130,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -138,27 +139,27 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
   async componentDidMount() {
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           console.log(this.state.country);
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
       await axios
         .get(`/A/student/profile/education/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             SchoolName: res.data.response.data.school_name,
             country: res.data.response.data.country,
@@ -171,7 +172,7 @@ export default class EduInfoForm extends Component {
 
           console.log(res.data.response.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err.response);
         });
     }
@@ -188,7 +189,7 @@ export default class EduInfoForm extends Component {
   handleDelete = async () => {
     await axios
       .delete(`/A/student/profile/education/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -197,7 +198,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -238,7 +239,7 @@ export default class EduInfoForm extends Component {
               label="School Name"
               labelStyle={styles.labelStyle}
               value={this.state.SchoolName}
-              onChangeText={value => this.setState({ SchoolName: value })}
+              onChangeText={(value) => this.setState({ SchoolName: value })}
             />
 
             <View
@@ -493,7 +494,7 @@ export default class EduInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.EducationCredURL}
-                onChangeText={value =>
+                onChangeText={(value) =>
                   this.setState({ EducationCredURL: value })
                 }
               />
@@ -572,6 +573,7 @@ export default class EduInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

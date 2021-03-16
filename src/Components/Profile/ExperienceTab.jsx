@@ -31,7 +31,7 @@ export class ExperienceTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
-      .then(response => {
+      .then((response) => {
         this.setState({
           educations: response.data.response.data.educations,
           work_experience: response.data.response.data.work_experience,
@@ -40,9 +40,8 @@ export class ExperienceTab extends Component {
           interests: response.data.response.data.interests,
           languages: response.data.response.data.languages,
         });
-        console.log(response.data.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -71,7 +70,7 @@ export class ExperienceTab extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                       }}
-                      right={props => (
+                      right={(props) => (
                         <IconButton
                           {...props}
                           icon="plus-box"
@@ -86,7 +85,7 @@ export class ExperienceTab extends Component {
                       )}
                     />
                     {this.state.educations ? (
-                      this.state.educations.map(e => {
+                      this.state.educations.map((e) => {
                         return (
                           <EducationCard
                             key={e.id}
@@ -126,7 +125,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -139,7 +138,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.work_experience ? (
-                  this.state.work_experience.map(e => {
+                  this.state.work_experience.map((e) => {
                     return (
                       <ExperienceCard
                         key={e.id}
@@ -183,7 +182,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -194,7 +193,7 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.courses ? (
-                  this.state.courses.map(e => {
+                  this.state.courses.map((e) => {
                     return (
                       <CoursesCard
                         key={e.id}
@@ -231,7 +230,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -243,65 +242,22 @@ export class ExperienceTab extends Component {
                     />
                   )}
                 />
-                <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flex: 1,
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Octicons
-                        name="primitive-dot"
-                        size={24}
-                        color="#CD8930"
-                        style={{
-                          justifyContent: "flex-start",
-                          marginRight: 5,
-                        }}
+                <Card.Content></Card.Content>
+                {this.state.skills ? (
+                  this.state.skills.map((e) => {
+                    return (
+                      <SkillsCard
+                        key={e.id}
+                        id={e.id}
+                        skill_name={e.skill_name}
+                        years_of_exp={e.years_of_exp}
+                        navigation={this.props.navigation}
                       />
-                      <View
-                        style={{
-                          justifyContent: "flex-end",
-                        }}
-                      >
-                        <Title
-                          style={{
-                            fontSize: 16,
-                            color: "#1E4274",
-                            fontWeight: "bold",
-
-                            color: "#1E4274",
-                            lineHeight: 19,
-                          }}
-                        >
-                          Tools and Fields of Expertise
-                        </Title>
-                      </View>
-                    </View>
-                  </View>
-                  {this.state.skills ? (
-                    this.state.skills.map(e => {
-                      return (
-                        <SkillsCard
-                          key={e.id}
-                          id={e.id}
-                          skill_name={e.skill_name}
-                          years_of_exp={e.years_of_exp}
-                          navigation={this.props.navigation}
-                        />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
-                </Card.Content>
+                    );
+                  })
+                ) : (
+                  <Text></Text>
+                )}
                 <Card.Title
                   style={{ marginLeft: 1 }}
                   title="Intrests"
@@ -310,7 +266,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -329,17 +285,7 @@ export class ExperienceTab extends Component {
                       justifyContent: "flex-end",
                       marginTop: -5,
                     }}
-                  >
-                    <MaterialIcons
-                      name="mode-edit"
-                      size={24}
-                      color="#CD8930"
-                      style={{ justifyContent: "flex-end" }}
-                      onPress={() => {
-                        this.props.navigation.push("Interests", { id: 0 });
-                      }}
-                    />
-                  </View>
+                  ></View>
                   <View style={{ flex: 1 }}>
                     {this.state.interests ? (
                       <View
@@ -348,7 +294,7 @@ export class ExperienceTab extends Component {
                           flexDirection: "row",
                         }}
                       >
-                        {this.state.interests.map(e => {
+                        {this.state.interests.map((e) => {
                           return (
                             <Interests
                               key={e.id}
@@ -372,7 +318,7 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
                       {...props}
                       icon="plus-box"
@@ -386,7 +332,7 @@ export class ExperienceTab extends Component {
                 />
                 <Card.Content style={{ marginLeft: -15 }}>
                   {this.state.languages ? (
-                    this.state.languages.map(e => {
+                    this.state.languages.map((e) => {
                       return (
                         <Languages
                           key={e.id}
@@ -744,18 +690,20 @@ export class SkillsCardSample extends Component {
           alignItems: "center",
         }}
       >
-        <Paragraph
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            fontSize: 14,
-            color: "#1E4274",
-            alignItems: "flex-start",
-          }}
-        >
-          {this.props.skill_name}
-        </Paragraph>
-
+        <View style={{ width: "30%" }}>
+          <Paragraph
+            style={{
+              flex: 1,
+              justifyContent: "flex-start",
+              fontSize: 14,
+              color: "#1E4274",
+              alignItems: "flex-start",
+              flexWrap: "wrap",
+            }}
+          >
+            {this.props.skill_name}
+          </Paragraph>
+        </View>
         <View>
           <StarRating
             fullStarColor={"#CD8930"}
@@ -767,6 +715,7 @@ export class SkillsCardSample extends Component {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
+              alignSelf: "center",
             }}
           />
         </View>
@@ -776,6 +725,7 @@ export class SkillsCardSample extends Component {
             justifyContent: "flex-end",
             alignSelf: "flex-end",
             alignItems: "flex-end",
+            marginRight: 12,
           }}
         >
           <MaterialIcons
@@ -858,7 +808,6 @@ export class Languages extends Component {
             >
               {this.props.language}
             </Paragraph>
-
             <View>
               <StarRating
                 fullStarColor={"#CD8930"}
