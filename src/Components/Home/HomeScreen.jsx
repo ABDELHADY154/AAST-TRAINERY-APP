@@ -115,13 +115,35 @@ export default class HomeScreen extends Component {
       drawerRef: null,
       drawerIsOpened: false,
       headerTitle: "",
+      userData: {},
     };
   }
-
-  ExploreScreen = props => {
+  async componentDidMount() {
+    await // axios
+    //   .get("/A/student/studentImg")
+    //   .then((response) => {
+    //     this.setState({
+    //       userData: response.data.response.data,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.response.data.errors);
+    //   });
+    axios
+      .get("/A/student/get-profilePersonal")
+      .then((response) => {
+        this.setState({
+          userData: response.data.response.data,
+        });
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+      });
+  }
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
-    const setTitle = title => {
+    const setTitle = (title) => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -130,7 +152,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -142,7 +164,7 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -150,13 +172,13 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -169,22 +191,56 @@ export default class HomeScreen extends Component {
             // justifyContent: "center",
           }}
         >
+          <View style={{ backgroundColor: "#1E4274" }}>
+            <Avatar.Image
+              style={{
+                backgroundColor: "red",
+                marginLeft: 20,
+                marginTop: 35,
+              }}
+              size={70}
+              // source={{ uri: this.state.image }}
+              source={{ uri: this.state.userData.image }}
+            />
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 16,
+                fontWeight: "bold",
+                marginLeft: 20,
+                marginTop: 10,
+              }}
+            >
+              {this.state.userData.name}
+            </Text>
+            <Text
+              style={{
+                color: "#fff",
+                fontSize: 14,
+                marginLeft: 20,
+                // marginTop: 5,
+                marginBottom: 20,
+              }}
+            >
+              {this.state.userData.email}
+            </Text>
+          </View>
           <View
             style={{
-              backgroundColor: "#1E4274",
+              backgroundColor: "#F2F2F2",
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
-              marginTop: 10,
+              paddingLeft: 20,
             }}
           >
             <Feather
               name="edit"
               size={16}
-              color="#fff"
-              style={{ paddingRight: 7 }}
+              color="#1E4274"
+              style={{ paddingRight: 10 }}
             />
-            <Text style={{ color: "#fff", fontSize: 16 }}>Edit Profile</Text>
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>Edit Profile</Text>
           </View>
           <View
             style={{
@@ -192,13 +248,14 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <MaterialCommunityIcons
               name="newspaper-variant-outline"
               size={20}
               color="#1E4274"
-              style={{ paddingRight: 7 }}
+              style={{ paddingRight: 10 }}
             />
             <Text style={{ color: "#1E4274", fontSize: 16 }}>Generate CV</Text>
           </View>
@@ -208,20 +265,21 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
-            <Feather
-              name="edit"
-              size={16}
+            <MaterialCommunityIcons
+              name="newspaper-variant-outline"
+              size={20}
               color="#1E4274"
-              style={{ paddingRight: 7 }}
+              style={{ paddingRight: 10 }}
             />
             <Text style={{ color: "#1E4274", fontSize: 16 }}>Portfolio</Text>
             <FontAwesome
               name="dollar"
               size={15}
               color="#CD8930"
-              style={{ paddingLeft: 7 }}
+              style={{ paddingLeft: 10 }}
             />
           </View>
           <View
@@ -230,13 +288,14 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <Feather
               name="settings"
               size={16}
               color="#1E4274"
-              style={{ paddingRight: 7 }}
+              style={{ paddingRight: 10 }}
             />
             <Text style={{ color: "#1E4274", fontSize: 16 }}>
               Account settings
@@ -248,13 +307,14 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <Feather
               name="info"
               size={16}
               color="#1E4274"
-              style={{ paddingRight: 7 }}
+              style={{ paddingRight: 10 }}
             />
             <Text style={{ color: "#1E4274", fontSize: 16 }}>About Us</Text>
           </View>
@@ -265,6 +325,7 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <Text style={{ color: "#1E4274", fontSize: 16 }}>Help center</Text>
@@ -275,6 +336,7 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <Text style={{ color: "#1E4274", fontSize: 16 }}>
@@ -287,6 +349,7 @@ export default class HomeScreen extends Component {
               padding: 15,
               flexDirection: "row",
               alignItems: "center",
+              paddingLeft: 20,
             }}
           >
             <Text
@@ -399,7 +462,7 @@ export default class HomeScreen extends Component {
         />
         <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}

@@ -317,7 +317,7 @@ export default class Skillinfo extends Component {
                   <Button
                     style={styles.button}
                     color="#1E4275"
-                    onPress={this.handleSubmit}
+                    onPress={this.handleSubmitSkills}
                   >
                     <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
                   </Button>
