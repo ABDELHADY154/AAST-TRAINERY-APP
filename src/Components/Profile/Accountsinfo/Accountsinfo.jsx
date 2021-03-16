@@ -1,72 +1,192 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
-import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import { DocumentPicker } from "expo-document-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
+import { axios } from "../../../Config/Axios";
 
-export default function AccountInfoFormscreen(props) {
-  const navigation = useNavigation();
-  return <AccountInfoForm navigation={navigation} {...props} />;
-}
-// import { CountryPicker } from "react-native-country-picker-modal";
-class AccountInfoForm extends Component {
-  // state = {
-  //   StudentExperienceType: "",
-  //   StudentExperienceJobTitle: "",
-  //   StudentExperienceCompany: "",
-  //   StudentExperienceCountry: "",
-  //   StudentExperiencecity: "",
-  //   StudentExperienceFrom: "",
-  //   StudentExperienceTo: "",
-  //   StudentExperienceCredUrl: "",
-  //   StudentExperienceCredUpload: "",
+export default class AccountInfoForm extends Component {
+  state = {
+    website: "",
+    facebook: "",
+    instagram: "",
+    youtube: "",
+    linkedin: "",
+    behance: "",
+    github: "",
+  };
 
-  // };
-  constructor() {
-    super();
-    this.state = {
-      date: new Date(1598051730000),
-      mode: "date",
-      show: false,
+  handleSubmit = async () => {
+    const data = {
+      website: this.state.website !== "" ? this.state.website : null,
+      facebook: this.state.facebook,
+      instagram: this.state.instagram,
+      youtube: this.state.youtube,
+      linkedin: this.state.linkedin,
+      behance: this.state.behance,
+      github: this.state.github,
     };
-  }
-  _pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      alert(result.uri);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  onChange = (e, selectedDate) => {
-    try {
-      const currentDate = selectedDate || this.state.date;
-      this.setState({ show: Platform.OS === "ios" });
-      this.setState({ date: currentDate });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  showMode = (currentMode) => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
+    await axios
+
+      .post("/A/student/profile/account", data)
+      .then((res) => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+        });
+      })
+      .catch((error) => {
+        if (error.response.data.errors.website) {
+          this.setState({
+            websiteErr: error.response.data.errors.website,
+          });
+        }
+        if (error.response.data.errors.instagram) {
+          this.setState({
+            instagramErr: error.response.data.errors.instagram,
+          });
+        }
+        if (error.response.data.errors.facebook) {
+          this.setState({
+            facebookErr: error.response.data.errors.facebook,
+          });
+        }
+        if (error.response.data.errors.youtube) {
+          this.setState({
+            youtubeErr: error.response.data.errors.youtube,
+          });
+        }
+        if (error.response.data.errors.linkedin) {
+          this.setState({
+            linkedinErr: error.response.data.errors.linkedin,
+          });
+        }
+        if (error.response.data.errors.github) {
+          this.setState({
+            githubErr: error.response.data.errors.github,
+          });
+        }
+        if (error.response.data.errors.behance) {
+          this.setState({
+            behanceErr: error.response.data.errors.behance,
+          });
+        }
+      });
   };
 
-  showDatepicker = () => {
-    this.showMode("date");
+  handleUpdateSubmit = async () => {
+    const data = {
+      website: this.state.website,
+      facebook: this.state.facebook,
+      instagram: this.state.instagram,
+      youtube: this.state.youtube,
+      linkedin: this.state.linkedin,
+      behance: this.state.behance,
+      github: this.state.github,
+    };
+    await axios
+      .post("/A/student/profile/account", data)
+      .then((res) => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+        });
+      })
+      .catch((error) => {
+        console.log("update bayez alo");
+        if (error.response.data.errors.website) {
+          this.setState({
+            schoolErr: error.response.data.errors.website,
+          });
+        }
+        if (error.response.data.errors.instagram) {
+          this.setState({
+            instagramErr: error.response.data.errors.instagram,
+          });
+        }
+        if (error.response.data.errors.facebook) {
+          this.setState({
+            facebookErr: error.response.data.errors.facebook,
+          });
+        }
+        if (error.response.data.errors.youtube) {
+          this.setState({
+            youtubeErr: error.response.data.errors.youtube,
+          });
+        }
+        if (error.response.data.errors.linkedin) {
+          this.setState({
+            linkedinErr: error.response.data.errors.linkedin,
+          });
+        }
+        if (error.response.data.errors.github) {
+          this.setState({
+            githubErr: error.response.data.errors.github,
+          });
+        }
+        if (error.response.data.errors.behance) {
+          this.setState({
+            behanceErr: error.response.data.errors.behance,
+          });
+        }
+      });
   };
+  async componentDidMount() {
+    if (this.props.route.params) {
+      await axios
+        .get(`/A/student/profile/education/${this.props.route.params}`)
+        .then((res) => {
+          this.setState({
+            website: res.data.response.data.website,
+            instagram: res.data.response.data.instagram,
+            facebook: res.data.response.data.facebook,
+            Educationyoutube: res.data.response.data.youtube,
+            linkedin: res.data.response.data.linkedin,
+            behance: res.data.response.data.behance,
+            github: res.data.response.data.github,
+          });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.website) {
+            this.setState({
+              schoolErr: error.response.data.errors.website,
+            });
+          }
+          if (error.response.data.errors.instagram) {
+            this.setState({
+              instagramErr: error.response.data.errors.instagram,
+            });
+          }
+          if (error.response.data.errors.facebook) {
+            this.setState({
+              facebookErr: error.response.data.errors.facebook,
+            });
+          }
+          if (error.response.data.errors.youtube) {
+            this.setState({
+              youtubeErr: error.response.data.errors.youtube,
+            });
+          }
+          if (error.response.data.errors.linkedin) {
+            this.setState({
+              linkedinErr: error.response.data.errors.linkedin,
+            });
+          }
+          if (error.response.data.errors.behance) {
+            this.setState({
+              behanceErr: error.response.data.errors.behance,
+            });
+          }
+          if (error.response.data.errors.github) {
+            this.setState({
+              githubErr: error.response.data.errors.github,
+            });
+          }
+        });
+    }
+  }
 
   render() {
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -74,7 +194,6 @@ class AccountInfoForm extends Component {
           style={{
             alignSelf: "flex-start",
             marginLeft: "6%",
-            // flex: 1,
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -97,8 +216,34 @@ class AccountInfoForm extends Component {
               }}
               label="Website"
               labelStyle={styles.labelStyle}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.website}
+              onChangeText={(value) => this.setState({ website: value })}
             />
+            {this.state.websiteErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.websiteErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -119,8 +264,34 @@ class AccountInfoForm extends Component {
                 marginTop: -10,
                 marginBottom: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.facebook}
+              onChangeText={(value) => this.setState({ facebook: value })}
             />
+            {this.state.facebookErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.facebookErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -141,8 +312,34 @@ class AccountInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.instagram}
+              onChangeText={(value) => this.setState({ instagram: value })}
             />
+            {this.state.instagramErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.instagramErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -163,8 +360,34 @@ class AccountInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.youtube}
+              onChangeText={(value) => this.setState({ youtube: value })}
             />
+            {this.state.youtubeErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.youtubeErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -185,8 +408,34 @@ class AccountInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.linkedin}
+              onChangeText={(value) => this.setState({ linkedin: value })}
             />
+            {this.state.linkedinErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.linkedinErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -207,8 +456,34 @@ class AccountInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.behance}
+              onChangeText={(value) => this.setState({ behance: value })}
             />
+            {this.state.behanceErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.behanceErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -229,21 +504,40 @@ class AccountInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.github}
+              onChangeText={(value) => this.setState({ github: value })}
             />
+            {this.state.githubErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.githubErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Button
               style={styles.button}
               color="#1E4275"
-              // onPress={this.submit}
+              onPress={this.handleSubmit}
             >
               <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
         </View>
@@ -313,6 +607,6 @@ const styles = StyleSheet.create({
   button: {
     width: "auto",
     borderRadius: 50,
-    marginTop: 40,
+    marginTop: 10,
   },
 });
