@@ -16,7 +16,6 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-// import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 
@@ -50,8 +49,7 @@ class GeneralInfo extends Component {
   hideDatePicker = () => {
     this.setState({ isDatePickerVisible: false });
   };
-  handleConfirm = date => {
-    console.log("A date has been picked: ", date);
+  handleConfirm = (date) => {
     this.setState({ date: date.toISOString().split("T")[0] });
     this.hideDatePicker();
   };
@@ -66,13 +64,13 @@ class GeneralInfo extends Component {
     }
   };
 
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -89,30 +87,28 @@ class GeneralInfo extends Component {
     };
     await axios
       .put("/A/student/profile/personal", data)
-      .then(res => {
-        console.log(res.response);
+      .then((res) => {
         this.props.navigation.push("App", { screen: "Profile" });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
-          console.log(this.state.country);
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then(res => {
+      .then((res) => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -125,16 +121,13 @@ class GeneralInfo extends Component {
         });
       })
 
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   }
   render() {
-    console.log(this.state.date);
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -166,7 +159,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={value => this.setState({ studentName: value })}
+              onChangeText={(value) => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -257,7 +250,6 @@ class GeneralInfo extends Component {
                       marginTop: 20,
                       alignSelf: "flex-end",
                     }}
-                    // onPress={this.showDatePicker}
                   ></Feather>
 
                   <Button
@@ -276,17 +268,7 @@ class GeneralInfo extends Component {
                     <Text>{this.state.date}</Text>
                   </Button>
                 </View>
-                {/* {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )} */}
               </View>
-
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -310,7 +292,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={value => this.setState({ nationality: value })}
+                onChangeText={(value) => this.setState({ nationality: value })}
               />
               <Text
                 style={{
@@ -329,14 +311,12 @@ class GeneralInfo extends Component {
                   backgroundColor: "transparent",
                   width: "108%",
                   marginLeft: -17,
-                  // marginTop: 10,
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
                   borderBottomWidth: 2,
                   borderRadius: 0,
-                  // marginBottom: 10,
                   alignSelf: "flex-start",
                 }}
               >
@@ -382,14 +362,12 @@ class GeneralInfo extends Component {
                   backgroundColor: "transparent",
                   width: "107.5%",
                   marginLeft: -17,
-                  // marginTop: 10,
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
                   borderBottomWidth: 2,
                   borderRadius: 0,
-                  // marginBottom: 10,
                   alignSelf: "flex-start",
                 }}
               >
@@ -435,7 +413,6 @@ class GeneralInfo extends Component {
                 label="Phone Number"
                 textContentType="telephoneNumber"
                 value={this.state.phoneNumber}
-                // value={this.state.phoneNumber}
                 labelStyle={{
                   color: "#1E4274",
                   fontSize: 16,
@@ -445,7 +422,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -27,
                 }}
-                onChangeText={value => this.setState({ phoneNumber: value })}
+                onChangeText={(value) => this.setState({ phoneNumber: value })}
               />
             </View>
             <Button
@@ -504,20 +481,17 @@ const styles = StyleSheet.create({
     fontFamily: "SF-M",
     fontWeight: "normal",
     marginTop: 15,
-    // marginLeft: 10,
   },
   boxContainer: {
     backgroundColor: "transparent",
     width: "107%",
     alignSelf: "flex-start",
-    // marginTop: 10,
     borderColor: "#1E4275",
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
     borderBottomWidth: 2,
     borderRadius: 0,
-    // marginBottom: 10,
     alignSelf: "flex-start",
   },
   button: {

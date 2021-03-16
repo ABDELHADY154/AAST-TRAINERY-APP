@@ -50,7 +50,6 @@ export default class Language extends Component {
           }
         });
     }
-    console.log(this.props.route.params.id);
   }
 
   handleSubmit = async () => {
@@ -76,7 +75,6 @@ export default class Language extends Component {
               languageErr: error.response.data.errors.language,
             });
           }
-          // console.log(error.response.data);
         });
     } else {
       return await axios
@@ -118,11 +116,8 @@ export default class Language extends Component {
       });
   };
   render() {
-    console.log(this.state.skill_name);
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -220,7 +215,6 @@ export default class Language extends Component {
                 }}
               />
             </View>
-
             {this.state.levelErr != "" ? (
               <View
                 style={{

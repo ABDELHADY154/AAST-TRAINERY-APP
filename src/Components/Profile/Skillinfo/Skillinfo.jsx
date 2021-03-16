@@ -37,7 +37,6 @@ export default class Skillinfo extends Component {
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
-          console.log(res.data.response.data.years_of_exp);
         })
         .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
@@ -52,7 +51,6 @@ export default class Skillinfo extends Component {
           }
         });
     }
-    console.log(this.props.route.params.id);
   }
   handleSubmitSkills = async () => {
     var body = {
@@ -118,7 +116,6 @@ export default class Skillinfo extends Component {
       });
   };
   render() {
-    console.log(this.state.skill_name);
     return (
       <View style={styles.container}>
         <Feather
@@ -220,37 +217,6 @@ export default class Skillinfo extends Component {
                 }}
               />
             </View>
-            {/* <Input
-              containerStyle={{
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: "5%",
-              }}
-              // keyboardType="number-pad"
-              // keyboardType="number-pad"
-              // numericvalue
-              keyboardType={"numeric"}
-              keyboardType="numeric"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
-              inputContainerStyle={{
-                borderColor: "#1E4274",
-                borderBottomWidth: 2,
-              }}
-              label="Years of Experience "
-              labelStyle={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: 15,
-              }}
-              value={this.state.years_of_exp.toString()}
-              onChangeText={(value) =>
-                this.setState({ years_of_exp: value.toString() })
-              }
-            /> */}
             {this.state.yearsExpErr != "" ? (
               <View
                 style={{

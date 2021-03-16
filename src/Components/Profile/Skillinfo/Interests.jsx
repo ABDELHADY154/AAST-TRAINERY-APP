@@ -28,7 +28,7 @@ export default class Interests extends Component {
       interestErr: "",
     };
   }
-  updateTagState = state => {
+  updateTagState = (state) => {
     this.setState({
       tags: state,
     });
@@ -37,8 +37,8 @@ export default class Interests extends Component {
     const interestArr = [];
     await axios
       .get("/A/student/profile/interest")
-      .then(res => {
-        res.data.response.data.forEach(element => {
+      .then((res) => {
+        res.data.response.data.forEach((element) => {
           interestArr.push(element.interest);
         });
         this.setState({
@@ -47,7 +47,7 @@ export default class Interests extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   }
@@ -57,28 +57,26 @@ export default class Interests extends Component {
       interests: [],
     };
 
-    this.state.tags.tagsArray.forEach(el => {
+    this.state.tags.tagsArray.forEach((el) => {
       data.interests.push({ interest: el });
     });
 
     await axios
       .put("/A/student/profile/interest", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
             screen: "Experience",
           },
         });
-        console.log(res.response.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
 
   render() {
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -97,10 +95,6 @@ export default class Interests extends Component {
               placeholder="Tags..."
               tagStyle={{
                 backgroundColor: "#fff",
-                // borderColor: "#1E4275",
-                // borderWidth: 1,
-                // color: "#1E4275",
-                // fill: "#1E4275",
               }}
               containerStyle={{ marginLeft: "5%" }}
               inputContainerStyle={{
