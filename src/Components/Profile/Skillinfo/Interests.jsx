@@ -84,23 +84,25 @@ export default class Interests extends Component {
           size={36}
           color="#1E4274"
           style={{
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             marginTop: 45,
+            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Interests </Text>
-        <View style={{ width: "93%" }}>
+        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
           <ScrollView>
             <TagInput
               placeholder="Tags..."
               tagStyle={{
                 backgroundColor: "#fff",
               }}
-              containerStyle={{ marginLeft: "5%" }}
               inputContainerStyle={{
                 borderColor: "#1E4275",
                 borderBottomWidth: 2,
-                width: "100%",
+                width: "107%",
               }}
               inputStyle={{ color: "#1E4275" }}
               label="Press comma or Enter to add a tag"
@@ -161,13 +163,20 @@ export default class Interests extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
-    marginLeft: "5%",
   },
   button: {
     width: "auto",

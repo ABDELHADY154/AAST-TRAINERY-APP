@@ -690,7 +690,7 @@ export class SkillsCardSample extends Component {
           alignItems: "center",
         }}
       >
-        <View style={{ width: "33%" }}>
+        <View style={{ width: "30%" }}>
           <Paragraph
             style={{
               flex: 1,
@@ -715,6 +715,7 @@ export class SkillsCardSample extends Component {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
+              alignSelf: "center",
             }}
           />
         </View>
