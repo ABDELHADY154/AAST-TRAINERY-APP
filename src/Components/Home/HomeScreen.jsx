@@ -114,11 +114,9 @@ export default class HomeScreen extends Component {
       token: "",
       drawerRef: null,
       drawerIsOpened: false,
-      fadeAnim: new Animated.Value(0),
       headerTitle: "",
     };
   }
-
 
   ExploreScreen = props => {
     const navigation = useNavigation();
@@ -132,7 +130,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return (
@@ -144,7 +142,7 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = (props) => {
+  ProfileScreen = props => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -152,13 +150,13 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = (ref) => {
+  setDrawerRef = ref => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -171,8 +169,6 @@ export default class HomeScreen extends Component {
             // justifyContent: "center",
           }}
         >
-         
-
           <View
             style={{
               backgroundColor: "#1E4274",
@@ -403,7 +399,7 @@ export default class HomeScreen extends Component {
         />
         <Tab.Navigator
           shifting={true}
-          tabBar={(props) => (
+          tabBar={props => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
