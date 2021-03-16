@@ -6,6 +6,8 @@ import { Icon, Input } from "react-native-elements";
 import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+
 // import DatePicker from "react-native-datepicker";
 export default function AcademicInfoFormScreen(props) {
   const navigation = useNavigation();
@@ -336,6 +338,7 @@ class Academicinfo extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

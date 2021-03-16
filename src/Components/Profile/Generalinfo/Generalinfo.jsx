@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { CommonActions } from "@react-navigation/native";
-
+import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -433,6 +433,7 @@ class GeneralInfo extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );
