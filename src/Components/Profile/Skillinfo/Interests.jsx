@@ -27,82 +27,58 @@ export default class Interests extends Component {
       interestIdErr: "",
       interestErr: "",
     };
-    // console.log(this.state.tag);
   }
-  updateTagState = (state) => {
+  updateTagState = state => {
     this.setState({
       tags: state,
     });
-    console.log(this.state.tags);
   };
-  componentDidMount() {
-    axios
+  async componentDidMount() {
+    const interestArr = [];
+    await axios
       .get("/A/student/profile/interest")
-      .then((res) => {
-        this.setState({
-          id: res.data.response.data.id,
-          // tag: res.data.response.data.interest,
-          tagsArray: res.data.response.data.interests,
+      .then(res => {
+        res.data.response.data.forEach(element => {
+          interestArr.push(element.interest);
         });
-        console.log(response.data.response.data);
+        this.setState({
+          tags: {
+            tagsArray: interestArr,
+          },
+        });
       })
-      .catch((err) => {
-        if (error.response.data.errors.interests) {
-          this.setState({
-            interestIdErr: error.response.data.errors.interests,
-          });
-        }
+      .catch(err => {
+        console.log(err.response);
       });
   }
 
   handleSubmitSkills = async () => {
     const data = {
-      interests: [
-        {
-          interest: "",
-        },
-        {
-          interest: "",
-        },
-      ],
+      interests: [],
     };
-    console.log(data);
-    // var body = {
-    //   skill_name: this.state.skill_name,
-    //   id: this.state.id,
-    //   years_of_exp: this.state.years_of_exp,
-    // };
-    if (this.props.route.params.id !== 0) {
-      return await axios
-        .put(`/A/student/profile/interest/${this.props.route.params.id}`, body)
-        .then((res) => {
-          this.props.navigation.push("App", { screen: "Profile" });
-        })
-        .catch((error) => {
-          if (error.response.data.errors.interests) {
-            this.setState({
-              interestIdErr: error.response.data.errors.interests,
-            });
-          }
+
+    this.state.tags.tagsArray.forEach(el => {
+      data.interests.push({ interest: el });
+    });
+
+    await axios
+      .put("/A/student/profile/interest", data)
+      .then(res => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
         });
-    } else {
-      return await axios
-        .post("/A/student/profile/interest", body)
-        .then((response) => {
-          this.props.navigation.push("App", { screen: "Profile" });
-        })
-        .catch((error) => {
-          if (error.response.data.errors.interests) {
-            this.setState({
-              interestIdErr: error.response.data.errors.interests,
-            });
-          }
-        });
-    }
+        console.log(res.response.data);
+      })
+      .catch(err => {
+        console.log(err.response);
+      });
   };
 
   render() {
-    console.log(this.state.tags.tags);
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -178,36 +154,7 @@ export default class Interests extends Component {
                 color="#1E4275"
                 onPress={this.handleSubmitSkills}
               >
-                <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-              </Button>
-              <Button
-                style={styles.button}
-                color="#1E4275"
-                // onPress={this.submit}
-              >
                 <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
-              </Button>
-              <Button
-                style={{
-                  border: 2,
-                  borderColor: "#F44336",
-                  borderWidth: 1,
-                  width: "auto",
-                  borderRadius: 50,
-                  marginTop: 20,
-                  backgroundColor: "#fff",
-                }}
-                color="#1E4275"
-                // onPress={this.handleDeleteSkills}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 18,
-                  }}
-                >
-                  Delete
-                </Text>
               </Button>
             </View>
           </ScrollView>

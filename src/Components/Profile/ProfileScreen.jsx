@@ -170,6 +170,7 @@ export default class ProfileScreen extends Component {
                 color: "#fff",
                 marginTop: 10,
                 marginBottom: 15,
+                textAlign: "center",
               }}
             >
               {this.state.userData.fullName}
