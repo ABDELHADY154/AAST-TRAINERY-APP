@@ -945,6 +945,7 @@ export default class ExpInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

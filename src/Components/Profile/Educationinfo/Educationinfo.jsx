@@ -9,6 +9,7 @@ import { axios } from "../../../Config/Axios";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
+import { StatusBar } from "expo-status-bar";
 
 export default class EduInfoForm extends Component {
   state = {
@@ -37,7 +38,8 @@ export default class EduInfoForm extends Component {
     this.setState({ isFromDatePickerVisible: false });
   };
   handleFromConfirm = (date) => {
-    // console.log("A date has been picked: ", date);
+
+
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -48,7 +50,7 @@ export default class EduInfoForm extends Component {
     this.setState({ isToDatePickerVisible: false });
   };
   handleToConfirm = (date) => {
-    // console.log("A date has been picked: ", date);
+
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -98,7 +100,7 @@ export default class EduInfoForm extends Component {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        // console.log(res.response);
+
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -132,6 +134,7 @@ export default class EduInfoForm extends Component {
             toErr: error.response.data.errors.to,
           });
         }
+
       });
   };
 
@@ -159,7 +162,6 @@ export default class EduInfoForm extends Component {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        // console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -194,6 +196,7 @@ export default class EduInfoForm extends Component {
             toErr: error.response.data.errors.to,
           });
         }
+
       });
   };
   async componentDidMount() {
@@ -251,6 +254,7 @@ export default class EduInfoForm extends Component {
               toErr: error.response.data.errors.to,
             });
           }
+
         });
     }
   }
@@ -772,6 +776,7 @@ export default class EduInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

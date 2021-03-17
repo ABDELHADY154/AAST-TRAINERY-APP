@@ -40,7 +40,6 @@ export function PersonalTab(props) {
 }
 class PersonalTabForm extends Component {
   state = {
-    // fullName: "",
     progressWithOnComplete: 0,
     progressCustomized: 0,
     userData: {},
@@ -48,19 +47,17 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
-        console.log(this.state.userData);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   render() {
-    console.log(this.state.userData.accounts);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -137,7 +134,6 @@ class PersonalTabForm extends Component {
                     fontWeight: "bold",
                     flex: 1,
                     justifyContent: "flex-start",
-                    // marginRight: 135,
                   }}
                 >
                   Personal Information
@@ -147,7 +143,7 @@ class PersonalTabForm extends Component {
                   size={24}
                   color="#CD8930"
                   onPress={() => {
-                    this.props.navigation.navigate("GeneralForm");
+                    this.props.navigation.push("GeneralForm");
                   }}
                   style={{ justifyContent: "flex-end" }}
                 />
@@ -162,7 +158,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -173,7 +168,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -190,7 +184,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -201,7 +194,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -218,7 +210,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -229,7 +220,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -240,7 +230,6 @@ class PersonalTabForm extends Component {
                 <View style={{ flexDirection: "row", marginBottom: 2 }}>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -251,7 +240,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -265,7 +253,6 @@ class PersonalTabForm extends Component {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
-                    // marginRight: 145,
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
@@ -275,13 +262,6 @@ class PersonalTabForm extends Component {
                 >
                   Contact Information
                 </Text>
-
-                {/* <MaterialIcons
-                  name="mode-edit"
-                  size={24}
-                  color="#CD8930"
-                  style={{ justifyContent: "flex-end" }}
-                /> */}
               </View>
               <View style={{ marginTop: 7 }}>
                 <View
@@ -301,7 +281,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -323,7 +302,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       width: "80%",
@@ -338,7 +316,6 @@ class PersonalTabForm extends Component {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
-                    // marginRight: 145,
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
@@ -372,7 +349,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -383,7 +359,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       width: "78%",
@@ -401,7 +376,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -412,7 +386,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       width: "80%",
@@ -430,7 +403,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -441,7 +413,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -452,7 +423,6 @@ class PersonalTabForm extends Component {
                 <View style={{ flexDirection: "row", marginBottom: 5 }}>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -463,7 +433,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -481,7 +450,6 @@ class PersonalTabForm extends Component {
                 >
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                       fontWeight: "bold",
@@ -492,7 +460,6 @@ class PersonalTabForm extends Component {
                   </Text>
                   <Text
                     style={{
-                      // marginRight: 145,
                       fontSize: 14,
                       color: "#1E4274",
                     }}
@@ -506,7 +473,6 @@ class PersonalTabForm extends Component {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
-                    // marginRight: 145,
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
@@ -538,7 +504,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.facebook,
+                              this.state.userData.accounts.facebook
                             );
                           }}
                         />
@@ -553,7 +519,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.instagram,
+                              this.state.userData.accounts.instagram
                             );
                           }}
                         />
@@ -568,7 +534,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.youtube,
+                              this.state.userData.accounts.youtube
                             );
                           }}
                         />
@@ -583,7 +549,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.linkedin,
+                              this.state.userData.accounts.linkedin
                             );
                           }}
                         />
@@ -598,7 +564,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.behance,
+                              this.state.userData.accounts.behance
                             );
                           }}
                         />
@@ -613,7 +579,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.github,
+                              this.state.userData.accounts.github
                             );
                           }}
                         />
@@ -628,7 +594,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.website,
+                              this.state.userData.accounts.website
                             );
                           }}
                         />
@@ -647,7 +613,6 @@ class PersonalTabForm extends Component {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <Text
                   style={{
-                    // marginRight: 145,
                     fontSize: 16,
                     color: "#CD8930",
                     fontWeight: "bold",
@@ -678,9 +643,6 @@ class PersonalTabForm extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column",
-    // justifyContent: "center",
-    // alignItems: "center",
     backgroundColor: "#fff",
   },
 });

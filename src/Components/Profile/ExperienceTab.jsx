@@ -40,7 +40,6 @@ export class ExperienceTab extends Component {
           interests: response.data.response.data.interests,
           languages: response.data.response.data.languages,
         });
-        console.log(response.data.response.data);
       })
       .catch((err) => {
         console.log(err);
@@ -249,28 +248,16 @@ export class ExperienceTab extends Component {
                     />
                   )}
                 />
-                <Card.Content>
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      flex: 1,
-                    }}
-                  >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        flex: 1,
-                        alignItems: "flex-start",
-                      }}
-                    >
-                      <Octicons
-                        name="primitive-dot"
-                        size={24}
-                        color="#CD8930"
-                        style={{
-                          justifyContent: "flex-start",
-                          marginRight: 5,
-                        }}
+                <Card.Content></Card.Content>
+                {this.state.skills ? (
+                  this.state.skills.map((e) => {
+                    return (
+                      <SkillsCard
+                        key={e.id}
+                        id={e.id}
+                        skill_name={e.skill_name}
+                        years_of_exp={e.years_of_exp}
+                        navigation={this.props.navigation}
                       />
                       <View
                         style={{
@@ -308,6 +295,7 @@ export class ExperienceTab extends Component {
                     <Text></Text>
                   )}
                 </Card.Content>
+
                 <Card.Title
                   style={{ marginLeft: 1 }}
                   title="Intrests"
@@ -335,17 +323,7 @@ export class ExperienceTab extends Component {
                       justifyContent: "flex-end",
                       marginTop: -5,
                     }}
-                  >
-                    <MaterialIcons
-                      name="mode-edit"
-                      size={24}
-                      color="#CD8930"
-                      style={{ justifyContent: "flex-end" }}
-                      onPress={() => {
-                        this.props.navigation.push("Interests", { id: 0 });
-                      }}
-                    />
-                  </View>
+                  ></View>
                   <View style={{ flex: 1 }}>
                     {this.state.interests ? (
                       <View
@@ -758,18 +736,20 @@ export class SkillsCardSample extends Component {
           alignItems: "center",
         }}
       >
-        <Paragraph
-          style={{
-            flex: 1,
-            justifyContent: "flex-start",
-            fontSize: 14,
-            color: "#1E4274",
-            alignItems: "flex-start",
-          }}
-        >
-          {this.props.skill_name}
-        </Paragraph>
-
+        <View style={{ width: "30%" }}>
+          <Paragraph
+            style={{
+              flex: 1,
+              justifyContent: "flex-start",
+              fontSize: 14,
+              color: "#1E4274",
+              alignItems: "flex-start",
+              flexWrap: "wrap",
+            }}
+          >
+            {this.props.skill_name}
+          </Paragraph>
+        </View>
         <View>
           <StarRating
             fullStarColor={"#CD8930"}
@@ -781,6 +761,7 @@ export class SkillsCardSample extends Component {
               flex: 1,
               justifyContent: "center",
               alignItems: "center",
+              alignSelf: "center",
             }}
           />
         </View>
@@ -790,6 +771,7 @@ export class SkillsCardSample extends Component {
             justifyContent: "flex-end",
             alignSelf: "flex-end",
             alignItems: "flex-end",
+            marginRight: 12,
           }}
         >
           <MaterialIcons
@@ -872,7 +854,6 @@ export class Languages extends Component {
             >
               {this.props.language}
             </Paragraph>
-
             <View>
               <StarRating
                 fullStarColor={"#CD8930"}

@@ -37,7 +37,6 @@ export default class Skillinfo extends Component {
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
-          console.log(res.data.response.data.years_of_exp);
         })
         .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
@@ -52,7 +51,6 @@ export default class Skillinfo extends Component {
           }
         });
     }
-    console.log(this.props.route.params.id);
   }
   handleSubmitSkills = async () => {
     var body = {
@@ -118,7 +116,6 @@ export default class Skillinfo extends Component {
       });
   };
   render() {
-    console.log(this.state.skill_name);
     return (
       <View style={styles.container}>
         <Feather
@@ -126,13 +123,16 @@ export default class Skillinfo extends Component {
           size={36}
           color="#1E4274"
           style={{
+            alignSelf: "flex-start",
+            marginLeft: "6%",
             marginTop: 45,
+            marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Skills </Text>
 
-        <View style={{ width: "93%" }}>
+        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
           <ScrollView>
             <Input
               containerStyle={{
@@ -148,6 +148,7 @@ export default class Skillinfo extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
+                width: "107%",
               }}
               label="Skill Name"
               labelStyle={{
@@ -220,37 +221,6 @@ export default class Skillinfo extends Component {
                 }}
               />
             </View>
-            {/* <Input
-              containerStyle={{
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: "5%",
-              }}
-              // keyboardType="number-pad"
-              // keyboardType="number-pad"
-              // numericvalue
-              keyboardType={"numeric"}
-              keyboardType="numeric"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
-              inputContainerStyle={{
-                borderColor: "#1E4274",
-                borderBottomWidth: 2,
-              }}
-              label="Years of Experience "
-              labelStyle={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: 15,
-              }}
-              value={this.state.years_of_exp.toString()}
-              onChangeText={(value) =>
-                this.setState({ years_of_exp: value.toString() })
-              }
-            /> */}
             {this.state.yearsExpErr != "" ? (
               <View
                 style={{
@@ -317,7 +287,7 @@ export default class Skillinfo extends Component {
                   <Button
                     style={styles.button}
                     color="#1E4275"
-                    onPress={this.handleSubmit}
+                    onPress={this.handleSubmitSkills}
                   >
                     <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
                   </Button>
@@ -334,13 +304,20 @@ export default class Skillinfo extends Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    width: "97%",
   },
   title: {
+    alignSelf: "flex-start",
+    marginLeft: "9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
     marginBottom: 10,
-    marginLeft: "5%",
   },
   button: {
     width: "auto",

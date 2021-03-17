@@ -7,6 +7,7 @@ import { axios } from "../../../Config/Axios";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
 
+
 export default class CoursesInfoForm extends Component {
   state = {
     course_name: "",
@@ -607,6 +608,7 @@ export default class CoursesInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

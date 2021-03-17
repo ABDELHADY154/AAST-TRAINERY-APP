@@ -5,6 +5,7 @@ import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { axios } from "../../../Config/Axios";
 
+
 export default class AccountInfoForm extends Component {
   state = {
     website: "",
@@ -540,6 +541,7 @@ export default class AccountInfoForm extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
             </Button>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

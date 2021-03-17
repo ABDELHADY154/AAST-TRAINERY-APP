@@ -41,7 +41,6 @@ export class AdvisorCard extends Component {
               </View>
             }
             subtitleStyle={{
-              // color: "#1E4274",
               fontSize: 14,
               marginTop: -3,
             }}
@@ -69,10 +68,8 @@ export class AdvisorCard extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
             <Paragraph
               style={{
-                // marginHorizontal: 23,
                 fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
@@ -83,7 +80,6 @@ export class AdvisorCard extends Component {
               ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
               dictumst nisi blandit ornare viverra eleifend
             </Paragraph>
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
           <View
             style={{
@@ -91,8 +87,6 @@ export class AdvisorCard extends Component {
               width: "90%",
               height: 1,
               marginVertical: 7,
-              // marginHorizontal: 10,
-              // alignItems: "center",
               alignSelf: "center",
             }}
           ></View>
@@ -117,7 +111,6 @@ export class AdvisorCard extends Component {
                     textTransform: "capitalize",
                     fontWeight: "bold",
                     color: "#1E4274",
-                    // marginTop: -6,
                   }}
                 >
                   Dr. Rehab Elbadrawy
@@ -130,8 +123,6 @@ export class AdvisorCard extends Component {
                   color: "#1E4274",
                   marginLeft: 16,
                   marginTop: -7,
-                  // alignItems: "flex-end",
-                  // justifyContent: "flex-end",
                 }}
               >
                 Deadline 11 oct 2020
@@ -150,11 +141,8 @@ export class ReviewsCard extends Component {
       <View>
         <Card
           style={{
-            // width: "95%",
-            // marginLeft: 10,
             borderWidth: 1,
             marginBottom: 10,
-
             borderColor: "#CCCCCC",
           }}
         >
@@ -183,10 +171,8 @@ export class ReviewsCard extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
             <Paragraph
               style={{
-                // marginHorizontal: 23,
                 fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
@@ -196,7 +182,6 @@ export class ReviewsCard extends Component {
               Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
               ipsum dolor sit amet, consectetur adipiscing elit.
             </Paragraph>
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
         </Card>
       </View>
@@ -256,10 +241,8 @@ export class PromotedCard extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
             <Paragraph
               style={{
-                // marginHorizontal: 23,
                 fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
@@ -270,7 +253,6 @@ export class PromotedCard extends Component {
               ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
               dictumst nisi blandit ornare viverra eleifend
             </Paragraph>
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
           <View
             style={{
@@ -278,8 +260,6 @@ export class PromotedCard extends Component {
               width: "90%",
               height: 1,
               marginVertical: 5,
-              // marginHorizontal: 10,
-              // alignItems: "center",
               alignSelf: "center",
             }}
           ></View>
@@ -306,8 +286,6 @@ export class PromotedCard extends Component {
                   color: "#1E4274",
                   marginLeft: 16,
                   marginTop: -7,
-                  // alignItems: "flex-end",
-                  // justifyContent: "flex-end",
                 }}
               >
                 Deadline 11 oct 2020
@@ -358,10 +336,8 @@ export class AdsCard extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
             <Paragraph
               style={{
-                // marginHorizontal: 23,
                 fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
@@ -372,7 +348,6 @@ export class AdsCard extends Component {
               ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
               dictumst nisi blandit ornare viverra eleifend
             </Paragraph>
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
           <View
             style={{
@@ -380,8 +355,6 @@ export class AdsCard extends Component {
               width: "90%",
               height: 1,
               marginVertical: 5,
-              // marginHorizontal: 10,
-              // alignItems: "center",
               alignSelf: "center",
             }}
           ></View>
@@ -432,10 +405,8 @@ export class AdsCardImg extends Component {
             )}
           />
           <Card.Content>
-            {/* <Title>Card title</Title> */}
             <Paragraph
               style={{
-                // marginHorizontal: 23,
                 fontSize: 14,
                 color: "#1E4274",
                 lineHeight: 19,
@@ -448,24 +419,17 @@ export class AdsCardImg extends Component {
               dictumst nisi blandit ornare viverra eleifend
             </Paragraph>
             <Card.Cover
-              // ViewStyle={{
-              //   height: "30%",
-              //   width: "100%",
-              //   marginVertical: 15,
-              // }}
               source={{
                 uri:
                   "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
               }}
             />
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
           <View
             style={{
               backgroundColor: "#CCCCCC",
               width: "90%",
               height: 1,
-              // marginVertical: 5,
               marginTop: 10,
               alignSelf: "center",
             }}
@@ -518,24 +482,17 @@ export class AdsCardImgOnly extends Component {
           />
           <Card.Content>
             <Card.Cover
-              // ViewStyle={{
-              //   height: "30%",
-              //   width: "100%",
-              //   marginVertical: 15,
-              // }}
               source={{
                 uri:
                   "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
               }}
             />
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
           </Card.Content>
           <View
             style={{
               backgroundColor: "#CCCCCC",
               width: "90%",
               height: 1,
-              // marginVertical: 5,
               marginTop: 10,
               alignSelf: "center",
             }}

@@ -54,6 +54,7 @@ export default class Academicinfo extends Component {
         this.setState({ department_id: element.dep_name });
       }
     });
+
   }
 
   showFromDatePicker = () => {
@@ -493,6 +494,7 @@ export default class Academicinfo extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );
