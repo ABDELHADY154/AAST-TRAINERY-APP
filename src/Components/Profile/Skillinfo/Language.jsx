@@ -30,14 +30,14 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       await axios
         .get(`/A/student/profile/language/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             id: res.data.response.data.id,
             language: res.data.response.data.language,
             level: res.data.response.data.level,
           });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -61,10 +61,15 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
-        .then((res) => {
-          this.props.navigation.push("App", { screen: "Profile" });
+        .then(res => {
+          this.props.navigation.push("App", {
+            screen: "Profile",
+            params: {
+              screen: "Experience",
+            },
+          });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -79,10 +84,15 @@ export default class Language extends Component {
     } else {
       return await axios
         .post("/A/student/profile/language", body)
-        .then((response) => {
-          this.props.navigation.push("App", { screen: "Profile" });
+        .then(response => {
+          this.props.navigation.push("App", {
+            screen: "Profile",
+            params: {
+              screen: "Experience",
+            },
+          });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -96,13 +106,18 @@ export default class Language extends Component {
         });
     }
   };
-  handleDelete = async (e) => {
+  handleDelete = async e => {
     await axios
       .delete(`/A/student/profile/language/${this.props.route.params.id}`)
-      .then((response) => {
-        this.props.navigation.push("App", { screen: "Profile" });
+      .then(response => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.response.data.errors.level) {
           this.setState({
             levelErr: error.response.data.errors.level,
@@ -160,7 +175,7 @@ export default class Language extends Component {
                 marginTop: 15,
               }}
               value={this.state.language}
-              onChangeText={(value) => this.setState({ language: value })}
+              onChangeText={value => this.setState({ language: value })}
             />
             {this.state.languageErr != "" ? (
               <View
@@ -211,7 +226,7 @@ export default class Language extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.level}
-                selectedStar={(value) => this.setState({ level: value })}
+                selectedStar={value => this.setState({ level: value })}
                 style={{
                   justifyContent: "center",
                   alignSelf: "center",

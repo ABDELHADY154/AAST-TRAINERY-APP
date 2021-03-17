@@ -31,14 +31,14 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       await axios
         .get(`/A/student/profile/skill/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             id: res.data.response.data.id,
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -61,10 +61,16 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/skill/${this.props.route.params.id}`, body)
-        .then((res) => {
-          this.props.navigation.push("App", { screen: "Profile" });
+        .then(res => {
+          // this.props.navigation.push("App", { screen: "Profile" });
+          this.props.navigation.push("App", {
+            screen: "Profile",
+            params: {
+              screen: "Experience",
+            },
+          });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -79,10 +85,16 @@ export default class Skillinfo extends Component {
     } else {
       return await axios
         .post("/A/student/profile/skill", body)
-        .then((response) => {
-          this.props.navigation.push("App", { screen: "Profile" });
+        .then(response => {
+          // this.props.navigation.push("App", { screen: "Profile" });
+          this.props.navigation.push("App", {
+            screen: "Profile",
+            params: {
+              screen: "Experience",
+            },
+          });
         })
-        .catch((error) => {
+        .catch(error => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -96,13 +108,19 @@ export default class Skillinfo extends Component {
         });
     }
   };
-  handleDelete = async (e) => {
+  handleDelete = async e => {
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
-      .then((response) => {
-        this.props.navigation.push("App", { screen: "Profile" });
+      .then(response => {
+        // this.props.navigation.push("App", { screen: "Profile" });
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
       })
-      .catch((error) => {
+      .catch(error => {
         if (error.response.data.errors.years_of_exp) {
           this.setState({
             yearsExpErr: error.response.data.errors.years_of_exp,
@@ -160,7 +178,7 @@ export default class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.skill_name}
-              onChangeText={(value) => this.setState({ skill_name: value })}
+              onChangeText={value => this.setState({ skill_name: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -211,7 +229,7 @@ export default class Skillinfo extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.years_of_exp}
-                selectedStar={(years_of_exp) =>
+                selectedStar={years_of_exp =>
                   this.setState({ years_of_exp: years_of_exp })
                 }
                 style={{

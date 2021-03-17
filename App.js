@@ -123,12 +123,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    }
+    },
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = (props) => {
+  const TutorialsSCreen = props => {
     const navigation = useNavigation();
-    const showTutorial = (val) => {
+    const showTutorial = val => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -165,7 +165,7 @@ export default function App({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -173,18 +173,18 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signIn: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async (data) => {
+      signUp: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    []
+    [],
   );
 
-  const Trainery = (props) => {
+  const Trainery = props => {
     const navigation = useNavigation();
     const route = useRoute();
 

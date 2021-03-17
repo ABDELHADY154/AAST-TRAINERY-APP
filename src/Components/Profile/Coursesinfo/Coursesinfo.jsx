@@ -6,7 +6,7 @@ import { Button } from "galio-framework";
 import { axios } from "../../../Config/Axios";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
-
+import { StatusBar } from "expo-status-bar";
 
 export default class CoursesInfoForm extends Component {
   state = {
@@ -20,8 +20,8 @@ export default class CoursesInfoForm extends Component {
     toErr: "",
     from: "",
     to: "",
-    cred_url: "",
-    cred: "",
+    cred_url: null,
+    cred: null,
   };
 
   showFromDatePicker = () => {
@@ -30,7 +30,7 @@ export default class CoursesInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -40,18 +40,19 @@ export default class CoursesInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
   handleSubmit = async () => {
     var formData = new FormData();
-
     formData.append("course_name", this.state.course_name);
     formData.append("course_provider", this.state.course_provider);
-    formData.append("from", this.state.EducationFrom);
-    formData.append("to", this.state.EducationTo);
-    formData.append("cred_url", this.state.EducationCredURL);
+    formData.append("from", this.state.from);
+    formData.append("to", this.state.to);
+    if (this.state.cred_url !== null) {
+      formData.append("cred_url", this.state.cred_url);
+    }
     if (this.state.cred !== null) {
       let uriParts = this.state.cred.split(".");
       let fileType = uriParts[uriParts.length - 1];
@@ -62,12 +63,12 @@ export default class CoursesInfoForm extends Component {
       });
     }
     await axios({
-      method: "post",
+      method: "POST",
       url: "/A/student/profile/course",
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -75,102 +76,9 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-
-      .catch((error) => {
-        if (error.response.data.errors.course_name) {
-          this.setState({
-            course_nameErr: error.response.data.errors.course_name,
-          });
-        }
-        if (error.response.data.errors.course_provider) {
-          this.setState({
-            course_providerErr: error.response.data.errors.course_provider,
-          });
-        }
-
-        if (error.response.data.errors.from) {
-          this.setState({
-            fromErr: error.response.data.errors.from,
-          });
-        }
-        if (error.response.data.errors.to) {
-          this.setState({
-            toErr: error.response.data.errors.to,
-          });
-        }
-      });
-  };
-
-  handleUpdateSubmit = async () => {
-    var formData = new FormData();
-    formData.append("course_name", this.state.course_name);
-    formData.append("course_provider", this.state.course_provider);
-    formData.append("from", this.state.EducationFrom);
-    formData.append("to", this.state.EducationTo);
-    formData.append("cred_url", this.state.EducationCredURL);
-    if (this.state.cred !== null) {
-      let uriParts = this.state.cred.split(".");
-      let fileType = uriParts[uriParts.length - 1];
-      formData.append("cred", {
-        uri: this.state.cred,
-        name: `${this.state.course_name}.${fileType}`,
-        type: `file/${fileType}`,
-      });
-    }
-    await axios({
-      method: "post",
-      url: `/A/student/profile/course/${this.props.route.params.id}`,
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then((res) => {
-        this.props.navigation.push("App", {
-          screen: "Profile",
-          params: {
-            screen: "Experience",
-          },
-        });
-      })
-      .catch((error) => {
-        console.log("update bayez alo");
-        if (error.response.data.errors.course_name) {
-          this.setState({
-            course_nameErr: error.response.data.errors.course_name,
-          });
-        }
-        if (error.response.data.errors.course_provider) {
-          this.setState({
-            course_providerErr: error.response.data.errors.course_provider,
-          });
-        }
-
-        if (error.response.data.errors.from) {
-          this.setState({
-            fromErr: error.response.data.errors.from,
-          });
-        }
-        if (error.response.data.errors.to) {
-          this.setState({
-            toErr: error.response.data.errors.to,
-          });
-        }
-      });
-  };
-  async componentDidMount() {
-    if (this.props.route.params.id > 0) {
-      await axios
-        .get(`/A/student/profile/course/${this.props.route.params.id}`)
-        .then((res) => {
-          this.setState({
-            course_name: res.data.response.data.course_name,
-            course_provider: res.data.response.data.course_provider,
-            cred_url: res.data.response.data.cred_url,
-            EducationFrom: res.data.response.data.from,
-            EducationTo: res.data.response.data.to,
-            cred: res.data.response.data.cred,
-          });
-        })
-        .catch((error) => {
+      .catch(error => {
+        if (error.response) {
+          console.log(error.response.data.errors);
           if (error.response.data.errors.course_name) {
             this.setState({
               course_nameErr: error.response.data.errors.course_name,
@@ -192,13 +100,94 @@ export default class CoursesInfoForm extends Component {
               toErr: error.response.data.errors.to,
             });
           }
+        }
+      });
+  };
+
+  handleUpdateSubmit = async () => {
+    var formData = new FormData();
+    formData.append("course_name", this.state.course_name);
+    formData.append("course_provider", this.state.course_provider);
+    formData.append("from", this.state.from);
+    formData.append("to", this.state.to);
+    if (this.state.cred_url !== null) {
+      formData.append("cred_url", this.state.cred_url);
+    }
+    if (this.state.cred !== null) {
+      let uriParts = this.state.cred.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.cred,
+        name: `${this.state.course_name}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "POST",
+      url: `/A/student/profile/course/${this.props.route.params.id}`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then(res => {
+        console.log(res.response);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch(error => {
+        console.log(error.response);
+        if (error.response) {
+          console.log(error.response.data.errors);
+          if (error.response.data.errors.course_name) {
+            this.setState({
+              course_nameErr: error.response.data.errors.course_name,
+            });
+          }
+          if (error.response.data.errors.course_provider) {
+            this.setState({
+              course_providerErr: error.response.data.errors.course_provider,
+            });
+          }
+
+          if (error.response.data.errors.from) {
+            this.setState({
+              fromErr: error.response.data.errors.from,
+            });
+          }
+          if (error.response.data.errors.to) {
+            this.setState({
+              toErr: error.response.data.errors.to,
+            });
+          }
+        }
+      });
+  };
+  async componentDidMount() {
+    if (this.props.route.params.id > 0) {
+      await axios
+        .get(`/A/student/profile/course/${this.props.route.params.id}`)
+        .then(res => {
+          this.setState({
+            course_name: res.data.response.data.course_name,
+            course_provider: res.data.response.data.course_provider,
+            cred_url: res.data.response.data.cred_url,
+            from: res.data.response.data.from,
+            to: res.data.response.data.to,
+            // cred: res.data.response.data.cred,
+          });
+        })
+        .catch(error => {
+          console.log(error.response);
         });
     }
   }
   handleDelete = async () => {
     await axios
       .delete(`/A/student/profile/course/${this.props.route.params.id}`)
-      .then((res) => {
+      .then(res => {
         console.log(res);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -207,7 +196,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -220,6 +209,7 @@ export default class CoursesInfoForm extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -229,8 +219,7 @@ export default class CoursesInfoForm extends Component {
           style={{
             alignSelf: "flex-start",
             marginLeft: "6%",
-
-            marginTop: "35%",
+            marginTop: "5%",
             marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
@@ -238,7 +227,7 @@ export default class CoursesInfoForm extends Component {
         <Text style={styles.title}>Courses</Text>
 
         <View style={{ width: "93%" }}>
-          <ScrollView>
+          <ScrollView style={styles.scrollView}>
             <Input
               containerStyle={{
                 justifyContent: "center",
@@ -264,7 +253,7 @@ export default class CoursesInfoForm extends Component {
                 marginTop: 15,
               }}
               value={this.state.course_name}
-              onChangeText={(value) => this.setState({ course_name: value })}
+              onChangeText={value => this.setState({ course_name: value })}
             />
             {this.state.course_nameErr != "" ? (
               <View
@@ -315,9 +304,7 @@ export default class CoursesInfoForm extends Component {
                 marginBottom: -10,
               }}
               value={this.state.course_provider}
-              onChangeText={(value) =>
-                this.setState({ course_provider: value })
-              }
+              onChangeText={value => this.setState({ course_provider: value })}
             />
             {this.state.course_providerErr != "" ? (
               <View
@@ -532,7 +519,7 @@ export default class CoursesInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={(value) => this.setState({ cred_url: value })}
+                onChangeText={value => this.setState({ cred_url: value })}
               />
               <View
                 style={{
@@ -622,7 +609,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    alignSelf: "center",
+    // alignSelf: "center",
     width: "97%",
   },
   title: {

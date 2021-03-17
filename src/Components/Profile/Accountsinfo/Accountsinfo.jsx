@@ -4,11 +4,18 @@ import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { axios } from "../../../Config/Axios";
-
+import { StatusBar } from "expo-status-bar";
 
 export default class AccountInfoForm extends Component {
   state = {
     website: "",
+    webErr: "",
+    facebookErr: "",
+    instagramErr: "",
+    youtubeErr: "",
+    linkedinErr: "",
+    behanceErr: "",
+    githubErr: "",
     facebook: "",
     instagram: "",
     youtube: "",
@@ -18,63 +25,6 @@ export default class AccountInfoForm extends Component {
   };
 
   handleSubmit = async () => {
-    const data = {
-      website: this.state.website !== "" ? this.state.website : null,
-      facebook: this.state.facebook,
-      instagram: this.state.instagram,
-      youtube: this.state.youtube,
-      linkedin: this.state.linkedin,
-      behance: this.state.behance,
-      github: this.state.github,
-    };
-    await axios
-
-      .post("/A/student/profile/account", data)
-      .then((res) => {
-        this.props.navigation.push("App", {
-          screen: "Profile",
-        });
-      })
-      .catch((error) => {
-        if (error.response.data.errors.website) {
-          this.setState({
-            websiteErr: error.response.data.errors.website,
-          });
-        }
-        if (error.response.data.errors.instagram) {
-          this.setState({
-            instagramErr: error.response.data.errors.instagram,
-          });
-        }
-        if (error.response.data.errors.facebook) {
-          this.setState({
-            facebookErr: error.response.data.errors.facebook,
-          });
-        }
-        if (error.response.data.errors.youtube) {
-          this.setState({
-            youtubeErr: error.response.data.errors.youtube,
-          });
-        }
-        if (error.response.data.errors.linkedin) {
-          this.setState({
-            linkedinErr: error.response.data.errors.linkedin,
-          });
-        }
-        if (error.response.data.errors.github) {
-          this.setState({
-            githubErr: error.response.data.errors.github,
-          });
-        }
-        if (error.response.data.errors.behance) {
-          this.setState({
-            behanceErr: error.response.data.errors.behance,
-          });
-        }
-      });
-  };
-
-  handleUpdateSubmit = async () => {
     const data = {
       website: this.state.website,
       facebook: this.state.facebook,
@@ -86,16 +36,16 @@ export default class AccountInfoForm extends Component {
     };
     await axios
       .post("/A/student/profile/account", data)
-      .then((res) => {
+      .then(res => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
       })
-      .catch((error) => {
-        console.log("update bayez alo");
+      .catch(error => {
+        // console.log(error.response.data);
         if (error.response.data.errors.website) {
           this.setState({
-            schoolErr: error.response.data.errors.website,
+            webErr: error.response.data.errors.website,
           });
         }
         if (error.response.data.errors.instagram) {
@@ -131,61 +81,26 @@ export default class AccountInfoForm extends Component {
       });
   };
   async componentDidMount() {
-    if (this.props.route.params) {
-      await axios
-        .get(`/A/student/profile/education/${this.props.route.params}`)
-        .then((res) => {
-          this.setState({
-            website: res.data.response.data.website,
-            instagram: res.data.response.data.instagram,
-            facebook: res.data.response.data.facebook,
-            Educationyoutube: res.data.response.data.youtube,
-            linkedin: res.data.response.data.linkedin,
-            behance: res.data.response.data.behance,
-            github: res.data.response.data.github,
-          });
-        })
-        .catch((error) => {
-          if (error.response.data.errors.website) {
-            this.setState({
-              schoolErr: error.response.data.errors.website,
-            });
-          }
-          if (error.response.data.errors.instagram) {
-            this.setState({
-              instagramErr: error.response.data.errors.instagram,
-            });
-          }
-          if (error.response.data.errors.facebook) {
-            this.setState({
-              facebookErr: error.response.data.errors.facebook,
-            });
-          }
-          if (error.response.data.errors.youtube) {
-            this.setState({
-              youtubeErr: error.response.data.errors.youtube,
-            });
-          }
-          if (error.response.data.errors.linkedin) {
-            this.setState({
-              linkedinErr: error.response.data.errors.linkedin,
-            });
-          }
-          if (error.response.data.errors.behance) {
-            this.setState({
-              behanceErr: error.response.data.errors.behance,
-            });
-          }
-          if (error.response.data.errors.github) {
-            this.setState({
-              githubErr: error.response.data.errors.github,
-            });
-          }
+    await axios
+      .get("/A/student/profile/account")
+      .then(res => {
+        this.setState({
+          website: res.data.response.data[0].website,
+          facebook: res.data.response.data[0].facebook,
+          instagram: res.data.response.data[0].instagram,
+          youtube: res.data.response.data[0].youtube,
+          linkedin: res.data.response.data[0].linkedin,
+          behance: res.data.response.data[0].behance,
+          github: res.data.response.data[0].github,
         });
-    }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 
   render() {
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -218,9 +133,10 @@ export default class AccountInfoForm extends Component {
               label="Website"
               labelStyle={styles.labelStyle}
               value={this.state.website}
-              onChangeText={(value) => this.setState({ website: value })}
+              errorMessage={this.state.webErr}
+              onChangeText={value => this.setState({ website: value })}
             />
-            {this.state.websiteErr != "" ? (
+            {/* {this.state.websiteErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -244,7 +160,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -265,10 +181,11 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
                 marginBottom: -10,
               }}
+              errorMessage={this.state.facebookErr}
               value={this.state.facebook}
-              onChangeText={(value) => this.setState({ facebook: value })}
+              onChangeText={value => this.setState({ facebook: value })}
             />
-            {this.state.facebookErr != "" ? (
+            {/* {this.state.facebookErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -292,7 +209,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -314,9 +231,10 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.instagram}
-              onChangeText={(value) => this.setState({ instagram: value })}
+              errorMessage={this.state.instagramErr}
+              onChangeText={value => this.setState({ instagram: value })}
             />
-            {this.state.instagramErr != "" ? (
+            {/* {this.state.instagramErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -340,7 +258,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -362,9 +280,10 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.youtube}
-              onChangeText={(value) => this.setState({ youtube: value })}
+              errorMessage={this.state.youtubeErr}
+              onChangeText={value => this.setState({ youtube: value })}
             />
-            {this.state.youtubeErr != "" ? (
+            {/* {this.state.youtubeErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -388,7 +307,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -410,9 +329,10 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.linkedin}
-              onChangeText={(value) => this.setState({ linkedin: value })}
+              errorMessage={this.state.linkedinErr}
+              onChangeText={value => this.setState({ linkedin: value })}
             />
-            {this.state.linkedinErr != "" ? (
+            {/* {this.state.linkedinErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -436,7 +356,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -458,9 +378,10 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.behance}
-              onChangeText={(value) => this.setState({ behance: value })}
+              errorMessage={this.state.behanceErr}
+              onChangeText={value => this.setState({ behance: value })}
             />
-            {this.state.behanceErr != "" ? (
+            {/* {this.state.behanceErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -484,7 +405,7 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -506,9 +427,10 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.github}
-              onChangeText={(value) => this.setState({ github: value })}
+              errorMessage={this.state.githubErr}
+              onChangeText={value => this.setState({ github: value })}
             />
-            {this.state.githubErr != "" ? (
+            {/* {this.state.githubErr != "" ? (
               <View
                 style={{
                   justifyContent: "space-between",
@@ -532,13 +454,13 @@ export default class AccountInfoForm extends Component {
               </View>
             ) : (
               <Text></Text>
-            )}
+            )} */}
             <Button
               style={styles.button}
               color="#1E4275"
               onPress={this.handleSubmit}
             >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
+              <Text style={{ color: "white", fontSize: 18 }}>Confirm</Text>
             </Button>
           </ScrollView>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
