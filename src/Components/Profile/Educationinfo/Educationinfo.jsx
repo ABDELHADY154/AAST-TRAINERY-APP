@@ -25,6 +25,11 @@ export default class EduInfoForm extends Component {
     code: "",
     isFromDatePickerVisible: false,
     isToDatePickerVisible: false,
+    schoolErr: "",
+    countryErr: "",
+    cityErr: "",
+    fromErr: "",
+    toErr: "",
   };
   showFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: true });
@@ -33,7 +38,8 @@ export default class EduInfoForm extends Component {
     this.setState({ isFromDatePickerVisible: false });
   };
   handleFromConfirm = (date) => {
-    console.log("A date has been picked: ", date);
+
+
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -44,7 +50,7 @@ export default class EduInfoForm extends Component {
     this.setState({ isToDatePickerVisible: false });
   };
   handleToConfirm = (date) => {
-    console.log("A date has been picked: ", date);
+
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -94,7 +100,7 @@ export default class EduInfoForm extends Component {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res.response);
+
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -102,8 +108,33 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
-        console.log(err.response);
+      .catch((error) => {
+        if (error.response.data.errors.school_name) {
+          this.setState({
+            schoolErr: error.response.data.errors.school_name,
+          });
+        }
+        if (error.response.data.errors.country) {
+          this.setState({
+            countryErr: error.response.data.errors.country,
+          });
+        }
+        if (error.response.data.errors.city) {
+          this.setState({
+            cityErr: error.response.data.errors.city,
+          });
+        }
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+
       });
   };
 
@@ -131,7 +162,6 @@ export default class EduInfoForm extends Component {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-        console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -139,8 +169,34 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
-        console.log(err.response);
+      .catch((error) => {
+        console.log("update bayez alo");
+        if (error.response.data.errors.school_name) {
+          this.setState({
+            schoolErr: error.response.data.errors.school_name,
+          });
+        }
+        if (error.response.data.errors.country) {
+          this.setState({
+            countryErr: error.response.data.errors.country,
+          });
+        }
+        if (error.response.data.errors.city) {
+          this.setState({
+            cityErr: error.response.data.errors.city,
+          });
+        }
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+
       });
   };
   async componentDidMount() {
@@ -149,7 +205,7 @@ export default class EduInfoForm extends Component {
       .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
-          console.log(this.state.country);
+          // console.log(this.state.country);
           this.countryOnchangeHandler(this.state.country);
         }
       })
@@ -168,12 +224,37 @@ export default class EduInfoForm extends Component {
             EducationTo: res.data.response.data.to,
             EducationCredURL: res.data.response.data.credential_url,
           });
-          console.log(this.props.route.params.id);
+          // console.log(this.props.route.params.id);
 
-          console.log(res.data.response.data);
+          // console.log(res.data.response.data);
         })
-        .catch((err) => {
-          console.log(err.response);
+        .catch((error) => {
+          if (error.response.data.errors.school_name) {
+            this.setState({
+              schoolErr: error.response.data.errors.school_name,
+            });
+          }
+          if (error.response.data.errors.country) {
+            this.setState({
+              countryErr: error.response.data.errors.country,
+            });
+          }
+          if (error.response.data.errors.city) {
+            this.setState({
+              cityErr: error.response.data.errors.city,
+            });
+          }
+          if (error.response.data.errors.from) {
+            this.setState({
+              fromErr: error.response.data.errors.from,
+            });
+          }
+          if (error.response.data.errors.to) {
+            this.setState({
+              toErr: error.response.data.errors.to,
+            });
+          }
+
         });
     }
   }
@@ -241,7 +322,31 @@ export default class EduInfoForm extends Component {
               value={this.state.SchoolName}
               onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-
+            {this.state.schoolErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.schoolErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <View
               style={{
                 flex: 1,
@@ -264,7 +369,7 @@ export default class EduInfoForm extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "113%",
+                  width: "112%",
                   alignSelf: "flex-start",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
@@ -273,7 +378,7 @@ export default class EduInfoForm extends Component {
                   borderBottomWidth: 2,
                   borderRadius: 0,
                   alignSelf: "flex-start",
-                  marginLeft: "-5.5%",
+                  marginLeft: "-4.5%",
                 }}
               >
                 <Picker
@@ -301,6 +406,30 @@ export default class EduInfoForm extends Component {
                   })}
                 </Picker>
               </View>
+              {this.state.countryErr != "" ? (
+                <View
+                  style={{
+                    justifyContent: "space-between",
+                    marginLeft: "-4%",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.countryErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
@@ -357,6 +486,31 @@ export default class EduInfoForm extends Component {
                   })}
                 </Picker>
               </View>
+              {this.state.cityErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.cityErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
@@ -414,6 +568,31 @@ export default class EduInfoForm extends Component {
                   </Button>
                 </View>
               </View>
+              {this.state.fromErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.fromErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
@@ -469,6 +648,31 @@ export default class EduInfoForm extends Component {
                   </Button>
                 </View>
               </View>
+              {this.state.toErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.toErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -525,7 +729,6 @@ export default class EduInfoForm extends Component {
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
-                  // onPress={this.submit}
                 >
                   <Feather name="upload" size={20} color="#fff" />
                 </Button>

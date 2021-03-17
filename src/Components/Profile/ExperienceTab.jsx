@@ -132,7 +132,9 @@ export class ExperienceTab extends Component {
                       size={30}
                       color="#1E4274"
                       onPress={() => {
-                        this.props.navigation.navigate("ExperienceForm");
+                        this.props.navigation.navigate("ExperienceForm", {
+                          id: 0,
+                        });
                       }}
                     />
                   )}
@@ -188,7 +190,11 @@ export class ExperienceTab extends Component {
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.navigate("CoursesForm", {
+                          id: 0,
+                        });
+                      }}
                     />
                   )}
                 />
@@ -253,11 +259,43 @@ export class ExperienceTab extends Component {
                         years_of_exp={e.years_of_exp}
                         navigation={this.props.navigation}
                       />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
+                      <View
+                        style={{
+                          justifyContent: "flex-end",
+                        }}
+                      >
+                        <Title
+                          style={{
+                            fontSize: 16,
+                            color: "#1E4274",
+                            fontWeight: "bold",
+
+                            color: "#1E4274",
+                            lineHeight: 19,
+                          }}
+                        >
+                          Tools and Fields of Expertise
+                        </Title>
+                      </View>
+                    </View>
+                  </View>
+                  {this.state.skills ? (
+                    this.state.skills.map((e) => {
+                      return (
+                        <SkillsCard
+                          key={e.id}
+                          id={e.id}
+                          skill_name={e.skill_name}
+                          years_of_exp={e.years_of_exp}
+                          navigation={this.props.navigation}
+                        />
+                      );
+                    })
+                  ) : (
+                    <Text></Text>
+                  )}
+                </Card.Content>
+
                 <Card.Title
                   style={{ marginLeft: 1 }}
                   title="Intrests"
@@ -521,7 +559,11 @@ export class ExperienceCard extends Component {
                 size={24}
                 color="#CD8930"
                 style={{ justifyContent: "flex-end" }}
-                onPress={() => {}}
+                onPress={() => {
+                  this.props.navigation.push("ExperienceForm", {
+                    id: this.props.id,
+                  });
+                }}
               />
             </View>
             <View style={{ marginLeft: 18 }}>
@@ -630,7 +672,11 @@ export class CoursesCard extends Component {
                 size={24}
                 color="#CD8930"
                 style={{ justifyContent: "flex-end" }}
-                onPress={() => {}}
+                onPress={() => {
+                  this.props.navigation.push("CoursesForm", {
+                    id: this.props.id,
+                  });
+                }}
               />
             </View>
             <View style={{ marginLeft: 18 }}>

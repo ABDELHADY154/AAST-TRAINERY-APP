@@ -3,64 +3,322 @@ import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
-import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import { DocumentPicker } from "expo-document-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
 import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+import { axios } from "../../../Config/Axios";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as DocumentPicker from "expo-document-picker";
 
-export default function ExpInfoFormscreen(props) {
-  const navigation = useNavigation();
-  return <ExpInfoForm navigation={navigation} {...props} />;
-}
-// import { CountryPicker } from "react-native-country-picker-modal";
-class ExpInfoForm extends Component {
-  // state = {
-  //   StudentExperienceType: "",
-  //   StudentExperienceJobTitle: "",
-  //   StudentExperienceCompany: "",
-  //   StudentExperienceCountry: "",
-  //   StudentExperiencecity: "",
-  //   StudentExperienceFrom: "",
-  //   StudentExperienceTo: "",
-  //   StudentExperienceCredUrl: "",
-  //   StudentExperienceCredUpload: "",
+export default class ExpInfoForm extends Component {
+  state = {
+    experience_type: "",
+    job_title: "",
+    company_name: "",
+    country: "",
+    city: "",
+    from: "",
+    to: "",
+    cred_url: null,
+    cred: null,
+    expErr: "",
+    jobErr: "",
+    companyErr: "",
+    countryErr: "",
+    cityErr: "",
+    fromErr: "",
+    toErr: "",
+    countriesList: {},
+    citiesList: [],
+    code: "",
+    isFromDatePickerVisible: false,
+    isToDatePickerVisible: false,
+    currently_work: 1,
+  };
 
-  // };
-  constructor() {
-    super();
-    this.state = {
-      date: new Date(1598051730000),
-      mode: "date",
-      show: false,
-    };
+  showFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: true });
+  };
+  hideFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: false });
+  };
+  handleFromConfirm = (date) => {
+    // console.log("A date has been picked: ", date);
+    this.setState({ from: date.toISOString().split("T")[0] });
+    this.hideFromDatePicker();
+  };
+  showToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: true });
+  };
+  hideToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: false });
+  };
+  handleToConfirm = (date) => {
+    // console.log("A date has been picked: ", date);
+    this.setState({ to: date.toISOString().split("T")[0] });
+    this.hideToDatePicker();
+  };
+  countryOnchangeHandler = (itemValue, index) => {
+    for (const key in this.state.countriesList) {
+      if (this.state.countriesList[key] == itemValue) {
+        this.getCityList(key);
+        this.setState({ code: key });
+        this.setState({ country: itemValue });
+        break;
+      }
+    }
+  };
+  getCityList = (code) => {
+    axios
+      .get(`/stateList/${code}`)
+      .then((res) => {
+        this.setState({ citiesList: res.data });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  handleSubmit = async () => {
+    var formData = new FormData();
+    formData.append(" currently_work", this.state.currently_work);
+
+    formData.append("experience_type", this.state.experience_type);
+    formData.append("job_title", this.state.job_title);
+    formData.append("company_name", this.state.company_name);
+    formData.append("city", this.state.city);
+    formData.append("country", this.state.country);
+    formData.append("from", this.state.from);
+    formData.append("to", this.state.to);
+    formData.append("cred_url", this.state.cred_url);
+    if (this.state.cred !== null) {
+      let uriParts = this.state.cred.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.cred,
+        name: `${this.state.job_title}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: "/A/student/profile/experience",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        // console.log(res.response);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+        if (error.response.data.errors.experience_type) {
+          this.setState({
+            expErr: error.response.data.errors.experience_type,
+          });
+        }
+        if (error.response.data.errors.job_title) {
+          this.setState({
+            jobErr: error.response.data.errors.job_title,
+          });
+        }
+        if (error.response.data.errors.company_name) {
+          this.setState({
+            companyErr: error.response.data.errors.company_name,
+          });
+        }
+        if (error.response.data.errors.country) {
+          this.setState({
+            countryErr: error.response.data.errors.country,
+          });
+        }
+        if (error.response.data.errors.city) {
+          this.setState({
+            cityErr: error.response.data.errors.city,
+          });
+        }
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+      });
+  };
+  handleUpdateSubmit = async () => {
+    var formData = new FormData();
+    formData.append("experience_type", this.state.experience_type);
+    formData.append("job_title", this.state.job_title);
+    formData.append("company_name", this.state.company_name);
+    formData.append("city", this.state.city);
+    formData.append("country", this.state.country);
+    formData.append("from", this.state.from);
+    formData.append("to", this.state.to);
+    formData.append("cred_url", this.state.cred_url);
+    if (this.state.cred !== null) {
+      let uriParts = this.state.cred.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.cred,
+        name: `${this.state.job_title}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: `/A/student/profile/experience/${this.props.route.params.id}`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        console.log(res.response);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch((error) => {
+        if (error.response.data.errors.experience_type) {
+          this.setState({
+            expErr: error.response.data.errors.experience_type,
+          });
+        }
+        if (error.response.data.errors.job_title) {
+          this.setState({
+            jobErr: error.response.data.errors.job_title,
+          });
+        }
+        if (error.response.data.errors.company_name) {
+          this.setState({
+            companyErr: error.response.data.errors.company_name,
+          });
+        }
+        if (error.response.data.errors.country) {
+          this.setState({
+            countryErr: error.response.data.errors.country,
+          });
+        }
+        if (error.response.data.errors.city) {
+          this.setState({
+            cityErr: error.response.data.errors.city,
+          });
+        }
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+      });
+  };
+
+  async componentDidMount() {
+    axios
+
+      .get("/countriesList")
+      .then((res) => {
+        this.setState({ countriesList: res.data });
+        if (this.state.country !== "") {
+          this.countryOnchangeHandler(this.state.country);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    if (this.props.route.params.id > 0) {
+      await axios
+        .get(`/A/student/profile/experience/${this.props.route.params.id}`)
+        .then((res) => {
+          this.setState({
+            experience_type: res.data.response.data.experience_type,
+            job_title: res.data.response.data.job_title,
+            company_name: res.data.response.data.company_name,
+
+            country: res.data.response.data.country,
+            city: res.data.response.data.city,
+            from: res.data.response.data.from,
+            to: res.data.response.data.to,
+            cred_url: res.data.response.data.cred_url,
+          });
+          console.log(this.props.route.params.id);
+
+          // console.log(res.data.response.data);
+        })
+        .catch((error) => {
+          if (error.response.data.errors.experience_type) {
+            this.setState({
+              expErr: error.response.data.errors.experience_type,
+            });
+          }
+          if (error.response.data.errors.job_title) {
+            this.setState({
+              jobErr: error.response.data.errors.job_title,
+            });
+          }
+          if (error.response.data.errors.company_name) {
+            this.setState({
+              companyErr: error.response.data.errors.company_name,
+            });
+          }
+          if (error.response.data.errors.country) {
+            this.setState({
+              countryErr: error.response.data.errors.country,
+            });
+          }
+          if (error.response.data.errors.city) {
+            this.setState({
+              cityErr: error.response.data.errors.city,
+            });
+          }
+          if (error.response.data.errors.from) {
+            this.setState({
+              fromErr: error.response.data.errors.from,
+            });
+          }
+          if (error.response.data.errors.to) {
+            this.setState({
+              toErr: error.response.data.errors.to,
+            });
+          }
+        });
+    }
   }
   _pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      alert(result.uri);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
+    let result = await DocumentPicker.getDocumentAsync({});
+    // console.log(result);
+    if (result) {
+      this.setState({ cred: result.uri });
     }
   };
-  onChange = (e, selectedDate) => {
-    try {
-      const currentDate = selectedDate || this.state.date;
-      this.setState({ show: Platform.OS === "ios" });
-      this.setState({ date: currentDate });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  showMode = (currentMode) => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
-  };
-
-  showDatepicker = () => {
-    this.showMode("date");
+  handleDelete = async () => {
+    await axios
+      .delete(`/A/student/profile/experience/${this.props.route.params.id}`)
+      .then((res) => {
+        console.log(res);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   render() {
@@ -103,14 +361,12 @@ class ExpInfoForm extends Component {
                 width: "99%",
                 marginLeft: "2%",
                 alignSelf: "flex-start",
-                // marginTop: 10,
                 borderColor: "#1E4275",
                 borderTopWidth: 0,
                 borderRightWidth: 0,
                 borderLeftWidth: 0,
                 borderBottomWidth: 2,
                 borderRadius: 0,
-                // marginBottom: 10,
                 alignSelf: "flex-start",
               }}
             >
@@ -130,24 +386,40 @@ class ExpInfoForm extends Component {
                 placeholderIconColor="#1E4275"
                 itemStyle={{ backgroundColor: "#fff" }}
                 dropdownIconColor="#1E4275"
-                selectedValue={"EGYPT"}
-                // onValueChange={(itemValue, itemIndex) =>
-                //   this.setState({ country: itemValue })
-                // }
+                selectedValue={this.state.experience_type}
+                onValueChange={(value) =>
+                  this.setState({ experience_type: value })
+                }
               >
-                <Picker.Item label="Choose Experience Type" value="0" />
-                {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.countryname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                <Picker.Item label="Choose Your Experience Type" value="0" />
+                <Picker.Item label="Internship" value="Internship" />
+                <Picker.Item label="Volunteer" value="Volunteer" />
               </Picker>
             </View>
-
+            {this.state.expErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  marginLeft: "2%",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginTop: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.expErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -171,8 +443,33 @@ class ExpInfoForm extends Component {
                 marginTop: 15,
                 marginLeft: "-1%",
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.job_title}
+              onChangeText={(value) => this.setState({ job_title: value })}
             />
+            {this.state.jobErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  marginLeft: "2%",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginTop: -15,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.jobErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -195,8 +492,34 @@ class ExpInfoForm extends Component {
                 marginBottom: -10,
                 marginLeft: "-1%",
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.company_name}
+              onChangeText={(value) => this.setState({ company_name: value })}
             />
+            {this.state.companyErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  marginLeft: "2%",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginTop: -15,
+                  marginBottom: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.companyErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <View
               style={{
                 flex: 1,
@@ -219,18 +542,16 @@ class ExpInfoForm extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "113%",
+                  width: "112%",
                   alignSelf: "flex-start",
-                  // marginTop: 10,
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
                   borderBottomWidth: 2,
                   borderRadius: 0,
-                  // marginBottom: 10,
                   alignSelf: "flex-start",
-                  marginLeft: "-5.5%",
+                  marginLeft: "-4.5%",
                 }}
               >
                 <Picker
@@ -249,30 +570,46 @@ class ExpInfoForm extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"EGYPT"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ country: itemValue })
-                  // }
+                  selectedValue={this.state.country}
+                  onValueChange={this.countryOnchangeHandler}
                 >
-                  <Picker.Item label="Choose The Country" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.countryname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                  <Picker.Item label="Choose Your Country" value="0" />
+                  {Object.entries(this.state.countriesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
+              {this.state.countryErr != "" ? (
+                <View
+                  style={{
+                    justifyContent: "space-between",
+                    marginLeft: "-3%",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 5,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.countryErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
                   fontSize: 16,
                   fontFamily: "SF-M",
                   fontWeight: "normal",
-                  marginTop: 15,
+                  marginTop: 5,
                   marginLeft: "-5%",
                 }}
               >
@@ -283,14 +620,12 @@ class ExpInfoForm extends Component {
                   backgroundColor: "transparent",
                   width: "113%",
                   alignSelf: "flex-start",
-                  // marginTop: 10,
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
                   borderBottomWidth: 2,
                   borderRadius: 0,
-                  // marginBottom: 10,
                   alignSelf: "flex-start",
                   marginLeft: "-5.5%",
                 }}
@@ -311,23 +646,42 @@ class ExpInfoForm extends Component {
                   placeholderIconColor="#1E4275"
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
-                  selectedValue={"Alexandria"}
-                  // onValueChange={(itemValue, itemIndex) =>
-                  //   this.setState({ city: itemValue })
-                  // }
+                  selectedValue={this.state.city}
+                  onValueChange={(itemValue, itemIndex) => {
+                    this.setState({ city: itemValue });
+                  }}
                 >
                   <Picker.Item label="Choose The City" value="0" />
-                  {/* {this.state.country.map((key) => {
-                      return (
-                        <Picker.Item
-                          label={key.cityname}
-                          value={key.id}
-                          key={key.id}
-                        />
-                      );
-                    })} */}
+                  {Object.entries(this.state.citiesList).map(([el, val]) => {
+                    return <Picker.Item label={val} value={val} key={el} />;
+                  })}
                 </Picker>
               </View>
+              {this.state.cityErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.cityErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
@@ -335,7 +689,7 @@ class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-6%",
+                  marginLeft: "-5%",
                   marginBottom: -10,
                 }}
               >
@@ -343,8 +697,14 @@ class ExpInfoForm extends Component {
               </Text>
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isFromDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleFromConfirm}
+                    onCancel={this.hideFromDatePicker}
+                  />
                   <Feather
-                    onPress={this.showDatepicker}
+                    onPress={this.showFromDatePicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -353,31 +713,57 @@ class ExpInfoForm extends Component {
                       alignSelf: "flex-end",
                     }}
                   ></Feather>
+
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
-                      width: "114%",
-                      marginLeft: "-6%",
+                      width: "117%",
+                      marginLeft: "-5%",
                       borderColor: "transparent",
+
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.from}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
+              {this.state.fromErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.fromErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Text
                 style={{
                   color: "#1E4274",
@@ -385,7 +771,7 @@ class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-6%",
+                  marginLeft: "-5%",
                   marginBottom: -10,
                 }}
               >
@@ -393,8 +779,14 @@ class ExpInfoForm extends Component {
               </Text>
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isToDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleToConfirm}
+                    onCancel={this.hideToDatePicker}
+                  />
                   <Feather
-                    onPress={this.showDatepicker}
+                    onPress={this.showToDatePicker}
                     name="calendar"
                     size={22}
                     color="#1E4274"
@@ -404,30 +796,54 @@ class ExpInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
-                      width: "114%",
-                      marginLeft: "-6%",
+                      width: "117%",
+                      marginLeft: "-5%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.to}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
+              {this.state.toErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.toErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -452,9 +868,8 @@ class ExpInfoForm extends Component {
                 }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
-                  this.setState({ EducationCredURL: value })
-                }
+                value={this.state.cred_url}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
               <View
                 style={{
@@ -483,26 +898,52 @@ class ExpInfoForm extends Component {
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
-                  // onPress={this.submit}
                 >
                   <Feather name="upload" size={20} color="#fff" />
                 </Button>
               </View>
             </View>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
-            </Button>
+            {this.props.route.params.id > 0 ? (
+              <View>
+                <Button
+                  style={styles.button}
+                  color="#1E4275"
+                  onPress={this.handleUpdateSubmit}
+                >
+                  <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
+                </Button>
+                <Button
+                  style={{
+                    border: 2,
+                    borderColor: "#F44336",
+                    borderWidth: 1,
+                    width: "auto",
+                    borderRadius: 50,
+                    marginTop: 20,
+                    backgroundColor: "#fff",
+                  }}
+                  color="#1E4275"
+                  onPress={this.handleDelete}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 18,
+                    }}
+                  >
+                    Delete
+                  </Text>
+                </Button>
+              </View>
+            ) : (
+              <Button
+                style={styles.button}
+                color="#1E4275"
+                onPress={this.handleSubmit}
+              >
+                <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
+              </Button>
+            )}
           </ScrollView>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
@@ -510,6 +951,7 @@ class ExpInfoForm extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",

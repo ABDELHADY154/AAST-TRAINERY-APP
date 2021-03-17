@@ -1,73 +1,227 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
-import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
-import { DocumentPicker } from "expo-document-picker";
-import DateTimePicker from "@react-native-community/datetimepicker";
-import { useNavigation } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
+import { axios } from "../../../Config/Axios";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import * as DocumentPicker from "expo-document-picker";
 
-export default function CoursesInfoFormscreen(props) {
-  const navigation = useNavigation();
-  return <CoursesInfoForm navigation={navigation} {...props} />;
-}
-// import { CountryPicker } from "react-native-country-picker-modal";
-class CoursesInfoForm extends Component {
-  // state = {
-  // needs update  StudentExperienceType: "",
-  //   StudentExperienceJobTitle: "",
-  //   StudentExperienceCompany: "",
-  //   StudentExperienceCountry: "",
-  //   StudentExperiencecity: "",
-  //   StudentExperienceFrom: "",
-  //   StudentExperienceTo: "",
-  //   StudentExperienceCredUrl: "",
-  //   StudentExperienceCredUpload: "",
 
-  // };
-  constructor() {
-    super();
-    this.state = {
-      date: new Date(1598051730000),
-      mode: "date",
-      show: false,
-    };
+export default class CoursesInfoForm extends Component {
+  state = {
+    course_name: "",
+    course_nameErr: "",
+    isFromDatePickerVisible: false,
+    isToDatePickerVisible: false,
+    course_provider: "",
+    course_providerErr: "",
+    fromErr: "",
+    toErr: "",
+    from: "",
+    to: "",
+    cred_url: "",
+    cred: "",
+  };
+
+  showFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: true });
+  };
+  hideFromDatePicker = () => {
+    this.setState({ isFromDatePickerVisible: false });
+  };
+  handleFromConfirm = (date) => {
+    this.setState({ from: date.toISOString().split("T")[0] });
+    this.hideFromDatePicker();
+  };
+  showToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: true });
+  };
+  hideToDatePicker = () => {
+    this.setState({ isToDatePickerVisible: false });
+  };
+  handleToConfirm = (date) => {
+    this.setState({ to: date.toISOString().split("T")[0] });
+    this.hideToDatePicker();
+  };
+  handleSubmit = async () => {
+    var formData = new FormData();
+
+    formData.append("course_name", this.state.course_name);
+    formData.append("course_provider", this.state.course_provider);
+    formData.append("from", this.state.EducationFrom);
+    formData.append("to", this.state.EducationTo);
+    formData.append("cred_url", this.state.EducationCredURL);
+    if (this.state.cred !== null) {
+      let uriParts = this.state.cred.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.cred,
+        name: `${this.state.course_name}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: "/A/student/profile/course",
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+
+      .catch((error) => {
+        if (error.response.data.errors.course_name) {
+          this.setState({
+            course_nameErr: error.response.data.errors.course_name,
+          });
+        }
+        if (error.response.data.errors.course_provider) {
+          this.setState({
+            course_providerErr: error.response.data.errors.course_provider,
+          });
+        }
+
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+      });
+  };
+
+  handleUpdateSubmit = async () => {
+    var formData = new FormData();
+    formData.append("course_name", this.state.course_name);
+    formData.append("course_provider", this.state.course_provider);
+    formData.append("from", this.state.EducationFrom);
+    formData.append("to", this.state.EducationTo);
+    formData.append("cred_url", this.state.EducationCredURL);
+    if (this.state.cred !== null) {
+      let uriParts = this.state.cred.split(".");
+      let fileType = uriParts[uriParts.length - 1];
+      formData.append("cred", {
+        uri: this.state.cred,
+        name: `${this.state.course_name}.${fileType}`,
+        type: `file/${fileType}`,
+      });
+    }
+    await axios({
+      method: "post",
+      url: `/A/student/profile/course/${this.props.route.params.id}`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    })
+      .then((res) => {
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch((error) => {
+        console.log("update bayez alo");
+        if (error.response.data.errors.course_name) {
+          this.setState({
+            course_nameErr: error.response.data.errors.course_name,
+          });
+        }
+        if (error.response.data.errors.course_provider) {
+          this.setState({
+            course_providerErr: error.response.data.errors.course_provider,
+          });
+        }
+
+        if (error.response.data.errors.from) {
+          this.setState({
+            fromErr: error.response.data.errors.from,
+          });
+        }
+        if (error.response.data.errors.to) {
+          this.setState({
+            toErr: error.response.data.errors.to,
+          });
+        }
+      });
+  };
+  async componentDidMount() {
+    if (this.props.route.params.id > 0) {
+      await axios
+        .get(`/A/student/profile/course/${this.props.route.params.id}`)
+        .then((res) => {
+          this.setState({
+            course_name: res.data.response.data.course_name,
+            course_provider: res.data.response.data.course_provider,
+            cred_url: res.data.response.data.cred_url,
+            EducationFrom: res.data.response.data.from,
+            EducationTo: res.data.response.data.to,
+            cred: res.data.response.data.cred,
+          });
+        })
+        .catch((error) => {
+          if (error.response.data.errors.course_name) {
+            this.setState({
+              course_nameErr: error.response.data.errors.course_name,
+            });
+          }
+          if (error.response.data.errors.course_provider) {
+            this.setState({
+              course_providerErr: error.response.data.errors.course_provider,
+            });
+          }
+
+          if (error.response.data.errors.from) {
+            this.setState({
+              fromErr: error.response.data.errors.from,
+            });
+          }
+          if (error.response.data.errors.to) {
+            this.setState({
+              toErr: error.response.data.errors.to,
+            });
+          }
+        });
+    }
   }
-  _pickDocument = async () => {
-    try {
-      let result = await DocumentPicker.getDocumentAsync({});
-      alert(result.uri);
-      console.log(result);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  onChange = (e, selectedDate) => {
-    try {
-      const currentDate = selectedDate || this.state.date;
-      this.setState({ show: Platform.OS === "ios" });
-      this.setState({ date: currentDate });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  showMode = (currentMode) => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
+  handleDelete = async () => {
+    await axios
+      .delete(`/A/student/profile/course/${this.props.route.params.id}`)
+      .then((res) => {
+        console.log(res);
+        this.props.navigation.push("App", {
+          screen: "Profile",
+          params: {
+            screen: "Experience",
+          },
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
-  showDatepicker = () => {
-    this.showMode("date");
+  _pickDocument = async () => {
+    let result = await DocumentPicker.getDocumentAsync({});
+    if (result) {
+      this.setState({ cred: result.uri });
+    }
   };
 
   render() {
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
         <Feather
           name="chevron-left"
           size={36}
@@ -76,7 +230,7 @@ class CoursesInfoForm extends Component {
             alignSelf: "flex-start",
             marginLeft: "6%",
 
-            marginTop: "40%",
+            marginTop: "35%",
             marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
@@ -109,9 +263,34 @@ class CoursesInfoForm extends Component {
                 marginBottom: -10,
                 marginTop: 15,
               }}
-              //value={this.state.coursename}
-              //onChangeText={(value) => this.setState({ coursename: value })}
+              value={this.state.course_name}
+              onChangeText={(value) => this.setState({ course_name: value })}
             />
+            {this.state.course_nameErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.course_nameErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -135,36 +314,37 @@ class CoursesInfoForm extends Component {
                 marginTop: -10,
                 marginBottom: -10,
               }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
+              value={this.state.course_provider}
+              onChangeText={(value) =>
+                this.setState({ course_provider: value })
+              }
             />
-            <Input
-              style={{
-                backgroundColor: "transparent",
-                height: 35,
-              }}
-              autoCompleteType="name"
-              textContentType="name"
-              keyboardType="default"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
-              inputContainerStyle={{
-                borderColor: "#1E4274",
-                borderBottomWidth: 2,
-                marginLeft: "2.5%",
-                width: "99%",
-              }}
-              label="Company Name"
-              labelStyle={{
-                marginLeft: "2.5%",
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: -10,
-              }}
-              // onChangeText={(value) => this.setState({ SchoolName: value })}
-            />
+            {this.state.course_providerErr != "" ? (
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  alignSelf: "flex-start",
+                  flexDirection: "row",
+                  width: "91.5%",
+                  marginLeft: "3%",
+                  marginTop: "-5%",
+                  marginBottom: "6%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#F44336",
+                    fontSize: 14,
+                    textAlign: "left",
+                  }}
+                >
+                  {this.state.course_providerErr}
+                </Text>
+              </View>
+            ) : (
+              <Text></Text>
+            )}
+
             <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
               <Text
                 style={{
@@ -181,6 +361,12 @@ class CoursesInfoForm extends Component {
               </Text>
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isFromDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleFromConfirm}
+                    onCancel={this.hideFromDatePicker}
+                  />
                   <Feather
                     onPress={this.showDatepicker}
                     name="calendar"
@@ -192,29 +378,29 @@ class CoursesInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
-                      width: "107.5%",
+                      width: "107%",
                       marginLeft: "-2%",
                       borderColor: "transparent",
+
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.from}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
               <Text
                 style={{
@@ -229,8 +415,39 @@ class CoursesInfoForm extends Component {
               >
                 To
               </Text>
+              {this.state.fromErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.fromErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <View>
                 <View>
+                  <DateTimePickerModal
+                    isVisible={this.state.isToDatePickerVisible}
+                    mode="date"
+                    onConfirm={this.handleToConfirm}
+                    onCancel={this.hideToDatePicker}
+                  />
                   <Feather
                     onPress={this.showDatepicker}
                     name="calendar"
@@ -242,11 +459,10 @@ class CoursesInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
-                    title={this.state.date}
-                    onPress={this.showDatepicker}
+                    onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
-                      width: "107.5%",
+                      width: "107%",
                       marginLeft: "-2%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
@@ -254,18 +470,43 @@ class CoursesInfoForm extends Component {
                       borderRadius: 0,
                       marginTop: -35,
                     }}
-                  />
+                  >
+                    <Text
+                      style={{
+                        alignSelf: "center",
+                        color: "#1E4274",
+                      }}
+                    >
+                      {this.state.to}
+                    </Text>
+                  </Button>
                 </View>
-                {this.state.show && (
-                  <DateTimePicker
-                    testID="dateTimePicker"
-                    value={this.state.date}
-                    mode={this.state.mode}
-                    display="default"
-                    onChange={this.onChange}
-                  />
-                )}
               </View>
+              {this.state.toErr != "" ? (
+                <View
+                  style={{
+                    marginLeft: "-4%",
+
+                    justifyContent: "space-between",
+                    alignSelf: "flex-start",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {this.state.toErr}
+                  </Text>
+                </View>
+              ) : (
+                <Text></Text>
+              )}
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -290,9 +531,8 @@ class CoursesInfoForm extends Component {
                 }}
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
-                onChangeText={(value) =>
-                  this.setState({ EducationCredURL: value })
-                }
+                value={this.state.cred_url}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
               <View
                 style={{
@@ -321,26 +561,52 @@ class CoursesInfoForm extends Component {
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
-                  // onPress={this.submit}
                 >
                   <Feather name="upload" size={20} color="#fff" />
                 </Button>
               </View>
             </View>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
-            </Button>
-            <Button
-              style={styles.button}
-              color="#1E4275"
-              // onPress={this.submit}
-            >
-              <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
-            </Button>
+            {this.props.route.params.id > 0 ? (
+              <View>
+                <Button
+                  style={styles.button}
+                  color="#1E4275"
+                  onPress={this.handleUpdateSubmit}
+                >
+                  <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
+                </Button>
+                <Button
+                  style={{
+                    border: 2,
+                    borderColor: "#F44336",
+                    borderWidth: 1,
+                    width: "auto",
+                    borderRadius: 50,
+                    marginTop: 20,
+                    backgroundColor: "#fff",
+                  }}
+                  color="#1E4275"
+                  onPress={this.handleDelete}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 18,
+                    }}
+                  >
+                    Delete
+                  </Text>
+                </Button>
+              </View>
+            ) : (
+              <Button
+                style={styles.button}
+                color="#1E4275"
+                onPress={this.handleSubmit}
+              >
+                <Text style={{ color: "white", fontSize: 18 }}>Add</Text>
+              </Button>
+            )}
           </ScrollView>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
