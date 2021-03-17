@@ -6,6 +6,7 @@ import {
   View,
   Easing,
   TouchableWithoutFeedback,
+  ScrollView,
 } from "react-native";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -121,6 +122,9 @@ export default class HomeScreen extends Component {
       drawerIsOpened: false,
       headerTitle: "",
       userData: {},
+      name: "",
+      email: "",
+      image: null,
     };
   }
   async componentDidMount() {
@@ -138,7 +142,10 @@ export default class HomeScreen extends Component {
       .get("/A/student/get-profilePersonal")
       .then((response) => {
         this.setState({
-          userData: response.data.response.data,
+          // userData: response.data.response.data,
+          name: response.data.response.data.name,
+          email: response.data.response.data.email,
+          image: response.data.response.data.image,
         });
       })
       .catch(function (error) {
@@ -196,186 +203,194 @@ export default class HomeScreen extends Component {
             // justifyContent: "center",
           }}
         >
-          <TouchableWithoutFeedback
-            onPress={() => {
-              this.props.navigation.navigate("App", { screen: "Profile" });
-              this.state.drawerRef.closeDrawer();
-            }}
-          >
-            <View style={{ backgroundColor: "#1E4274" }}>
-              <Avatar.Image
-                style={{
-                  backgroundColor: "transparent",
-                  marginLeft: 20,
-                  marginTop: "18%",
-                }}
-                size={70}
-                source={{ uri: this.state.userData.image }}
-              />
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 16,
-                  fontWeight: "bold",
-                  marginLeft: 20,
-                  marginTop: 10,
-                }}
-              >
-                {this.state.userData.name}
-              </Text>
-              <Text
-                style={{
-                  color: "#fff",
-                  fontSize: 14,
-                  marginLeft: 20,
-                  // marginTop: 5,
-                  marginBottom: 20,
-                }}
-              >
-                {this.state.userData.email}
-              </Text>
-            </View>
-          </TouchableWithoutFeedback>
-          <View
-            style={{
-              // backgroundColor: "#F2F2F2",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Feather
-              name="edit"
-              size={16}
-              color="#1E4274"
-              style={{ paddingRight: 10 }}
-            />
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>Edit Profile</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <MaterialCommunityIcons
-              name="newspaper-variant-outline"
-              size={20}
-              color="#1E4274"
-              style={{ paddingRight: 10 }}
-            />
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>Generate CV</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <MaterialCommunityIcons
-              name="newspaper-variant-outline"
-              size={20}
-              color="#1E4274"
-              style={{ paddingRight: 10 }}
-            />
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>Portfolio</Text>
-            <FontAwesome
-              name="dollar"
-              size={15}
-              color="#CD8930"
-              style={{ paddingLeft: 10 }}
-            />
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Feather
-              name="settings"
-              size={16}
-              color="#1E4274"
-              style={{ paddingRight: 10 }}
-            />
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>
-              Account settings
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Feather
-              name="info"
-              size={16}
-              color="#1E4274"
-              style={{ paddingRight: 10 }}
-            />
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>About Us</Text>
-          </View>
-          <Divider style={{ backgroundColor: "#ccc" }} />
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>Help center</Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Text style={{ color: "#1E4274", fontSize: 16 }}>
-              Terms and conditions
-            </Text>
-          </View>
-          <View
-            style={{
-              backgroundColor: "#fff",
-              padding: 15,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingLeft: 20,
-            }}
-          >
-            <Text
-              style={{ color: "#1E4274", fontSize: 16 }}
+          <ScrollView>
+            <TouchableWithoutFeedback
               onPress={() => {
-                AsyncStorage.removeItem("userData");
-                AsyncStorage.removeItem("userToken");
-                AsyncStorage.removeItem("config");
-                axios.defaults.headers.common["Authorization"] = ``;
-                this.props.logout();
+                this.props.navigation.navigate("App", { screen: "Profile" });
+                this.state.drawerRef.closeDrawer();
               }}
             >
-              Log Out
-            </Text>
-          </View>
+              <View style={{ backgroundColor: "#1E4274" }}>
+                <Avatar.Image
+                  style={{
+                    backgroundColor: "transparent",
+                    marginLeft: 20,
+                    marginTop: "18%",
+                  }}
+                  size={70}
+                  source={{ uri: this.state.image }}
+                />
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontSize: 16,
+                    fontWeight: "bold",
+                    marginLeft: 20,
+                    marginTop: 10,
+                  }}
+                >
+                  {this.state.name}
+                </Text>
+                <Text
+                  style={{
+                    color: "#fff",
+                    fontSize: 14,
+                    marginLeft: 20,
+                    // marginTop: 5,
+                    marginBottom: 20,
+                  }}
+                >
+                  {this.state.email}
+                </Text>
+              </View>
+            </TouchableWithoutFeedback>
+            <View
+              style={{
+                // backgroundColor: "#F2F2F2",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              <Feather
+                name="edit"
+                size={18}
+                color="#1E4274"
+                style={{ paddingRight: 10, paddingLeft: 2 }}
+              />
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                Edit Profile
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="newspaper-variant-outline"
+                size={20}
+                color="#1E4274"
+                style={{ paddingRight: 10 }}
+              />
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                Generate CV
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="newspaper-variant-outline"
+                size={20}
+                color="#1E4274"
+                style={{ paddingRight: 10 }}
+              />
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>Portfolio</Text>
+              <FontAwesome
+                name="dollar"
+                size={15}
+                color="#CD8930"
+                style={{ paddingLeft: 10 }}
+              />
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              <Feather
+                name="settings"
+                size={18}
+                color="#1E4274"
+                style={{ paddingRight: 10, paddingLeft: 2 }}
+              />
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                Account settings
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 20,
+              }}
+            >
+              <Feather
+                name="info"
+                size={18}
+                color="#1E4274"
+                style={{ paddingRight: 10, paddingLeft: 2 }}
+              />
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>About Us</Text>
+            </View>
+            <Divider style={{ backgroundColor: "#ccc" }} />
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 22,
+              }}
+            >
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                Help center
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 22,
+              }}
+            >
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                Terms and conditions
+              </Text>
+            </View>
+            <View
+              style={{
+                backgroundColor: "#fff",
+                padding: 15,
+                flexDirection: "row",
+                alignItems: "center",
+                paddingLeft: 22,
+              }}
+            >
+              <Text
+                style={{ color: "#1E4274", fontSize: 16 }}
+                onPress={() => {
+                  AsyncStorage.removeItem("userData");
+                  AsyncStorage.removeItem("userToken");
+                  AsyncStorage.removeItem("config");
+                  axios.defaults.headers.common["Authorization"] = ``;
+                  this.props.logout();
+                }}
+              >
+                Log Out
+              </Text>
+            </View>
+          </ScrollView>
         </View>
       </View>
     );

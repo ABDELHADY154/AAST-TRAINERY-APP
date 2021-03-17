@@ -169,6 +169,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "97%",
+    paddingRight: 15,
   },
   title: {
     alignSelf: "flex-start",

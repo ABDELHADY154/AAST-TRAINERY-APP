@@ -557,7 +557,7 @@ export class ExperienceCard extends Component {
                   See credential
                 </Button>
                 <Chip
-                  style={{ height: 30 }}
+                  style={{ height: 33 }}
                   textStyle={{
                     fontSize: 14,
                     color: "#1E4274",
@@ -758,7 +758,7 @@ export class InterestsSample extends Component {
         }}
       >
         <Chip
-          style={{ height: 30 }}
+          style={{ height: 33 }}
           textStyle={{
             fontSize: 14,
             color: "#1E4274",
