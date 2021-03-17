@@ -25,6 +25,8 @@ import { IconButton, Avatar } from "react-native-paper";
 const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
+import { DrawerProfile } from "../Loader/Loader";
+
 import { Header } from "react-native-elements";
 import {
   Feather,
@@ -125,6 +127,7 @@ export default class HomeScreen extends Component {
       name: "",
       email: "",
       image: null,
+      loading: false,
     };
   }
   async componentDidMount() {
@@ -142,6 +145,7 @@ export default class HomeScreen extends Component {
       .get("/A/student/get-profilePersonal")
       .then((response) => {
         this.setState({
+          loading: true,
           // userData: response.data.response.data,
           name: response.data.response.data.name,
           email: response.data.response.data.email,
@@ -204,46 +208,64 @@ export default class HomeScreen extends Component {
           }}
         >
           <ScrollView>
-            <TouchableWithoutFeedback
-              onPress={() => {
-                this.props.navigation.navigate("App", { screen: "Profile" });
-                this.state.drawerRef.closeDrawer();
-              }}
-            >
-              <View style={{ backgroundColor: "#1E4274" }}>
-                <Avatar.Image
+            {this.state.loading === false ? (
+              <View
+                style={{
+                  backgroundColor: "#1E4274",
+
+                  padding: "10%",
+                }}
+              >
+                <DrawerProfile
                   style={{
-                    backgroundColor: "transparent",
-                    marginLeft: 20,
-                    marginTop: "18%",
+                    marginTop: "10%",
+                    paddingLeft: "-6%",
+                    paddingBottom: "-4%",
                   }}
-                  size={70}
-                  source={{ uri: this.state.image }}
                 />
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 16,
-                    fontWeight: "bold",
-                    marginLeft: 20,
-                    marginTop: 10,
-                  }}
-                >
-                  {this.state.name}
-                </Text>
-                <Text
-                  style={{
-                    color: "#fff",
-                    fontSize: 14,
-                    marginLeft: 20,
-                    // marginTop: 5,
-                    marginBottom: 20,
-                  }}
-                >
-                  {this.state.email}
-                </Text>
               </View>
-            </TouchableWithoutFeedback>
+            ) : (
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  this.props.navigation.navigate("App", { screen: "Profile" });
+                  this.state.drawerRef.closeDrawer();
+                }}
+              >
+                <View style={{ backgroundColor: "#1E4274" }}>
+                  <Avatar.Image
+                    style={{
+                      backgroundColor: "transparent",
+                      marginLeft: 20,
+                      marginTop: "18%",
+                    }}
+                    size={70}
+                    source={{ uri: this.state.image }}
+                  />
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 16,
+                      fontWeight: "bold",
+                      marginLeft: 20,
+                      marginTop: 10,
+                    }}
+                  >
+                    {this.state.name}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 14,
+                      marginLeft: 20,
+                      // marginTop: 5,
+                      marginBottom: 20,
+                    }}
+                  >
+                    {this.state.email}
+                  </Text>
+                </View>
+              </TouchableWithoutFeedback>
+            )}
             <View
               style={{
                 // backgroundColor: "#F2F2F2",
