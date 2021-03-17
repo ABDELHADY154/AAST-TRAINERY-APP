@@ -153,7 +153,7 @@ export default class Language extends Component {
               containerStyle={{
                 justifyContent: "center",
                 alignSelf: "center",
-                marginLeft: "5%",
+                // marginLeft: "5%",
               }}
               autoCompleteType="name"
               textContentType="name"
@@ -323,6 +323,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "center",
     width: "97%",
+    paddingRight: 15,
   },
   title: {
     alignSelf: "flex-start",
@@ -336,5 +337,6 @@ const styles = StyleSheet.create({
     width: "auto",
     borderRadius: 50,
     marginTop: 40,
+    justifyContent: "center",
   },
 });

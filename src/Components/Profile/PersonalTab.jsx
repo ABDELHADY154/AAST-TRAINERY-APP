@@ -622,7 +622,7 @@ class PersonalTabForm extends Component {
                   Reviews
                 </Text>
               </View>
-              <View style={{ marginBottom: -25 }}>
+              <View style={{ marginBottom: "-5%" }}>
                 <Swiper
                   height={220}
                   dotColor="#CCCCCC"

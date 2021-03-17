@@ -47,7 +47,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -63,7 +63,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -112,7 +112,7 @@ class LoginForm extends Component {
               }}
               label="Student Email"
               labelStyle={styles.labelStyle}
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             {this.state.emailErr != "" ? (
               <View
@@ -178,7 +178,7 @@ class LoginForm extends Component {
               }
               labelStyle={styles.labelPassword}
               secureTextEntry={this.state.showPass}
-              onChangeText={value => this.setState({ password: value })}
+              onChangeText={(value) => this.setState({ password: value })}
             />
             {this.state.passErr != "" ? (
               <View
@@ -213,7 +213,7 @@ class LoginForm extends Component {
               style={{
                 color: "white",
                 fontSize: 18,
-                marginTop: 20,
+                marginTop: "8%",
                 marginLeft: 10,
               }}
               onPress={() => navigation.push("Forget-password")}
@@ -229,7 +229,7 @@ class LoginForm extends Component {
               flex: 1,
               justifyContent: "flex-end",
               alignItems: "center",
-              marginBottom: 10,
+              marginBottom: "5%",
             }}
           >
             <Text
@@ -268,7 +268,9 @@ class LoginForm extends Component {
                 fontSize: 16,
                 textAlign: "center",
               }}
-              onPress={() => alert("mafeesh l kalam dah ")}
+              onPress={() =>
+                alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
+              }
             >
               Terms and conditions
             </Text>
