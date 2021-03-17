@@ -14,6 +14,7 @@ export default class Academicinfo extends Component {
     university: "",
     universityErr: "",
     department_id: "",
+    department: "",
     department_idErr: "",
     reg_no: "",
     reg_noErr: "",
@@ -21,9 +22,9 @@ export default class Academicinfo extends Component {
     periodErr: "",
     gpa: "",
     gpaErr: "",
-    start_year: "",
+    start_year: 0,
     fromErr: "",
-    end_year: "",
+    end_year: 0,
     toErr: "",
   };
   componentDidMount() {
@@ -35,6 +36,24 @@ export default class Academicinfo extends Component {
       .catch(function (error) {
         console.log(error);
       });
+    axios.get("/A/student/profile/academic").then((res) => {
+      // console.log(res.data.response.data);
+      this.setState({
+        university: res.data.response.data.university,
+        department_id: res.data.response.data.department_id,
+        reg_no: res.data.response.data.reg_no,
+        period: res.data.response.data.period,
+        gpa: res.data.response.data.gpa,
+        start_year: res.data.response.data.start_year,
+        end_year: res.data.response.data.end_year,
+      });
+    });
+    this.state.departments.forEach((element) => {
+      // console.log(element.dep_name);
+      if (this.state.department == element.id) {
+        this.setState({ department_id: element.dep_name });
+      }
+    });
   }
 
   showFromDatePicker = () => {
@@ -44,7 +63,6 @@ export default class Academicinfo extends Component {
     this.setState({ isFromDatePickerVisible: false });
   };
   handleFromConfirm = (date) => {
-    // console.log("A date has been picked: ", date);
     this.setState({ start_year: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -55,7 +73,6 @@ export default class Academicinfo extends Component {
     this.setState({ isToDatePickerVisible: false });
   };
   handleToConfirm = (date) => {
-    // console.log("A date has been picked: ", date);
     this.setState({ end_year: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -117,6 +134,7 @@ export default class Academicinfo extends Component {
   };
 
   render() {
+    console.log(this.state);
     return (
       <View style={styles.container}>
         <Feather
@@ -126,7 +144,6 @@ export default class Academicinfo extends Component {
           style={{
             alignSelf: "flex-start",
             marginLeft: "7%",
-
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -160,8 +177,8 @@ export default class Academicinfo extends Component {
                   }
                 >
                   <Picker.Item label="Choose Your University" value="0" />
-                  <Picker.Item label="AAST-CMT" value="AAST-CMT" />
-                  <Picker.Item label="AAST-CLC" value="AAST-CLC" />
+                  <Picker.Item label="AAST CMT" value="AAST CMT" />
+                  <Picker.Item label="AAST CLC" value="AAST CLC" />
                 </Picker>
               </View>
               <Text style={styles.gender}>Department</Text>
@@ -183,9 +200,12 @@ export default class Academicinfo extends Component {
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
                   selectedValue={"Alexandria"}
-                  selectedValue={this.state.department_id}
+                  selectedValue={this.state.department}
                   onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ department_id: itemValue })
+                    this.setState({
+                      department_id: itemValue,
+                      // department_id: itemIndex++,
+                    })
                   }
                 >
                   <Picker.Item label="Choose Your Department" value="0" />
@@ -315,8 +335,6 @@ export default class Academicinfo extends Component {
                   fontSize: 16,
                   fontFamily: "SF-M",
                   fontWeight: "normal",
-
-                  // marginLeft: 10,
                 }}
               >
                 Start Year

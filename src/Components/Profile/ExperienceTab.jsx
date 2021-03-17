@@ -191,7 +191,11 @@ export class ExperienceTab extends Component {
                       icon="plus-box"
                       size={30}
                       color="#1E4274"
-                      onPress={() => {}}
+                      onPress={() => {
+                        this.props.navigation.navigate("CoursesForm", {
+                          id: 0,
+                        });
+                      }}
                     />
                   )}
                 />
@@ -690,7 +694,11 @@ export class CoursesCard extends Component {
                 size={24}
                 color="#CD8930"
                 style={{ justifyContent: "flex-end" }}
-                onPress={() => {}}
+                onPress={() => {
+                  this.props.navigation.push("CoursesForm", {
+                    id: this.props.id,
+                  });
+                }}
               />
             </View>
             <View style={{ marginLeft: 18 }}>
