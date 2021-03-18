@@ -1,6 +1,13 @@
 import React, { Component, Fragment } from "react";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  ScrollView,
+} from "react-native";
 import { Button } from "galio-framework";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -87,195 +94,197 @@ class LoginForm extends Component {
     }
     return (
       <View style={styles.container}>
-        <ImageBackground
-          source={require("../../assets/Images/signInbg.png")}
-          style={styles.image}
-        >
-          <View style={styles.logoContainer}>
-            <Image
-              source={require("../../assets/Images/IconWhite.png")}
-              style={styles.logo}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Input
-              style={styles.input}
-              autoCompleteType="email"
-              textContentType="emailAddress"
-              keyboardType="email-address"
-              textAlign="left"
-              inputStyle={{ color: "white" }}
-              inputContainerStyle={{
-                borderColor: "white",
-                borderBottomWidth: 2,
-              }}
-              label="Student Email"
-              labelStyle={styles.labelStyle}
-              onChangeText={(value) => this.setState({ email: value })}
-            />
-            {this.state.emailErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "center",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: -10,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {emailError}
-                </Text>
-                <Icon
-                  name="x-octagon"
-                  type="feather"
-                  color="#F44336"
-                  size={18}
-                />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Input
-              style={styles.input}
-              textContentType="password"
-              autoCompleteType="password"
-              keyboardType="default"
-              textAlign="left"
-              label="Password"
-              inputStyle={{ color: "white", marginBottom: -10 }}
-              inputContainerStyle={{
-                borderColor: "white",
-                borderBottomWidth: 2,
-              }}
-              rightIcon={
-                this.state.showPass == false ? (
-                  <Icon
-                    name="eye-off-outline"
-                    type="ionicon"
-                    color="#ffffff"
-                    onPress={() => {
-                      this.setState({ showPass: true });
-                    }}
-                  />
-                ) : (
-                  <Icon
-                    name="eye-outline"
-                    type="ionicon"
-                    color="#ffffff"
-                    onPress={() => {
-                      this.setState({ showPass: false });
-                    }}
-                  />
-                )
-              }
-              labelStyle={styles.labelPassword}
-              secureTextEntry={this.state.showPass}
-              onChangeText={(value) => this.setState({ password: value })}
-            />
-            {this.state.passErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "center",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: -10,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {passError}
-                </Text>
-                <Icon
-                  size={18}
-                  name="x-octagon"
-                  type="feather"
-                  color="#F44336"
-                />
-              </View>
-            ) : (
-              <Text></Text>
-            )}
-            <Text
-              style={{
-                color: "white",
-                fontSize: 18,
-                marginTop: "8%",
-                marginLeft: 10,
-              }}
-              onPress={() => navigation.push("Forget-password")}
-            >
-              Forgot Password
-            </Text>
-            <Button style={styles.button} color="white" onPress={this.submit}>
-              <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign In</Text>
-            </Button>
-          </View>
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "flex-end",
-              alignItems: "center",
-              marginBottom: "5%",
-            }}
+        <ScrollView>
+          <ImageBackground
+            source={require("../../assets/Images/signInbg.png")}
+            style={styles.image}
           >
-            <Text
+            <View style={styles.logoContainer}>
+              <Image
+                source={require("../../assets/Images/IconWhite.png")}
+                style={styles.logo}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Input
+                style={styles.input}
+                autoCompleteType="email"
+                textContentType="emailAddress"
+                keyboardType="email-address"
+                textAlign="left"
+                inputStyle={{ color: "white" }}
+                inputContainerStyle={{
+                  borderColor: "white",
+                  borderBottomWidth: 2,
+                }}
+                label="Student Email"
+                labelStyle={styles.labelStyle}
+                onChangeText={(value) => this.setState({ email: value })}
+              />
+              {this.state.emailErr != "" ? (
+                <View
+                  style={{
+                    justifyContent: "space-between",
+                    alignSelf: "center",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: -10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {emailError}
+                  </Text>
+                  <Icon
+                    name="x-octagon"
+                    type="feather"
+                    color="#F44336"
+                    size={18}
+                  />
+                </View>
+              ) : (
+                <Text></Text>
+              )}
+              <Input
+                style={styles.input}
+                textContentType="password"
+                autoCompleteType="password"
+                keyboardType="default"
+                textAlign="left"
+                label="Password"
+                inputStyle={{ color: "white", marginBottom: -10 }}
+                inputContainerStyle={{
+                  borderColor: "white",
+                  borderBottomWidth: 2,
+                }}
+                rightIcon={
+                  this.state.showPass == false ? (
+                    <Icon
+                      name="eye-off-outline"
+                      type="ionicon"
+                      color="#ffffff"
+                      onPress={() => {
+                        this.setState({ showPass: true });
+                      }}
+                    />
+                  ) : (
+                    <Icon
+                      name="eye-outline"
+                      type="ionicon"
+                      color="#ffffff"
+                      onPress={() => {
+                        this.setState({ showPass: false });
+                      }}
+                    />
+                  )
+                }
+                labelStyle={styles.labelPassword}
+                secureTextEntry={this.state.showPass}
+                onChangeText={(value) => this.setState({ password: value })}
+              />
+              {this.state.passErr != "" ? (
+                <View
+                  style={{
+                    justifyContent: "space-between",
+                    alignSelf: "center",
+                    flexDirection: "row",
+                    width: "91.5%",
+                    marginTop: -10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#F44336",
+                      fontSize: 14,
+                      textAlign: "left",
+                    }}
+                  >
+                    {passError}
+                  </Text>
+                  <Icon
+                    size={18}
+                    name="x-octagon"
+                    type="feather"
+                    color="#F44336"
+                  />
+                </View>
+              ) : (
+                <Text></Text>
+              )}
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 18,
+                  marginTop: "8%",
+                  marginLeft: 10,
+                }}
+                onPress={() => navigation.push("Forget-password")}
+              >
+                Forgot Password
+              </Text>
+              <Button style={styles.button} color="white" onPress={this.submit}>
+                <Text style={{ color: "#1E4275", fontSize: 18 }}>Sign In</Text>
+              </Button>
+            </View>
+            <View
               style={{
-                color: "white",
-                fontSize: 16,
-                fontWeight: "500",
-                textAlign: "center",
-                marginBottom: 3,
+                flex: 1,
+                justifyContent: "flex-end",
+                alignItems: "center",
+                marginBottom: "5%",
               }}
             >
-              Don't have an account?{"  "}
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  fontWeight: "500",
+                  textAlign: "center",
+                  marginBottom: 3,
+                }}
+              >
+                Don't have an account?{"  "}
+                <Text
+                  style={{
+                    color: "#CD8930",
+                  }}
+                  onPress={() => navigation.push("Register")}
+                >
+                  Sign Up
+                </Text>
+              </Text>
+              <Text
+                style={{
+                  color: "white",
+                  fontSize: 16,
+                  textAlign: "center",
+                  fontWeight: "500",
+                }}
+              >
+                By continuing you agree to our
+              </Text>
               <Text
                 style={{
                   color: "#CD8930",
+                  fontWeight: "500",
+                  fontSize: 16,
+                  textAlign: "center",
                 }}
-                onPress={() => navigation.push("Register")}
+                onPress={() =>
+                  alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
+                }
               >
-                Sign Up
+                Terms and conditions
               </Text>
-            </Text>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 16,
-                textAlign: "center",
-                fontWeight: "500",
-              }}
-            >
-              By continuing you agree to our
-            </Text>
-            <Text
-              style={{
-                color: "#CD8930",
-                fontWeight: "500",
-                fontSize: 16,
-                textAlign: "center",
-              }}
-              onPress={() =>
-                alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
-              }
-            >
-              Terms and conditions
-            </Text>
-          </View>
-        </ImageBackground>
+            </View>
+          </ImageBackground>
+        </ScrollView>
         <StatusBar style="light" />
       </View>
     );
