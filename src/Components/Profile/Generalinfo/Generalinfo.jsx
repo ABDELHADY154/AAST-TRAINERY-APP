@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "100%",
+    width: "97%",
   },
   title: {
     alignSelf: "flex-start",
