@@ -42,7 +42,7 @@ export default class ExpInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     // console.log("A date has been picked: ", date);
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
@@ -53,7 +53,7 @@ export default class ExpInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     // console.log("A date has been picked: ", date);
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
@@ -68,13 +68,13 @@ export default class ExpInfoForm extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -108,7 +108,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -117,7 +117,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data);
         if (error.response.data.errors.experience_type) {
           this.setState({
@@ -186,7 +186,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -195,7 +195,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.experience_type) {
           this.setState({
             expErr: error.response.data.errors.experience_type,
@@ -238,19 +238,19 @@ export default class ExpInfoForm extends Component {
     axios
 
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
       await axios
         .get(`/A/student/profile/experience/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             experience_type: res.data.response.data.experience_type,
             job_title: res.data.response.data.job_title,
@@ -266,7 +266,7 @@ export default class ExpInfoForm extends Component {
 
           // console.log(res.data.response.data);
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.experience_type) {
             this.setState({
               expErr: error.response.data.errors.experience_type,
@@ -315,7 +315,7 @@ export default class ExpInfoForm extends Component {
   handleDelete = async () => {
     await axios
       .delete(`/A/student/profile/experience/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -324,7 +324,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -395,7 +395,7 @@ export default class ExpInfoForm extends Component {
                 itemStyle={{ backgroundColor: "#fff" }}
                 dropdownIconColor="#1E4275"
                 selectedValue={this.state.experience_type}
-                onValueChange={value =>
+                onValueChange={(value) =>
                   this.setState({ experience_type: value })
                 }
               >
@@ -404,30 +404,18 @@ export default class ExpInfoForm extends Component {
                 <Picker.Item label="Volunteer" value="Volunteer" />
               </Picker>
             </View>
-            {this.state.expErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  marginLeft: "2%",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: 10,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.expErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "1%",
+                marginLeft: "3%",
+                marginBottom: "-4%",
+              }}
+            >
+              {this.state.expErr ? this.state.expErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -452,32 +440,20 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1%",
               }}
               value={this.state.job_title}
-              onChangeText={value => this.setState({ job_title: value })}
+              onChangeText={(value) => this.setState({ job_title: value })}
             />
-            {this.state.jobErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  marginLeft: "2%",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: -15,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.jobErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "0%",
+              }}
+            >
+              {this.state.jobErr ? this.state.jobErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -501,33 +477,20 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1%",
               }}
               value={this.state.company_name}
-              onChangeText={value => this.setState({ company_name: value })}
+              onChangeText={(value) => this.setState({ company_name: value })}
             />
-            {this.state.companyErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  marginLeft: "2%",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginTop: -15,
-                  marginBottom: 10,
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.companyErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.companyErr ? this.state.companyErr : null}
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -550,7 +513,7 @@ export default class ExpInfoForm extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "112%",
+                  width: "114%",
                   alignSelf: "flex-start",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
@@ -559,7 +522,7 @@ export default class ExpInfoForm extends Component {
                   borderBottomWidth: 2,
                   borderRadius: 0,
                   alignSelf: "flex-start",
-                  marginLeft: "-4.5%",
+                  marginLeft: "-6%",
                 }}
               >
                 <Picker
@@ -587,30 +550,18 @@ export default class ExpInfoForm extends Component {
                   })}
                 </Picker>
               </View>
-              {this.state.countryErr != "" ? (
-                <View
-                  style={{
-                    justifyContent: "space-between",
-                    marginLeft: "-3%",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 5,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.countryErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "1%",
+                  marginLeft: "-5%",
+                  marginBottom: "-2%",
+                }}
+              >
+                {this.state.countryErr ? this.state.countryErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -626,7 +577,7 @@ export default class ExpInfoForm extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "113%",
+                  width: "114%",
                   alignSelf: "flex-start",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
@@ -635,7 +586,7 @@ export default class ExpInfoForm extends Component {
                   borderBottomWidth: 2,
                   borderRadius: 0,
                   alignSelf: "flex-start",
-                  marginLeft: "-5.5%",
+                  marginLeft: "-6%",
                 }}
               >
                 <Picker
@@ -665,31 +616,18 @@ export default class ExpInfoForm extends Component {
                   })}
                 </Picker>
               </View>
-              {this.state.cityErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.cityErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "1%",
+                  marginLeft: "-5%",
+                  marginBottom: "-2%",
+                }}
+              >
+                {this.state.cityErr ? this.state.cityErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -747,31 +685,18 @@ export default class ExpInfoForm extends Component {
                   </Button>
                 </View>
               </View>
-              {this.state.fromErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.fromErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "0%",
+                  marginLeft: "-5%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.fromErr ? this.state.fromErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -827,31 +752,18 @@ export default class ExpInfoForm extends Component {
                   </Button>
                 </View>
               </View>
-              {this.state.toErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.toErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "0%",
+                  marginLeft: "-5%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.toErr ? this.state.toErr : null}
+              </Text>
               <Input
                 style={styles.input}
                 textContentType="name"
@@ -877,7 +789,7 @@ export default class ExpInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={value => this.setState({ cred_url: value })}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
               <View
                 style={{

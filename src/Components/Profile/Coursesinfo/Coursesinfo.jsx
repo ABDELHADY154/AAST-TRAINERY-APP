@@ -30,7 +30,7 @@ export default class CoursesInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -40,7 +40,7 @@ export default class CoursesInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -68,7 +68,7 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -76,7 +76,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           console.log(error.response.data.errors);
           if (error.response.data.errors.course_name) {
@@ -128,7 +128,7 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -137,7 +137,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response);
         if (error.response) {
           console.log(error.response.data.errors);
@@ -169,7 +169,7 @@ export default class CoursesInfoForm extends Component {
     if (this.props.route.params.id > 0) {
       await axios
         .get(`/A/student/profile/course/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             course_name: res.data.response.data.course_name,
             course_provider: res.data.response.data.course_provider,
@@ -179,7 +179,7 @@ export default class CoursesInfoForm extends Component {
             // cred: res.data.response.data.cred,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
     }
@@ -187,7 +187,7 @@ export default class CoursesInfoForm extends Component {
   handleDelete = async () => {
     await axios
       .delete(`/A/student/profile/course/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -196,7 +196,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -219,14 +219,14 @@ export default class CoursesInfoForm extends Component {
           style={{
             alignSelf: "flex-start",
             marginLeft: "6%",
-            marginTop: "5%",
+            marginTop: 45,
             marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Courses</Text>
 
-        <View style={{ width: "93%" }}>
+        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
           <ScrollView style={styles.scrollView}>
             <Input
               containerStyle={{
@@ -253,7 +253,7 @@ export default class CoursesInfoForm extends Component {
                 marginTop: 15,
               }}
               value={this.state.course_name}
-              onChangeText={value => this.setState({ course_name: value })}
+              onChangeText={(value) => this.setState({ course_name: value })}
             />
             {this.state.course_nameErr != "" ? (
               <View
@@ -262,7 +262,7 @@ export default class CoursesInfoForm extends Component {
                   alignSelf: "flex-start",
                   flexDirection: "row",
                   width: "91.5%",
-                  marginLeft: "3%",
+                  marginLeft: "5%",
                   marginTop: "-5%",
                   marginBottom: "6%",
                 }}
@@ -304,7 +304,9 @@ export default class CoursesInfoForm extends Component {
                 marginBottom: -10,
               }}
               value={this.state.course_provider}
-              onChangeText={value => this.setState({ course_provider: value })}
+              onChangeText={(value) =>
+                this.setState({ course_provider: value })
+              }
             />
             {this.state.course_providerErr != "" ? (
               <View
@@ -313,7 +315,7 @@ export default class CoursesInfoForm extends Component {
                   alignSelf: "flex-start",
                   flexDirection: "row",
                   width: "91.5%",
-                  marginLeft: "3%",
+                  marginLeft: "5%",
                   marginTop: "-5%",
                   marginBottom: "6%",
                 }}
@@ -389,29 +391,15 @@ export default class CoursesInfoForm extends Component {
                   </Button>
                 </View>
               </View>
-              <Text
-                style={{
-                  color: "#1E4274",
-                  fontSize: 16,
-                  fontFamily: "SF-M",
-                  fontWeight: "normal",
-                  marginTop: 10,
-                  marginLeft: "-2%",
-                  marginBottom: -10,
-                }}
-              >
-                To
-              </Text>
               {this.state.fromErr != "" ? (
                 <View
                   style={{
-                    marginLeft: "-4%",
-
+                    marginLeft: "-2%",
                     justifyContent: "space-between",
                     alignSelf: "flex-start",
                     flexDirection: "row",
                     width: "91.5%",
-                    marginTop: 10,
+                    marginTop: "0%",
                   }}
                 >
                   <Text
@@ -427,6 +415,20 @@ export default class CoursesInfoForm extends Component {
               ) : (
                 <Text></Text>
               )}
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 16,
+                  fontFamily: "SF-M",
+                  fontWeight: "normal",
+                  marginTop: 10,
+                  marginLeft: "-2%",
+                  marginBottom: -10,
+                }}
+              >
+                To
+              </Text>
+
               <View>
                 <View>
                   <DateTimePickerModal
@@ -472,13 +474,12 @@ export default class CoursesInfoForm extends Component {
               {this.state.toErr != "" ? (
                 <View
                   style={{
-                    marginLeft: "-4%",
+                    marginLeft: "-2%",
 
                     justifyContent: "space-between",
                     alignSelf: "flex-start",
                     flexDirection: "row",
                     width: "91.5%",
-                    marginTop: 10,
                   }}
                 >
                   <Text
@@ -519,7 +520,7 @@ export default class CoursesInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={value => this.setState({ cred_url: value })}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
               <View
                 style={{

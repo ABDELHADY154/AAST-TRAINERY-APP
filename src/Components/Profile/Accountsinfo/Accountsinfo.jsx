@@ -36,12 +36,12 @@ export default class AccountInfoForm extends Component {
     };
     await axios
       .post("/A/student/profile/account", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
       })
-      .catch(error => {
+      .catch((error) => {
         // console.log(error.response.data);
         if (error.response.data.errors.website) {
           this.setState({
@@ -83,7 +83,7 @@ export default class AccountInfoForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/profile/account")
-      .then(res => {
+      .then((res) => {
         this.setState({
           website: res.data.response.data[0].website,
           facebook: res.data.response.data[0].facebook,
@@ -94,7 +94,7 @@ export default class AccountInfoForm extends Component {
           github: res.data.response.data[0].github,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -133,34 +133,21 @@ export default class AccountInfoForm extends Component {
               label="Website"
               labelStyle={styles.labelStyle}
               value={this.state.website}
-              errorMessage={this.state.webErr}
-              onChangeText={value => this.setState({ website: value })}
+              // errorMessage={this.state.webErr}
+              onChangeText={(value) => this.setState({ website: value })}
             />
-            {/* {this.state.websiteErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.websiteErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.webErr ? this.state.webErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -181,35 +168,22 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
                 marginBottom: -10,
               }}
-              errorMessage={this.state.facebookErr}
+              // errorMessage={this.state.facebookErr}
               value={this.state.facebook}
-              onChangeText={value => this.setState({ facebook: value })}
+              onChangeText={(value) => this.setState({ facebook: value })}
             />
-            {/* {this.state.facebookErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.facebookErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.facebookErr ? this.state.facebookErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -231,34 +205,21 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.instagram}
-              errorMessage={this.state.instagramErr}
-              onChangeText={value => this.setState({ instagram: value })}
+              // errorMessage={this.state.instagramErr}
+              onChangeText={(value) => this.setState({ instagram: value })}
             />
-            {/* {this.state.instagramErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.instagramErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.instagramErr ? this.state.instagramErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -280,34 +241,21 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.youtube}
-              errorMessage={this.state.youtubeErr}
-              onChangeText={value => this.setState({ youtube: value })}
+              // errorMessage={this.state.youtubeErr}
+              onChangeText={(value) => this.setState({ youtube: value })}
             />
-            {/* {this.state.youtubeErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.youtubeErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.youtubeErr ? this.state.youtubeErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -329,34 +277,22 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.linkedin}
-              errorMessage={this.state.linkedinErr}
-              onChangeText={value => this.setState({ linkedin: value })}
+              // errorMessage={this.state.linkedinErr}
+              onChangeText={(value) => this.setState({ linkedin: value })}
             />
-            {/* {this.state.linkedinErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.linkedinErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.linkedinErr ? this.state.linkedinErr : null}
+            </Text>
+
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -378,34 +314,21 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.behance}
-              errorMessage={this.state.behanceErr}
-              onChangeText={value => this.setState({ behance: value })}
+              // errorMessage={this.state.behanceErr}
+              onChangeText={(value) => this.setState({ behance: value })}
             />
-            {/* {this.state.behanceErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.behanceErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.behanceErr ? this.state.behanceErr : null}
+            </Text>
             <Input
               style={styles.input}
               autoCompleteType="name"
@@ -427,34 +350,21 @@ export default class AccountInfoForm extends Component {
                 marginTop: -10,
               }}
               value={this.state.github}
-              errorMessage={this.state.githubErr}
-              onChangeText={value => this.setState({ github: value })}
+              // errorMessage={this.state.githubErr}
+              onChangeText={(value) => this.setState({ github: value })}
             />
-            {/* {this.state.githubErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.githubErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )} */}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.githubErr ? this.state.githubErr : null}
+            </Text>
             <Button
               style={styles.button}
               color="#1E4275"

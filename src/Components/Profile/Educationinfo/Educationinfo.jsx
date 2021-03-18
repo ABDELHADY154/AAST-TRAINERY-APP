@@ -38,8 +38,6 @@ export default class EduInfoForm extends Component {
     this.setState({ isFromDatePickerVisible: false });
   };
   handleFromConfirm = (date) => {
-
-
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -50,7 +48,6 @@ export default class EduInfoForm extends Component {
     this.setState({ isToDatePickerVisible: false });
   };
   handleToConfirm = (date) => {
-
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -100,7 +97,6 @@ export default class EduInfoForm extends Component {
       headers: { "Content-Type": "multipart/form-data" },
     })
       .then((res) => {
-
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -134,7 +130,6 @@ export default class EduInfoForm extends Component {
             toErr: error.response.data.errors.to,
           });
         }
-
       });
   };
 
@@ -196,7 +191,6 @@ export default class EduInfoForm extends Component {
             toErr: error.response.data.errors.to,
           });
         }
-
       });
   };
   async componentDidMount() {
@@ -254,7 +248,6 @@ export default class EduInfoForm extends Component {
               toErr: error.response.data.errors.to,
             });
           }
-
         });
     }
   }
@@ -322,31 +315,18 @@ export default class EduInfoForm extends Component {
               value={this.state.SchoolName}
               onChangeText={(value) => this.setState({ SchoolName: value })}
             />
-            {this.state.schoolErr != "" ? (
-              <View
-                style={{
-                  justifyContent: "space-between",
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  width: "91.5%",
-                  marginLeft: "3%",
-                  marginTop: "-5%",
-                  marginBottom: "6%",
-                }}
-              >
-                <Text
-                  style={{
-                    color: "#F44336",
-                    fontSize: 14,
-                    textAlign: "left",
-                  }}
-                >
-                  {this.state.schoolErr}
-                </Text>
-              </View>
-            ) : (
-              <Text></Text>
-            )}
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.schoolErr ? this.state.schoolErr : null}
+            </Text>
             <View
               style={{
                 flex: 1,
@@ -406,30 +386,18 @@ export default class EduInfoForm extends Component {
                   })}
                 </Picker>
               </View>
-              {this.state.countryErr != "" ? (
-                <View
-                  style={{
-                    justifyContent: "space-between",
-                    marginLeft: "-4%",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.countryErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "2%",
+                  marginLeft: "-4%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.countryErr ? this.state.countryErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -445,7 +413,7 @@ export default class EduInfoForm extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "113%",
+                  width: "112%",
                   alignSelf: "flex-start",
                   // marginTop: 10,
                   borderColor: "#1E4275",
@@ -456,7 +424,7 @@ export default class EduInfoForm extends Component {
                   borderRadius: 0,
                   // marginBottom: 10,
                   alignSelf: "flex-start",
-                  marginLeft: "-5.5%",
+                  marginLeft: "-4.5%",
                 }}
               >
                 <Picker
@@ -486,31 +454,18 @@ export default class EduInfoForm extends Component {
                   })}
                 </Picker>
               </View>
-              {this.state.cityErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.cityErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "1%",
+                  marginLeft: "-4%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.cityErr ? this.state.cityErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -568,31 +523,18 @@ export default class EduInfoForm extends Component {
                   </Button>
                 </View>
               </View>
-              {this.state.fromErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.fromErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-2%",
+                  marginLeft: "-4%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.fromErr ? this.state.fromErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -648,31 +590,18 @@ export default class EduInfoForm extends Component {
                   </Button>
                 </View>
               </View>
-              {this.state.toErr != "" ? (
-                <View
-                  style={{
-                    marginLeft: "-4%",
-
-                    justifyContent: "space-between",
-                    alignSelf: "flex-start",
-                    flexDirection: "row",
-                    width: "91.5%",
-                    marginTop: 10,
-                  }}
-                >
-                  <Text
-                    style={{
-                      color: "#F44336",
-                      fontSize: 14,
-                      textAlign: "left",
-                    }}
-                  >
-                    {this.state.toErr}
-                  </Text>
-                </View>
-              ) : (
-                <Text></Text>
-              )}
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-3%",
+                  marginLeft: "-4%",
+                  marginBottom: "-4%",
+                }}
+              >
+                {this.state.toErr ? this.state.toErr : null}
+              </Text>
               <Input
                 style={styles.input}
                 textContentType="name"

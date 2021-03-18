@@ -28,17 +28,30 @@ class GeneralInfo extends Component {
     super();
     this.state = {
       date: "",
+      dateErr: "",
+
       mode: "date",
       show: false,
       countriesList: {},
       citiesList: {},
       country: "",
+      countryErr: "",
+
       city: "",
+      cityErr: "",
+
       studentName: "",
+      studentNameErr: "",
       gender: "",
+      genderErr: "",
+
       checked: "",
       nationality: "",
+      nationalityErr: "",
+
       phoneNumber: "",
+      phoneNumberErr: "",
+
       code: null,
       isDatePickerVisible: false,
     };
@@ -49,7 +62,7 @@ class GeneralInfo extends Component {
   hideDatePicker = () => {
     this.setState({ isDatePickerVisible: false });
   };
-  handleConfirm = date => {
+  handleConfirm = (date) => {
     this.setState({ date: date.toISOString().split("T")[0] });
     this.hideDatePicker();
   };
@@ -64,51 +77,68 @@ class GeneralInfo extends Component {
     }
   };
 
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
   handleSubmit = async () => {
     const data = {
-      name: this.state.studentName,
-      phone_number: this.state.phoneNumber,
-      city: this.state.city,
-      gender: this.state.gender,
-      country: this.state.country,
-      nationality: this.state.nationality,
+      name: this.state.studentName, //
+      phone_number: this.state.phoneNumber, //
+      city: this.state.city, //
+      gender: this.state.gender, //
+      country: this.state.country, //
+      nationality: this.state.nationality, //
       date_of_birth: this.state.date,
     };
     await axios
       .put("/A/student/profile/personal", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", { screen: "Profile" });
       })
-      .catch(err => {
-        console.log(err.response);
+      .catch((error) => {
+        console.log(error.response.data);
+
+        if (error.response.data.errors.phone_number) {
+          this.setState({
+            phoneNumberErr: error.response.data.errors.phone_number,
+          });
+        }
+        if (error.response.data.errors.nationality) {
+          this.setState({
+            nationalityErr: error.response.data.errors.nationality,
+          });
+        }
+
+        if (error.response.data.errors.name) {
+          this.setState({
+            studentNameErr: error.response.data.errors.name,
+          });
+        }
       });
   };
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then(res => {
+      .then((res) => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -121,7 +151,7 @@ class GeneralInfo extends Component {
         });
       })
 
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   }
@@ -159,8 +189,20 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={value => this.setState({ studentName: value })}
+              onChangeText={(value) => this.setState({ studentName: value })}
             />
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.studentNameErr ? this.state.studentNameErr : null}
+            </Text>
             <Text
               style={{
                 color: "#1E4274",
@@ -176,6 +218,7 @@ class GeneralInfo extends Component {
             <View
               style={{
                 flexDirection: "row",
+                marginLeft: "1%",
               }}
             >
               <RadioButton
@@ -185,13 +228,13 @@ class GeneralInfo extends Component {
                   this.state.checked === "first" ? "checked" : "unchecked"
                 }
                 color="#1E4274"
-                // style={{ borderRadius: 5 }}
                 onPress={() =>
                   this.setState({ checked: "first", gender: "male" })
                 }
               />
               <Text
                 style={{
+                  marginLeft: "1%",
                   color: "#1E4274",
                   marginRight: "10%",
                   marginTop: 8,
@@ -298,8 +341,21 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={value => this.setState({ nationality: value })}
+                onChangeText={(value) => this.setState({ nationality: value })}
               />
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-7%",
+                  marginLeft: "-5%",
+                  marginBottom: "2%",
+                }}
+              >
+                {this.state.nationalityErr ? this.state.nationalityErr : null}
+              </Text>
+
               <Text
                 style={{
                   color: "#1E4274",
@@ -428,8 +484,20 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -27,
                 }}
-                onChangeText={value => this.setState({ phoneNumber: value })}
+                onChangeText={(value) => this.setState({ phoneNumber: value })}
               />
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-7%",
+                  marginLeft: "-6%",
+                  marginBottom: "2%",
+                }}
+              >
+                {this.state.phoneNumberErr ? this.state.phoneNumberErr : null}
+              </Text>
             </View>
             <Button
               style={styles.button}

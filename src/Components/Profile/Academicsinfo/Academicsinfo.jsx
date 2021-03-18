@@ -30,7 +30,7 @@ export default class Academicinfo extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -38,7 +38,7 @@ export default class Academicinfo extends Component {
       });
     axios
       .get("/A/student/profile/academic")
-      .then(res => {
+      .then((res) => {
         this.setState({
           university: res.data.response.data.university,
           department: res.data.response.data.department,
@@ -48,13 +48,13 @@ export default class Academicinfo extends Component {
           start_year: res.data.response.data.start_year,
           end_year: res.data.response.data.end_year,
         });
-        this.state.departments.forEach(element => {
+        this.state.departments.forEach((element) => {
           if (this.state.department == element.dep_name) {
             this.setState({ department_id: element.id });
           }
         });
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   }
@@ -65,7 +65,7 @@ export default class Academicinfo extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ start_year: date.getFullYear() });
 
     this.hideFromDatePicker();
@@ -76,7 +76,7 @@ export default class Academicinfo extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ end_year: date.getFullYear() });
     this.hideToDatePicker();
   };
@@ -92,13 +92,13 @@ export default class Academicinfo extends Component {
     };
     await axios
       .put("/A/student/profile/academic", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
         console.log(res.response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.reg_no) {
           this.setState({
             reg_noErr: error.response.data.errors.reg_no,
@@ -167,14 +167,18 @@ export default class Academicinfo extends Component {
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
                   selectedValue={this.state.university}
-                  onValueChange={value => this.setState({ university: value })}
+                  onValueChange={(value) =>
+                    this.setState({ university: value })
+                  }
                 >
                   <Picker.Item label="Choose Your University" />
                   <Picker.Item label="AAST CMT" value="AAST CMT" />
                   <Picker.Item label="AAST CLC" value="AAST CLC" />
                 </Picker>
               </View>
-              <Text style={{ color: "red" }}>
+              <Text
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
+              >
                 {this.state.universityErr ? this.state.universityErr : null}
               </Text>
               <Text style={styles.gender}>Department</Text>
@@ -203,7 +207,7 @@ export default class Academicinfo extends Component {
                   }
                 >
                   <Picker.Item label="Choose Your Department" value="0" />
-                  {this.state.departments.map(key => {
+                  {this.state.departments.map((key) => {
                     return (
                       <Picker.Item
                         label={key.dep_name}
@@ -214,7 +218,9 @@ export default class Academicinfo extends Component {
                   })}
                 </Picker>
               </View>
-              <Text style={{ color: "red" }}>
+              <Text
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
+              >
                 {this.state.department_idErr
                   ? this.state.department_idErr
                   : null}
@@ -251,11 +257,20 @@ export default class Academicinfo extends Component {
                   alignSelf: "flex-start",
                   marginTop: 15,
                 }}
-                errorMessage={this.state.reg_noErr}
+                // errorMessage={this.state.reg_noErr}
                 value={this.state.reg_no}
-                onChangeText={value => this.setState({ reg_no: value })}
+                onChangeText={(value) => this.setState({ reg_no: value })}
               />
-
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-7%",
+                }}
+              >
+                {this.state.reg_noErr ? this.state.reg_noErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -299,6 +314,16 @@ export default class Academicinfo extends Component {
                   <Picker.Item label="  8" value="8" />
                 </Picker>
               </View>
+              {/* <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  // marginTop: "-7%",
+                }}
+              >
+                {this.state.gpaErr ? this.state.gpaErr : null}
+              </Text> */}
               <Input
                 // style={styles.input}
                 keyboardType="number-pad"
@@ -320,7 +345,7 @@ export default class Academicinfo extends Component {
                   fontSize: 16,
                   fontFamily: "SF-M",
                   fontWeight: "normal",
-                  marginBottom: -10,
+                  marginBottom: -7,
                   alignContent: "flex-start",
                   alignItems: "flex-start",
                   justifyContent: "flex-start",
@@ -329,9 +354,19 @@ export default class Academicinfo extends Component {
                   marginLeft: "-3%",
                 }}
                 value={this.state.gpa}
-                errorMessage={this.state.gpaErr}
-                onChangeText={value => this.setState({ gpa: value })}
+                // errorMessage={this.state.gpaErr}
+                onChangeText={(value) => this.setState({ gpa: value })}
               />
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-7%",
+                }}
+              >
+                {this.state.gpaErr ? this.state.gpaErr : null}
+              </Text>
               <Text
                 style={{
                   color: "#1E4274",
@@ -378,6 +413,7 @@ export default class Academicinfo extends Component {
                     style={{
                       alignSelf: "center",
                       color: "#1E4274",
+                      marginLeft: "-5%",
                     }}
                   >
                     {this.state.start_year}
@@ -455,6 +491,7 @@ export default class Academicinfo extends Component {
                     style={{
                       alignSelf: "center",
                       color: "#1E4274",
+                      marginLeft: "-5%",
                     }}
                   >
                     {this.state.end_year}
