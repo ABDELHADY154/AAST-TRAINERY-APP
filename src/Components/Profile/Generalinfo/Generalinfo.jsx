@@ -337,8 +337,8 @@ class GeneralInfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
-                  marginLeft: "-10%",
-                  width: "119%",
+                  marginLeft: "-9%",
+                  width: "118%",
                 }}
                 value={this.state.nationality}
                 label="Nationality"
@@ -373,7 +373,7 @@ class GeneralInfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 0,
-                  marginLeft: -16,
+                  marginLeft: "-4.9%",
                 }}
               >
                 Country
@@ -425,7 +425,7 @@ class GeneralInfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 15,
-                  marginLeft: "-4.5%",
+                  marginLeft: "-4.9%",
                 }}
               >
                 City
