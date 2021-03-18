@@ -138,7 +138,7 @@ export default class Academicinfo extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "7%",
+            marginLeft: "4%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -150,7 +150,22 @@ export default class Academicinfo extends Component {
           <ScrollView style={styles.scrollView}>
             <View style={styles.inputContainer}>
               <Text style={styles.gender}>University</Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  width: "101%",
+                  justifyContent: "flex-start",
+
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -182,7 +197,22 @@ export default class Academicinfo extends Component {
                 {this.state.universityErr ? this.state.universityErr : null}
               </Text>
               <Text style={styles.gender}>Department</Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  width: "101%",
+                  justifyContent: "flex-start",
+
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -241,7 +271,7 @@ export default class Academicinfo extends Component {
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
                   marginLeft: "-3%",
-                  width: "106%",
+                  width: "107.05%",
                 }}
                 label="Registration Number"
                 labelStyle={{
@@ -281,7 +311,22 @@ export default class Academicinfo extends Component {
               >
                 Term Period
               </Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  width: "101.5%",
+                  justifyContent: "flex-start",
+                  marginLeft: "-0.5%",
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <Picker
                   mode="dialog"
                   style={{
@@ -325,10 +370,9 @@ export default class Academicinfo extends Component {
                 {this.state.gpaErr ? this.state.gpaErr : null}
               </Text> */}
               <Input
-                // style={styles.input}
                 keyboardType="number-pad"
                 textAlign="left"
-                inputStyle={{ color: "#1E4275" }}
+                inputStyle={{ color: "#1E4275", marginLeft: "1%" }}
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
@@ -337,7 +381,7 @@ export default class Academicinfo extends Component {
                   alignContent: "flex-start",
                   justifyContent: "flex-start",
                   marginLeft: "-4%",
-                  width: "107%",
+                  width: "108%",
                 }}
                 label="GPA"
                 labelStyle={{
@@ -377,7 +421,22 @@ export default class Academicinfo extends Component {
               >
                 Start Year
               </Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  width: "102%",
+                  justifyContent: "flex-start",
+                  marginLeft: "-1%",
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <DateTimePickerModal
                   isVisible={this.state.isFromDatePickerVisible}
                   mode="date"
@@ -457,7 +516,22 @@ export default class Academicinfo extends Component {
               >
                 End Year
               </Text>
-              <View style={styles.boxContainer}>
+              <View
+                style={{
+                  alignContent: "flex-start",
+                  backgroundColor: "transparent",
+                  width: "103%",
+                  justifyContent: "flex-start",
+                  marginLeft: "-1.5%",
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                }}
+              >
                 <DateTimePickerModal
                   isVisible={this.state.isToDatePickerVisible}
                   mode="date"
@@ -552,7 +626,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9.5%",
+    marginLeft: "6.5%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -561,7 +635,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "90%",
+    width: "93.5%",
     alignSelf: "center",
   },
   labelStyle: {
