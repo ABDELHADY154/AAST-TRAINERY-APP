@@ -164,8 +164,7 @@ class GeneralInfo extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
-            // flex: 1,
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -176,7 +175,11 @@ class GeneralInfo extends Component {
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
             <Input
-              style={styles.input}
+              style={{
+                backgroundColor: "transparent",
+                height: 35,
+                marginLeft: "1%",
+              }}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -184,7 +187,9 @@ class GeneralInfo extends Component {
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
                 borderColor: "#1E4274",
+                marginLeft: "-2%",
                 borderBottomWidth: 2,
+                width: "105%",
               }}
               label="Full Name"
               labelStyle={styles.labelStyle}
@@ -210,7 +215,7 @@ class GeneralInfo extends Component {
                 fontFamily: "SF-M",
                 fontWeight: "normal",
                 marginBottom: 5,
-                marginLeft: 10,
+                marginLeft: "1%",
               }}
             >
               Gender
@@ -218,7 +223,7 @@ class GeneralInfo extends Component {
             <View
               style={{
                 flexDirection: "row",
-                marginLeft: "1%",
+                marginLeft: "-1%",
               }}
             >
               <RadioButton
@@ -270,8 +275,8 @@ class GeneralInfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 15,
-                  marginLeft: -15,
                   marginBottom: -20,
+                  marginLeft: "-4%",
                 }}
               >
                 Date Of Birth
@@ -299,7 +304,7 @@ class GeneralInfo extends Component {
                     onPress={this.showDatePicker}
                     color="transparent"
                     style={{
-                      width: "108%",
+                      width: "110%",
                       marginLeft: -15,
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
@@ -311,6 +316,7 @@ class GeneralInfo extends Component {
                     <Text
                       style={{
                         color: "#1E4274",
+                        textAlign: "center",
                       }}
                     >
                       {this.state.date}
@@ -319,7 +325,11 @@ class GeneralInfo extends Component {
                 </View>
               </View>
               <Input
-                style={styles.input}
+                style={{
+                  backgroundColor: "transparent",
+                  height: 35,
+                  marginLeft: "2%",
+                }}
                 textContentType="name"
                 keyboardType="default"
                 textAlign="left"
@@ -327,8 +337,8 @@ class GeneralInfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
-                  marginLeft: -25,
-                  width: "115%",
+                  marginLeft: "-10%",
+                  width: "119%",
                 }}
                 value={this.state.nationality}
                 label="Nationality"
@@ -371,8 +381,8 @@ class GeneralInfo extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "108%",
-                  marginLeft: -17,
+                  width: "118%",
+                  marginLeft: "-13%",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
@@ -386,6 +396,7 @@ class GeneralInfo extends Component {
                   mode="dialog"
                   style={{
                     color: "#1E4275",
+                    marginLeft: "5%",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
@@ -422,8 +433,8 @@ class GeneralInfo extends Component {
               <View
                 style={{
                   backgroundColor: "transparent",
-                  width: "107.5%",
-                  marginLeft: -17,
+                  width: "118%",
+                  marginLeft: "-13%",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
@@ -437,6 +448,7 @@ class GeneralInfo extends Component {
                   mode="dialog"
                   style={{
                     color: "#1E4275",
+                    marginLeft: "5%",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
@@ -469,8 +481,8 @@ class GeneralInfo extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4275",
                   borderBottomWidth: 2,
-                  marginLeft: -29,
-                  width: "116%",
+                  marginLeft: "-16%",
+                  width: "125%",
                 }}
                 label="Phone Number"
                 textContentType="telephoneNumber"
@@ -522,11 +534,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.4%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -535,7 +547,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "87%",
+    width: "91%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -545,10 +557,12 @@ const styles = StyleSheet.create({
     fontWeight: "normal",
     marginBottom: -10,
     marginTop: 15,
+    marginLeft: "-2%",
   },
   input: {
     backgroundColor: "transparent",
     height: 35,
+    marginLeft: "6%",
   },
   gender: {
     color: "#1E4274",
