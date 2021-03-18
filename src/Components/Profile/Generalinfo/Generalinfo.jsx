@@ -425,7 +425,7 @@ class GeneralInfo extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 15,
-                  marginLeft: -15,
+                  marginLeft: "-4.5%",
                 }}
               >
                 City
@@ -494,7 +494,7 @@ class GeneralInfo extends Component {
                   fontWeight: "normal",
                   marginBottom: -5,
                   marginTop: 15,
-                  marginLeft: -27,
+                  marginLeft: "-8%",
                 }}
                 onChangeText={(value) => this.setState({ phoneNumber: value })}
               />
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "90%",
+    width: "100%",
   },
   title: {
     alignSelf: "flex-start",
