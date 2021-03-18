@@ -131,21 +131,20 @@ export default class HomeScreen extends Component {
     };
   }
   async componentDidMount() {
-    await axios
-      .get("/A/student/get-profilePersonal")
-      .then(response => {
-        this.setState({
-          loading: false,
-          // userData: response.data.response.data,
-          name: response.data.response.data.name,
-          email: response.data.response.data.email,
-          image: response.data.response.data.image,
-        });
-        console.log(this.state);
-      })
-      .catch(function (error) {
-        console.log(error.response.data.errors);
-      });
+    // await axios
+    //   .get("/A/student/get-profilePersonal")
+    //   .then(response => {
+    //     this.setState({
+    //       loading: false,
+    //       // userData: response.data.response.data,
+    //       name: response.data.response.data.name,
+    //       email: response.data.response.data.email,
+    //       image: response.data.response.data.image,
+    //     });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error.response.data.errors);
+    //   });
   }
   ExploreScreen = props => {
     const navigation = useNavigation();
@@ -173,6 +172,11 @@ export default class HomeScreen extends Component {
   };
   ProfileScreen = props => {
     const navigation = useNavigation();
+    const getUserData = data => {
+      this.setState({
+        userData: data,
+      });
+    };
     useFocusEffect(
       useCallback(() => {
         const stackNavigator = navigation.dangerouslyGetParent();
@@ -182,13 +186,17 @@ export default class HomeScreen extends Component {
       }, [navigation]),
     );
 
-    return <Profile {...props} navigation={navigation} />;
+    return (
+      <Profile {...props} navigation={navigation} getUserData={getUserData} />
+    );
   };
 
   setDrawerRef = ref => {
     this.setState({ drawerRef: ref });
   };
   render() {
+    const studentName = this.state.userData.fullName;
+    const image = this.state.userData.image;
     var drawerContent = (
       <View>
         <View
@@ -199,7 +207,7 @@ export default class HomeScreen extends Component {
           }}
         >
           <ScrollView>
-            {this.state.loading == true ? (
+            {!image ? (
               <View
                 style={{
                   backgroundColor: "#1E4274",
@@ -230,7 +238,7 @@ export default class HomeScreen extends Component {
                       marginTop: "18%",
                     }}
                     size={70}
-                    source={{ uri: this.state.image }}
+                    source={{ uri: image }}
                   />
                   <Text
                     style={{
@@ -241,7 +249,7 @@ export default class HomeScreen extends Component {
                       marginTop: 10,
                     }}
                   >
-                    {this.state.name}
+                    {studentName}
                   </Text>
                   <Text
                     style={{
