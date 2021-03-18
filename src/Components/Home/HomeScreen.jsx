@@ -127,39 +127,30 @@ export default class HomeScreen extends Component {
       name: "",
       email: "",
       image: null,
-      loading: false,
+      loading: true,
     };
   }
   async componentDidMount() {
-    await // axios
-    //   .get("/A/student/studentImg")
-    //   .then((response) => {
-    //     this.setState({
-    //       userData: response.data.response.data,
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.response.data.errors);
-    //   });
-    axios
+    await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
-          loading: true,
+          loading: false,
           // userData: response.data.response.data,
           name: response.data.response.data.name,
           email: response.data.response.data.email,
           image: response.data.response.data.image,
         });
+        console.log(this.state);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
       });
   }
-  ExploreScreen = (props) => {
+  ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
-    const setTitle = (title) => {
+    const setTitle = title => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -168,7 +159,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return (
@@ -180,7 +171,7 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = (props) => {
+  ProfileScreen = props => {
     const navigation = useNavigation();
     useFocusEffect(
       useCallback(() => {
@@ -188,13 +179,13 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return <Profile {...props} navigation={navigation} />;
   };
 
-  setDrawerRef = (ref) => {
+  setDrawerRef = ref => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -208,7 +199,7 @@ export default class HomeScreen extends Component {
           }}
         >
           <ScrollView>
-            {this.state.loading === false ? (
+            {this.state.loading == true ? (
               <View
                 style={{
                   backgroundColor: "#1E4274",
@@ -510,7 +501,7 @@ export default class HomeScreen extends Component {
         />
         <Tab.Navigator
           shifting={true}
-          tabBar={(props) => (
+          tabBar={props => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}

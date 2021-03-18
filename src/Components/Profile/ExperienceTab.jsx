@@ -731,7 +731,7 @@ export class SkillsCardSample extends Component {
     return (
       <View
         style={{
-          marginLeft: 18,
+          marginLeft: "1%",
           flexDirection: "row",
           alignItems: "center",
         }}
