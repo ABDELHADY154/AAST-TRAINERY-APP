@@ -31,3 +31,17 @@ export const DrawerProfile = (props) => (
     <Circle cx="26" cy="26" r="26" />
   </ContentLoader>
 );
+
+export const ProgrossBarLoader = (props) => (
+  <ContentLoader
+    speed={1}
+    width={400}
+    height={24}
+    viewBox="0 0 400 24"
+    backgroundColor="#dcdbdb"
+    foregroundColor="#f3f3f3"
+    {...props}
+  >
+    <Rect x="8" y="10" rx="3" ry="3" width="300" height="6" />
+  </ContentLoader>
+);

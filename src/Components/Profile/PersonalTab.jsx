@@ -30,6 +30,7 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import Swiper from "react-native-swiper";
+import { ProgrossBarLoader } from "../Loader/Loader";
 
 import { ReviewsCard } from "./ReviewsCard";
 import * as Progress from "react-native-progress";
@@ -43,12 +44,14 @@ class PersonalTabForm extends Component {
     progressWithOnComplete: 0,
     progressCustomized: 0,
     userData: {},
+    loading: false,
   };
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
       .then((response) => {
         this.setState({
+          loading: true,
           userData: response.data.response.data,
         });
       })
@@ -104,11 +107,17 @@ class PersonalTabForm extends Component {
                   marginVertical: 10,
                 }}
               >
-                <Progress.Bar
-                  progress={this.state.userData.profile_score}
-                  width={310}
-                  color={"#1E4274"}
-                />
+                {this.state.loading === false ? (
+                  <View>
+                    <ProgrossBarLoader />
+                  </View>
+                ) : (
+                  <Progress.Bar
+                    progress={this.state.userData.profile_score}
+                    width={310}
+                    color={"#1E4274"}
+                  />
+                )}
               </View>
               <Text
                 style={{
