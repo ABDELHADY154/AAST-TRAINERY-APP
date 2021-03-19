@@ -462,7 +462,7 @@ export default class ExpInfoForm extends Component {
                 fontFamily: "SF-M",
                 fontWeight: "normal",
                 marginBottom: -10,
-                marginLeft: "-0.5%",
+                marginLeft: "-1%",
               }}
               value={this.state.company_name}
               onChangeText={(value) => this.setState({ company_name: value })}
@@ -493,7 +493,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: "-4.4%",
+                  marginLeft: "-5.5%",
                 }}
               >
                 Country
@@ -557,7 +557,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 5,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                 }}
               >
                 City
@@ -623,7 +623,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                   marginBottom: -10,
                 }}
               >
@@ -692,7 +692,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                   marginBottom: -10,
                 }}
               >
@@ -881,7 +881,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "91%",
+    width: "92%",
     alignSelf: "center",
   },
   labelStyle: {

@@ -13,6 +13,7 @@ import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import StarRating from "react-native-star-rating";
+import { StatusBar } from "expo-status-bar";
 
 export default class Language extends Component {
   constructor() {
@@ -311,6 +312,7 @@ export default class Language extends Component {
               )}
             </View>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );

@@ -226,7 +226,7 @@ export default class CoursesInfoForm extends Component {
         />
         <Text style={styles.title}>Courses</Text>
 
-        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
+        <View style={{ flex: 1, width: "90%", alignSelf: "center" }}>
           <ScrollView style={styles.scrollView}>
             <Input
               containerStyle={styles.inputContainer}
@@ -247,7 +247,7 @@ export default class CoursesInfoForm extends Component {
                 fontWeight: "normal",
                 marginBottom: -10,
                 marginTop: 15,
-                marginLeft: "1%",
+                marginLeft: "0.5%",
               }}
               value={this.state.course_name}
               onChangeText={(value) => this.setState({ course_name: value })}
@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "108.4%",
+    width: "106%",
     alignSelf: "center",
   },
   labelStyle: {

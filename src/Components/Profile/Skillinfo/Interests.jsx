@@ -14,6 +14,7 @@ import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import TagInput from "react-native-tags-input";
+import { StatusBar } from "expo-status-bar";
 
 export default class Interests extends Component {
   constructor() {
@@ -161,6 +162,7 @@ export default class Interests extends Component {
               </Button>
             </View>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );
