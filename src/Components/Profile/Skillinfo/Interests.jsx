@@ -122,8 +122,10 @@ export default class Interests extends Component {
               }}
               updateState={this.updateTagState}
               tags={this.state.tags}
-              keysForTag={","}
+              // keysForTag={","}
+              rightElement={<Icon name={'plus'} type={'material-community'} color="#1E4275" style={{marginRight:5}}/>}
             />
+
             {this.state.interestsErr != "" ? (
               <View
                 style={{
