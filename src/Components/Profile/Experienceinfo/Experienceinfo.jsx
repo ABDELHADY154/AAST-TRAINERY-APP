@@ -9,10 +9,12 @@ import { axios } from "../../../Config/Axios";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class ExpInfoForm extends Component {
   state = {
     experience_type: "",
+    spinner: false,
     job_title: "",
     company_name: "",
     country: "",
@@ -42,7 +44,7 @@ export default class ExpInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     // console.log("A date has been picked: ", date);
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
@@ -53,7 +55,7 @@ export default class ExpInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     // console.log("A date has been picked: ", date);
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
@@ -68,18 +70,21 @@ export default class ExpInfoForm extends Component {
       }
     }
   };
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
   handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     var formData = new FormData();
     formData.append("currently_work", this.state.currently_work);
     formData.append("experience_type", this.state.experience_type);
@@ -108,8 +113,10 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
-        console.log(res.response);
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -117,46 +124,30 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
-        console.log(error.response.data);
-        if (error.response.data.errors.experience_type) {
-          this.setState({
-            expErr: error.response.data.errors.experience_type,
-          });
-        }
-        if (error.response.data.errors.job_title) {
-          this.setState({
-            jobErr: error.response.data.errors.job_title,
-          });
-        }
-        if (error.response.data.errors.company_name) {
-          this.setState({
-            companyErr: error.response.data.errors.company_name,
-          });
-        }
-        if (error.response.data.errors.country) {
-          this.setState({
-            countryErr: error.response.data.errors.country,
-          });
-        }
-        if (error.response.data.errors.city) {
-          this.setState({
-            cityErr: error.response.data.errors.city,
-          });
-        }
-        if (error.response.data.errors.from) {
-          this.setState({
-            fromErr: error.response.data.errors.from,
-          });
-        }
-        if (error.response.data.errors.to) {
-          this.setState({
-            toErr: error.response.data.errors.to,
-          });
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+
+        if (error.response.data) {
+          if (error.response.data.errors) {
+            this.setState({
+              expErr: error.response.data.errors.experience_type,
+              jobErr: error.response.data.errors.job_title,
+              companyErr: error.response.data.errors.company_name,
+              countryErr: error.response.data.errors.country,
+              cityErr: error.response.data.errors.city,
+              fromErr: error.response.data.errors.from,
+              toErr: error.response.data.errors.to,
+            });
+          }
         }
       });
   };
   handleUpdateSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     var formData = new FormData();
     formData.append("currently_work", this.state.currently_work);
     formData.append("experience_type", this.state.experience_type);
@@ -186,8 +177,11 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         console.log(res.response);
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -195,128 +189,92 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
-        if (error.response.data.errors.experience_type) {
-          this.setState({
-            expErr: error.response.data.errors.experience_type,
-          });
-        }
-        if (error.response.data.errors.job_title) {
-          this.setState({
-            jobErr: error.response.data.errors.job_title,
-          });
-        }
-        if (error.response.data.errors.company_name) {
-          this.setState({
-            companyErr: error.response.data.errors.company_name,
-          });
-        }
-        if (error.response.data.errors.country) {
-          this.setState({
-            countryErr: error.response.data.errors.country,
-          });
-        }
-        if (error.response.data.errors.city) {
-          this.setState({
-            cityErr: error.response.data.errors.city,
-          });
-        }
-        if (error.response.data.errors.from) {
-          this.setState({
-            fromErr: error.response.data.errors.from,
-          });
-        }
-        if (error.response.data.errors.to) {
-          this.setState({
-            toErr: error.response.data.errors.to,
-          });
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+        if (error.response.data) {
+          if (error.response.data.errors) {
+            this.setState({
+              expErr: error.response.data.errors.experience_type,
+              jobErr: error.response.data.errors.job_title,
+              companyErr: error.response.data.errors.company_name,
+              countryErr: error.response.data.errors.country,
+              cityErr: error.response.data.errors.city,
+              fromErr: error.response.data.errors.from,
+              toErr: error.response.data.errors.to,
+            });
+          }
         }
       });
   };
 
   async componentDidMount() {
-    axios
-
+    this.setState({
+      spinner: true,
+    });
+    await axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
         }
+        this.setState({
+          spinner: false,
+        });
       })
-      .catch((err) => {
+      .catch(err => {
+        this.setState({
+          spinner: false,
+        });
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
+      this.setState({
+        spinner: true,
+      });
       await axios
         .get(`/A/student/profile/experience/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             experience_type: res.data.response.data.experience_type,
             job_title: res.data.response.data.job_title,
             company_name: res.data.response.data.company_name,
-
             country: res.data.response.data.country,
             city: res.data.response.data.city,
             from: res.data.response.data.from,
             to: res.data.response.data.to,
             cred_url: res.data.response.data.cred_url,
           });
-          console.log(this.props.route.params.id);
-
-          // console.log(res.data.response.data);
+          this.countryOnchangeHandler(this.state.country);
+          this.setState({
+            spinner: false,
+          });
         })
-        .catch((error) => {
-          if (error.response.data.errors.experience_type) {
-            this.setState({
-              expErr: error.response.data.errors.experience_type,
-            });
-          }
-          if (error.response.data.errors.job_title) {
-            this.setState({
-              jobErr: error.response.data.errors.job_title,
-            });
-          }
-          if (error.response.data.errors.company_name) {
-            this.setState({
-              companyErr: error.response.data.errors.company_name,
-            });
-          }
-          if (error.response.data.errors.country) {
-            this.setState({
-              countryErr: error.response.data.errors.country,
-            });
-          }
-          if (error.response.data.errors.city) {
-            this.setState({
-              cityErr: error.response.data.errors.city,
-            });
-          }
-          if (error.response.data.errors.from) {
-            this.setState({
-              fromErr: error.response.data.errors.from,
-            });
-          }
-          if (error.response.data.errors.to) {
-            this.setState({
-              toErr: error.response.data.errors.to,
-            });
-          }
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
         });
     }
   }
   _pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({});
-    // console.log(result);
     if (result) {
       this.setState({ cred: result.uri });
     }
   };
   handleDelete = async () => {
+    this.setState({
+      spinner: true,
+    });
     await axios
       .delete(`/A/student/profile/experience/${this.props.route.params.id}`)
-      .then((res) => {
-        console.log(res);
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -324,7 +282,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -332,8 +290,16 @@ export default class ExpInfoForm extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <SafeAreaView style={styles.container}></SafeAreaView> */}
-
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -383,7 +349,7 @@ export default class ExpInfoForm extends Component {
                 itemStyle={{ backgroundColor: "#fff" }}
                 dropdownIconColor="#1E4275"
                 selectedValue={this.state.experience_type}
-                onValueChange={(value) =>
+                onValueChange={value =>
                   this.setState({ experience_type: value })
                 }
               >
@@ -428,7 +394,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1%",
               }}
               value={this.state.job_title}
-              onChangeText={(value) => this.setState({ job_title: value })}
+              onChangeText={value => this.setState({ job_title: value })}
             />
             <Text
               style={{
@@ -465,7 +431,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1.4%",
               }}
               value={this.state.company_name}
-              onChangeText={(value) => this.setState({ company_name: value })}
+              onChangeText={value => this.setState({ company_name: value })}
             />
             <Text
               style={{
@@ -777,7 +743,7 @@ export default class ExpInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={(value) => this.setState({ cred_url: value })}
+                onChangeText={value => this.setState({ cred_url: value })}
               />
               <View
                 style={{

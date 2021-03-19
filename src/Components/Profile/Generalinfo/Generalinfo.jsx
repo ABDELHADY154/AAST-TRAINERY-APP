@@ -18,6 +18,7 @@ import { RadioButton } from "react-native-paper";
 import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default function GeneralInfoFormScreen(props) {
   const navigation = useNavigation();
@@ -29,7 +30,7 @@ class GeneralInfo extends Component {
     this.state = {
       date: "",
       dateErr: "",
-
+      spinner: true,
       mode: "date",
       show: false,
       countriesList: {},
@@ -62,7 +63,7 @@ class GeneralInfo extends Component {
   hideDatePicker = () => {
     this.setState({ isDatePickerVisible: false });
   };
-  handleConfirm = (date) => {
+  handleConfirm = date => {
     this.setState({ date: date.toISOString().split("T")[0] });
     this.hideDatePicker();
   };
@@ -77,68 +78,69 @@ class GeneralInfo extends Component {
     }
   };
 
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
 
   handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     const data = {
-      name: this.state.studentName, //
-      phone_number: this.state.phoneNumber, //
-      city: this.state.city, //
-      gender: this.state.gender, //
-      country: this.state.country, //
-      nationality: this.state.nationality, //
+      name: this.state.studentName,
+      phone_number: this.state.phoneNumber,
+      city: this.state.city,
+      gender: this.state.gender,
+      country: this.state.country,
+      nationality: this.state.nationality,
       date_of_birth: this.state.date,
     };
     await axios
       .put("/A/student/profile/personal", data)
-      .then((res) => {
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", { screen: "Profile" });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data);
-
-        if (error.response.data.errors.phone_number) {
-          this.setState({
-            phoneNumberErr: error.response.data.errors.phone_number,
-          });
-        }
-        if (error.response.data.errors.nationality) {
-          this.setState({
-            nationalityErr: error.response.data.errors.nationality,
-          });
-        }
-
-        if (error.response.data.errors.name) {
-          this.setState({
-            studentNameErr: error.response.data.errors.name,
-          });
+        this.setState({
+          spinner: false,
+        });
+        if (error.response.data) {
+          if (error.response.data.errors) {
+            this.setState({
+              phoneNumberErr: error.response.data.errors.phone_number,
+              nationalityErr: error.response.data.errors.nationality,
+              studentNameErr: error.response.data.errors.name,
+            });
+          }
         }
       });
   };
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then((res) => {
+      .then(res => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -148,16 +150,27 @@ class GeneralInfo extends Component {
           city: res.data.response.data.city,
           phoneNumber: res.data.response.data.phoneNumber,
           checked: res.data.response.data.gender == "male" ? "first" : "second",
+          spinner: false,
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
       });
   }
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -194,7 +207,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={(value) => this.setState({ studentName: value })}
+              onChangeText={value => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -351,7 +364,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={(value) => this.setState({ nationality: value })}
+                onChangeText={value => this.setState({ nationality: value })}
               />
               <Text
                 style={{
@@ -496,7 +509,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: "-8%",
                 }}
-                onChangeText={(value) => this.setState({ phoneNumber: value })}
+                onChangeText={value => this.setState({ phoneNumber: value })}
               />
               <Text
                 style={{

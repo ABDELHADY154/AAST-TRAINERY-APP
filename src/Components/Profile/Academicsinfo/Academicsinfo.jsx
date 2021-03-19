@@ -7,11 +7,13 @@ import { Button } from "galio-framework";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { axios } from "../../../Config/Axios";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class Academicinfo extends Component {
   state = {
     departments: [],
     university: "",
+    spinner: true,
     universityErr: "",
     department_id: "",
     department: "",
@@ -30,7 +32,7 @@ export default class Academicinfo extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then((response) => {
+      .then(response => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -38,7 +40,7 @@ export default class Academicinfo extends Component {
       });
     axios
       .get("/A/student/profile/academic")
-      .then((res) => {
+      .then(res => {
         this.setState({
           university: res.data.response.data.university,
           department: res.data.response.data.department,
@@ -48,13 +50,19 @@ export default class Academicinfo extends Component {
           start_year: res.data.response.data.start_year,
           end_year: res.data.response.data.end_year,
         });
-        this.state.departments.forEach((element) => {
-          if (this.state.department == element.dep_name) {
-            this.setState({ department_id: element.id });
+        for (const key in this.state.departments) {
+          if (Object.hasOwnProperty.call(this.state.departments, key)) {
+            const element = this.state.departments[key];
+            if (this.state.department == element.dep_name) {
+              this.setState({ department_id: element.id, spinner: false });
+            }
           }
+        }
+        this.setState({
+          spinner: false,
         });
       })
-      .catch((e) => {
+      .catch(e => {
         console.log(e);
       });
   }
@@ -65,7 +73,7 @@ export default class Academicinfo extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ start_year: date.getFullYear() });
 
     this.hideFromDatePicker();
@@ -76,11 +84,14 @@ export default class Academicinfo extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ end_year: date.getFullYear() });
     this.hideToDatePicker();
   };
   handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     const data = {
       university: this.state.university,
       department_id: this.state.department_id,
@@ -92,38 +103,28 @@ export default class Academicinfo extends Component {
     };
     await axios
       .put("/A/student/profile/academic", data)
-      .then((res) => {
+      .then(res => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
+        this.setState({
+          spinner: false,
+        });
         console.log(res.response.data);
       })
-      .catch((error) => {
-        if (error.response.data.errors.reg_no) {
-          this.setState({
-            reg_noErr: error.response.data.errors.reg_no,
-          });
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+        if (error.response) {
+          if (error.response.data.errors) {
+            this.setState({
+              reg_noErr: error.response.data.errors.reg_no,
+              department_idErr: error.response.data.errors.department_id,
+              gpaErr: error.response.data.errors.gpa,
+            });
+          }
         }
-        if (error.response.data.errors.department_id) {
-          this.setState({
-            department_idErr: error.response.data.errors.department_id,
-          });
-        }
-        if (error.response.data.errors.gpa) {
-          this.setState({
-            gpaErr: error.response.data.errors.gpa,
-          });
-        }
-        // if (error.response.data.errors.period) {
-        //   this.setState({
-        //     periodErr: error.response.data.errors.period,
-        //   });
-        // }
-        // if (error.response.data.errors.university) {
-        //   this.setState({
-        //     universityErr: error.response.data.errors.university,
-        //   });
-        // }
       });
   };
 
@@ -132,6 +133,16 @@ export default class Academicinfo extends Component {
     console.log(this.state);
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -182,9 +193,7 @@ export default class Academicinfo extends Component {
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
                   selectedValue={this.state.university}
-                  onValueChange={(value) =>
-                    this.setState({ university: value })
-                  }
+                  onValueChange={value => this.setState({ university: value })}
                 >
                   <Picker.Item label="Choose Your University" />
                   <Picker.Item label="AAST CMT" value="AAST CMT" />
@@ -237,7 +246,7 @@ export default class Academicinfo extends Component {
                   }
                 >
                   <Picker.Item label="Choose Your Department" value="0" />
-                  {this.state.departments.map((key) => {
+                  {this.state.departments.map(key => {
                     return (
                       <Picker.Item
                         label={key.dep_name}
@@ -289,7 +298,7 @@ export default class Academicinfo extends Component {
                 }}
                 // errorMessage={this.state.reg_noErr}
                 value={this.state.reg_no}
-                onChangeText={(value) => this.setState({ reg_no: value })}
+                onChangeText={value => this.setState({ reg_no: value })}
               />
               <Text
                 style={{
@@ -399,7 +408,7 @@ export default class Academicinfo extends Component {
                 }}
                 value={this.state.gpa}
                 // errorMessage={this.state.gpaErr}
-                onChangeText={(value) => this.setState({ gpa: value })}
+                onChangeText={value => this.setState({ gpa: value })}
               />
               <Text
                 style={{

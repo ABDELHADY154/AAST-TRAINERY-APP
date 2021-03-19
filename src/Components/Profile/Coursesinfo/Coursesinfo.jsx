@@ -7,9 +7,11 @@ import { axios } from "../../../Config/Axios";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class CoursesInfoForm extends Component {
   state = {
+    spinner: false,
     course_name: "",
     course_nameErr: "",
     isFromDatePickerVisible: false,
@@ -30,7 +32,7 @@ export default class CoursesInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -40,11 +42,14 @@ export default class CoursesInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
   handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     var formData = new FormData();
     formData.append("course_name", this.state.course_name);
     formData.append("course_provider", this.state.course_provider);
@@ -68,7 +73,10 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -76,27 +84,16 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
         if (error.response) {
-          console.log(error.response.data.errors);
-          if (error.response.data.errors.course_name) {
+          if (error.response.data.errors) {
             this.setState({
               course_nameErr: error.response.data.errors.course_name,
-            });
-          }
-          if (error.response.data.errors.course_provider) {
-            this.setState({
               course_providerErr: error.response.data.errors.course_provider,
-            });
-          }
-
-          if (error.response.data.errors.from) {
-            this.setState({
               fromErr: error.response.data.errors.from,
-            });
-          }
-          if (error.response.data.errors.to) {
-            this.setState({
               toErr: error.response.data.errors.to,
             });
           }
@@ -105,6 +102,9 @@ export default class CoursesInfoForm extends Component {
   };
 
   handleUpdateSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     var formData = new FormData();
     formData.append("course_name", this.state.course_name);
     formData.append("course_provider", this.state.course_provider);
@@ -128,8 +128,10 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
-        console.log(res.response);
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -137,28 +139,16 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
-        console.log(error.response);
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
         if (error.response) {
-          console.log(error.response.data.errors);
-          if (error.response.data.errors.course_name) {
+          if (error.response.data.errors) {
             this.setState({
               course_nameErr: error.response.data.errors.course_name,
-            });
-          }
-          if (error.response.data.errors.course_provider) {
-            this.setState({
               course_providerErr: error.response.data.errors.course_provider,
-            });
-          }
-
-          if (error.response.data.errors.from) {
-            this.setState({
               fromErr: error.response.data.errors.from,
-            });
-          }
-          if (error.response.data.errors.to) {
-            this.setState({
               toErr: error.response.data.errors.to,
             });
           }
@@ -167,9 +157,12 @@ export default class CoursesInfoForm extends Component {
   };
   async componentDidMount() {
     if (this.props.route.params.id > 0) {
+      this.setState({
+        spinner: true,
+      });
       await axios
         .get(`/A/student/profile/course/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             course_name: res.data.response.data.course_name,
             course_provider: res.data.response.data.course_provider,
@@ -178,17 +171,28 @@ export default class CoursesInfoForm extends Component {
             to: res.data.response.data.to,
             // cred: res.data.response.data.cred,
           });
+          this.setState({
+            spinner: false,
+          });
         })
-        .catch((error) => {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
           console.log(error.response);
         });
     }
   }
   handleDelete = async () => {
+    this.setState({
+      spinner: true,
+    });
     await axios
       .delete(`/A/student/profile/course/${this.props.route.params.id}`)
-      .then((res) => {
-        console.log(res);
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -196,7 +200,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -212,6 +216,16 @@ export default class CoursesInfoForm extends Component {
     console.log(this.state);
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -250,7 +264,7 @@ export default class CoursesInfoForm extends Component {
                 marginLeft: "0.5%",
               }}
               value={this.state.course_name}
-              onChangeText={(value) => this.setState({ course_name: value })}
+              onChangeText={value => this.setState({ course_name: value })}
             />
             {this.state.course_nameErr != "" ? (
               <View
@@ -302,9 +316,7 @@ export default class CoursesInfoForm extends Component {
                 marginBottom: -10,
               }}
               value={this.state.course_provider}
-              onChangeText={(value) =>
-                this.setState({ course_provider: value })
-              }
+              onChangeText={value => this.setState({ course_provider: value })}
             />
             {this.state.course_providerErr != "" ? (
               <View
@@ -521,7 +533,7 @@ export default class CoursesInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={(value) => this.setState({ cred_url: value })}
+                onChangeText={value => this.setState({ cred_url: value })}
               />
               <View
                 style={{

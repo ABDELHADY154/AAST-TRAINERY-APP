@@ -14,12 +14,14 @@ import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import StarRating from "react-native-star-rating";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class Language extends Component {
   constructor() {
     super();
     this.state = {
       id: 0,
+      spinner: false,
       language: "",
       level: 0,
       languageIdErr: "",
@@ -29,23 +31,28 @@ export default class Language extends Component {
   }
   async componentDidMount() {
     if (this.props.route.params.id !== 0) {
+      this.setState({
+        spinner: true,
+      });
       await axios
         .get(`/A/student/profile/language/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             id: res.data.response.data.id,
             language: res.data.response.data.language,
             level: res.data.response.data.level,
           });
+          this.setState({
+            spinner: false,
+          });
         })
-        .catch((error) => {
-          if (error.response.data.errors.level) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               levelErr: error.response.data.errors.level,
-            });
-          }
-          if (error.response.data.errors.language) {
-            this.setState({
               languageErr: error.response.data.errors.language,
             });
           }
@@ -54,6 +61,9 @@ export default class Language extends Component {
   }
 
   handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
     var body = {
       language: this.state.language,
       id: this.state.id,
@@ -62,7 +72,10 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
-        .then((res) => {
+        .then(res => {
+          this.setState({
+            spinner: false,
+          });
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -70,14 +83,13 @@ export default class Language extends Component {
             },
           });
         })
-        .catch((error) => {
-          if (error.response.data.errors.level) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               levelErr: error.response.data.errors.level,
-            });
-          }
-          if (error.response.data.errors.language) {
-            this.setState({
               languageErr: error.response.data.errors.language,
             });
           }
@@ -85,7 +97,10 @@ export default class Language extends Component {
     } else {
       return await axios
         .post("/A/student/profile/language", body)
-        .then((response) => {
+        .then(response => {
+          this.setState({
+            spinner: false,
+          });
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -93,24 +108,29 @@ export default class Language extends Component {
             },
           });
         })
-        .catch((error) => {
-          if (error.response.data.errors.level) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               levelErr: error.response.data.errors.level,
-            });
-          }
-          if (error.response.data.errors.language) {
-            this.setState({
               languageErr: error.response.data.errors.language,
             });
           }
         });
     }
   };
-  handleDelete = async (e) => {
+  handleDelete = async e => {
+    this.setState({
+      spinner: true,
+    });
     await axios
       .delete(`/A/student/profile/language/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -118,14 +138,13 @@ export default class Language extends Component {
           },
         });
       })
-      .catch((error) => {
-        if (error.response.data.errors.level) {
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+        if (error.response.data) {
           this.setState({
             levelErr: error.response.data.errors.level,
-          });
-        }
-        if (error.response.data.errors.language) {
-          this.setState({
             languageErr: error.response.data.errors.language,
           });
         }
@@ -134,6 +153,16 @@ export default class Language extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -176,7 +205,7 @@ export default class Language extends Component {
                 marginTop: 15,
               }}
               value={this.state.language}
-              onChangeText={(value) => this.setState({ language: value })}
+              onChangeText={value => this.setState({ language: value })}
             />
             {this.state.languageErr != "" ? (
               <View
@@ -229,7 +258,7 @@ export default class Language extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.level}
-                selectedStar={(value) => this.setState({ level: value })}
+                selectedStar={value => this.setState({ level: value })}
                 style={{
                   justifyContent: "center",
                   alignSelf: "center",
