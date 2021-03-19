@@ -462,7 +462,7 @@ export default class ExpInfoForm extends Component {
                 fontFamily: "SF-M",
                 fontWeight: "normal",
                 marginBottom: -10,
-                marginLeft: "-1%",
+                marginLeft: "-1.4%",
               }}
               value={this.state.company_name}
               onChangeText={(value) => this.setState({ company_name: value })}
@@ -493,7 +493,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: "-5.5%",
+                  marginLeft: "-6%",
                 }}
               >
                 Country
@@ -557,7 +557,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 5,
-                  marginLeft: "-6%",
+                  marginLeft: "-6.3%",
                 }}
               >
                 City

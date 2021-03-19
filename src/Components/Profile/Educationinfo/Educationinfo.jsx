@@ -339,7 +339,7 @@ export default class EduInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: "-5%",
+                  marginLeft: "-4.5%",
                 }}
               >
                 Country
