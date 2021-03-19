@@ -409,7 +409,7 @@ export default class Academicinfo extends Component {
                   marginTop: "-7%",
                 }}
               >
-                {this.state.gpaErr ? this.state.gpaErr : null}
+                {this.state.gpaErr ? this.state.gpaErr : " "}
               </Text>
               <Text
                 style={{

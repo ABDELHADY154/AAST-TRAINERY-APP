@@ -30,14 +30,14 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       await axios
         .get(`/A/student/profile/language/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             id: res.data.response.data.id,
             language: res.data.response.data.language,
             level: res.data.response.data.level,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -61,7 +61,7 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
-        .then(res => {
+        .then((res) => {
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -69,7 +69,7 @@ export default class Language extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -84,7 +84,7 @@ export default class Language extends Component {
     } else {
       return await axios
         .post("/A/student/profile/language", body)
-        .then(response => {
+        .then((response) => {
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -92,7 +92,7 @@ export default class Language extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.level) {
             this.setState({
               levelErr: error.response.data.errors.level,
@@ -106,10 +106,10 @@ export default class Language extends Component {
         });
     }
   };
-  handleDelete = async e => {
+  handleDelete = async (e) => {
     await axios
       .delete(`/A/student/profile/language/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -117,7 +117,7 @@ export default class Language extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.level) {
           this.setState({
             levelErr: error.response.data.errors.level,
@@ -139,7 +139,7 @@ export default class Language extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -147,7 +147,7 @@ export default class Language extends Component {
         />
         <Text style={styles.title}>Language </Text>
 
-        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
+        <View style={{ flex: 1, width: "94%", alignSelf: "center" }}>
           <ScrollView>
             <Input
               containerStyle={{
@@ -175,7 +175,7 @@ export default class Language extends Component {
                 marginTop: 15,
               }}
               value={this.state.language}
-              onChangeText={value => this.setState({ language: value })}
+              onChangeText={(value) => this.setState({ language: value })}
             />
             {this.state.languageErr != "" ? (
               <View
@@ -192,6 +192,7 @@ export default class Language extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    marginLeft: "-1%",
                   }}
                 >
                   {this.state.languageErr}
@@ -216,6 +217,7 @@ export default class Language extends Component {
                   fontWeight: "normal",
                   marginBottom: 10,
                   marginTop: 15,
+                  marginLeft: "-3%",
                 }}
               >
                 Level of Experience
@@ -226,7 +228,7 @@ export default class Language extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.level}
-                selectedStar={value => this.setState({ level: value })}
+                selectedStar={(value) => this.setState({ level: value })}
                 style={{
                   justifyContent: "center",
                   alignSelf: "center",
@@ -249,6 +251,7 @@ export default class Language extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    marginLeft: "-1%",
                   }}
                 >
                   {this.state.levelErr}
@@ -322,12 +325,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
     paddingRight: 15,
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.4%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
