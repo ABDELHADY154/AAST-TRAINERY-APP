@@ -130,21 +130,38 @@ export default class HomeScreen extends Component {
       loading: true,
     };
   }
+
+  getUserData = async () => {
+    await axios
+      .get("/A/student/get-profilePersonal")
+      .then(response => {
+        this.setState({
+          loading: false,
+          // userData: response.data.response.data,
+          name: response.data.response.data.name,
+          email: response.data.response.data.email,
+          image: response.data.response.data.image,
+        });
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+      });
+  };
   async componentDidMount() {
-    // await axios
-    //   .get("/A/student/get-profilePersonal")
-    //   .then(response => {
-    //     this.setState({
-    //       loading: false,
-    //       // userData: response.data.response.data,
-    //       name: response.data.response.data.name,
-    //       email: response.data.response.data.email,
-    //       image: response.data.response.data.image,
-    //     });
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error.response.data.errors);
-    //   });
+    await axios
+      .get("/A/student/get-profilePersonal")
+      .then(response => {
+        this.setState({
+          loading: false,
+          // userData: response.data.response.data,
+          name: response.data.response.data.name,
+          email: response.data.response.data.email,
+          image: response.data.response.data.image,
+        });
+      })
+      .catch(function (error) {
+        console.log(error.response.data.errors);
+      });
   }
   ExploreScreen = props => {
     const navigation = useNavigation();
@@ -195,8 +212,8 @@ export default class HomeScreen extends Component {
     this.setState({ drawerRef: ref });
   };
   render() {
-    const studentName = this.state.userData.fullName;
-    const image = this.state.userData.image;
+    // const studentName = this.state.userData.fullName;
+    // const image = this.state.userData.image;
     var drawerContent = (
       <View>
         <View
@@ -207,7 +224,7 @@ export default class HomeScreen extends Component {
           }}
         >
           <ScrollView>
-            {!image ? (
+            {this.state.loading ? (
               <View
                 style={{
                   backgroundColor: "#1E4274",
@@ -226,7 +243,12 @@ export default class HomeScreen extends Component {
             ) : (
               <TouchableWithoutFeedback
                 onPress={() => {
-                  this.props.navigation.navigate("App", { screen: "Profile" });
+                  this.props.navigation.navigate("App", {
+                    screen: "Profile",
+                    params: {
+                      screen: "Personal Info",
+                    },
+                  });
                   this.state.drawerRef.closeDrawer();
                 }}
               >
@@ -238,7 +260,7 @@ export default class HomeScreen extends Component {
                       marginTop: "18%",
                     }}
                     size={70}
-                    source={{ uri: image }}
+                    source={{ uri: this.state.image }}
                   />
                   <Text
                     style={{
@@ -249,7 +271,7 @@ export default class HomeScreen extends Component {
                       marginTop: 10,
                     }}
                   >
-                    {studentName}
+                    {this.state.name}
                   </Text>
                   <Text
                     style={{
@@ -280,7 +302,12 @@ export default class HomeScreen extends Component {
                 color="#1E4274"
                 style={{ paddingRight: 10, paddingLeft: 2 }}
               />
-              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              <Text
+                style={{ color: "#1E4274", fontSize: 16 }}
+                onPress={() => {
+                  this.props.navigation.push("GeneralForm");
+                }}
+              >
                 Edit Profile
               </Text>
             </View>
@@ -446,6 +473,7 @@ export default class HomeScreen extends Component {
         drawerPosition={Drawer.positions.Left}
         onDrawerOpen={() => {
           this.setState({ drawerIsOpened: true });
+          this.getUserData();
         }}
         onDrawerClose={() => {
           this.setState({ drawerIsOpened: false });
