@@ -62,8 +62,8 @@ export default class Academicinfo extends Component {
           spinner: false,
         });
       })
-      .catch(e => {
-        console.log(e);
+      .catch(error => {
+        console.log(error);
       });
   }
 
@@ -110,7 +110,7 @@ export default class Academicinfo extends Component {
         this.setState({
           spinner: false,
         });
-        console.log(res.response.data);
+        // console.log(res.response.data);
       })
       .catch(error => {
         this.setState({
@@ -122,15 +122,17 @@ export default class Academicinfo extends Component {
               reg_noErr: error.response.data.errors.reg_no,
               department_idErr: error.response.data.errors.department_id,
               gpaErr: error.response.data.errors.gpa,
+              universityErr: error.response.data.errors.university,
+              periodErr: error.response.data.errors.period,
             });
           }
+          // console.log(error.response.data.errors.period)
         }
       });
   };
 
   render() {
     // console.log(this.state);
-    console.log(this.state);
     return (
       <View style={styles.container}>
         <Spinner
@@ -368,16 +370,13 @@ export default class Academicinfo extends Component {
                   <Picker.Item label="  8" value="8" />
                 </Picker>
               </View>
-              {/* <Text
-                style={{
-                  color: "#F44336",
-                  fontSize: 14,
-                  textAlign: "left",
-                  // marginTop: "-7%",
-                }}
+              <Text
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
               >
-                {this.state.gpaErr ? this.state.gpaErr : null}
-              </Text> */}
+                {this.state.periodErr
+                  ? this.state.periodErr
+                  : null}
+              </Text>
               <Input
                 keyboardType="number-pad"
                 textAlign="left"
