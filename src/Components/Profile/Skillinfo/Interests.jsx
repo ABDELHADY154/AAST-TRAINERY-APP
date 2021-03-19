@@ -15,6 +15,7 @@ import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import TagInput from "react-native-tags-input";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class Interests extends Component {
   constructor() {
@@ -22,6 +23,7 @@ export default class Interests extends Component {
     this.state = {
       id: 0,
       tag: "",
+      spinner: false,
       tags: {
         tagsArray: [],
       },
@@ -29,17 +31,20 @@ export default class Interests extends Component {
       interestErr: "",
     };
   }
-  updateTagState = (state) => {
+  updateTagState = state => {
     this.setState({
       tags: state,
     });
   };
   async componentDidMount() {
+    this.setState({
+      spinner: true,
+    });
     const interestArr = [];
     await axios
       .get("/A/student/profile/interest")
-      .then((res) => {
-        res.data.response.data.forEach((element) => {
+      .then(res => {
+        res.data.response.data.forEach(element => {
           interestArr.push(element.interest);
         });
         this.setState({
@@ -47,24 +52,34 @@ export default class Interests extends Component {
             tagsArray: interestArr,
           },
         });
+        this.setState({
+          spinner: false,
+        });
       })
-      .catch((err) => {
+      .catch(err => {
+        this.setState({
+          spinner: false,
+        });
         console.log(err.response);
       });
   }
 
   handleSubmitSkills = async () => {
+    this.setState({
+      spinner: true,
+    });
     const data = {
       interests: [],
     };
-
-    this.state.tags.tagsArray.forEach((el) => {
+    this.state.tags.tagsArray.forEach(el => {
       data.interests.push({ interest: el });
     });
-
     await axios
       .put("/A/student/profile/interest", data)
-      .then((res) => {
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -72,7 +87,10 @@ export default class Interests extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
+        this.setState({
+          spinner: false,
+        });
         console.log(err.response);
       });
   };
@@ -80,6 +98,16 @@ export default class Interests extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}

@@ -5,85 +5,87 @@ import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
 import { axios } from "../../../Config/Axios";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class AccountInfoForm extends Component {
   state = {
-    website: "",
+    website: null,
     webErr: "",
+    spinner: true,
     facebookErr: "",
     instagramErr: "",
     youtubeErr: "",
     linkedinErr: "",
     behanceErr: "",
     githubErr: "",
-    facebook: "",
-    instagram: "",
-    youtube: "",
-    linkedin: "",
-    behance: "",
-    github: "",
+    facebook: null,
+    instagram: null,
+    youtube: null,
+    linkedin: null,
+    behance: null,
+    github: null,
   };
 
   handleSubmit = async () => {
-    const data = {
-      website: this.state.website,
-      facebook: this.state.facebook,
-      instagram: this.state.instagram,
-      youtube: this.state.youtube,
-      linkedin: this.state.linkedin,
-      behance: this.state.behance,
-      github: this.state.github,
-    };
+    this.setState({
+      spinner: true,
+    });
+
+    const data = {};
+    if (this.state.website !== null && this.state.website !== "") {
+      data["website"] = this.state.website;
+    }
+    if (this.state.facebook !== null && this.state.facebook !== "") {
+      data["facebook"] = this.state.facebook;
+    }
+    if (this.state.instagram !== null && this.state.instagram !== "") {
+      data["instagram"] = this.state.instagram;
+    }
+    if (this.state.youtube !== null && this.state.youtube !== "") {
+      data["youtube"] = this.state.youtube;
+    }
+    if (this.state.linkedin !== null && this.state.linkedin !== "") {
+      data["linkedin"] = this.state.linkedin;
+    }
+    if (this.state.behance !== null && this.state.behance !== "") {
+      data["behance"] = this.state.behance;
+    }
+    if (this.state.github !== null && this.state.github !== "") {
+      data["github"] = this.state.github;
+    }
     await axios
       .post("/A/student/profile/account", data)
-      .then((res) => {
+      .then(res => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
         });
       })
-      .catch((error) => {
-        // console.log(error.response.data);
-        if (error.response.data.errors.website) {
-          this.setState({
-            webErr: error.response.data.errors.website,
-          });
-        }
-        if (error.response.data.errors.instagram) {
-          this.setState({
-            instagramErr: error.response.data.errors.instagram,
-          });
-        }
-        if (error.response.data.errors.facebook) {
-          this.setState({
-            facebookErr: error.response.data.errors.facebook,
-          });
-        }
-        if (error.response.data.errors.youtube) {
-          this.setState({
-            youtubeErr: error.response.data.errors.youtube,
-          });
-        }
-        if (error.response.data.errors.linkedin) {
-          this.setState({
-            linkedinErr: error.response.data.errors.linkedin,
-          });
-        }
-        if (error.response.data.errors.github) {
-          this.setState({
-            githubErr: error.response.data.errors.github,
-          });
-        }
-        if (error.response.data.errors.behance) {
-          this.setState({
-            behanceErr: error.response.data.errors.behance,
-          });
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+        if (error.response.data) {
+          if (error.response.data.errors) {
+            this.setState({
+              webErr: error.response.data.errors.website,
+              instagramErr: error.response.data.errors.instagram,
+              facebookErr: error.response.data.errors.facebook,
+              youtubeErr: error.response.data.errors.youtube,
+              linkedinErr: error.response.data.errors.linkedin,
+              githubErr: error.response.data.errors.github,
+              behanceErr: error.response.data.errors.behance,
+            });
+          }
         }
       });
   };
   async componentDidMount() {
     await axios
       .get("/A/student/profile/account")
-      .then((res) => {
+      .then(res => {
         this.setState({
           website: res.data.response.data[0].website,
           facebook: res.data.response.data[0].facebook,
@@ -92,9 +94,10 @@ export default class AccountInfoForm extends Component {
           linkedin: res.data.response.data[0].linkedin,
           behance: res.data.response.data[0].behance,
           github: res.data.response.data[0].github,
+          spinner: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -103,6 +106,16 @@ export default class AccountInfoForm extends Component {
     console.log(this.state);
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -121,9 +134,9 @@ export default class AccountInfoForm extends Component {
           <ScrollView style={styles.scrollView}>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -134,7 +147,7 @@ export default class AccountInfoForm extends Component {
               labelStyle={styles.labelStyle}
               value={this.state.website}
               // errorMessage={this.state.webErr}
-              onChangeText={(value) => this.setState({ website: value })}
+              onChangeText={value => this.setState({ website: value })}
             />
             <Text
               style={{
@@ -150,9 +163,9 @@ export default class AccountInfoForm extends Component {
             </Text>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -170,7 +183,7 @@ export default class AccountInfoForm extends Component {
               }}
               // errorMessage={this.state.facebookErr}
               value={this.state.facebook}
-              onChangeText={(value) => this.setState({ facebook: value })}
+              onChangeText={value => this.setState({ facebook: value })}
             />
             <Text
               style={{
@@ -186,9 +199,9 @@ export default class AccountInfoForm extends Component {
             </Text>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -206,7 +219,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.instagram}
               // errorMessage={this.state.instagramErr}
-              onChangeText={(value) => this.setState({ instagram: value })}
+              onChangeText={value => this.setState({ instagram: value })}
             />
             <Text
               style={{
@@ -222,9 +235,9 @@ export default class AccountInfoForm extends Component {
             </Text>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -242,7 +255,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.youtube}
               // errorMessage={this.state.youtubeErr}
-              onChangeText={(value) => this.setState({ youtube: value })}
+              onChangeText={value => this.setState({ youtube: value })}
             />
             <Text
               style={{
@@ -258,9 +271,9 @@ export default class AccountInfoForm extends Component {
             </Text>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -278,7 +291,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.linkedin}
               // errorMessage={this.state.linkedinErr}
-              onChangeText={(value) => this.setState({ linkedin: value })}
+              onChangeText={value => this.setState({ linkedin: value })}
             />
             <Text
               style={{
@@ -295,9 +308,9 @@ export default class AccountInfoForm extends Component {
 
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -315,7 +328,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.behance}
               // errorMessage={this.state.behanceErr}
-              onChangeText={(value) => this.setState({ behance: value })}
+              onChangeText={value => this.setState({ behance: value })}
             />
             <Text
               style={{
@@ -331,9 +344,9 @@ export default class AccountInfoForm extends Component {
             </Text>
             <Input
               style={styles.input}
-              autoCompleteType="name"
+              autoCompleteType="off"
               textContentType="name"
-              keyboardType="default"
+              keyboardType="url"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
               inputContainerStyle={{
@@ -351,7 +364,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.github}
               // errorMessage={this.state.githubErr}
-              onChangeText={(value) => this.setState({ github: value })}
+              onChangeText={value => this.setState({ github: value })}
             />
             <Text
               style={{

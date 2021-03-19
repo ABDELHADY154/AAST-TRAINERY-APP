@@ -14,12 +14,14 @@ import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import StarRating from "react-native-star-rating";
 import { StatusBar } from "expo-status-bar";
+import Spinner from "react-native-loading-spinner-overlay";
 
 export default class Skillinfo extends Component {
   constructor() {
     super();
     this.state = {
       id: 0,
+      spinner: false,
       skill_name: "",
       years_of_exp: 0,
       skillIdErr: "",
@@ -30,23 +32,28 @@ export default class Skillinfo extends Component {
 
   async componentDidMount() {
     if (this.props.route.params.id !== 0) {
+      this.setState({
+        spinner: true,
+      });
       await axios
         .get(`/A/student/profile/skill/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             id: res.data.response.data.id,
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
+          this.setState({
+            spinner: false,
+          });
         })
-        .catch((error) => {
-          if (error.response.data.errors.years_of_exp) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
-            });
-          }
-          if (error.response.data.errors.skill_name) {
-            this.setState({
               skillErr: error.response.data.errors.skill_name,
             });
           }
@@ -54,6 +61,9 @@ export default class Skillinfo extends Component {
     }
   }
   handleSubmitSkills = async () => {
+    this.setState({
+      spinner: true,
+    });
     var body = {
       skill_name: this.state.skill_name,
       id: this.state.id,
@@ -62,8 +72,10 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/skill/${this.props.route.params.id}`, body)
-        .then((res) => {
-          // this.props.navigation.push("App", { screen: "Profile" });
+        .then(res => {
+          this.setState({
+            spinner: false,
+          });
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -71,14 +83,13 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch((error) => {
-          if (error.response.data.errors.years_of_exp) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
-            });
-          }
-          if (error.response.data.errors.skill_name) {
-            this.setState({
               skillErr: error.response.data.errors.skill_name,
             });
           }
@@ -86,8 +97,10 @@ export default class Skillinfo extends Component {
     } else {
       return await axios
         .post("/A/student/profile/skill", body)
-        .then((response) => {
-          // this.props.navigation.push("App", { screen: "Profile" });
+        .then(response => {
+          this.setState({
+            spinner: false,
+          });
           this.props.navigation.push("App", {
             screen: "Profile",
             params: {
@@ -95,25 +108,29 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch((error) => {
-          if (error.response.data.errors.years_of_exp) {
+        .catch(error => {
+          this.setState({
+            spinner: false,
+          });
+          if (error.response.data) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
-            });
-          }
-          if (error.response.data.errors.skill_name) {
-            this.setState({
               skillErr: error.response.data.errors.skill_name,
             });
           }
         });
     }
   };
-  handleDelete = async (e) => {
+  handleDelete = async e => {
+    this.setState({
+      spinner: true,
+    });
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
-      .then((response) => {
-        // this.props.navigation.push("App", { screen: "Profile" });
+      .then(response => {
+        this.setState({
+          spinner: false,
+        });
         this.props.navigation.push("App", {
           screen: "Profile",
           params: {
@@ -121,22 +138,25 @@ export default class Skillinfo extends Component {
           },
         });
       })
-      .catch((error) => {
-        if (error.response.data.errors.years_of_exp) {
-          this.setState({
-            yearsExpErr: error.response.data.errors.years_of_exp,
-          });
-        }
-        if (error.response.data.errors.skill_name) {
-          this.setState({
-            skillErr: error.response.data.errors.skill_name,
-          });
-        }
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
       });
   };
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -179,7 +199,7 @@ export default class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.skill_name}
-              onChangeText={(value) => this.setState({ skill_name: value })}
+              onChangeText={value => this.setState({ skill_name: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -232,7 +252,7 @@ export default class Skillinfo extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.years_of_exp}
-                selectedStar={(years_of_exp) =>
+                selectedStar={years_of_exp =>
                   this.setState({ years_of_exp: years_of_exp })
                 }
                 style={{
