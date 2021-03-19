@@ -141,7 +141,7 @@ export default class Interests extends Component {
                 width: "107%",
               }}
               inputStyle={{ color: "#1E4275" }}
-              label="Press comma or Enter to add a tag"
+              label="Press Enter to add a tag"
               labelStyle={{
                 color: "#1E4274",
                 fontSize: 16,
@@ -150,8 +150,10 @@ export default class Interests extends Component {
               }}
               updateState={this.updateTagState}
               tags={this.state.tags}
-              keysForTag={","}
+              // keysForTag={","}
+              rightElement={<Icon name={'plus'} type={'material-community'} color="#1E4275" style={{marginRight:5}}/>}
             />
+
             {this.state.interestsErr != "" ? (
               <View
                 style={{
