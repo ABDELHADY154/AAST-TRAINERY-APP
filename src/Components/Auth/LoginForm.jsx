@@ -94,11 +94,11 @@ class LoginForm extends Component {
     }
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <ImageBackground
-            source={require("../../assets/Images/signInbg.png")}
-            style={styles.image}
-          >
+        <ImageBackground
+          source={require("../../assets/Images/signInbg.png")}
+          style={styles.image}
+        >
+          <ScrollView>
             <View style={styles.logoContainer}>
               <Image
                 source={require("../../assets/Images/IconWhite.png")}
@@ -283,8 +283,8 @@ class LoginForm extends Component {
                 Terms and conditions
               </Text>
             </View>
-          </ImageBackground>
-        </ScrollView>
+          </ScrollView>
+        </ImageBackground>
         <StatusBar style="light" />
       </View>
     );
@@ -319,6 +319,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     width: 297,
+    marginTop: "-15%",
   },
   labelStyle: {
     color: "white",

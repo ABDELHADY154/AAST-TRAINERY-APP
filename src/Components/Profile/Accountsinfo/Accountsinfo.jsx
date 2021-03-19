@@ -109,7 +109,7 @@ export default class AccountInfoForm extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -388,11 +388,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.6%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -401,8 +401,9 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "87%",
-    alignSelf: "center",
+    width: "94%",
+    // alignSelf: "center",
+    // marginLeft: "-0.5%",
   },
   labelStyle: {
     color: "#1E4274",

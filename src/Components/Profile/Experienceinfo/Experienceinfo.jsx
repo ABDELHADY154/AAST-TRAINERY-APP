@@ -340,8 +340,7 @@ export default class ExpInfoForm extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
-            // flex: 1,
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -351,18 +350,7 @@ export default class ExpInfoForm extends Component {
 
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
-            <Text
-              style={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginTop: 15,
-                marginLeft: "2.5%",
-              }}
-            >
-              Experience Type
-            </Text>
+            <Text style={styles.labelStyle}>Experience Type</Text>
             <View
               style={{
                 backgroundColor: "transparent",
@@ -474,7 +462,7 @@ export default class ExpInfoForm extends Component {
                 fontFamily: "SF-M",
                 fontWeight: "normal",
                 marginBottom: -10,
-                marginLeft: "-1%",
+                marginLeft: "-1.4%",
               }}
               value={this.state.company_name}
               onChangeText={(value) => this.setState({ company_name: value })}
@@ -505,7 +493,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                 }}
               >
                 Country
@@ -569,7 +557,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 5,
-                  marginLeft: "-5%",
+                  marginLeft: "-6.3%",
                 }}
               >
                 City
@@ -635,7 +623,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                   marginBottom: -10,
                 }}
               >
@@ -664,8 +652,8 @@ export default class ExpInfoForm extends Component {
                     onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
-                      width: "117%",
-                      marginLeft: "-5%",
+                      width: "119%",
+                      marginLeft: "-6.7%",
                       borderColor: "transparent",
 
                       borderBottomColor: "#1E4274",
@@ -704,7 +692,7 @@ export default class ExpInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: 10,
-                  marginLeft: "-5%",
+                  marginLeft: "-6%",
                   marginBottom: -10,
                 }}
               >
@@ -732,8 +720,8 @@ export default class ExpInfoForm extends Component {
                     onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
-                      width: "117%",
-                      marginLeft: "-5%",
+                      width: "119%",
+                      marginLeft: "-6.7%",
                       borderColor: "transparent",
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
@@ -773,8 +761,8 @@ export default class ExpInfoForm extends Component {
                 inputContainerStyle={{
                   borderColor: "#1E4274",
                   borderBottomWidth: 2,
-                  width: "122%",
-                  marginLeft: "-10%",
+                  width: "125%",
+                  marginLeft: "-11%",
                 }}
                 label="Credentials URL"
                 labelStyle={{
@@ -880,11 +868,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.4%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -893,7 +881,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "87%",
+    width: "92%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -901,6 +889,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "SF-M",
     fontWeight: "normal",
+    marginLeft: "2%",
     marginBottom: -10,
     marginTop: 15,
   },

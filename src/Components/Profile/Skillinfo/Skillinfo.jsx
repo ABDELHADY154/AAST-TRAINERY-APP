@@ -13,6 +13,7 @@ import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import StarRating from "react-native-star-rating";
+import { StatusBar } from "expo-status-bar";
 
 export default class Skillinfo extends Component {
   constructor() {
@@ -31,14 +32,14 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       await axios
         .get(`/A/student/profile/skill/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             id: res.data.response.data.id,
             skill_name: res.data.response.data.skill_name,
             years_of_exp: res.data.response.data.years_of_exp,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -61,7 +62,7 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/skill/${this.props.route.params.id}`, body)
-        .then(res => {
+        .then((res) => {
           // this.props.navigation.push("App", { screen: "Profile" });
           this.props.navigation.push("App", {
             screen: "Profile",
@@ -70,7 +71,7 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -85,7 +86,7 @@ export default class Skillinfo extends Component {
     } else {
       return await axios
         .post("/A/student/profile/skill", body)
-        .then(response => {
+        .then((response) => {
           // this.props.navigation.push("App", { screen: "Profile" });
           this.props.navigation.push("App", {
             screen: "Profile",
@@ -94,7 +95,7 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           if (error.response.data.errors.years_of_exp) {
             this.setState({
               yearsExpErr: error.response.data.errors.years_of_exp,
@@ -108,10 +109,10 @@ export default class Skillinfo extends Component {
         });
     }
   };
-  handleDelete = async e => {
+  handleDelete = async (e) => {
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         // this.props.navigation.push("App", { screen: "Profile" });
         this.props.navigation.push("App", {
           screen: "Profile",
@@ -120,7 +121,7 @@ export default class Skillinfo extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.years_of_exp) {
           this.setState({
             yearsExpErr: error.response.data.errors.years_of_exp,
@@ -142,7 +143,7 @@ export default class Skillinfo extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -150,7 +151,7 @@ export default class Skillinfo extends Component {
         />
         <Text style={styles.title}>Skills </Text>
 
-        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
+        <View style={{ flex: 1, width: "94%", alignSelf: "center" }}>
           <ScrollView>
             <Input
               containerStyle={{
@@ -166,7 +167,7 @@ export default class Skillinfo extends Component {
               inputContainerStyle={{
                 borderColor: "#1E4274",
                 borderBottomWidth: 2,
-                width: "107%",
+                width: "120%",
               }}
               label="Skill Name"
               labelStyle={{
@@ -178,7 +179,7 @@ export default class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.skill_name}
-              onChangeText={value => this.setState({ skill_name: value })}
+              onChangeText={(value) => this.setState({ skill_name: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -195,6 +196,7 @@ export default class Skillinfo extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    marginLeft: "-1%",
                   }}
                 >
                   {this.state.skillErr}
@@ -219,6 +221,7 @@ export default class Skillinfo extends Component {
                   fontWeight: "normal",
                   marginBottom: 10,
                   marginTop: 15,
+                  marginLeft: "-3.5%",
                 }}
               >
                 Level of Experience
@@ -229,13 +232,13 @@ export default class Skillinfo extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.years_of_exp}
-                selectedStar={years_of_exp =>
+                selectedStar={(years_of_exp) =>
                   this.setState({ years_of_exp: years_of_exp })
                 }
                 style={{
                   justifyContent: "center",
                   alignSelf: "center",
-                  marginLeft: "5%",
+                  marginLeft: "4%",
                 }}
               />
             </View>
@@ -313,6 +316,7 @@ export default class Skillinfo extends Component {
               )}
             </View>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );
@@ -327,12 +331,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
     paddingRight: 15,
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.6%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",

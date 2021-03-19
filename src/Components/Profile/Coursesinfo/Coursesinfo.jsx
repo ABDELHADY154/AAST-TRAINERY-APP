@@ -218,7 +218,7 @@ export default class CoursesInfoForm extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
@@ -226,14 +226,10 @@ export default class CoursesInfoForm extends Component {
         />
         <Text style={styles.title}>Courses</Text>
 
-        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
+        <View style={{ flex: 1, width: "90%", alignSelf: "center" }}>
           <ScrollView style={styles.scrollView}>
             <Input
-              containerStyle={{
-                justifyContent: "center",
-                alignSelf: "center",
-                marginLeft: "5%",
-              }}
+              containerStyle={styles.inputContainer}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -251,6 +247,7 @@ export default class CoursesInfoForm extends Component {
                 fontWeight: "normal",
                 marginBottom: -10,
                 marginTop: 15,
+                marginLeft: "0.5%",
               }}
               value={this.state.course_name}
               onChangeText={(value) => this.setState({ course_name: value })}
@@ -262,7 +259,7 @@ export default class CoursesInfoForm extends Component {
                   alignSelf: "flex-start",
                   flexDirection: "row",
                   width: "91.5%",
-                  marginLeft: "5%",
+                  marginLeft: "1%",
                   marginTop: "-5%",
                   marginBottom: "6%",
                 }}
@@ -281,6 +278,7 @@ export default class CoursesInfoForm extends Component {
               <Text></Text>
             )}
             <Input
+              containerStyle={{ flex: 1, width: "111%", alignSelf: "center" }}
               style={styles.input}
               autoCompleteType="name"
               textContentType="name"
@@ -315,7 +313,7 @@ export default class CoursesInfoForm extends Component {
                   alignSelf: "flex-start",
                   flexDirection: "row",
                   width: "91.5%",
-                  marginLeft: "5%",
+                  marginLeft: "1%",
                   marginTop: "-5%",
                   marginBottom: "6%",
                 }}
@@ -342,7 +340,7 @@ export default class CoursesInfoForm extends Component {
                   fontFamily: "SF-M",
                   fontWeight: "normal",
                   marginTop: -10,
-                  marginLeft: "-2%",
+                  marginLeft: "-7.5%",
                   marginBottom: -10,
                 }}
               >
@@ -370,8 +368,8 @@ export default class CoursesInfoForm extends Component {
                     onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
-                      width: "107%",
-                      marginLeft: "-2%",
+                      width: "120%",
+                      marginLeft: "-10%",
                       borderColor: "transparent",
 
                       borderBottomColor: "#1E4274",
@@ -394,12 +392,13 @@ export default class CoursesInfoForm extends Component {
               {this.state.fromErr != "" ? (
                 <View
                   style={{
-                    marginLeft: "-2%",
+                    marginLeft: "-7%",
                     justifyContent: "space-between",
                     alignSelf: "flex-start",
                     flexDirection: "row",
                     width: "91.5%",
                     marginTop: "0%",
+                    marginBottom: "5%",
                   }}
                 >
                   <Text
@@ -421,8 +420,8 @@ export default class CoursesInfoForm extends Component {
                   fontSize: 16,
                   fontFamily: "SF-M",
                   fontWeight: "normal",
-                  marginTop: 10,
-                  marginLeft: "-2%",
+                  marginTop: -10,
+                  marginLeft: "-7.5%",
                   marginBottom: -10,
                 }}
               >
@@ -451,9 +450,10 @@ export default class CoursesInfoForm extends Component {
                     onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
-                      width: "107%",
-                      marginLeft: "-2%",
+                      width: "120%",
+                      marginLeft: "-10%",
                       borderColor: "transparent",
+
                       borderBottomColor: "#1E4274",
                       borderBottomWidth: 2,
                       borderRadius: 0,
@@ -474,7 +474,7 @@ export default class CoursesInfoForm extends Component {
               {this.state.toErr != "" ? (
                 <View
                   style={{
-                    marginLeft: "-2%",
+                    marginLeft: "-7%",
 
                     justifyContent: "space-between",
                     alignSelf: "flex-start",
@@ -507,6 +507,7 @@ export default class CoursesInfoForm extends Component {
                   width: "114.5%",
                   marginLeft: "-6%",
                 }}
+                containerStyle={{ flex: 1, width: "109%", alignSelf: "center" }}
                 label="Credentials URL"
                 labelStyle={{
                   color: "#1E4274",
@@ -534,7 +535,7 @@ export default class CoursesInfoForm extends Component {
                     fontFamily: "SF-M",
                     fontWeight: "normal",
                     marginBottom: 5,
-                    marginLeft: "-2%",
+                    marginLeft: "-7%",
                   }}
                 >
                   Credentials Upload
@@ -610,12 +611,11 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
-    // alignSelf: "center",
-    width: "97%",
+    width: "100%",
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.4%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",
@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     flex: 1,
-    width: "87%",
+    width: "106%",
     alignSelf: "center",
   },
   labelStyle: {
@@ -632,6 +632,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: "SF-M",
     fontWeight: "normal",
+    marginLeft: "3%",
     marginBottom: -10,
     marginTop: 15,
   },

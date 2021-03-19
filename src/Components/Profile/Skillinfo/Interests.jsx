@@ -14,6 +14,7 @@ import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import TagInput from "react-native-tags-input";
+import { StatusBar } from "expo-status-bar";
 
 export default class Interests extends Component {
   constructor() {
@@ -85,14 +86,21 @@ export default class Interests extends Component {
           color="#1E4274"
           style={{
             alignSelf: "flex-start",
-            marginLeft: "6%",
+            marginLeft: "3%",
             marginTop: 45,
             marginBottom: 15,
           }}
           onPress={() => this.props.navigation.goBack()}
         />
         <Text style={styles.title}>Interests </Text>
-        <View style={{ flex: 1, width: "87%", alignSelf: "center" }}>
+        <View
+          style={{
+            flex: 1,
+            width: "95%",
+            alignSelf: "center",
+            marginLeft: "2%",
+          }}
+        >
           <ScrollView>
             <TagInput
               placeholder="Tags..."
@@ -154,6 +162,7 @@ export default class Interests extends Component {
               </Button>
             </View>
           </ScrollView>
+          <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>
     );
@@ -168,12 +177,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
-    width: "97%",
+    width: "100%",
     paddingRight: 15,
   },
   title: {
     alignSelf: "flex-start",
-    marginLeft: "9%",
+    marginLeft: "5.9%",
     color: "#CD8930",
     fontSize: 24,
     fontFamily: "SF-M",

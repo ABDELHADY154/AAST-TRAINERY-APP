@@ -298,7 +298,7 @@ export class ExperienceTab extends Component {
 
                 <Card.Title
                   style={{ marginLeft: 1 }}
-                  title="Intrests"
+                  title="Interests"
                   titleStyle={{
                     color: "#CD8930",
                     fontSize: 18,
