@@ -800,7 +800,6 @@ export default class ExpInfoForm extends Component {
                 >
                   Credentials Upload
                 </Text>
-                {/* <Text style={{flex:1,justifyContent:"center",  alignItems: "center"}}></Text> */}
                 <TouchableOpacity
                   style={{
                     marginTop: -4,

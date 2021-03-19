@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, ScrollView,TouchableOpacity } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
@@ -629,7 +629,7 @@ export default class EduInfoForm extends Component {
                   this.setState({ EducationCredURL: value })
                 }
               />
-              <View
+               <View
                 style={{
                   flexDirection: "row",
                 }}
@@ -642,23 +642,26 @@ export default class EduInfoForm extends Component {
                     fontWeight: "normal",
                     marginBottom: 5,
                     marginLeft: "-6%",
+                    flex: 1,
+                    justifyContent: "flex-start",
+                    alignItems: "flex-start",
+
                   }}
                 >
                   Credentials Upload
                 </Text>
-                <Button
+                <TouchableOpacity
                   style={{
-                    borderRadius: 5,
-                    width: "11%",
-                    height: "36%",
                     marginTop: -4,
-                    marginLeft: "49%",
+                    flex: 1,
+                    justifyContent: "flex-end",
+                    alignItems: "flex-end",
                   }}
                   color="#1E4275"
                   onPress={this._pickDocument}
                 >
-                  <Feather name="upload" size={20} color="#fff" />
-                </Button>
+                  <Feather name="upload" size={20} color="#fff" style={{ backgroundColor:"#1E4274", padding:"5%",borderRadius: 5}} />
+                </TouchableOpacity>
               </View>
             </View>
             {this.props.route.params.id > 0 ? (
