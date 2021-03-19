@@ -125,6 +125,9 @@ class PersonalTabForm extends Component {
                   color: "#1E4274",
                   marginBottom: 10,
                 }}
+                onPress={() => {
+                  this.props.navigation.push("GeneralForm");
+                }}
               >
                 Complete your general information
               </Text>

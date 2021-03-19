@@ -58,6 +58,9 @@ export default class Academicinfo extends Component {
             }
           }
         }
+        if (this.state.gpa == "null") {
+          this.setState({ gpa: "" });
+        }
         this.setState({
           spinner: false,
         });
@@ -133,6 +136,8 @@ export default class Academicinfo extends Component {
 
   render() {
     // console.log(this.state);
+    const gpa = this.state.gpa; // !== null ? "" : this.state.gpa;
+    console.log(gpa);
     return (
       <View style={styles.container}>
         <Spinner
@@ -373,9 +378,7 @@ export default class Academicinfo extends Component {
               <Text
                 style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
               >
-                {this.state.periodErr
-                  ? this.state.periodErr
-                  : null}
+                {this.state.periodErr ? this.state.periodErr : null}
               </Text>
               <Input
                 keyboardType="number-pad"
@@ -405,7 +408,7 @@ export default class Academicinfo extends Component {
                   marginTop: 15,
                   marginLeft: "-3%",
                 }}
-                value={this.state.gpa}
+                value={gpa}
                 // errorMessage={this.state.gpaErr}
                 onChangeText={value => this.setState({ gpa: value })}
               />

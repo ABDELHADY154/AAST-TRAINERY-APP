@@ -94,10 +94,15 @@ export default class AccountInfoForm extends Component {
           linkedin: res.data.response.data[0].linkedin,
           behance: res.data.response.data[0].behance,
           github: res.data.response.data[0].github,
+        });
+        this.setState({
           spinner: false,
         });
       })
       .catch(err => {
+        this.setState({
+          spinner: false,
+        });
         console.log(err);
       });
   }
