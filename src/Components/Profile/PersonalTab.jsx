@@ -370,7 +370,7 @@ class PersonalTabForm extends Component {
                       width: "78%",
                     }}
                   >
-                    {this.state.userData.country}
+                    {this.state.userData.university}
                   </Text>
                 </View>
                 <View

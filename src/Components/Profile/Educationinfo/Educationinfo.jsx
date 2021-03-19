@@ -85,7 +85,7 @@ export default class EduInfoForm extends Component {
     formData.append("country", this.state.country);
     formData.append("from", this.state.EducationFrom);
     formData.append("to", this.state.EducationTo);
-    formData.append("cred_url", this.state.EducationCredURL);
+    formData.append("credential_url", this.state.EducationCredURL);
     if (this.state.EducationCredUpload !== null) {
       let uriParts = this.state.EducationCredUpload.split(".");
       let fileType = uriParts[uriParts.length - 1];
@@ -140,7 +140,7 @@ export default class EduInfoForm extends Component {
     formData.append("country", this.state.country);
     formData.append("from", this.state.EducationFrom);
     formData.append("to", this.state.EducationTo);
-    formData.append("cred_url", this.state.EducationCredURL);
+    formData.append("credential_url", this.state.EducationCredURL);
     if (this.state.EducationCredUpload !== null) {
       let uriParts = this.state.EducationCredUpload.split(".");
       let fileType = uriParts[uriParts.length - 1];
