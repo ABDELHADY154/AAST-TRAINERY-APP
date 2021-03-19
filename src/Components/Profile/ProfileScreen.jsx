@@ -20,6 +20,8 @@ import { ExperienceTab } from "./ExperienceTab";
 import { PersonalTab } from "./PersonalTab";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProfileImgLoader } from "../Loader/Loader";
+import Spinner from "react-native-loading-spinner-overlay";
+
 const Tab = createMaterialTopTabNavigator();
 
 export default class ProfileScreen extends Component {
@@ -29,15 +31,17 @@ export default class ProfileScreen extends Component {
     userData: {},
     visible: false,
     loading: false,
+    spinner: false,
   };
 
   afterImageUpload = async () => {
     await axios
       .get("/A/student/studentImg")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
+        this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
@@ -46,11 +50,12 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
         });
+        this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
         console.log(error.response.data.errors);
@@ -62,10 +67,13 @@ export default class ProfileScreen extends Component {
   hideModal = () => {
     this.setState({ visible: false });
   };
-  getImage = (image) => {
+  getImage = image => {
     this.setState({ image: image });
   };
   updateImage = async () => {
+    this.setState({
+      spinner: true,
+    });
     var formData = new FormData();
     let uriParts = this.state.image.split(".");
     let fileType = uriParts[uriParts.length - 1];
@@ -81,11 +89,14 @@ export default class ProfileScreen extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((e) => {
+      .then(e => {
         this.setState({ visible: false });
         this.afterImageUpload();
+        this.setState({
+          spinner: false,
+        });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
       });
   };
@@ -93,6 +104,16 @@ export default class ProfileScreen extends Component {
     return (
       <View style={styles.container}>
         {/* Header */}
+        <Spinner
+          visible={this.state.spinner}
+          // textContent={"Uploading..."}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <View style={{ backgroundColor: "#1E4274" }}>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             {this.state.loading === false ? (

@@ -22,9 +22,7 @@ import * as Font from "expo-font";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { IconButton } from "react-native-paper";
-import { Feather } from "@expo/vector-icons";
-import { Text, View, StyleSheet, BackHandler, Alert } from "react-native";
+import { BackHandler, Alert } from "react-native";
 
 import {
   DefaultTheme,
