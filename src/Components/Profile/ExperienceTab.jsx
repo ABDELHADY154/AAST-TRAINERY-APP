@@ -3,7 +3,7 @@ import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { MaterialIcons, Octicons } from "@expo/vector-icons";
+import { MaterialIcons, Octicons,Ionicons } from "@expo/vector-icons";
 import {
   Card,
   Button,
@@ -485,12 +485,13 @@ export class EducationCardSample extends Component {
           >
             {this.props.from} to {this.props.to}
           </Paragraph>
-          <Button
+ <View style={{flexDirection: "row",}}>
+ <Button
             type="text"
             style={{
               fontSize: 14,
-              alignItems: "flex-start",
               marginLeft: -16,
+              justifyContent: "center"
             }}
             onPress={() => {}}
             openURL={this.props.cred_url}
@@ -498,6 +499,12 @@ export class EducationCardSample extends Component {
           >
             See credential
           </Button>
+          <IconButton
+style={{marginLeft:"20%", justifyContent: "center", marginTop:"1%"}}    icon="file-document-outline"
+size={26} color="#CD8930"
+    onPress={() => console.log('Pressed')}
+  />
+ </View>
         </View>
       </Card.Content>
     );
@@ -567,7 +574,10 @@ export class ExperienceCard extends Component {
               />
             </View>
             <View style={{ marginLeft: 18 }}>
-              <Paragraph
+  
+<View style={{flexDirection: "row",}}>
+  <View style={{ alignItems: "flex-start", flex:1}}>
+  <Paragraph
                 style={{
                   fontSize: 14,
                   color: "#1E4274",
@@ -585,30 +595,41 @@ export class ExperienceCard extends Component {
               >
                 {this.props.from} to {this.props.to}
               </Paragraph>
-              <View style={{ flexDirection: "row", flex: 1 }}>
-                <Button
-                  type="text"
-                  style={{
-                    fontSize: 14,
-                    alignItems: "flex-start",
-                    marginLeft: -16,
-                  }}
-                  onPress={() => {}}
-                  color="#CD8930"
-                >
-                  See credential
-                </Button>
-                <Chip
-                  style={{ height: 33 }}
+  </View>
+<View style={{alignItems: "flex-end", justifyContent: "center"}}>
+<Chip
+                  style={{ height: 25 }}
                   textStyle={{
-                    fontSize: 14,
+                    fontSize: 12,
                     color: "#1E4274",
-                    alignItems: "center",
+                   marginTop: "1.5%"
                   }}
                 >
+
                   {this.props.experience_type}
                 </Chip>
-              </View>
+</View>
+</View>
+                        <View style={{flexDirection: "row",}}>
+ <Button
+            type="text"
+            style={{
+              fontSize: 14,
+              marginLeft: -16,
+              justifyContent: "center"
+            }}
+            onPress={() => {}}
+            openURL={this.props.cred_url}
+            color="#CD8930"
+          >
+            See credential
+          </Button>
+          <IconButton
+style={{marginLeft:"20%", justifyContent: "center", marginTop:"1%"}}    icon="file-document-outline"
+size={26} color="#CD8930"
+    onPress={() => console.log('Pressed')}
+  />
+ </View>
             </View>
           </Card.Content>
         </ScrollView>
@@ -691,18 +712,26 @@ export class CoursesCard extends Component {
               >
                 {this.props.course_name}
               </Paragraph>
-              <Button
-                type="text"
-                style={{
-                  fontSize: 14,
-                  alignItems: "flex-start",
-                  marginLeft: -16,
-                }}
-                onPress={() => {}}
-                color="#CD8930"
-              >
-                See credential
-              </Button>
+              <View style={{flexDirection: "row", alignItems: "flex-start",}}>
+ <Button
+            type="text"
+            style={{
+              fontSize: 14,
+              alignItems: "flex-start",
+              marginLeft: -16,
+            }}
+            onPress={() => {}}
+            openURL={this.props.cred_url}
+            color="#CD8930"
+          >
+            See credential
+          </Button>
+          <IconButton
+style={{alignItems: "flex-end", marginLeft:"20%"}}    icon="file-document-outline"
+size={28} color="#CD8930"
+    onPress={() => console.log('Pressed')}
+  />
+ </View>
             </View>
           </Card.Content>
         </ScrollView>
@@ -736,7 +765,10 @@ export class SkillsCardSample extends Component {
           alignItems: "center",
         }}
       >
-        <View style={{ width: "30%" }}>
+        <View style={{   
+width:"33%",   
+marginRight:"3%",           flexDirection: "row",
+              alignItems: "center", }}>
           <Paragraph
             style={{
               flex: 1,
