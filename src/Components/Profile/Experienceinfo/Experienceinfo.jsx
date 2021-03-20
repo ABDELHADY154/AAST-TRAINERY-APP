@@ -366,6 +366,7 @@ export default class ExpInfoForm extends Component {
                 marginTop: "1%",
                 marginLeft: "3%",
                 marginBottom: "-4%",
+                textTransform: 'capitalize'
               }}
             >
               {this.state.expErr ? this.state.expErr : null}
@@ -404,6 +405,7 @@ export default class ExpInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "0%",
+                textTransform: 'capitalize'
               }}
             >
               {this.state.jobErr ? this.state.jobErr : null}
@@ -441,6 +443,7 @@ export default class ExpInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
+                textTransform: 'capitalize'
               }}
             >
               {this.state.companyErr ? this.state.companyErr : null}
@@ -512,6 +515,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-5%",
                   marginBottom: "-2%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.countryErr ? this.state.countryErr : null}
@@ -578,6 +582,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-5%",
                   marginBottom: "-2%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.cityErr ? this.state.cityErr : null}
@@ -647,6 +652,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "0%",
                   marginLeft: "-5%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.fromErr ? this.state.fromErr : null}
@@ -714,6 +720,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "0%",
                   marginLeft: "-5%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.toErr ? this.state.toErr : null}

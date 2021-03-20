@@ -217,6 +217,7 @@ class GeneralInfo extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
+                textTransform: 'capitalize'
               }}
             >
               {this.state.studentNameErr ? this.state.studentNameErr : null}
@@ -374,6 +375,7 @@ class GeneralInfo extends Component {
                   marginTop: "-7%",
                   marginLeft: "-5%",
                   marginBottom: "2%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.nationalityErr ? this.state.nationalityErr : null}
@@ -519,6 +521,7 @@ class GeneralInfo extends Component {
                   marginTop: "-7%",
                   marginLeft: "-6%",
                   marginBottom: "2%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.phoneNumberErr ? this.state.phoneNumberErr : null}

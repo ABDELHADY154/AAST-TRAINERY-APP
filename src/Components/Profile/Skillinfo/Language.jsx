@@ -223,6 +223,7 @@ export default class Language extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.languageErr}
@@ -282,6 +283,7 @@ export default class Language extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.levelErr}

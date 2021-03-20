@@ -208,7 +208,7 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left",textTransform: 'capitalize' }}
               >
                 {this.state.universityErr ? this.state.universityErr : null}
               </Text>
@@ -265,7 +265,7 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left" ,textTransform: 'capitalize'}}
               >
                 {this.state.department_idErr
                   ? this.state.department_idErr
@@ -313,6 +313,7 @@ export default class Academicinfo extends Component {
                   fontSize: 14,
                   textAlign: "left",
                   marginTop: "-7%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.reg_noErr ? this.state.reg_noErr : null}
@@ -376,7 +377,7 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left" }}
+                style={{ color: "#F44336", fontSize: 14, textAlign: "left",textTransform: 'capitalize' }}
               >
                 {this.state.periodErr ? this.state.periodErr : null}
               </Text>
@@ -418,6 +419,7 @@ export default class Academicinfo extends Component {
                   fontSize: 14,
                   textAlign: "left",
                   marginTop: "-7%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.gpaErr ? this.state.gpaErr : " "}
@@ -507,6 +509,7 @@ export default class Academicinfo extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
+                      textTransform: 'capitalize'
                     }}
                   >
                     {this.state.fromErr}
@@ -601,6 +604,7 @@ export default class Academicinfo extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.toErr}
