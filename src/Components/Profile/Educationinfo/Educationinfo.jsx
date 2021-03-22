@@ -314,6 +314,7 @@ export default class EduInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
+                textTransform: 'capitalize'
               }}
             >
               {this.state.schoolErr ? this.state.schoolErr : null}
@@ -385,6 +386,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "2%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.countryErr ? this.state.countryErr : null}
@@ -453,6 +455,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.cityErr ? this.state.cityErr : null}
@@ -488,7 +491,6 @@ export default class EduInfoForm extends Component {
                       alignSelf: "flex-end",
                     }}
                   ></Feather>
-
                   <Button
                     onPress={this.showFromDatePicker}
                     color="transparent"
@@ -522,6 +524,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "-2%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.fromErr ? this.state.fromErr : null}
@@ -589,6 +592,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "-3%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
+                  textTransform: 'capitalize'
                 }}
               >
                 {this.state.toErr ? this.state.toErr : null}

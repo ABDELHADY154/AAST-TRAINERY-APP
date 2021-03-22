@@ -7,6 +7,7 @@ import {
   Easing,
   TouchableWithoutFeedback,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -287,13 +288,16 @@ export default class HomeScreen extends Component {
                 </View>
               </TouchableWithoutFeedback>
             )}
-            <View
+            <TouchableOpacity
               style={{
                 // backgroundColor: "#F2F2F2",
                 padding: 15,
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 20,
+              }}
+              onPress={() => {
+                this.props.navigation.push("GeneralForm");
               }}
             >
               <Feather
@@ -304,14 +308,12 @@ export default class HomeScreen extends Component {
               />
               <Text
                 style={{ color: "#1E4274", fontSize: 16 }}
-                onPress={() => {
-                  this.props.navigation.push("GeneralForm");
-                }}
+               
               >
                 Edit Profile
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -329,8 +331,8 @@ export default class HomeScreen extends Component {
               <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Generate CV
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -352,8 +354,8 @@ export default class HomeScreen extends Component {
                 color="#CD8930"
                 style={{ paddingLeft: 10 }}
               />
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -371,8 +373,8 @@ export default class HomeScreen extends Component {
               <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Account settings
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -388,9 +390,9 @@ export default class HomeScreen extends Component {
                 style={{ paddingRight: 10, paddingLeft: 2 }}
               />
               <Text style={{ color: "#1E4274", fontSize: 16 }}>About Us</Text>
-            </View>
+            </TouchableOpacity>
             <Divider style={{ backgroundColor: "#ccc" }} />
-            <View
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -402,8 +404,8 @@ export default class HomeScreen extends Component {
               <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Help center
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -415,29 +417,29 @@ export default class HomeScreen extends Component {
               <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Terms and conditions
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 22,
-              }}
-            >
-              <Text
-                style={{ color: "#1E4274", fontSize: 16 }}
-                onPress={() => {
+              }} onPress={() => {
                   AsyncStorage.removeItem("userData");
                   AsyncStorage.removeItem("userToken");
                   AsyncStorage.removeItem("config");
                   axios.defaults.headers.common["Authorization"] = ``;
                   this.props.logout();
                 }}
+            >
+              <Text
+                style={{ color: "#1E4274", fontSize: 16 }}
+               
               >
                 Log Out
               </Text>
-            </View>
+            </TouchableOpacity>
           </ScrollView>
         </View>
       </View>

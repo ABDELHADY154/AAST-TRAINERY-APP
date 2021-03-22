@@ -217,6 +217,7 @@ export default class Skillinfo extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.skillErr}
@@ -277,6 +278,8 @@ export default class Skillinfo extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+marginTop: "7%",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.yearsExpErr}

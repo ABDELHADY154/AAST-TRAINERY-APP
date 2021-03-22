@@ -283,6 +283,7 @@ export default class CoursesInfoForm extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.course_nameErr}
@@ -335,6 +336,7 @@ export default class CoursesInfoForm extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.course_providerErr}
@@ -418,6 +420,7 @@ export default class CoursesInfoForm extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
+                      textTransform: 'capitalize'
                     }}
                   >
                     {this.state.fromErr}
@@ -499,6 +502,7 @@ export default class CoursesInfoForm extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
+                      textTransform: 'capitalize'
                     }}
                   >
                     {this.state.toErr}

@@ -87,11 +87,15 @@ export default class Interests extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
-        console.log(err.response);
+        if (error.response.data) {
+          this.setState({
+            interestErr: error.response.data.errors.interests,
+          });
+        }
       });
   };
 
@@ -143,6 +147,7 @@ export default class Interests extends Component {
               inputStyle={{ color: "#1E4275" }}
               label="Press Enter to add a tag"
               labelStyle={{
+                textTransform: 'capitalize',
                 color: "#1E4274",
                 fontSize: 16,
                 fontFamily: "SF-M",
@@ -169,6 +174,7 @@ export default class Interests extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
+                    textTransform: 'capitalize'
                   }}
                 >
                   {this.state.interestErr}
