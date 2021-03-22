@@ -46,7 +46,7 @@ export default class EduInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -56,7 +56,7 @@ export default class EduInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -70,13 +70,13 @@ export default class EduInfoForm extends Component {
       }
     }
   };
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -92,7 +92,7 @@ export default class EduInfoForm extends Component {
     formData.append("country", this.state.country);
     formData.append("from", this.state.EducationFrom);
     formData.append("to", this.state.EducationTo);
-    formData.append("credential_url", this.state.EducationCredURL);
+    formData.append("cred_url", this.state.EducationCredURL);
     if (this.state.EducationCredUpload !== null) {
       let uriParts = this.state.EducationCredUpload.split(".");
       let fileType = uriParts[uriParts.length - 1];
@@ -108,7 +108,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -119,7 +119,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -147,7 +147,7 @@ export default class EduInfoForm extends Component {
     formData.append("country", this.state.country);
     formData.append("from", this.state.EducationFrom);
     formData.append("to", this.state.EducationTo);
-    formData.append("credential_url", this.state.EducationCredURL);
+    formData.append("cred_url", this.state.EducationCredURL);
     if (this.state.EducationCredUpload !== null) {
       let uriParts = this.state.EducationCredUpload.split(".");
       let fileType = uriParts[uriParts.length - 1];
@@ -163,7 +163,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -174,7 +174,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -197,7 +197,7 @@ export default class EduInfoForm extends Component {
     });
     axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         // if (this.state.country !== "") {
         this.countryOnchangeHandler(this.state.country);
@@ -206,7 +206,7 @@ export default class EduInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
@@ -215,7 +215,8 @@ export default class EduInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/education/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
+          console.log(res.data.response.data);
           this.setState({
             SchoolName: res.data.response.data.school_name,
             country: res.data.response.data.country,
@@ -229,7 +230,7 @@ export default class EduInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error.response);
         });
     }
@@ -249,7 +250,7 @@ export default class EduInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/education/${this.props.route.params.id}`)
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -260,7 +261,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
           spinner: false,
         });
@@ -311,7 +312,7 @@ export default class EduInfoForm extends Component {
               label="School Name"
               labelStyle={styles.labelStyle}
               value={this.state.SchoolName}
-              onChangeText={(value) => this.setState({ SchoolName: value })}
+              onChangeText={value => this.setState({ SchoolName: value })}
             />
             <Text
               style={{
@@ -321,7 +322,7 @@ export default class EduInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.schoolErr ? this.state.schoolErr : null}
@@ -393,7 +394,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "2%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.countryErr ? this.state.countryErr : null}
@@ -462,7 +463,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.cityErr ? this.state.cityErr : null}
@@ -531,7 +532,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "-2%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.fromErr ? this.state.fromErr : null}
@@ -599,7 +600,7 @@ export default class EduInfoForm extends Component {
                   marginTop: "-3%",
                   marginLeft: "-4%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.toErr ? this.state.toErr : null}
@@ -629,7 +630,7 @@ export default class EduInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.EducationCredURL}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />

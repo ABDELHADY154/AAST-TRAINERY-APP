@@ -32,6 +32,7 @@ export default class AccountInfoForm extends Component {
     });
 
     const data = {};
+
     if (this.state.website !== null && this.state.website !== "") {
       data["website"] = this.state.website;
     }
@@ -162,7 +163,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.webErr ? this.state.webErr : null}
@@ -199,7 +200,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.facebookErr ? this.state.facebookErr : null}
@@ -236,7 +237,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.instagramErr ? this.state.instagramErr : null}
@@ -273,7 +274,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.youtubeErr ? this.state.youtubeErr : null}
@@ -310,7 +311,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.linkedinErr ? this.state.linkedinErr : null}
@@ -348,7 +349,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.behanceErr ? this.state.behanceErr : null}
@@ -385,7 +386,7 @@ export default class AccountInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.githubErr ? this.state.githubErr : null}

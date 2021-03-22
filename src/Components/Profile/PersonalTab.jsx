@@ -61,6 +61,7 @@ class PersonalTabForm extends Component {
   }
 
   render() {
+    console.log(this.state.userData);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -491,6 +492,7 @@ class PersonalTabForm extends Component {
                 >
                   Accounts
                 </Text>
+
                 <MaterialIcons
                   name="mode-edit"
                   size={24}
