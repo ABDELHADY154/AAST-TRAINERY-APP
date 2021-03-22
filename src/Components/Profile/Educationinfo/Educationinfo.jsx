@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView,TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
@@ -39,7 +46,7 @@ export default class EduInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -49,7 +56,7 @@ export default class EduInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -63,13 +70,13 @@ export default class EduInfoForm extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -101,7 +108,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -112,7 +119,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -156,7 +163,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -167,7 +174,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -190,7 +197,7 @@ export default class EduInfoForm extends Component {
     });
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         // if (this.state.country !== "") {
         this.countryOnchangeHandler(this.state.country);
@@ -199,7 +206,7 @@ export default class EduInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
@@ -208,7 +215,7 @@ export default class EduInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/education/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             SchoolName: res.data.response.data.school_name,
             country: res.data.response.data.country,
@@ -222,7 +229,7 @@ export default class EduInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
     }
@@ -242,7 +249,7 @@ export default class EduInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/education/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -253,7 +260,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
@@ -304,7 +311,7 @@ export default class EduInfoForm extends Component {
               label="School Name"
               labelStyle={styles.labelStyle}
               value={this.state.SchoolName}
-              onChangeText={value => this.setState({ SchoolName: value })}
+              onChangeText={(value) => this.setState({ SchoolName: value })}
             />
             <Text
               style={{
@@ -622,43 +629,94 @@ export default class EduInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.EducationCredURL}
-                onChangeText={value =>
+                onChangeText={(value) =>
                   this.setState({ EducationCredURL: value })
                 }
               />
-               <View
+              <View
                 style={{
                   flexDirection: "row",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#1E4274",
-                    fontSize: 16,
-                    fontFamily: "SF-M",
-                    fontWeight: "normal",
-                    marginBottom: 5,
-                    marginLeft: "-6%",
-                    flex: 1,
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-
-                  }}
-                >
-                  Credentials Upload
-                </Text>
-                <TouchableOpacity
-                  style={{
-                    marginTop: -4,
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                  }}
-                  color="#1E4275"
-                  onPress={this._pickDocument}
-                >
-                  <Feather name="upload" size={20} color="#fff" style={{ backgroundColor:"#1E4274", padding:"5%",borderRadius: 5}} />
-                </TouchableOpacity>
+                {this.state.EducationCredUpload == null ? (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Upload
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="upload"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "#1E4274",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Uploaded
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="check-circle"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "green",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                )}
               </View>
             </View>
             {this.props.route.params.id > 0 ? (
