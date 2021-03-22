@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView ,TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
 import { Button } from "galio-framework";
@@ -32,7 +39,7 @@ export default class CoursesInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -42,7 +49,7 @@ export default class CoursesInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -73,7 +80,7 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -84,7 +91,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -128,7 +135,7 @@ export default class CoursesInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -139,7 +146,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -162,20 +169,20 @@ export default class CoursesInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/course/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             course_name: res.data.response.data.course_name,
             course_provider: res.data.response.data.course_provider,
             cred_url: res.data.response.data.cred_url,
             from: res.data.response.data.from,
             to: res.data.response.data.to,
-            // cred: res.data.response.data.cred,
+            cred: res.data.response.data.cred,
           });
           this.setState({
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -189,7 +196,7 @@ export default class CoursesInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/course/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -200,7 +207,7 @@ export default class CoursesInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -264,7 +271,7 @@ export default class CoursesInfoForm extends Component {
                 marginLeft: "0.5%",
               }}
               value={this.state.course_name}
-              onChangeText={value => this.setState({ course_name: value })}
+              onChangeText={(value) => this.setState({ course_name: value })}
             />
             {this.state.course_nameErr != "" ? (
               <View
@@ -316,7 +323,9 @@ export default class CoursesInfoForm extends Component {
                 marginBottom: -10,
               }}
               value={this.state.course_provider}
-              onChangeText={value => this.setState({ course_provider: value })}
+              onChangeText={(value) =>
+                this.setState({ course_provider: value })
+              }
             />
             {this.state.course_providerErr != "" ? (
               <View
@@ -533,41 +542,92 @@ export default class CoursesInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={value => this.setState({ cred_url: value })}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
-                 <View
+              <View
                 style={{
                   flexDirection: "row",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#1E4274",
-                    fontSize: 16,
-                    fontFamily: "SF-M",
-                    fontWeight: "normal",
-                    marginBottom: 5,
-                    marginLeft: "-6%",
-                    flex: 1,
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-
-                  }}
-                >
-                  Credentials Upload
-                </Text>
-                <TouchableOpacity
-                  style={{
-                    marginTop: -4,
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                  }}
-                  color="#1E4275"
-                  onPress={this._pickDocument}
-                >
-                  <Feather name="upload" size={20} color="#fff" style={{ backgroundColor:"#1E4274", padding:"5%",borderRadius: 5}} />
-                </TouchableOpacity>
+                {this.state.cred == null ? (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Upload
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="upload"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "#1E4274",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Uploaded
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="check-circle"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "green",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                )}
               </View>
             </View>
             {this.props.route.params.id > 0 ? (

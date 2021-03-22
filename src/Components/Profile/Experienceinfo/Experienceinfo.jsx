@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView , TouchableOpacity} from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
@@ -17,6 +24,8 @@ export default class ExpInfoForm extends Component {
     spinner: false,
     job_title: "",
     company_name: "",
+    company_website: "",
+    companywebErr: "",
     country: "",
     city: "",
     from: "",
@@ -44,7 +53,7 @@ export default class ExpInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     // console.log("A date has been picked: ", date);
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
@@ -55,7 +64,7 @@ export default class ExpInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     // console.log("A date has been picked: ", date);
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
@@ -70,13 +79,13 @@ export default class ExpInfoForm extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -90,9 +99,11 @@ export default class ExpInfoForm extends Component {
     formData.append("experience_type", this.state.experience_type);
     formData.append("job_title", this.state.job_title);
     formData.append("company_name", this.state.company_name);
+    formData.append("company_website", this.state.company_website);
+
     formData.append("city", this.state.city);
     formData.append("country", this.state.country);
-    formData.append("company_website", "https://www.google.com");
+
     formData.append("from", this.state.from);
     formData.append("to", this.state.to);
     if (this.state.cred_url !== null) {
@@ -113,7 +124,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -124,7 +135,8 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
+        console.log(error.response.data.errors);
         this.setState({
           spinner: false,
         });
@@ -135,6 +147,7 @@ export default class ExpInfoForm extends Component {
               expErr: error.response.data.errors.experience_type,
               jobErr: error.response.data.errors.job_title,
               companyErr: error.response.data.errors.company_name,
+              companywebErr: error.response.data.errors.company_website,
               countryErr: error.response.data.errors.country,
               cityErr: error.response.data.errors.city,
               fromErr: error.response.data.errors.from,
@@ -153,11 +166,11 @@ export default class ExpInfoForm extends Component {
     formData.append("experience_type", this.state.experience_type);
     formData.append("job_title", this.state.job_title);
     formData.append("company_name", this.state.company_name);
+    formData.append("company_website", this.state.company_website);
     formData.append("city", this.state.city);
     formData.append("country", this.state.country);
     formData.append("from", this.state.from);
     formData.append("to", this.state.to);
-    formData.append("company_website", "https://www.google.com");
 
     if (this.state.cred_url !== null) {
       formData.append("cred_url", this.state.cred_url);
@@ -177,7 +190,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         console.log(res.response);
         this.setState({
           spinner: false,
@@ -189,7 +202,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -199,6 +212,7 @@ export default class ExpInfoForm extends Component {
               expErr: error.response.data.errors.experience_type,
               jobErr: error.response.data.errors.job_title,
               companyErr: error.response.data.errors.company_name,
+              companywebErr: error.response.data.errors.company_website,
               countryErr: error.response.data.errors.country,
               cityErr: error.response.data.errors.city,
               fromErr: error.response.data.errors.from,
@@ -215,7 +229,7 @@ export default class ExpInfoForm extends Component {
     });
     await axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
@@ -224,7 +238,7 @@ export default class ExpInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
@@ -236,11 +250,12 @@ export default class ExpInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/experience/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             experience_type: res.data.response.data.experience_type,
             job_title: res.data.response.data.job_title,
             company_name: res.data.response.data.company_name,
+            company_website: res.data.response.data.company_website,
             country: res.data.response.data.country,
             city: res.data.response.data.city,
             from: res.data.response.data.from,
@@ -252,7 +267,7 @@ export default class ExpInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -263,6 +278,7 @@ export default class ExpInfoForm extends Component {
     let result = await DocumentPicker.getDocumentAsync({});
     if (result) {
       this.setState({ cred: result.uri });
+      console.log(this.state.cred);
     }
   };
   handleDelete = async () => {
@@ -271,7 +287,7 @@ export default class ExpInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/experience/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -282,7 +298,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -349,7 +365,7 @@ export default class ExpInfoForm extends Component {
                 itemStyle={{ backgroundColor: "#fff" }}
                 dropdownIconColor="#1E4275"
                 selectedValue={this.state.experience_type}
-                onValueChange={value =>
+                onValueChange={(value) =>
                   this.setState({ experience_type: value })
                 }
               >
@@ -394,7 +410,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1%",
               }}
               value={this.state.job_title}
-              onChangeText={value => this.setState({ job_title: value })}
+              onChangeText={(value) => this.setState({ job_title: value })}
             />
             <Text
               style={{
@@ -431,8 +447,9 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1.4%",
               }}
               value={this.state.company_name}
-              onChangeText={value => this.setState({ company_name: value })}
+              onChangeText={(value) => this.setState({ company_name: value })}
             />
+
             <Text
               style={{
                 color: "#F44336",
@@ -444,6 +461,46 @@ export default class ExpInfoForm extends Component {
               }}
             >
               {this.state.companyErr ? this.state.companyErr : null}
+            </Text>
+            <Input
+              style={styles.input}
+              autoCompleteType="name"
+              textContentType="name"
+              keyboardType="default"
+              textAlign="left"
+              inputStyle={{ color: "#1E4274" }}
+              inputContainerStyle={{
+                width: "109%",
+                marginLeft: "-1.5%",
+                borderColor: "#1E4274",
+                borderBottomWidth: 2,
+              }}
+              label="Company Website"
+              labelStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                fontFamily: "SF-M",
+                fontWeight: "normal",
+                marginBottom: -10,
+                marginLeft: "-1.4%",
+              }}
+              value={this.state.company_website}
+              onChangeText={(value) =>
+                this.setState({ company_website: value })
+              }
+            />
+
+            <Text
+              style={{
+                color: "#F44336",
+                fontSize: 14,
+                textAlign: "left",
+                marginTop: "-7%",
+                marginLeft: "3%",
+                marginBottom: "2%",
+              }}
+            >
+              {this.state.companywebErr ? this.state.companywebErr : null}
             </Text>
             <View
               style={{
@@ -743,41 +800,92 @@ export default class ExpInfoForm extends Component {
                 placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={value => this.setState({ cred_url: value })}
+                onChangeText={(value) => this.setState({ cred_url: value })}
               />
               <View
                 style={{
                   flexDirection: "row",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#1E4274",
-                    fontSize: 16,
-                    fontFamily: "SF-M",
-                    fontWeight: "normal",
-                    marginBottom: 5,
-                    marginLeft: "-6%",
-                    flex: 1,
-                    justifyContent: "flex-start",
-                    alignItems: "flex-start",
-
-                  }}
-                >
-                  Credentials Upload
-                </Text>
-                <TouchableOpacity
-                  style={{
-                    marginTop: -4,
-                    flex: 1,
-                    justifyContent: "flex-end",
-                    alignItems: "flex-end",
-                  }}
-                  color="#1E4275"
-                  onPress={this._pickDocument}
-                >
-                  <Feather name="upload" size={20} color="#fff" style={{ backgroundColor:"#1E4274", padding:"5%",borderRadius: 5}} />
-                </TouchableOpacity>
+                {this.state.cred == null ? (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Upload
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="upload"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "#1E4274",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                ) : (
+                  <>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        fontFamily: "SF-M",
+                        fontWeight: "normal",
+                        marginBottom: 5,
+                        marginLeft: "-6%",
+                        flex: 1,
+                        justifyContent: "flex-start",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      Credentials Uploaded
+                    </Text>
+                    <TouchableOpacity
+                      style={{
+                        marginTop: -4,
+                        flex: 1,
+                        justifyContent: "flex-end",
+                        alignItems: "flex-end",
+                      }}
+                      color="#1E4275"
+                      onPress={this._pickDocument}
+                    >
+                      <Feather
+                        name="check-circle"
+                        size={20}
+                        color="#fff"
+                        style={{
+                          backgroundColor: "green",
+                          padding: "5%",
+                          borderRadius: 5,
+                        }}
+                      />
+                    </TouchableOpacity>
+                  </>
+                )}
               </View>
             </View>
             {this.props.route.params.id > 0 ? (
