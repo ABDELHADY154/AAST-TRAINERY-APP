@@ -211,7 +211,7 @@ export default class ExploreScreen extends Component {
         </View> */}
 
         <ScrollView>
-          <AdvisorCard />
+          <AdvisorCard navigation={this.props.navigation} />
           <CompanyCard />
           <AdsCard />
           <AdsCardImg />

@@ -23,6 +23,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { BackHandler, Alert } from "react-native";
+import Post from "./src/Components/InternshipPost/Post";
 
 import {
   DefaultTheme,
@@ -68,6 +69,11 @@ function InterestsFormScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <Interests {...props} navigation={navigation} route={route} />;
+}
+function InternshipPostScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Post {...props} navigation={navigation} route={route} />;
 }
 const Stack = createStackNavigator();
 const fontConfig = {
@@ -368,6 +374,17 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="AccountForm"
                   component={AccountScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="InternshipShow"
+                  component={InternshipPostScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

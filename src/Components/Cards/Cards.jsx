@@ -25,6 +25,9 @@ export class AdvisorCard extends Component {
             borderWidth: 1,
             borderColor: "#CCCCCC",
           }}
+          onPress={() => {
+            this.props.navigation.navigate("InternshipShow");
+          }}
         >
           <Card.Title
             style={{ marginLeft: 1 }}
@@ -45,7 +48,7 @@ export class AdvisorCard extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{
                   height: 45,
@@ -58,7 +61,7 @@ export class AdvisorCard extends Component {
                 }}
               />
             )}
-            right={(props) => (
+            right={props => (
               <IconButton
                 {...props}
                 icon="bookmark-outline"
@@ -177,7 +180,7 @@ export class CompanyCard extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -186,7 +189,7 @@ export class CompanyCard extends Component {
                 }}
               />
             )}
-            right={(props) => (
+            right={props => (
               <IconButton
                 {...props}
                 icon="bookmark-outline"
@@ -251,7 +254,7 @@ export class PromotedCard extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -260,7 +263,7 @@ export class PromotedCard extends Component {
                 }}
               />
             )}
-            right={(props) => (
+            right={props => (
               <IconButton
                 {...props}
                 icon="bookmark-outline"
@@ -362,7 +365,7 @@ export class AdsCard extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -436,7 +439,7 @@ export class AdsCardImg extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -521,7 +524,7 @@ export class AdsCardImgOnly extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
