@@ -1,17 +1,27 @@
 import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
-import { StatusBar } from "expo-status-bar";
-import { Feather } from "@expo/vector-icons";
-import { FontAwesome5 } from "@expo/vector-icons";
 
-import {
-  Card,
-  Button,
-  Avatar,
-  IconButton,
-  Title,
-  Paragraph,
-} from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+
+import { Card, Button, Paragraph } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
+
+export function CvCoach(props) {
+  const navigation = useNavigation();
+  return <CvCard navigation={navigation} {...props} />;
+}
+export function InterviewCoach(props) {
+  const navigation = useNavigation();
+  return <InterviewCard navigation={navigation} {...props} />;
+}
+export function CareerCa(props) {
+  const navigation = useNavigation();
+  return <CareerCard navigation={navigation} {...props} />;
+}
+export function Advisingcoach(props) {
+  const navigation = useNavigation();
+  return <AdvisingCard navigation={navigation} {...props} />;
+}
 export class CvCard extends Component {
   render() {
     return (
@@ -89,6 +99,9 @@ export class CvCard extends Component {
                     marginLeft: "63%",
                     backgroundColor: "#1E4274",
                   }}
+                  onPress={() => {
+                    this.props.navigation.navigate("CvWriting");
+                  }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
                     book
@@ -113,7 +126,6 @@ export class InterviewCard extends Component {
             marginLeft: 9,
             borderWidth: 1,
             marginBottom: 10,
-
             borderColor: "#CCCCCC",
           }}
         >
@@ -179,6 +191,9 @@ export class InterviewCard extends Component {
                     marginLeft: "63%",
                     backgroundColor: "#1E4274",
                   }}
+                  onPress={() => {
+                    this.props.navigation.navigate("InterviewCoaching");
+                  }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
                     book
@@ -192,7 +207,6 @@ export class InterviewCard extends Component {
     );
   }
 }
-
 export class CareerCard extends Component {
   render() {
     return (
@@ -203,7 +217,6 @@ export class CareerCard extends Component {
             marginLeft: 9,
             borderWidth: 1,
             marginBottom: 10,
-
             borderColor: "#CCCCCC",
           }}
         >
@@ -269,6 +282,9 @@ export class CareerCard extends Component {
                     marginLeft: "63%",
                     backgroundColor: "#1E4274",
                   }}
+                  onPress={() => {
+                    this.props.navigation.navigate("CareerCa");
+                  }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
                     book
@@ -282,103 +298,108 @@ export class CareerCard extends Component {
     );
   }
 }
-
 export class AdvisingCard extends Component {
   render() {
     return (
       <View>
-        <Card
-          style={{
-            width: "95%",
-            marginLeft: 9,
-            borderWidth: 1,
-            marginBottom: 10,
-
-            borderColor: "#CCCCCC",
-          }}
-        >
-          <Card.Title
-            style={{ marginLeft: 1 }}
-            title="Career Coaching & Advising Services"
-            titleStyle={{
-              color: "#1E4274",
-              fontSize: 16,
-              textTransform: "capitalize",
-              fontWeight: "bold",
-            }}
-          />
-          <Card.Content>
-            <Paragraph
-              style={{
-                // marginHorizontal: 23,
-                fontSize: 14,
-                color: "#1E4274",
-                lineHeight: 19,
-              }}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-              dictumst nisi blandit ornare viverra eleifend
-            </Paragraph>
-          </Card.Content>
-          <View
+        <TouchableOpacity>
+          <Card
             style={{
-              backgroundColor: "#CCCCCC",
-              width: "90%",
-              height: 1,
-              marginVertical: 7,
-              // marginHorizontal: 10,
-              // alignItems: "center",
-              alignSelf: "center",
+              width: "95%",
+              marginLeft: 9,
+              borderWidth: 1,
+              marginBottom: 10,
+              borderColor: "#CCCCCC",
             }}
-          ></View>
-          <Card.Actions style={{ marginTop: -3 }}>
-            <View style={{ marginTop: 0, flexDirection: "row" }}>
-              <>
-                <Text
-                  style={{
-                    marginLeft: "3%",
-                    marginTop: 7,
-                    fontSize: 14,
-                    textTransform: "capitalize",
-                    fontWeight: "bold",
-                    color: "#CD8930",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {/* {this.state.price} */}
-                  150 L.E
-                </Text>
-                <Button
-                  style={{
-                    marginTop: 0,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    alignSelf: "flex-end",
-                    marginLeft: "63%",
-                    backgroundColor: "#1E4274",
-                  }}
-                >
-                  <Text style={{ color: "white", textTransform: "capitalize" }}>
-                    book
+          >
+            <Card.Title
+              style={{ marginLeft: 1 }}
+              title="Career Coaching & Advising Services"
+              titleStyle={{
+                color: "#1E4274",
+                fontSize: 16,
+                textTransform: "capitalize",
+                fontWeight: "bold",
+              }}
+            />
+            <Card.Content>
+              <Paragraph
+                style={{
+                  // marginHorizontal: 23,
+                  fontSize: 14,
+                  color: "#1E4274",
+                  lineHeight: 19,
+                }}
+              >
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
+                ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
+                dictumst nisi blandit ornare viverra eleifend
+              </Paragraph>
+            </Card.Content>
+            <View
+              style={{
+                backgroundColor: "#CCCCCC",
+                width: "90%",
+                height: 1,
+                marginVertical: 7,
+                // marginHorizontal: 10,
+                // alignItems: "center",
+                alignSelf: "center",
+              }}
+            ></View>
+            <Card.Actions style={{ marginTop: -3 }}>
+              <View style={{ marginTop: 0, flexDirection: "row" }}>
+                <>
+                  <Text
+                    style={{
+                      marginLeft: "3%",
+                      marginTop: 7,
+                      fontSize: 14,
+                      textTransform: "capitalize",
+                      fontWeight: "bold",
+                      color: "#CD8930",
+                      textTransform: "uppercase",
+                    }}
+                  >
+                    {/* {this.state.price} */}
+                    150 L.E
                   </Text>
-                </Button>
-              </>
-            </View>
-          </Card.Actions>
-        </Card>
+                  <Button
+                    style={{
+                      marginTop: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                      marginLeft: "63%",
+                      backgroundColor: "#1E4274",
+                    }}
+                    onPress={() => {
+                      this.props.navigation.navigate("Advising");
+                    }}
+                  >
+                    <Text
+                      style={{ color: "white", textTransform: "capitalize" }}
+                    >
+                      book
+                    </Text>
+                  </Button>
+                </>
+              </View>
+            </Card.Actions>
+          </Card>
+        </TouchableOpacity>
       </View>
     );
   }
 }
-// for bookmark
-// right={(props) => (
-//     <IconButton
-//       {...props}
-//       icon="bookmark-outline"
-//       size={30}
-//       color="#1E4274"
-//       onPress={() => {}}
-//     />
-//   )}
+//  for bookmark
+//  right={(props) => (
+//      <IconButton
+//        {...props}
+//        icon="bookmark-outline"
+//        size={30}
+//        color="#1E4274"
+//        onPress={() => {}}
+//      />
+//    )}

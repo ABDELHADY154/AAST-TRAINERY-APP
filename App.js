@@ -5,6 +5,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
+import CvWriting from "./src/Components/CareerCoaching/CvWriting";
+import InterviewCoaching from "./src/Components/CareerCoaching/InterviewCoaching";
+import CareerCa from "./src/Components/CareerCoaching/CareerCa";
+import Advising from "./src/Components/CareerCoaching/Advising";
+
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
 import RegisterScreen from "./src/Components/Auth/RegisterForm";
@@ -74,6 +79,26 @@ function InternshipPostScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <Post {...props} navigation={navigation} route={route} />;
+}
+function CvWritingScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <CvWriting {...props} navigation={navigation} route={route} />;
+}
+function InterviewCoachingScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <InterviewCoaching {...props} navigation={navigation} route={route} />;
+}
+function CareerCaScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <CareerCa {...props} navigation={navigation} route={route} />;
+}
+function AdvisingScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Advising {...props} navigation={navigation} route={route} />;
 }
 const Stack = createStackNavigator();
 const fontConfig = {
@@ -385,6 +410,50 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="InternshipShow"
                   component={InternshipPostScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="CvWriting"
+                  component={CvWritingScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="InterviewCoaching"
+                  component={InterviewCoachingScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="CareerCa"
+                  component={CareerCaScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Advising"
+                  component={AdvisingScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
