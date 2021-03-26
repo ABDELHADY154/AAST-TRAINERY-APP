@@ -19,11 +19,11 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 
-export function CompanyTap(props) {
+export function ProfileTab(props) {
   const navigation = useNavigation();
-  return <CompanyTapScreen navigation={navigation} {...props} />;
+  return <ProfileTabScreen navigation={navigation} {...props} />;
 }
-class CompanyTapScreen extends Component {
+class ProfileTabScreen extends Component {
   state = {
     progressWithOnComplete: 0,
     progressCustomized: 0,
@@ -65,7 +65,7 @@ class CompanyTapScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  Company Profile
+                  Advisor Profile
                 </Text>
               </View>
               <View style={{ marginTop: 5 }}>
@@ -96,7 +96,7 @@ class CompanyTapScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  Company Info
+                  Advisor Info
                 </Text>
               </View>
               <View style={{ marginTop: 7 }}>
@@ -104,26 +104,9 @@ class CompanyTapScreen extends Component {
                   style={{
                     flexDirection: "row",
                     marginBottom: 10,
+                    alignItems: "center",
                   }}
                 >
-                  <Text
-                    style={{
-                      marginRight: 7,
-                      marginLeft: -1,
-                    }}
-                  >
-                    <AntDesign name="phone" size={22} color="#CD8930" />
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: "#CD8930",
-                    }}
-                  >
-                    {this.state.userData.phone_number}
-                  </Text>
-                </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
                   <Text
                     style={{
                       marginRight: 5,
@@ -145,50 +128,65 @@ class CompanyTapScreen extends Component {
                     {this.state.userData.email}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 10,
+                    alignItems: "center",
+                  }}
+                >
                   <Text
                     style={{
-                      marginLeft: -2,
-                      marginRight: 3,
+                      // marginLeft: -2,
+                      marginRight: 4,
                     }}
                   >
                     <Ionicons
-                      name="location-outline"
-                      size={26}
-                      color="#CD8930"
+                      name="ios-people-outline"
+                      size={24}
+                      color="#1E4274"
                     />
                   </Text>
                   <Text
                     style={{
                       fontSize: 14,
-                      color: "#CD8930",
+                      color: "#1E4274",
                       width: "80%",
                       marginTop: 4,
                     }}
                   >
-                    {this.state.userData.email}
+                    BIS Department
+                    {/* {this.state.userData.email} */}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginBottom: 10,
+                    alignItems: "center",
+                  }}
+                >
                   <Text
                     style={{
-                      marginRight: 5,
+                      // marginLeft: -2,
+                      marginRight: 4,
                     }}
                   >
-                    <MaterialCommunityIcons
-                      name="web"
-                      size={22}
-                      color="#CD8930"
+                    <Ionicons
+                      name="ios-people-outline"
+                      size={24}
+                      color="#1E4274"
                     />
                   </Text>
                   <Text
                     style={{
                       fontSize: 14,
-                      color: "#CD8930",
+                      color: "#1E4274",
                       width: "80%",
                     }}
                   >
-                    {this.state.userData.email}
+                    AAST - CMT
+                    {/* {this.state.userData.email} */}
                   </Text>
                 </View>
               </View>

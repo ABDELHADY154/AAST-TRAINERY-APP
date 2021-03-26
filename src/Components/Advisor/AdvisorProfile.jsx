@@ -6,15 +6,15 @@ import { StatusBar } from "expo-status-bar";
 import { FontAwesome, Entypo, Feather } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { InternshipTap } from "./InternshipTap";
-import { CompanyTap } from "./CompanyTap";
+import { InternshipTabb } from "./InternshipTabb";
+import { ProfileTab } from "./ProfileTab";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProfileImgLoader } from "../Loader/Loader";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default class CompanyProfile extends Component {
+export default class AdvisorProfile extends Component {
   state = {
     name: "",
     image: null,
@@ -111,7 +111,7 @@ export default class CompanyProfile extends Component {
                 }}
               >
                 {this.state.userData.company_name}
-                company_name
+                advisooooooor
               </Text>
               <Text
                 style={{
@@ -137,8 +137,8 @@ export default class CompanyProfile extends Component {
             style: { backgroundColor: "#F2F2F2" },
           }}
         >
-          <Tab.Screen name="Company" component={CompanyTap} />
-          <Tab.Screen name="Internship" component={InternshipTap} />
+          <Tab.Screen name="Profile" component={ProfileTab} />
+          <Tab.Screen name="Internship" component={InternshipTabb} />
           {/* <Tab.Screen name="Reviews" component={ReviewsTap} /> */}
         </Tab.Navigator>
       </View>

@@ -1,25 +1,15 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Button,
-  Alert,
-  Linking,
-} from "react-native";
-import { StatusBar } from "expo-status-bar";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
-import { ReviewCardCompany } from "./ReviewCardCompany";
-
-export function ReviewsTap(props) {
+import { OpportunityCardAdvisor } from "./OpportunityCardAdvisor";
+export function InternshipTabb(props) {
   const navigation = useNavigation();
-  return <ReviewsTapScreen navigation={navigation} {...props} />;
+  return <InternshipTabbScreen navigation={navigation} {...props} />;
 }
-class ReviewsTapScreen extends Component {
+class InternshipTabbScreen extends Component {
   state = {
     progressWithOnComplete: 0,
     progressCustomized: 0,
@@ -58,34 +48,9 @@ class ReviewsTapScreen extends Component {
                     marginBottom: 10,
                   }}
                 >
-                  Personal Information
+                  Published Internship
                 </Text>
-                <ReviewCardCompany />
-              </View>
-            </View>
-            <View style={{ marginTop: 10 }}>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: "#1E4274",
-                    fontWeight: "bold",
-                    flex: 1,
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  Contact Information
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1E4274",
-                    lineHeight: 20,
-                    marginTop: 5,
-                  }}
-                >
-                  There are currently no ended Internship at Qowwa Inc.
-                </Text>
+                <OpportunityCardAdvisor />
               </View>
             </View>
           </View>

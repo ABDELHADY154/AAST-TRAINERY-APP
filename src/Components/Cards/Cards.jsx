@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
@@ -49,17 +49,26 @@ export class AdvisorCard extends Component {
               marginTop: -3,
             }}
             left={(props) => (
-              <Card.Cover
-                style={{
-                  height: 45,
-                  width: 45,
-                  borderRadius: 5,
-                }}
-                source={{
-                  uri:
-                    "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                }}
-              />
+              <Pressable
+              // onPress={() => {
+              //   this.props.navigation.navigate("AdvisorProfile");
+              // }}
+              >
+                <Card.Cover
+                  style={{
+                    height: 45,
+                    width: 45,
+                    borderRadius: 5,
+                  }}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("CompanyProfile");
+                  // }}
+                  source={{
+                    uri:
+                      "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  }}
+                />
+              </Pressable>
             )}
             right={(props) => (
               <IconButton
@@ -100,46 +109,53 @@ export class AdvisorCard extends Component {
             }}
           ></View>
           <Card.Actions style={{ marginTop: -3 }}>
-            <Card.Cover
-              style={{
-                height: 35,
-                width: 35,
-                borderRadius: 7,
-                marginLeft: 10,
+            <Pressable
+              style={{ flexDirection: "row" }}
+              onPress={() => {
+                this.props.navigation.navigate("AdvisorProfile");
               }}
-              source={{
-                uri:
-                  "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-              }}
-            />
-            <View style={{ marginTop: -7 }}>
-              <Button>
+            >
+              <Card.Cover
+                style={{
+                  height: 35,
+                  width: 35,
+                  borderRadius: 7,
+                  marginLeft: 10,
+                }}
+                source={{
+                  uri:
+                    "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                }}
+              />
+              <View style={{ marginTop: -7 }}>
+                <Button>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      textTransform: "capitalize",
+                      fontWeight: "bold",
+                      color: "#1E4274",
+                      // marginTop: -6,
+                    }}
+                  >
+                    Dr. Rehab Elbadrawy
+                  </Text>
+                </Button>
+
                 <Text
                   style={{
-                    fontSize: 14,
-                    textTransform: "capitalize",
-                    fontWeight: "bold",
+                    fontSize: 12,
                     color: "#1E4274",
-                    // marginTop: -6,
+                    marginLeft: 16,
+                    marginTop: -7,
+                    // alignItems: "flex-end",
+                    // justifyContent: "flex-end",
                   }}
                 >
-                  Dr. Rehab Elbadrawy
+                  Deadline 11 oct 2020
                 </Text>
-              </Button>
-
-              <Text
-                style={{
-                  fontSize: 12,
-                  color: "#1E4274",
-                  marginLeft: 16,
-                  marginTop: -7,
-                  // alignItems: "flex-end",
-                  // justifyContent: "flex-end",
-                }}
-              >
-                Deadline 11 oct 2020
-              </Text>
-            </View>
+              </View>
+            </Pressable>
           </Card.Actions>
         </Card>
       </View>
