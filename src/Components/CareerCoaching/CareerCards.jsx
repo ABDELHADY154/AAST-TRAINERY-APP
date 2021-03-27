@@ -28,8 +28,8 @@ export class CvCard extends Component {
       <View>
         <Card
           style={{
-            width: "95%",
-            marginLeft: 9,
+            width: "93%",
+            marginLeft: "3.6%",
             borderWidth: 1,
             marginBottom: 10,
 
@@ -122,8 +122,8 @@ export class InterviewCard extends Component {
       <View>
         <Card
           style={{
-            width: "95%",
-            marginLeft: 9,
+            width: "93%",
+            marginLeft: "3.6%",
             borderWidth: 1,
             marginBottom: 10,
             borderColor: "#CCCCCC",
@@ -213,8 +213,8 @@ export class CareerCard extends Component {
       <View>
         <Card
           style={{
-            width: "95%",
-            marginLeft: 9,
+            width: "93%",
+            marginLeft: "3.6%",
             borderWidth: 1,
             marginBottom: 10,
             borderColor: "#CCCCCC",
@@ -305,8 +305,8 @@ export class AdvisingCard extends Component {
         <TouchableOpacity>
           <Card
             style={{
-              width: "95%",
-              marginLeft: 9,
+              width: "93%",
+              marginLeft: "3.6%",
               borderWidth: 1,
               marginBottom: 10,
               borderColor: "#CCCCCC",

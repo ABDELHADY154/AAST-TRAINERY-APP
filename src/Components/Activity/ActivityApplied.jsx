@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 import {
   Card,
   Button,
@@ -10,13 +11,12 @@ import {
   Title,
   Paragraph,
 } from "react-native-paper";
-import { useNavigation } from "@react-navigation/native";
-export function ActivitySavedS(props) {
+export function ActivityApplieds(props) {
   const navigation = useNavigation();
-  return <ActivitySaved navigation={navigation} {...props} />;
+  return <ActivityApplied navigation={navigation} {...props} />;
 }
 
-export default class ActivitySaved extends Component {
+export default class ActivityApplied extends Component {
   render() {
     return (
       <View style={{ marginTop: "3%" }}>
@@ -61,8 +61,7 @@ export default class ActivitySaved extends Component {
             right={(props) => (
               <IconButton
                 {...props}
-                icon="bookmark"
-                // icon="bookmark-outline"
+                icon="bookmark-outline"
                 size={30}
                 color="#1E4274"
                 onPress={() => {}}
@@ -96,9 +95,9 @@ export default class ActivitySaved extends Component {
               borderWidth: 1,
               borderColor: "#CCCCCC",
             }}
-            // onPress={() => {
-            //   this.props.navigation.navigate("InternshipShow");
-            // }}
+            onPress={() => {
+              this.props.navigation.navigate("InternshipShow");
+            }}
           >
             <Card.Title
               style={{ marginLeft: 1 }}
@@ -135,8 +134,7 @@ export default class ActivitySaved extends Component {
               right={(props) => (
                 <IconButton
                   {...props}
-                  icon="bookmark"
-                  //   bookmark-outline
+                  icon="bookmark-outline"
                   size={30}
                   color="#1E4274"
                   onPress={() => {}}

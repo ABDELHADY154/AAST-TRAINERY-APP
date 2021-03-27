@@ -17,6 +17,13 @@ import ActivitySavedS from "./ActivitySaved";
 import ActivityAppointmentS from "./ActivityAppointment";
 import ActivityAcceptedS from "./ActivityAccepted";
 
+import ActivityApplieds from "./ActivityApplied";
+
+export function ActivityScreens(props) {
+  const navigation = useNavigation();
+  return <ActivityScreen navigation={navigation} {...props} />;
+}
+
 const Tab = createMaterialTopTabNavigator();
 
 export default class ActivityScreen extends Component {
@@ -34,12 +41,10 @@ export default class ActivityScreen extends Component {
             style: { backgroundColor: "#fff" },
           }}
         >
-          <Tab.Screen name="ActivitySavedS" component={ActivitySavedS} />
-          <Tab.Screen
-            name="ActivityAppointmentS"
-            component={ActivityAppointmentS}
-          />
-          <Tab.Screen name="ActivityAcceptedS" component={ActivityAcceptedS} />
+          <Tab.Screen name="Applied" component={ActivityApplieds} />
+          <Tab.Screen name="Accepted" component={ActivityAcceptedS} />
+          <Tab.Screen name="Saved" component={ActivitySavedS} />
+          <Tab.Screen name="Sessions" component={ActivityAppointmentS} />
         </Tab.Navigator>
       </View>
     );
