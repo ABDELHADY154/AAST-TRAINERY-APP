@@ -1,40 +1,46 @@
-import React, { Component } from "react";
-import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import React, { Component, useState, useEffect } from "react";
+import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button } from "galio-framework";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  Pressable,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import ActivityAccepted from "./ActivityAccepted";
-import ActivitySaved from "./ActivitySaved";
-import ActivityAppointment from "./ActivityAppointment";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import ActivitySavedS from "./ActivitySaved";
+import ActivityAppointmentS from "./ActivityAppointment";
+import ActivityAcceptedS from "./ActivityAccepted";
 
 const Tab = createMaterialTopTabNavigator();
+
 export default class ActivityScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ marginTop: "20%" }}>
-          <Tab.Navigator
-            backBehavior="none"
-            tabBarOptions={{
-              activeTintColor: "#CD8930",
-              inactiveTintColor: "#1E4274",
-              indicatorStyle: { backgroundColor: "#CD8930" },
-              labelStyle: { fontSize: 14 },
-              style: { backgroundColor: "#fff", alignSelf: "center" },
-            }}
-          >
-            {/* <Tab.Screen name="Activity" component={ActivityScreen} /> */}
-            <Tab.Screen name="Activity Accepted" component={ActivityAccepted} />
-            <Tab.Screen name="Activity Saved" component={ActivitySaved} />
-            <Tab.Screen
-              name="ActivityAppointment"
-              component={ActivityAppointment}
-            />
-          </Tab.Navigator>
-        </View>
-        <Text>TEXTTTTTTTTTT</Text>
+        {/* Tabs */}
+        <Tab.Navigator
+          backBehavior="none"
+          tabBarOptions={{
+            activeTintColor: "#CD8930",
+            inactiveTintColor: "#1E4274",
+            indicatorStyle: { backgroundColor: "#CD8930" },
+            labelStyle: { fontSize: 14 },
+            style: { backgroundColor: "#fff" },
+          }}
+        >
+          <Tab.Screen name="ActivitySavedS" component={ActivitySavedS} />
+          <Tab.Screen
+            name="ActivityAppointmentS"
+            component={ActivityAppointmentS}
+          />
+          <Tab.Screen name="ActivityAcceptedS" component={ActivityAcceptedS} />
+        </Tab.Navigator>
       </View>
     );
   }
@@ -42,10 +48,7 @@ export default class ActivityScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // flexDirection: "column",
-    justifyContent: "center",
-    // alignSelf: "center",
-    // marginTop: 10,
     backgroundColor: "#fff",
+    justifyContent: "center",
   },
 });
