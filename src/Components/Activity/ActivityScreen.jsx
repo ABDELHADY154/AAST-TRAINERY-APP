@@ -37,7 +37,7 @@ export default class ActivityScreen extends Component {
             activeTintColor: "#CD8930",
             inactiveTintColor: "#1E4274",
             indicatorStyle: { backgroundColor: "#CD8930" },
-            labelStyle: { fontSize: 13 },
+            labelStyle: { fontSize: 12 },
             style: { backgroundColor: "#fff" },
           }}
         >
