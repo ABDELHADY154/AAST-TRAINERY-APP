@@ -70,8 +70,9 @@ export default class InterviewCoaching extends Component {
           <Text
             style={{
               color: "#1E4274",
-              width: "90%",
+              width: "92%",
               marginTop: "5%",
+              lineHeight: 19,
               //   marginLeft: "5.4%",
               alignSelf: "center",
             }}
@@ -86,7 +87,7 @@ export default class InterviewCoaching extends Component {
           </Text>
           {this.state.isBooked == false ? (
             <>
-              <View>
+              <View style={{ flexDirection: "row", marginTop: "6%" }}>
                 <DateTimePickerModal
                   isVisible={this.state.isDatePickerVisible}
                   mode="datetime"
@@ -99,9 +100,10 @@ export default class InterviewCoaching extends Component {
                   size={22}
                   color="#1E4274"
                   style={{
-                    marginTop: "7%",
                     alignSelf: "flex-start",
                     marginLeft: "4.6%",
+                    marginTop: "1%",
+                    marginRight: "2%",
                   }}
                 ></Feather>
                 <Button
@@ -111,14 +113,13 @@ export default class InterviewCoaching extends Component {
                     width: "35%",
                     alignContent: "center",
                     justifyContent: "center",
-                    marginLeft: "14%",
                     borderColor: "#1E4274",
                     borderWidth: 2,
                     borderTopRightRadius: 0,
                     borderBottomRightRadius: 0,
                     borderRadius: 10,
                     height: 35,
-                    marginTop: "-7.5%",
+                    alignSelf: "center",
                   }}
                 >
                   <Text
@@ -134,18 +135,18 @@ export default class InterviewCoaching extends Component {
                   onPress={this.showDatePicker}
                   color="#1E4274"
                   style={{
+                    alignSelf: "center",
                     width: "25%",
+                    marginLeft: "-2%",
                     alignContent: "center",
                     justifyContent: "center",
-                    marginLeft: "47.5%",
                     borderColor: "#1E4274",
-                    borderLeftWidth: 0,
-                    borderBottomLeftRadius: 0,
                     borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                    borderLeftWidth: 0,
                     borderWidth: 2,
                     borderRadius: 10,
                     height: 35,
-                    marginTop: "-8.9%",
                   }}
                 >
                   <Text
@@ -159,47 +160,46 @@ export default class InterviewCoaching extends Component {
                 </Button>
               </View>
               <View style={{ marginTop: 22, flexDirection: "row" }}>
-                <>
-                  <Text
-                    style={{
-                      marginLeft: "5%",
-                      marginTop: 10,
-                      fontSize: 14,
-                      textTransform: "capitalize",
-                      fontWeight: "bold",
-                      color: "#CD8930",
-                      textTransform: "uppercase",
-                    }}
-                  >
-                    {/* {this.state.price} */}
-                    150 L.E
+                <Text
+                  style={{
+                    alignSelf: "flex-start",
+                    marginLeft: "5%",
+                    marginTop: 10,
+                    fontSize: 14,
+                    textTransform: "capitalize",
+                    fontWeight: "bold",
+                    color: "#CD8930",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  {/* {this.state.price} */}
+                  150 L.E
+                </Text>
+                <Button
+                  style={{
+                    marginTop: 0,
+                    justifyContent: "flex-end",
+                    alignContent: "flex-end",
+                    alignItems: "flex-end",
+                    alignSelf: "flex-end",
+                    // if you have a solution for this please let me know, its working only on margin
+                    marginLeft: "60%",
+                    backgroundColor: "#1E4274",
+                  }}
+                  // onPress={() => {
+                  //   this.props.navigation.navigate("CvWriting");
+                  // }}
+                >
+                  <Text style={{ color: "white", textTransform: "capitalize" }}>
+                    book
                   </Text>
-                  <Button
-                    style={{
-                      marginTop: 0,
-                      justifyContent: "center",
-                      alignItems: "center",
-                      alignSelf: "flex-end",
-                      marginLeft: "60%",
-                      backgroundColor: "#1E4274",
-                    }}
-                    onPress={() => {
-                      this.props.navigation.navigate("CvWriting");
-                    }}
-                  >
-                    <Text
-                      style={{ color: "white", textTransform: "capitalize" }}
-                    >
-                      book
-                    </Text>
-                  </Button>
-                </>
+                </Button>
               </View>
               <Text
                 style={{
                   marginTop: "7%",
                   alignSelf: "flex-start",
-                  marginLeft: "5.4%",
+                  marginLeft: "5%",
                   color: "#CD8930",
                   fontSize: 20,
                   fontFamily: "SF-M",
@@ -257,7 +257,7 @@ export default class InterviewCoaching extends Component {
                 style={{
                   marginTop: "7%",
                   alignSelf: "flex-start",
-                  marginLeft: "5.4%",
+                  marginLeft: "5%",
                   color: "#1E4274",
                   fontSize: 20,
                   fontFamily: "SF-M",
@@ -269,7 +269,7 @@ export default class InterviewCoaching extends Component {
               <View
                 style={{
                   alignSelf: "flex-start",
-                  marginLeft: "5.5%",
+                  marginLeft: "5%",
                   marginTop: "-2%",
                   marginBottom: "5%",
                 }}
@@ -317,7 +317,7 @@ export default class InterviewCoaching extends Component {
                     style={{
                       marginTop: 0,
                       justifyContent: "center",
-                      alignItems: "center",
+                      alignItems: "flex-end",
                       alignSelf: "flex-end",
                       marginLeft: "73.5%",
                       backgroundColor: "#1E4274",
@@ -344,6 +344,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+    alignSelf: "center",
   },
   title: {
     alignSelf: "flex-start",

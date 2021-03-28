@@ -96,11 +96,11 @@ export class CvCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "63%",
+                    marginLeft: "62%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
-                    this.props.navigation.navigate("CvWriting");
+                    this.props.navigation.push("CvWriting");
                   }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
@@ -188,11 +188,11 @@ export class InterviewCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "63%",
+                    marginLeft: "62%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
-                    this.props.navigation.navigate("InterviewCoaching");
+                    this.props.navigation.push("InterviewCoaching");
                   }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
@@ -279,11 +279,11 @@ export class CareerCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "63%",
+                    marginLeft: "62%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
-                    this.props.navigation.navigate("CareerCa");
+                    this.props.navigation.push("CareerCa");
                   }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>
@@ -371,11 +371,11 @@ export class AdvisingCard extends Component {
                       justifyContent: "center",
                       alignItems: "center",
                       alignSelf: "flex-end",
-                      marginLeft: "63%",
+                      marginLeft: "62%",
                       backgroundColor: "#1E4274",
                     }}
                     onPress={() => {
-                      this.props.navigation.navigate("Advising");
+                      this.props.navigation.push("Advising");
                     }}
                   >
                     <Text
