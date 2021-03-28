@@ -20,7 +20,7 @@ export default class CompanyProfile extends Component {
     image: null,
     userData: {},
     loading: false,
-    spinner: false,
+    spinner: true,
   };
 
   async componentDidMount() {
@@ -29,24 +29,30 @@ export default class CompanyProfile extends Component {
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
           userData: response.data.response.data,
         });
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
       });
     await axios
-      .get("/W/student/company/10")
+      .get("/W/student/company/{id}")
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(error.response.data);
+        console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
+        this.setState({
+          spinner: false,
+        });
         console.log(error.response.data.errors);
       });
   }

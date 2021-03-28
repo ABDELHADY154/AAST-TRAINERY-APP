@@ -20,7 +20,7 @@ export default class AdvisorProfile extends Component {
     image: null,
     userData: {},
     loading: false,
-    spinner: false,
+    spinner: true,
   };
 
   async componentDidMount() {
@@ -29,6 +29,7 @@ export default class AdvisorProfile extends Component {
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
           userData: response.data.response.data,
         });
         this.props.getUserData(this.state.userData);
@@ -41,12 +42,16 @@ export default class AdvisorProfile extends Component {
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
           userData: response.data.response.data,
         });
         console.log(error.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
+        this.setState({
+          spinner: false,
+        });
         console.log(error.response.data.errors);
       });
   }

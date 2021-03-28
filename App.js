@@ -25,6 +25,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { BackHandler, Alert } from "react-native";
 import CompanyProfile from "./src/Components/InternshipPost/CompanyProfile";
 import AdvisorProfile from "./src/Components/Advisor/AdvisorProfile";
+import OpportunityPost from "./src/Components/Opportunity/OpportunityPost";
 
 import {
   DefaultTheme,
@@ -80,6 +81,11 @@ function AdvisorProfileScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <AdvisorProfile {...props} navigation={navigation} route={route} />;
+}
+function OpportunityPostScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <OpportunityPost {...props} navigation={navigation} route={route} />;
 }
 const Stack = createStackNavigator();
 const fontConfig = {
@@ -402,6 +408,17 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="AdvisorProfile"
                   component={AdvisorProfileScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="OpportunityPost"
+                  component={OpportunityPostScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
