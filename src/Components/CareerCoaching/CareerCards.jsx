@@ -96,7 +96,7 @@ export class CvCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "62%",
+                    marginLeft: "60%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
@@ -188,7 +188,7 @@ export class InterviewCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "62%",
+                    marginLeft: "60%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
@@ -279,7 +279,7 @@ export class CareerCard extends Component {
                     justifyContent: "center",
                     alignItems: "center",
                     alignSelf: "flex-end",
-                    marginLeft: "62%",
+                    marginLeft: "60%",
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
@@ -371,7 +371,7 @@ export class AdvisingCard extends Component {
                       justifyContent: "center",
                       alignItems: "center",
                       alignSelf: "flex-end",
-                      marginLeft: "62%",
+                      marginLeft: "60%",
                       backgroundColor: "#1E4274",
                     }}
                     onPress={() => {
