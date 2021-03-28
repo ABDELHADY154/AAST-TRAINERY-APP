@@ -203,7 +203,7 @@ export default class ActivityAccepted extends Component {
                       justifyContent: "center",
                       alignItems: "center",
                       alignSelf: "flex-end",
-                      marginLeft: "7%",
+                      // marginLeft: "7%",
                       backgroundColor: "#1E4274",
                     }}
                     //   onPress={() => {
