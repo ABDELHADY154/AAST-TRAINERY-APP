@@ -25,20 +25,7 @@ export default class CompanyProfile extends Component {
 
   async componentDidMount() {
     await axios
-      .get("/A/student/studentImg")
-      .then((response) => {
-        this.setState({
-          loading: true,
-          spinner: false,
-          userData: response.data.response.data,
-        });
-        this.props.getUserData(this.state.userData);
-      })
-      .catch(function (error) {
-        // console.log(error.response.data.errors);
-      });
-    await axios
-      .get("/W/student/company/{id}")
+      .get(`/W/student/company/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -113,11 +100,11 @@ export default class CompanyProfile extends Component {
                   fontWeight: "bold",
                   color: "#1E4274",
                   marginTop: 10,
+                  // width: "90%",
                   // textAlign: "center",
                 }}
               >
                 {this.state.userData.company_name}
-                company_name
               </Text>
               <Text
                 style={{
@@ -127,7 +114,7 @@ export default class CompanyProfile extends Component {
                   // textAlign: "center",
                 }}
               >
-                {this.state.userData.fullName}
+                {this.state.userData.company_field}
               </Text>
             </View>
           </View>

@@ -32,19 +32,26 @@ class CompanyTapScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get("/A/student/get-profilePersonal")
+      .get(`/W/student/company/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
           userData: response.data.response.data,
         });
+        console.log(response.data.response.data);
+        this.props.getUserData(this.state.userData);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        this.setState({
+          spinner: false,
+        });
+        console.log(error.response.data.errors);
       });
   }
   render() {
-    console.log(this.state.userData);
+    // console.log(this.state.userData);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -76,12 +83,12 @@ class CompanyTapScreen extends Component {
                     lineHeight: 20,
                   }}
                 >
-                  {/* {this.state.userData.gender} */}
-                  Qowwa's main focus is to empower local businesses that move
+                  {this.state.userData.company_desc}
+                  {/* Qowwa's main focus is to empower local businesses that move
                   the Egyptian community forward by providing them with custom
                   web, mobile, and e-commerce application development. Qowwa’s
                   second focus is to provide website design, development, and
-                  management services to local and international clients.
+                  management services to local and international clients. */}
                 </Text>
               </View>
             </View>
