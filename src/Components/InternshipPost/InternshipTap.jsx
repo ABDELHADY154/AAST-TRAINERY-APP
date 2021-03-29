@@ -5,33 +5,41 @@ import { View, StyleSheet, ScrollView, Text } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { OpportunityCardCompany } from "./OpportunityCardCompany";
+
 export function InternshipTap(props) {
   const navigation = useNavigation();
   return <InternshipTapScreen navigation={navigation} {...props} />;
 }
 class InternshipTapScreen extends Component {
   state = {
-    progressWithOnComplete: 0,
-    progressCustomized: 0,
     userData: {},
+    internshipPosts: [],
     loading: false,
   };
   async componentDidMount() {
     await axios
-      .get("/A/student/get-profilePersonal")
+      .get(`/W/student/company/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
           userData: response.data.response.data,
+          internshipPosts: response.data.response.data.internshipPosts,
         });
+        // console.log(response.data.response.data);
+        this.props.getUserData(this.state.userData);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(function (error) {
+        this.setState({
+          spinner: false,
+        });
+        console.log(error.response.data.errors);
       });
   }
 
   render() {
-    console.log(this.state.userData);
+    // console.log(this.state.userData);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -50,7 +58,26 @@ class InternshipTapScreen extends Component {
                 >
                   Opened Internship
                 </Text>
-                <OpportunityCardCompany />
+                {this.state.internshipPosts ? (
+                  this.state.internshipPosts.map((e) => {
+                    return (
+                      <OpportunityCardCompany
+                        key={e.id}
+                        id={e.id}
+                        company_name={e.company_name}
+                        title={e.title}
+                        company_logo={e.company_logo}
+                        description={e.description}
+                        application_deadline={e.application_deadline}
+                        departments={e.departments}
+                        navigation={this.props.navigation}
+                      />
+                    );
+                  })
+                ) : (
+                  <Text></Text>
+                )}
+                {/* <OpportunityCardCompany /> */}
               </View>
             </View>
             <View style={{ marginTop: 10 }}>

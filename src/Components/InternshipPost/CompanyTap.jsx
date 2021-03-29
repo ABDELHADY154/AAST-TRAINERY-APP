@@ -17,11 +17,12 @@ import {
   Ionicons,
 } from "@expo/vector-icons";
 
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export function CompanyTap(props) {
   const navigation = useNavigation();
-  return <CompanyTapScreen navigation={navigation} {...props} />;
+  const route = useRoute();
+  return <CompanyTapScreen navigation={navigation} {...props} route={route} />;
 }
 class CompanyTapScreen extends Component {
   state = {
@@ -51,7 +52,7 @@ class CompanyTapScreen extends Component {
       });
   }
   render() {
-    // console.log(this.state.userData);
+    console.log(this.props.route.params.id);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -84,11 +85,6 @@ class CompanyTapScreen extends Component {
                   }}
                 >
                   {this.state.userData.company_desc}
-                  {/* Qowwa's main focus is to empower local businesses that move
-                  the Egyptian community forward by providing them with custom
-                  web, mobile, and e-commerce application development. Qowwa’s
-                  second focus is to provide website design, development, and
-                  management services to local and international clients. */}
                 </Text>
               </View>
             </View>
@@ -173,7 +169,7 @@ class CompanyTapScreen extends Component {
                       marginTop: 4,
                     }}
                   >
-                    {this.state.userData.email}
+                    {this.state.userData.address}
                   </Text>
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 10 }}>
@@ -188,6 +184,10 @@ class CompanyTapScreen extends Component {
                       color="#CD8930"
                     />
                   </Text>
+                  <Button
+                    title="Press me"
+                    onPress={() => Alert.alert("Simple Button pressed")}
+                  />
                   <Text
                     style={{
                       fontSize: 14,
@@ -195,7 +195,7 @@ class CompanyTapScreen extends Component {
                       width: "80%",
                     }}
                   >
-                    {this.state.userData.email}
+                    website
                   </Text>
                 </View>
               </View>

@@ -100,8 +100,6 @@ export default class CompanyProfile extends Component {
                   fontWeight: "bold",
                   color: "#1E4274",
                   marginTop: 10,
-                  // width: "90%",
-                  // textAlign: "center",
                 }}
               >
                 {this.state.userData.company_name}
@@ -111,7 +109,6 @@ export default class CompanyProfile extends Component {
                   fontSize: 16,
                   color: "#1E4274",
                   marginBottom: 15,
-                  // textAlign: "center",
                 }}
               >
                 {this.state.userData.company_field}
@@ -130,8 +127,16 @@ export default class CompanyProfile extends Component {
             style: { backgroundColor: "#F2F2F2" },
           }}
         >
-          <Tab.Screen name="Company" component={CompanyTap} />
-          <Tab.Screen name="Internship" component={InternshipTap} />
+          <Tab.Screen
+            name="Company"
+            component={CompanyTap}
+            initialParams={{ id: this.props.route.params.id }}
+          />
+          <Tab.Screen
+            name="Internship"
+            component={InternshipTap}
+            initialParams={{ id: this.props.route.params.id }}
+          />
           {/* <Tab.Screen name="Reviews" component={ReviewsTap} /> */}
         </Tab.Navigator>
       </View>
