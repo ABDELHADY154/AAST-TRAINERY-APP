@@ -16,8 +16,6 @@ const Tab = createMaterialTopTabNavigator();
 
 export default class CompanyProfile extends Component {
   state = {
-    name: "",
-    image: null,
     userData: {},
     loading: false,
     spinner: true,

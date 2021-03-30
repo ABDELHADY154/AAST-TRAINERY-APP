@@ -91,7 +91,7 @@ class InternshipTapScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  Ended Internshipz
+                  Ended Internships
                 </Text>
                 <Text
                   style={{

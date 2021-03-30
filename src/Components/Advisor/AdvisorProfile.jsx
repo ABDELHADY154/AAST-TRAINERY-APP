@@ -16,8 +16,6 @@ const Tab = createMaterialTopTabNavigator();
 
 export default class AdvisorProfile extends Component {
   state = {
-    name: "",
-    image: null,
     userData: {},
     loading: false,
     spinner: true,
@@ -25,27 +23,15 @@ export default class AdvisorProfile extends Component {
 
   async componentDidMount() {
     await axios
-      .get("/A/student/studentImg")
+      .get(`/W/student/company/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
+          id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        this.props.getUserData(this.state.userData);
-      })
-      .catch(function (error) {
-        console.log(error.response.data.errors);
-      });
-    await axios
-      .get("/W/student/company/10")
-      .then((response) => {
-        this.setState({
-          loading: true,
-          spinner: false,
-          userData: response.data.response.data,
-        });
-        console.log(error.response.data);
+        console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
@@ -116,17 +102,17 @@ export default class AdvisorProfile extends Component {
                 }}
               >
                 {this.state.userData.company_name}
-                advisooooooor
               </Text>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 15,
                   color: "#1E4274",
                   marginBottom: 15,
                   // textAlign: "center",
                 }}
               >
                 {this.state.userData.fullName}
+                {"  "} Training Advisor
               </Text>
             </View>
           </View>
@@ -142,9 +128,16 @@ export default class AdvisorProfile extends Component {
             style: { backgroundColor: "#F2F2F2" },
           }}
         >
-          <Tab.Screen name="Profile" component={ProfileTab} />
-          <Tab.Screen name="Internship" component={InternshipTabb} />
-          {/* <Tab.Screen name="Reviews" component={ReviewsTap} /> */}
+          <Tab.Screen
+            name="Profile"
+            component={ProfileTab}
+            initialParams={{ id: this.props.route.params.id }}
+          />
+          <Tab.Screen
+            name="Internship"
+            component={InternshipTabb}
+            initialParams={{ id: this.props.route.params.id }}
+          />
         </Tab.Navigator>
       </View>
     );

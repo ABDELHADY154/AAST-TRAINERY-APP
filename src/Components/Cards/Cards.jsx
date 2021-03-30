@@ -114,7 +114,9 @@ export class AdvisorCard extends Component {
             <Pressable
               style={{ flexDirection: "row" }}
               onPress={() => {
-                this.props.navigation.navigate("AdvisorProfile");
+                this.props.navigation.push("AdvisorProfile", {
+                  id: 10,
+                });
               }}
             >
               <Card.Cover
