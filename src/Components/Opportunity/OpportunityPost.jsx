@@ -23,6 +23,7 @@ import {
   Title,
   Paragraph,
 } from "react-native-paper";
+
 import Swiper from "react-native-swiper";
 import StarRating from "react-native-star-rating";
 class OpportunityPost extends Component {
@@ -83,9 +84,6 @@ class OpportunityPost extends Component {
                       width: 45,
                       borderRadius: 5,
                     }}
-                    onPress={() => {
-                      this.props.navigation.navigate("CompanyProfile");
-                    }}
                     source={{
                       uri:
                         "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
@@ -137,6 +135,7 @@ class OpportunityPost extends Component {
                 color: "#CD8930",
                 fontWeight: "bold",
                 marginBottom: "3%",
+                fontFamily: "SF-M",
               }}
             >
               Overview
@@ -144,7 +143,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -154,7 +153,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -164,7 +163,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -174,7 +173,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -184,7 +183,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -194,7 +193,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -204,7 +203,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -214,7 +213,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -224,7 +223,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -234,7 +233,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -244,7 +243,7 @@ class OpportunityPost extends Component {
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                   marginRight: "3%",
                   fontWeight: "bold",
@@ -254,7 +253,7 @@ class OpportunityPost extends Component {
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -268,13 +267,14 @@ class OpportunityPost extends Component {
                   color: "#CD8930",
                   marginRight: "3%",
                   fontWeight: "bold",
+                  fontFamily: "SF-M",
                 }}
               >
                 Location:
               </Text>
               <Text
                 style={{
-                  fontSize: 18,
+                  fontSize: 16,
                   color: "#1E4274",
                 }}
               >
@@ -297,6 +297,7 @@ class OpportunityPost extends Component {
                 color: "#CD8930",
                 fontWeight: "bold",
                 marginTop: "3%",
+                fontFamily: "SF-M",
               }}
             >
               Description
@@ -324,6 +325,7 @@ class OpportunityPost extends Component {
                 color: "#CD8930",
                 fontWeight: "bold",
                 marginTop: "3%",
+                fontFamily: "SF-M",
               }}
             >
               Requirements
@@ -368,90 +370,25 @@ class OpportunityPost extends Component {
             </View>
           </View>
 
-          <View>
-            <Text
-              style={{
-                marginTop: "7%",
-                alignSelf: "flex-start",
-                marginLeft: "5%",
-                color: "#1E4274",
-                fontSize: 20,
-                fontFamily: "SF-M",
-                marginBottom: 10,
-              }}
-            >
-              Add Your Review
-            </Text>
-            <View
-              style={{
-                alignSelf: "flex-start",
-                marginLeft: "5%",
-                marginTop: "-2%",
-                marginBottom: "5%",
-              }}
-            >
-              <StarRating
-                fullStarColor={"#CD8930"}
-                starSize={22}
-                disabled={false}
-                maxStars={5}
-                rating={this.state.rating}
-                selectedStar={(value) => this.setState({ rating: value })}
-                style={{
-                  justifyContent: "center",
-                  alignSelf: "center",
-                }}
-              />
-            </View>
-            <View
-              style={{
-                marginTop: "1%",
-              }}
-            >
-              <TextInput
-                style={{
-                  alignSelf: "center",
-                  backgroundColor: "#f2f2f2",
-                  width: "93%",
-                  paddingTop: "1%",
-                  paddingLeft: "2%",
-                  paddingRight: "3%",
-                  paddingBottom: "15%",
-                }}
-                multiline={true}
-                //   onChangeText={onChangeNumber}
-                //   value={number}
-                placeholder="Write Your Review..."
-                placeholderTextColor="#1E4274"
-                //   keyboardType="numeric"
-              />
-            </View>
-            <View style={{ marginTop: 22, flexDirection: "row" }}>
-              <TouchableOpacity
-                disabled
-                style={{
-                  marginTop: 0,
-                  justifyContent: "center",
-                  alignItems: "flex-end",
-                  alignSelf: "flex-end",
-                  marginLeft: "73.5%",
-                  backgroundColor: "#1E4274",
-                  marginBottom: "15%",
-                }}
-                onPress={{}}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    textTransform: "capitalize",
-                    fontSize: 16,
-                  }}
-                >
-                  Review
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          <Text
+            style={{
+              marginTop: "5%",
+              marginLeft: "5%",
+              fontFamily: "SF-M",
+              fontSize: 20,
+              color: "#CD8930",
+              fontWeight: "bold",
+            }}
+          >
+            Reviews
+          </Text>
+          <Swiper height={260} dotColor="#CCCCCC" activeDotColor="#CD8930">
+            <OpportunityReview />
+            <OpportunityReview />
+            <OpportunityReview />
+          </Swiper>
+
+          <ReviewWrite />
         </ScrollView>
       </View>
     );
@@ -467,3 +404,191 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 });
+
+class OpportunityReview extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <View>
+        <Card
+          style={{
+            marginBottom: 10,
+          }}
+        >
+          <Card.Content>
+            <Paragraph
+              style={{
+                textAlign: "center",
+                fontSize: 15,
+                color: "#1E4274",
+                marginRight: "3%",
+                marginTop: "1%",
+                lineHeight: 22,
+              }}
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
+              ipsum dolor sit amet, consectetur adipiscing elit.
+            </Paragraph>
+            <View
+              style={{
+                borderBottomColor: "#CD8930",
+                borderBottomWidth: 2,
+                width: "45%",
+                alignSelf: "center",
+                // marginLeft: "3.5%",
+                marginTop: "3%",
+              }}
+            />
+            <View style={{ width: "100%" }}>
+              <Card.Title
+                style={{
+                  alignSelf: "center",
+                  textAlign: "center",
+                  width: "100%",
+                  alignContent: "center",
+                }}
+                title="Yasmin Sabry"
+                titleStyle={{
+                  margin: 0,
+                  alignSelf: "center",
+                  textAlign: "center",
+                  textTransform: "capitalize",
+                  marginLeft: "-4%",
+                  color: "#1E4274",
+                  fontSize: 18,
+                  fontWeight: "bold",
+                }}
+                subtitle="Cv Writing"
+                subtitleStyle={{
+                  textTransform: "capitalize",
+                  alignSelf: "center",
+                  textAlign: "center",
+                  color: "#1E4274",
+                  marginLeft: "-4%",
+
+                  fontSize: 14,
+                }}
+              />
+            </View>
+          </Card.Content>
+          <View
+            style={{
+              flexDirection: "row",
+              //   marginLeft: "3%",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+              marginBottom: "15%",
+            }}
+          >
+            <StarRating
+              //   style={{ paddingRight: "50%" }}
+              fullStarColor={"#CD8930"}
+              starSize={22}
+              disabled={false}
+              maxStars={5}
+              rating={this.state.rating}
+            />
+          </View>
+        </Card>
+      </View>
+    );
+  }
+}
+
+class ReviewWrite extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <View>
+        <Text
+          style={{
+            marginTop: "7%",
+            alignSelf: "flex-start",
+            marginLeft: "5%",
+            color: "#1E4274",
+            fontSize: 20,
+            fontFamily: "SF-M",
+            marginBottom: 10,
+          }}
+        >
+          Add Your Review
+        </Text>
+        <View
+          style={{
+            alignSelf: "flex-start",
+            marginLeft: "5%",
+            marginTop: "-2%",
+            marginBottom: "5%",
+          }}
+        >
+          <StarRating
+            fullStarColor={"#CD8930"}
+            starSize={22}
+            disabled={false}
+            maxStars={5}
+            rating={this.state.rating}
+            selectedStar={(value) => this.setState({ rating: value })}
+            style={{
+              justifyContent: "center",
+              alignSelf: "center",
+            }}
+          />
+        </View>
+        <View
+          style={{
+            marginTop: "1%",
+          }}
+        >
+          <TextInput
+            style={{
+              alignSelf: "center",
+              backgroundColor: "#f2f2f2",
+              width: "93%",
+              paddingTop: "1%",
+              paddingLeft: "2%",
+              paddingRight: "3%",
+              paddingBottom: "15%",
+            }}
+            multiline={true}
+            //   onChangeText={onChangeNumber}
+            //   value={number}
+            placeholder="Write Your Review..."
+            placeholderTextColor="#1E4274"
+            //   keyboardType="numeric"
+          />
+        </View>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            marginRight: "3%",
+            marginTop: "5%",
+            marginBottom: "5%",
+          }}
+        >
+          <TouchableOpacity
+            style={{
+              borderColor: "#1E4274",
+              borderWidth: 1,
+              justifyContent: "flex-end",
+              alignItems: "center",
+              width: 90,
+              padding: 5,
+              borderRadius: 5,
+            }}
+          >
+            <Text style={{ color: "#1E4274", fontSize: 16 }}>Review</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}

@@ -9,6 +9,7 @@ import {
   Button,
   Alert,
   Linking,
+  TouchableOpacity,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
@@ -161,16 +162,20 @@ class CompanyTapScreen extends Component {
                       color="#CD8930"
                     />
                   </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: "#CD8930",
-                      width: "80%",
-                      marginTop: 4,
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(this.state.userData.address);
                     }}
                   >
-                    {this.state.userData.address}
-                  </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        color: "#CD8930",
+                      }}
+                    >
+                      Location
+                    </Text>
+                  </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: "row", marginBottom: 10 }}>
                   <Text
@@ -184,19 +189,20 @@ class CompanyTapScreen extends Component {
                       color="#CD8930"
                     />
                   </Text>
-                  <Button
-                    title="Press me"
-                    onPress={() => Alert.alert("Simple Button pressed")}
-                  />
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: "#CD8930",
-                      width: "80%",
+                  <TouchableOpacity
+                    onPress={() => {
+                      Linking.openURL(this.state.userData.website);
                     }}
                   >
-                    website
-                  </Text>
+                    <Text
+                      style={{
+                        fontSize: 14,
+                        color: "#CD8930",
+                      }}
+                    >
+                      Website Link
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>
