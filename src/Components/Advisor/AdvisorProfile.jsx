@@ -1,19 +1,16 @@
 import React, { Component, useState, useEffect } from "react";
 import { axios } from "../../Config/Axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, StyleSheet, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { FontAwesome, Entypo, Feather } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 import { Avatar } from "react-native-paper";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { InternshipTabb } from "./InternshipTabb";
 import { ProfileTab } from "./ProfileTab";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProfileImgLoader } from "../Loader/Loader";
 import Spinner from "react-native-loading-spinner-overlay";
 
 const Tab = createMaterialTopTabNavigator();
-
 export default class AdvisorProfile extends Component {
   state = {
     userData: {},
@@ -31,7 +28,7 @@ export default class AdvisorProfile extends Component {
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(response.data.response.data);
+        // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
@@ -98,7 +95,6 @@ export default class AdvisorProfile extends Component {
                   fontWeight: "bold",
                   color: "#1E4274",
                   marginTop: 10,
-                  // textAlign: "center",
                 }}
               >
                 {this.state.userData.company_name}

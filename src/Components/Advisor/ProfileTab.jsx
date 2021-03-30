@@ -1,21 +1,8 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { axios } from "../../Config/Axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Text,
-  Button,
-  Alert,
-  Linking,
-} from "react-native";
+import { View, StyleSheet, ScrollView, Text, Linking } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import {
-  MaterialCommunityIcons,
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 export function ProfileTab(props) {
@@ -38,7 +25,7 @@ class ProfileTabScreen extends Component {
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(response.data.response.data);
+        // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
@@ -137,7 +124,6 @@ class ProfileTabScreen extends Component {
                 >
                   <Text
                     style={{
-                      // marginLeft: -2,
                       marginRight: 4,
                     }}
                   >
@@ -168,7 +154,6 @@ class ProfileTabScreen extends Component {
                 >
                   <Text
                     style={{
-                      // marginLeft: -2,
                       marginRight: 4,
                     }}
                   >

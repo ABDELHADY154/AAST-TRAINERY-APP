@@ -1,8 +1,6 @@
 import React, { Component, useState, useEffect, useRef } from "react";
 import { axios } from "../../Config/Axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
-
 import { useNavigation } from "@react-navigation/native";
 import { OpportunityCardAdvisor } from "./OpportunityCardAdvisor";
 export function InternshipTabb(props) {
@@ -75,7 +73,6 @@ class InternshipTabbScreen extends Component {
                 ) : (
                   <Text></Text>
                 )}
-                {/* <OpportunityCardCompany /> */}
               </View>
             </View>
             <View style={{ marginTop: 10 }}>

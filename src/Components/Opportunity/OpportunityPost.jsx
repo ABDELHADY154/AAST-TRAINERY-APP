@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { Component } from "react";
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {
@@ -12,17 +12,8 @@ import {
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome, Entypo, Feather } from "@expo/vector-icons";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProfileImgLoader } from "../Loader/Loader";
-import {
-  Card,
-  Button,
-  Avatar,
-  IconButton,
-  Title,
-  Paragraph,
-} from "react-native-paper";
+import { Card, IconButton, Paragraph } from "react-native-paper";
 
 import Swiper from "react-native-swiper";
 import StarRating from "react-native-star-rating";
@@ -66,9 +57,7 @@ class OpportunityPost extends Component {
                 </View>
               }
               subtitleStyle={{
-                // color: "#1E4274",
                 fontSize: 16,
-                // marginTop: -3,
               }}
               left={(props) => (
                 <Pressable
@@ -125,7 +114,6 @@ class OpportunityPost extends Component {
           </View>
           <View
             style={{
-              // flex: 1,
               marginLeft: "5%",
             }}
           >
@@ -281,16 +269,7 @@ class OpportunityPost extends Component {
                 Gleem, Alexandria
               </Text>
             </View>
-            <View>
-              {/* <iframe
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13646.513994923827!2d29.9491302!3d31.2310203!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x49897e2d526104e2!2zRHIuIEFiZGVsaGFkeSBFbHNoYW15IC4g2K8uINi52KjYr9in2YTZh9in2K_ZiiDYp9mE2LTYp9mF2YouINil2LPYqti02KfYsdmKINis2LHYp9it2Kkg2KfZhNiq2KzZhdmK2YQg2Ygg2KfZhNit2LHZiNmCIC4!5e0!3m2!1sen!2seg!4v1616949635625!5m2!1sen!2seg"
-              width="270"
-              height="100"
-              // style="border:0;"
-              allowfullscreen=""
-              loading="lazy"
-            ></iframe> */}
-            </View>
+            <View></View>
             <Text
               style={{
                 fontSize: 20,
@@ -439,7 +418,6 @@ class OpportunityReview extends Component {
                 borderBottomWidth: 2,
                 width: "45%",
                 alignSelf: "center",
-                // marginLeft: "3.5%",
                 marginTop: "3%",
               }}
             />
@@ -478,7 +456,6 @@ class OpportunityReview extends Component {
           <View
             style={{
               flexDirection: "row",
-              //   marginLeft: "3%",
               justifyContent: "center",
               alignItems: "center",
               alignSelf: "center",
@@ -486,7 +463,6 @@ class OpportunityReview extends Component {
             }}
           >
             <StarRating
-              //   style={{ paddingRight: "50%" }}
               fullStarColor={"#CD8930"}
               starSize={22}
               disabled={false}
@@ -562,7 +538,6 @@ class ReviewWrite extends Component {
             //   value={number}
             placeholder="Write Your Review..."
             placeholderTextColor="#1E4274"
-            //   keyboardType="numeric"
           />
         </View>
         <View

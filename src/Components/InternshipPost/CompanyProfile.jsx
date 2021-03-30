@@ -31,7 +31,7 @@ export default class CompanyProfile extends Component {
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(response.data.response.data);
+        // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
       .catch(function (error) {
@@ -135,7 +135,6 @@ export default class CompanyProfile extends Component {
             component={InternshipTap}
             initialParams={{ id: this.props.route.params.id }}
           />
-          {/* <Tab.Screen name="Reviews" component={ReviewsTap} /> */}
         </Tab.Navigator>
       </View>
     );

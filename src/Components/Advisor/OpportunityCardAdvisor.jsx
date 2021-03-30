@@ -1,15 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, Image } from "react-native";
 import { axios } from "../../Config/Axios";
-
-import {
-  Card,
-  Button,
-  Avatar,
-  IconButton,
-  Title,
-  Paragraph,
-} from "react-native-paper";
+import { Card, IconButton, Paragraph } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 export function OpportunityCardAdvisor(props) {
@@ -57,7 +49,6 @@ class AdvisorPost extends Component {
                         dep_name={e.dep_name}
                         departments={e.departments}
                         navigation={this.props.navigation}
-                        // style={{ flexDirection: "column" }}
                       />
                     );
                   })
@@ -68,8 +59,6 @@ class AdvisorPost extends Component {
             }
             subtitleStyle={{
               fontSize: 14,
-
-              // marginBottom: 50,
             }}
             left={(props) => (
               <Card.Cover
@@ -79,11 +68,6 @@ class AdvisorPost extends Component {
                   borderRadius: 5,
                 }}
                 source={{ uri: this.props.company_logo }}
-
-                // source={{
-                //   uri:
-                //     "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // }}
               />
             )}
             right={(props) => (
