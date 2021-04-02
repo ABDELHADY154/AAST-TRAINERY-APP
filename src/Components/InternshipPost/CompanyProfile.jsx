@@ -86,7 +86,7 @@ export default class CompanyProfile extends Component {
                       backgroundColor: "transparent",
                     }}
                     size={90}
-                    source={{ uri: this.state.userData.image }}
+                    source={{ uri: this.state.userData.logo }}
                   />
                 </View>
               )}

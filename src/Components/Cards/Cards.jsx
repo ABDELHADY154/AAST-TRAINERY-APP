@@ -52,7 +52,7 @@ export class AdvisorCard extends Component {
               <Pressable
                 onPress={() => {
                   this.props.navigation.push("CompanyProfile", {
-                    id: 10,
+                    id: 13,
                   });
                 }}
               >
