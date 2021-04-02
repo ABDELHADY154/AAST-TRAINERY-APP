@@ -17,14 +17,49 @@ import { Card, IconButton, Paragraph } from "react-native-paper";
 
 import Swiper from "react-native-swiper";
 import StarRating from "react-native-star-rating";
+import Spinner from "react-native-loading-spinner-overlay";
+
 class OpportunityPost extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  state = {
+    userData: {},
+    departments: [],
+    requirements: [],
+
+    loading: false,
+    spinner: true,
+  };
+  async componentDidMount() {
+    await axios
+      .get(`/W/student/post/${this.props.route.params.id}`)
+      .then((response) => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          userData: response.data.response.data,
+        });
+        // console.log(this.state.userData.departments);
+        this.props.getUserData(this.state.userData);
+      })
+      .catch(function (error) {
+        this.setState({
+          spinner: false,
+        });
+        console.log(error.response.data.errors);
+      });
   }
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         {/* Header */}
         <Feather
           name="chevron-left"
@@ -42,19 +77,41 @@ class OpportunityPost extends Component {
           <View style={{ width: "98%" }}>
             <Card.Title
               style={{ marginLeft: 1 }}
-              title="UI/UX Designer"
+              title={this.state.userData.title}
               titleStyle={{
                 color: "#1E4274",
                 fontSize: 18,
                 fontWeight: "bold",
               }}
               subtitle={
-                <View style={{ flexDirection: "row" }}>
-                  <Text style={{ color: "#1E4274", fontSize: 16 }}>
-                    Qowwa{"   "}
-                  </Text>
-                  <Text style={{ color: "#CD8930", fontSize: 16 }}>BIS</Text>
-                </View>
+                <>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                      {this.state.userData.company_name}
+                      {"   "}
+                    </Text>
+
+                    {/* <Text style={{ color: "#CD8930", fontSize: 16 }}>BIS</Text> */}
+                  </View>
+                  <View style={{}}>
+                    {this.state.userData.departments ? (
+                      this.state.userData.departments.map((e) => {
+                        return (
+                          <Departments
+                            key={e.id}
+                            id={e.id}
+                            dep_name={e.dep_name}
+                            departments={e.departments}
+                            navigation={this.props.navigation}
+                            // style={{ flexDirection: "column" }}
+                          />
+                        );
+                      })
+                    ) : (
+                      <Text></Text>
+                    )}
+                  </View>
+                </>
               }
               subtitleStyle={{
                 fontSize: 16,
@@ -73,10 +130,7 @@ class OpportunityPost extends Component {
                       width: 45,
                       borderRadius: 5,
                     }}
-                    source={{
-                      uri:
-                        "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                    }}
+                    source={{ uri: this.state.userData.company_logo }}
                   />
                 </Pressable>
               )}
@@ -145,7 +199,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Oct 1, 2020
+                {this.state.userData.published_on}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
@@ -165,7 +219,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                2
+                {this.state.userData.vacancy}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
@@ -185,7 +239,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Any
+                {this.state.userData.gender}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
@@ -205,7 +259,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Full Time
+                {this.state.userData.type}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
@@ -225,7 +279,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Paid
+                {this.state.userData.salary}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "1%" }}>
@@ -245,7 +299,7 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Oct 1, 2020
+                {this.state.userData.application_deadline}
               </Text>
             </View>
             <View style={{ flexDirection: "row", marginTop: "3%" }}>
@@ -266,7 +320,8 @@ class OpportunityPost extends Component {
                   color: "#1E4274",
                 }}
               >
-                Gleem, Alexandria
+                {this.state.userData.location}
+                {/* {this.state.userData.location_url} */}
               </Text>
             </View>
             <View></View>
@@ -290,13 +345,7 @@ class OpportunityPost extends Component {
                 lineHeight: 22,
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc arcu
-              ac cras odio. Malesuada et massa mattis massa et sociis velit
-              risus. Orci, viverra pretium, vitae risus cras diam arcu, duis a.
-              Aliquet hendrerit sagittis, nisl ac tincidunt mauris quam.
-              Facilisi arcu maecenas nisl, phasellus mi quis. Risus ut nulla
-              elementum lectus integer dictum volutpat elementum integer. Non
-              aenean in eget ornare.
+              {this.state.userData.description}
             </Text>
             <Text
               style={{
@@ -309,44 +358,22 @@ class OpportunityPost extends Component {
             >
               Requirements
             </Text>
-            <View style={{ flexDirection: "row" }}>
-              <Entypo
-                name="dot-single"
-                size={36}
-                color="#1E4274"
-                style={{ marginLeft: -10 }}
-              />
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#1E4274",
-                  marginRight: "3%",
-                  marginTop: "1%",
-                  lineHeight: 22,
-                }}
-              >
-                knowledge about Web, IOS, Android Design Guidelines.
-              </Text>
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <Entypo
-                name="dot-single"
-                size={36}
-                color="#1E4274"
-                style={{ marginLeft: -10 }}
-              />
-              <Text
-                style={{
-                  fontSize: 16,
-                  color: "#1E4274",
-                  marginRight: "3%",
-                  marginTop: "1%",
-                  lineHeight: 22,
-                }}
-              >
-                knowledge about Web, IOS, Android Design Guidelines.
-              </Text>
-            </View>
+            {this.state.userData.requirements ? (
+              this.state.userData.requirements.map((e) => {
+                return (
+                  <Requirements
+                    key={e.id}
+                    id={e.id}
+                    req={e.req}
+                    requirements={e.requirements}
+                    navigation={this.props.navigation}
+                    // style={{ flexDirection: "column" }}
+                  />
+                );
+              })
+            ) : (
+              <Text></Text>
+            )}
           </View>
 
           <Text
@@ -376,6 +403,52 @@ class OpportunityPost extends Component {
 
 export default OpportunityPost;
 
+class Departments extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <View>
+        <Text style={{ color: "#CD8930", fontSize: 16 }}>
+          {this.props.dep_name}
+          {"   "}
+        </Text>
+      </View>
+    );
+  }
+}
+class Requirements extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <View style={{ flexDirection: "row" }}>
+        <Entypo
+          name="dot-single"
+          size={36}
+          color="#1E4274"
+          style={{ marginLeft: -10 }}
+        />
+        <Text
+          style={{
+            fontSize: 16,
+            color: "#1E4274",
+            marginRight: "3%",
+            marginTop: "1%",
+            lineHeight: 22,
+            width: "88%",
+          }}
+        >
+          {this.props.req}
+        </Text>
+      </View>
+    );
+  }
+}
 const styles = StyleSheet.create({
   container: {
     flex: 1,

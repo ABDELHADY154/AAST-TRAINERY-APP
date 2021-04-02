@@ -20,7 +20,7 @@ export default class AdvisorProfile extends Component {
 
   async componentDidMount() {
     await axios
-      .get(`/W/student/company/${this.props.route.params.id}`)
+      .get(`/W/student/advisor/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -97,7 +97,7 @@ export default class AdvisorProfile extends Component {
                   marginTop: 10,
                 }}
               >
-                {this.state.userData.company_name}
+                {this.state.userData.name}
               </Text>
               <Text
                 style={{
@@ -107,8 +107,7 @@ export default class AdvisorProfile extends Component {
                   // textAlign: "center",
                 }}
               >
-                {this.state.userData.fullName}
-                {"  "} Training Advisor
+                {this.state.userData.title} Training Advisor
               </Text>
             </View>
           </View>

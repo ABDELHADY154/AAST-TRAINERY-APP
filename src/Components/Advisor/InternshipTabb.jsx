@@ -15,7 +15,7 @@ class InternshipTabbScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`/W/student/company/${this.props.route.params.id}`)
+      .get(`/W/student/advisor/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -52,7 +52,7 @@ class InternshipTabbScreen extends Component {
                     marginBottom: 10,
                   }}
                 >
-                  Opened Internship
+                  Published Internship
                 </Text>
                 {this.state.internshipPosts ? (
                   this.state.internshipPosts.map((e) => {
@@ -75,7 +75,7 @@ class InternshipTabbScreen extends Component {
                 )}
               </View>
             </View>
-            <View style={{ marginTop: 10 }}>
+            {/* <View style={{ marginTop: 10 }}>
               <View>
                 <Text
                   style={{
@@ -99,7 +99,7 @@ class InternshipTabbScreen extends Component {
                   There are currently no ended Internship at Qowwa Inc.
                 </Text>
               </View>
-            </View>
+            </View> */}
           </View>
         </ScrollView>
       </View>

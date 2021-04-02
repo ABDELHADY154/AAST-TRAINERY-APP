@@ -26,7 +26,9 @@ export class AdvisorCard extends Component {
             borderColor: "#CCCCCC",
           }}
           onPress={() => {
-            this.props.navigation.push("OpportunityPost");
+            this.props.navigation.push("OpportunityPost", {
+              id: 3,
+            });
           }}
         >
           <Card.Title

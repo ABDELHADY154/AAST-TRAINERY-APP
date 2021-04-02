@@ -17,7 +17,7 @@ class ProfileTabScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`/W/student/company/${this.props.route.params.id}`)
+      .get(`/W/student/advisor/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -68,7 +68,7 @@ class ProfileTabScreen extends Component {
                     lineHeight: 20,
                   }}
                 >
-                  {this.state.userData.company_desc}
+                  {this.state.userData.bio}
                 </Text>
               </View>
             </View>
@@ -141,8 +141,8 @@ class ProfileTabScreen extends Component {
                       marginTop: 4,
                     }}
                   >
-                    BIS Department
-                    {/* {this.state.userData.email} */}
+                    {/* BIS Department */}
+                    {this.state.userData.department}
                   </Text>
                 </View>
                 <View
@@ -170,8 +170,8 @@ class ProfileTabScreen extends Component {
                       width: "80%",
                     }}
                   >
-                    AAST - CMT
-                    {/* {this.state.userData.email} */}
+                    {/* AAST - CMT */}
+                    {this.state.userData.university}
                   </Text>
                 </View>
               </View>
