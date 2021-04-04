@@ -7,7 +7,7 @@ import {
   Easing,
   TouchableWithoutFeedback,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -135,7 +135,7 @@ export default class HomeScreen extends Component {
   getUserData = async () => {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -151,7 +151,7 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -164,10 +164,10 @@ export default class HomeScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
-    const setTitle = title => {
+    const setTitle = (title) => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -176,7 +176,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -188,9 +188,9 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -201,7 +201,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -209,7 +209,7 @@ export default class HomeScreen extends Component {
     );
   };
 
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -306,10 +306,7 @@ export default class HomeScreen extends Component {
                 color="#1E4274"
                 style={{ paddingRight: 10, paddingLeft: 2 }}
               />
-              <Text
-                style={{ color: "#1E4274", fontSize: 16 }}
-               
-              >
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Edit Profile
               </Text>
             </TouchableOpacity>
@@ -425,20 +422,16 @@ export default class HomeScreen extends Component {
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 22,
-              }} onPress={() => {
-                  AsyncStorage.removeItem("userData");
-                  AsyncStorage.removeItem("userToken");
-                  AsyncStorage.removeItem("config");
-                  axios.defaults.headers.common["Authorization"] = ``;
-                  this.props.logout();
-                }}
+              }}
+              onPress={() => {
+                AsyncStorage.removeItem("userData");
+                AsyncStorage.removeItem("userToken");
+                AsyncStorage.removeItem("config");
+                axios.defaults.headers.common["Authorization"] = ``;
+                this.props.logout();
+              }}
             >
-              <Text
-                style={{ color: "#1E4274", fontSize: 16 }}
-               
-              >
-                Log Out
-              </Text>
+              <Text style={{ color: "#1E4274", fontSize: 16 }}>Log Out</Text>
             </TouchableOpacity>
           </ScrollView>
         </View>
@@ -539,11 +532,12 @@ export default class HomeScreen extends Component {
         />
         <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
-              duration={950}
+              // duration={500}
+              preset="bubble"
               style={{
                 backgroundColor: "#1E4275",
                 borderRadius: 150,
