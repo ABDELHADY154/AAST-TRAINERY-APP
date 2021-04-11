@@ -513,11 +513,12 @@ class PersonalTabForm extends Component {
                           size={28}
                           color="#1E4274"
                           style={{ marginRight: 25 }}
-                          // onPress={() => {
-                          //   Linking.openURL(
-                          //     this.state.userData.accounts.facebook
-                          //   );
-                          // }}
+
+                          onPress={() => {
+                            Linking.openURL(
+                              this.state.userData.accounts.facebook
+                            );
+                          }}
                         />
                       ) : (
                         <Text></Text>
