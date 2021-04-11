@@ -137,7 +137,7 @@ export default class HomeScreen extends Component {
   getUserData = async () => {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -153,7 +153,7 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -166,10 +166,10 @@ export default class HomeScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
-    const setTitle = title => {
+    const setTitle = (title) => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -178,7 +178,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -190,9 +190,9 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -203,7 +203,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -211,7 +211,7 @@ export default class HomeScreen extends Component {
     );
   };
 
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -606,11 +606,12 @@ export default class HomeScreen extends Component {
         </Tabs.Navigator>
         {/* <Tab.Navigator
           shifting={true}
-          tabBar={props => (
+          tabBar={(props) => (
             <AnimatedTabBar
               tabs={tabs}
               {...props}
-              duration={950}
+              // duration={500}
+              preset="bubble"
               style={{
                 backgroundColor: "#1E4275",
                 borderRadius: 150,

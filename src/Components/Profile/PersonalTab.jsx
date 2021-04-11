@@ -49,19 +49,19 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
 
   render() {
-    console.log(this.state.userData);
+    // console.log(this.state.userData);
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -513,9 +513,10 @@ class PersonalTabForm extends Component {
                           size={28}
                           color="#1E4274"
                           style={{ marginRight: 25 }}
+
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.facebook,
+                              this.state.userData.accounts.facebook
                             );
                           }}
                         />
@@ -530,7 +531,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.instagram,
+                              this.state.userData.accounts.instagram
                             );
                           }}
                         />
@@ -545,7 +546,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.youtube,
+                              this.state.userData.accounts.youtube
                             );
                           }}
                         />
@@ -560,7 +561,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.linkedin,
+                              this.state.userData.accounts.linkedin
                             );
                           }}
                         />
@@ -575,7 +576,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.behance,
+                              this.state.userData.accounts.behance
                             );
                           }}
                         />
@@ -590,7 +591,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.github,
+                              this.state.userData.accounts.github
                             );
                           }}
                         />
@@ -605,7 +606,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.website,
+                              this.state.userData.accounts.website
                             );
                           }}
                         />

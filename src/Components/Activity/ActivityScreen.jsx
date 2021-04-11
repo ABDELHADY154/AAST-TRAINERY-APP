@@ -1,69 +1,51 @@
-import React, { Component } from "react";
-import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
-import { StatusBar } from "expo-status-bar";
+import React, { Component, useState, useEffect } from "react";
+import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button } from "galio-framework";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Alert,
+  Pressable,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import ActivitySavedS from "./ActivitySaved";
+import ActivityAppointmentS from "./ActivityAppointment";
+import ActivityAcceptedS from "./ActivityAccepted";
+
+import ActivityApplieds from "./ActivityApplied";
+
+export function ActivityScreens(props) {
+  const navigation = useNavigation();
+  return <ActivityScreen navigation={navigation} {...props} />;
+}
+
+const Tab = createMaterialTopTabNavigator();
+
 export default class ActivityScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View
-          style={{
-            flexDirection: "row",
-            // justifyContent: "center",
-            alignItems: "center",
-            marginTop: 40,
+        {/* Tabs */}
+        <Tab.Navigator
+          backBehavior="none"
+          tabBarOptions={{
+            activeTintColor: "#CD8930",
+            inactiveTintColor: "#1E4274",
+            indicatorStyle: { backgroundColor: "#CD8930" },
+            labelStyle: { fontSize: 12 },
+            style: { backgroundColor: "#fff" },
           }}
         >
-          <Button
-            onlyIcon
-            icon="menu"
-            iconFamily="Ionicons"
-            iconSize={40}
-            color="transparent"
-            iconColor="#1E4274"
-            style={{
-              width: 40,
-              height: 40,
-              flex: 1,
-              justifyContent: "flex-start",
-              // marginRight: 90,
-            }}
-            onPress={() => {
-              AsyncStorage.removeItem("userData");
-              AsyncStorage.removeItem("userToken");
-              AsyncStorage.removeItem("config");
-              this.props.logout();
-            }}
-          >
-            menu
-          </Button>
-
-          <Text
-            style={{
-              flex: 1,
-
-              justifyContent: "center",
-              // marginLeft: 115,
-              // marginRight: 160,
-              fontSize: 16,
-              color: "#1E4274",
-              fontWeight: "bold",
-            }}
-          >
-            Activity
-          </Text>
-        </View>
-        {/* <Button
-          onPress={() => {
-            AsyncStorage.removeItem("userData");
-            AsyncStorage.removeItem("userToken");
-            AsyncStorage.removeItem("config");
-            this.props.userSignOut();
-          }}
-        >
-          <Text>Profile Logout</Text>
-        </Button> */}
+          <Tab.Screen name="Applied" component={ActivityApplieds} />
+          <Tab.Screen name="Accepted" component={ActivityAcceptedS} />
+          <Tab.Screen name="Saved" component={ActivitySavedS} />
+          <Tab.Screen name="Sessions" component={ActivityAppointmentS} />
+        </Tab.Navigator>
       </View>
     );
   }
@@ -71,10 +53,7 @@ export default class ActivityScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    // marginTop: 10,
     backgroundColor: "#fff",
+    justifyContent: "center",
   },
 });
