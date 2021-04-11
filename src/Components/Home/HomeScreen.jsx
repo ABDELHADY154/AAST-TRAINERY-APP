@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
+import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -27,6 +28,7 @@ const Tab = createBottomTabNavigator();
 const AuthContext = React.createContext();
 import Drawer from "react-native-drawer-menu";
 import { DrawerProfile } from "../Loader/Loader";
+const Tabs = AnimatedTabBarNavigator();
 
 import { Header } from "react-native-elements";
 import {
@@ -514,11 +516,8 @@ export default class HomeScreen extends Component {
             this.state.headerTitle == "Profile" ? "#1E4274" : "#fff"
           }
           containerStyle={{
-            // width: "95%",
             paddingHorizontal: "5%",
             alignSelf: "center",
-            // shadowColor:
-            //   this.state.headerTitle == "Profile" ? "#1E4274" : "#000",
             shadowColor: "#000",
             shadowOffset: {
               width: 0,
@@ -526,11 +525,86 @@ export default class HomeScreen extends Component {
             },
             shadowOpacity: 0.9,
             shadowRadius: 60,
-
             borderBottomColor: "transparent",
           }}
         />
-        <Tab.Navigator
+        <Tabs.Navigator
+          tabBarOptions={{
+            activeTintColor: "#fff",
+            inactiveTintColor: "#fff",
+            activeBackgroundColor: "#CD8930",
+            labelStyle: {
+              fontSize: 16,
+            },
+            tabStyle: {
+              backgroundColor: "#1E4275",
+              borderRadius: 150,
+              justifyContent: "center",
+              alignItems: "center",
+              width: "99.9%",
+              height: 63,
+              alignSelf: "center",
+            },
+          }}
+          appearance={{
+            tabBarBackground: "#1E4275",
+            shadow: true,
+            floating: false,
+            dotSize: "large",
+            dotCornerRadius: 300,
+          }}
+        >
+          <Tabs.Screen
+            name="Explore"
+            component={this.ExploreScreen}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <Icon color="#fff" name="home-outline" type="ionicon" />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="Activity"
+            component={Activity}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <Icon color="#fff" name="bolt" type="font-awesome-5" />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="Coaching"
+            component={CareerCoaching}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <Icon color="#fff" name="briefcase-outline" type="ionicon" />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="Notifications"
+            component={Notification}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <Icon color="#fff" name="bell" type="font-awesome-5" />
+              ),
+            }}
+          />
+          <Tabs.Screen
+            name="Profile"
+            component={this.ProfileScreen}
+            options={{
+              tabBarIcon: ({ focused, color, size }) => (
+                <Icon
+                  color="#fff"
+                  name="person-circle-outline"
+                  type="ionicon"
+                />
+              ),
+            }}
+          />
+        </Tabs.Navigator>
+        {/* <Tab.Navigator
           shifting={true}
           tabBar={(props) => (
             <AnimatedTabBar
@@ -557,7 +631,7 @@ export default class HomeScreen extends Component {
           <Tab.Screen name="Coaching" component={CareerCoaching} />
           <Tab.Screen name="Notifications" component={Notification} />
           <Tab.Screen name="Profile" component={this.ProfileScreen} />
-        </Tab.Navigator>
+        </Tab.Navigator> */}
         {this.state.headerTitle == "Profile" ? (
           <StatusBar style="light" animated={true} showHideTransition="slide" />
         ) : (
