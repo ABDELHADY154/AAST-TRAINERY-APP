@@ -37,7 +37,7 @@ export default class ProfileScreen extends Component {
   afterImageUpload = async () => {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -50,7 +50,7 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
@@ -61,45 +61,7 @@ export default class ProfileScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  showModal = () => {
-    this.setState({ visible: true });
-  };
-  hideModal = () => {
-    this.setState({ visible: false });
-  };
-  getImage = image => {
-    this.setState({ image: image });
-  };
-  updateImage = async () => {
-    this.setState({
-      spinner: true,
-    });
-    var formData = new FormData();
-    let uriParts = this.state.image.split(".");
-    let fileType = uriParts[uriParts.length - 1];
-    formData.append("image", {
-      uri: this.state.image,
-      name: `${this.state.title}.${fileType}`,
-      type: `image/${fileType}`,
-    });
 
-    await axios({
-      method: "post",
-      url: "/A/student/profile/image",
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    })
-      .then(e => {
-        this.setState({ visible: false });
-        this.afterImageUpload();
-        this.setState({
-          spinner: false,
-        });
-      })
-      .catch(err => {
-        console.log(err.response);
-      });
-  };
   render() {
     return (
       <View style={styles.container}>

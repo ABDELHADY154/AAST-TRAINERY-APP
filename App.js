@@ -30,7 +30,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Tutorials } from "./src/Components/Tutorials/Tutorialscreen";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { BackHandler, Alert } from "react-native";
-import Post from "./src/Components/InternshipPost/Post";
+import CompanyProfile from "./src/Components/InternshipPost/CompanyProfile";
+import AdvisorProfile from "./src/Components/Advisor/AdvisorProfile";
+import OpportunityPost from "./src/Components/Opportunity/OpportunityPost";
 
 import {
   DefaultTheme,
@@ -77,10 +79,20 @@ function InterestsFormScreen(props) {
   const route = useRoute();
   return <Interests {...props} navigation={navigation} route={route} />;
 }
-function InternshipPostScreen(props) {
+function CompanyProfileScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
-  return <Post {...props} navigation={navigation} route={route} />;
+  return <CompanyProfile {...props} navigation={navigation} route={route} />;
+}
+function AdvisorProfileScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <AdvisorProfile {...props} navigation={navigation} route={route} />;
+}
+function OpportunityPostScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <OpportunityPost {...props} navigation={navigation} route={route} />;
 }
 function CvWritingScreen(props) {
   const navigation = useNavigation();
@@ -427,8 +439,30 @@ export default function App({ navigation }) {
                   }}
                 />
                 <Stack.Screen
-                  name="InternshipShow"
-                  component={InternshipPostScreen}
+                  name="CompanyProfile"
+                  component={CompanyProfileScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="AdvisorProfile"
+                  component={AdvisorProfileScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="OpportunityPost"
+                  component={OpportunityPostScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
