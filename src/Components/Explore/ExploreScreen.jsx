@@ -15,6 +15,7 @@ import { axios } from "../../Config/Axios";
 import { Header } from "react-native-elements";
 import Drawer from "react-native-drawer-menu";
 import { FlatList } from "react-native-bidirectional-infinite-scroll";
+import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 
 import Card from "../Cards/Cards";
 
@@ -24,6 +25,8 @@ export default class ExploreScreen extends Component {
   state = {
     posts: [],
     refresh: false,
+    paginate: 2,
+    refreshState: RefreshState.Idle,
   };
   // wait = timeout => {
   //   return new Promise(resolve => setTimeout(resolve, timeout));
@@ -37,7 +40,7 @@ export default class ExploreScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get("/A/student/posts")
+      .get(`/A/student/posts`)
       .then(res => {
         this.setState({
           posts: res.data.response.data,
@@ -48,56 +51,92 @@ export default class ExploreScreen extends Component {
       });
   }
 
-  getData = async () => {
+  getData = async num => {
+    var sum = this.state.paginate + Number(num);
+    this.setState({
+      paginate: sum,
+      // refreshState:
+    });
     await axios
-      .get("/A/student/posts")
+      .get(`/A/student/posts?q=${this.state.paginate}`)
       .then(res => {
-        this.setState({
-          posts: res.data.response.data,
-        });
+        this.state.posts.concat(res.data.response.data);
       })
       .catch(err => {
         console.log(err);
       });
-    return this.state.posts;
+    // return this.state.posts;
+  };
+  onHeaderRefresh = async () => {
+    this.setState({ refreshState: RefreshState.HeaderRefreshing });
+    await axios
+      .get(`/A/student/posts`)
+      .then(res => {
+        this.setState({
+          posts: res.data.response.data,
+        });
+        this.setState({ refreshState: RefreshState.Idle });
+        console.log(this.state.posts);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  footerRefreshing = async () => {
+    this.setState({ refreshState: RefreshState.FooterRefreshing });
+    await axios
+      .get(`/A/student/posts?page=${this.state.paginate}`)
+      .then(res => {
+        this.setState({
+          posts: this.state.posts.concat(res.data.response.data),
+        });
+        this.setState({
+          refreshState: RefreshState.Idle,
+          paginate: this.state.paginate + 1,
+        });
+        console.log(this.state.posts);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
   render() {
     return (
       <View style={styles.container}>
         <SafeAreaView>
+          <RefreshListView
+            data={this.state.posts}
+            keyExtractor={item => item.id}
+            renderItem={Card}
+            refreshState={this.state.refreshState}
+            onHeaderRefresh={this.onHeaderRefresh}
+            onFooterRefresh={() => {
+              this.footerRefreshing();
+              // this.getData(10);
+            }}
+            footerRefreshingText="Loading"
+          />
           {/* <ScrollView
-          
-          > */}
-          <View>
-            <FlatList
-              data={this.state.posts}
-              renderItem={Card}
-              onEndReached={this.getData} // required, should return a promise
-              activityIndicatorColor={"#1E4274"} // optional
-              showDefaultLoadingIndicators={true} // optional
-              onEndReachedThreshold={10} // optional
-              // HeaderLoadingIndicator={() => { /** Your loading indicator */ }} // optional
-              // FooterLoadingIndicator={() => { /** Your loading indicator */ }} // optional
-              enableAutoscrollToTop={false} // optional | default - false
-              // You can use any other prop on react-native's FlatList
-              refreshControl={
-                <RefreshControl
-                  colors={["#1E4274"]}
-                  refreshing={this.state.refresh}
-                  onRefresh={this.onRefresh}
-                />
-              }
-            />
-          </View>
-          {/* </ScrollView> */}
-          {/* <ScrollView>
+            refreshControl={
+              <RefreshControl
+                colors={["#1E4274"]}
+                refreshing={this.state.refresh}
+                onRefresh={this.onRefresh}
+              />
+            }
+            snapToEnd={false}
+            // onScrollEndDrag={() => {
+            //   this.getData(10);
+            // }}
+          >
             {this.state.posts !== [] ? (
               this.state.posts.map(item => {
-                return <CompanyCard />;
+                return <Card item={item} key={item.id} />;
               })
             ) : (
               <Text></Text>
-            )} */}
+            )}
+          </ScrollView> */}
         </SafeAreaView>
         {/* <StatusBar style="auto" /> */}
       </View>

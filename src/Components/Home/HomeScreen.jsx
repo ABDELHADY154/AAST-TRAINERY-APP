@@ -598,7 +598,7 @@ export default class HomeScreen extends Component {
             tabBarBackground: "#1E4275",
             shadow: true,
             floating: false,
-            dotSize: "medium",
+            dotSize: "large",
             dotCornerRadius: 300,
           }}
         >
