@@ -28,26 +28,74 @@ class OpportunityPost extends Component {
     loading: false,
     spinner: true,
   };
-  async componentDidMount() {
+  refreshComponent = async () => {
     await axios
       .get(`/W/student/post/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        // console.log(this.state.userData.departments);
+        console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
+      });
+  };
+  async componentDidMount() {
+    await axios
+      .get(`/W/student/post/${this.props.route.params.id}`)
+      .then(response => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          userData: response.data.response.data,
+        });
+        console.log(this.state.userData);
+        this.props.getUserData(this.state.userData);
+      })
+      .catch(error => {
+        this.setState({
+          spinner: false,
+        });
+        // console.log(error.response.data.errors);
       });
   }
+  savePost = async () => {
+    this.setState({
+      spinner: true,
+    });
+    axios
+      .post(`/A/student/save/${this.state.userData.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.refreshComponent();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  unSavePost = async () => {
+    this.setState({
+      spinner: true,
+    });
+    axios
+      .post(`/A/student/unsave/${this.state.userData.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.refreshComponent();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   render() {
     return (
       <View style={styles.container}>
@@ -71,7 +119,9 @@ class OpportunityPost extends Component {
             marginTop: 45,
             marginBottom: 15,
           }}
-          onPress={() => this.props.navigation.goBack()}
+          onPress={() =>
+            this.props.navigation.push("App", { screen: "Explore" })
+          }
         />
         <ScrollView>
           <View style={{ width: "98%" }}>
@@ -95,7 +145,7 @@ class OpportunityPost extends Component {
                   </View>
                   <View style={{}}>
                     {this.state.userData.departments ? (
-                      this.state.userData.departments.map((e) => {
+                      this.state.userData.departments.map(e => {
                         return (
                           <Departments
                             key={e.id}
@@ -116,7 +166,7 @@ class OpportunityPost extends Component {
               subtitleStyle={{
                 fontSize: 16,
               }}
-              left={(props) => (
+              left={props => (
                 <Pressable
                   onPress={() => {
                     this.props.navigation.push("CompanyProfile", {
@@ -134,15 +184,26 @@ class OpportunityPost extends Component {
                   />
                 </Pressable>
               )}
-              right={(props) => (
-                <IconButton
-                  {...props}
-                  icon="bookmark-outline"
-                  size={30}
-                  color="#1E4274"
-                  onPress={() => {}}
-                />
-              )}
+              right={props =>
+                this.state.userData.saved &&
+                this.state.userData.saved == true ? (
+                  <IconButton
+                    {...props}
+                    icon="bookmark"
+                    size={30}
+                    color="#1E4274"
+                    onPress={this.unSavePost}
+                  />
+                ) : (
+                  <IconButton
+                    {...props}
+                    icon="bookmark-outline"
+                    size={30}
+                    color="#1E4274"
+                    onPress={this.savePost}
+                  />
+                )
+              }
             />
           </View>
           <View
@@ -359,7 +420,7 @@ class OpportunityPost extends Component {
               Requirements
             </Text>
             {this.state.userData.requirements ? (
-              this.state.userData.requirements.map((e) => {
+              this.state.userData.requirements.map(e => {
                 return (
                   <Requirements
                     key={e.id}
@@ -584,7 +645,7 @@ class ReviewWrite extends Component {
             disabled={false}
             maxStars={5}
             rating={this.state.rating}
-            selectedStar={(value) => this.setState({ rating: value })}
+            selectedStar={value => this.setState({ rating: value })}
             style={{
               justifyContent: "center",
               alignSelf: "center",
