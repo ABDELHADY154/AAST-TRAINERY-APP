@@ -15,7 +15,6 @@ import {
 
 export default class CardComponent extends Component {
   render() {
-    console.log(this.props.item.saved);
     return this.props.item.post_type == "companyPost" ? (
       <View>
         <Card

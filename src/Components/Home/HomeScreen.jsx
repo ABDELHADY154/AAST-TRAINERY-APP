@@ -616,7 +616,12 @@ export default class HomeScreen extends Component {
             component={this.ActivityScreen}
             options={{
               tabBarIcon: ({ focused, color, size }) => (
-                <Icon color="#fff" name="bolt" type="font-awesome-5" />
+                <Icon
+                  color="#fff"
+                  name="pulse"
+                  size={35}
+                  type="material-community"
+                />
               ),
             }}
           />
