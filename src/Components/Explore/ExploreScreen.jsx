@@ -12,10 +12,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import { IconButton } from "react-native-paper";
 import { axios } from "../../Config/Axios";
-import { Header } from "react-native-elements";
+import { colors, Header } from "react-native-elements";
 import Drawer from "react-native-drawer-menu";
 import { FlatList } from "react-native-bidirectional-infinite-scroll";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
+import Spinner from "react-native-loading-spinner-overlay";
 
 import Card from "../Cards/Cards";
 
@@ -27,23 +28,18 @@ export default class ExploreScreen extends Component {
     refresh: false,
     paginate: 2,
     refreshState: RefreshState.Idle,
+    spinner: true,
   };
-  // wait = timeout => {
-  //   return new Promise(resolve => setTimeout(resolve, timeout));
-  // };
-  onRefresh = () => {
-    this.setState({ refresh: true });
-    // this.wait(500).then(() => {
-    this.getData();
-    this.setState({ refresh: false });
-    // });
-  };
+
   async componentDidMount() {
+    var userToken = await AsyncStorage.getItem("userToken");
+    axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
     await axios
       .get(`/A/student/posts`)
       .then(res => {
         this.setState({
           posts: res.data.response.data,
+          spinner: false,
         });
       })
       .catch(err => {
@@ -104,6 +100,15 @@ export default class ExploreScreen extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView>
+          <Spinner
+            visible={this.state.spinner}
+            cancelable={false}
+            size="large"
+            color="#1E4274"
+            animation="fade"
+            overlayColor="rgba(255, 255, 255, 0.8)"
+            textStyle={{ color: "#1E4274", textAlign: "center" }}
+          />
           <RefreshListView
             data={this.state.posts}
             keyExtractor={item => item.id}
@@ -112,33 +117,10 @@ export default class ExploreScreen extends Component {
             onHeaderRefresh={this.onHeaderRefresh}
             onFooterRefresh={() => {
               this.footerRefreshing();
-              // this.getData(10);
             }}
             footerRefreshingText="Loading"
           />
-          {/* <ScrollView
-            refreshControl={
-              <RefreshControl
-                colors={["#1E4274"]}
-                refreshing={this.state.refresh}
-                onRefresh={this.onRefresh}
-              />
-            }
-            snapToEnd={false}
-            // onScrollEndDrag={() => {
-            //   this.getData(10);
-            // }}
-          >
-            {this.state.posts !== [] ? (
-              this.state.posts.map(item => {
-                return <Card item={item} key={item.id} />;
-              })
-            ) : (
-              <Text></Text>
-            )}
-          </ScrollView> */}
         </SafeAreaView>
-        {/* <StatusBar style="auto" /> */}
       </View>
     );
   }
