@@ -137,7 +137,7 @@ export default class HomeScreen extends Component {
   getUserData = async () => {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -153,7 +153,7 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -166,10 +166,10 @@ export default class HomeScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExploreScreen = (props) => {
+  ExploreScreen = props => {
     const navigation = useNavigation();
     const signOut = this.props.userSignOut;
-    const setTitle = (title) => {
+    const setTitle = title => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -178,7 +178,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return (
@@ -190,9 +190,9 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = (props) => {
+  ProfileScreen = props => {
     const navigation = useNavigation();
-    const getUserData = (data) => {
+    const getUserData = data => {
       this.setState({
         userData: data,
       });
@@ -203,7 +203,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation])
+      }, [navigation]),
     );
 
     return (
@@ -211,7 +211,51 @@ export default class HomeScreen extends Component {
     );
   };
 
-  setDrawerRef = (ref) => {
+  ActivityScreen = props => {
+    const navigation = useNavigation();
+    const getUserData = data => {
+      this.setState({
+        userData: data,
+      });
+    };
+    useFocusEffect(
+      useCallback(() => {
+        const stackNavigator = navigation.dangerouslyGetParent();
+        if (stackNavigator) {
+          this.setState({ headerTitle: "Activity" });
+        }
+      }, [navigation]),
+    );
+
+    return (
+      <Activity {...props} navigation={navigation} getUserData={getUserData} />
+    );
+  };
+  CareerCoachingScreen = props => {
+    const navigation = useNavigation();
+    const getUserData = data => {
+      this.setState({
+        userData: data,
+      });
+    };
+    useFocusEffect(
+      useCallback(() => {
+        const stackNavigator = navigation.dangerouslyGetParent();
+        if (stackNavigator) {
+          this.setState({ headerTitle: "Career Coaching" });
+        }
+      }, [navigation]),
+    );
+
+    return (
+      <CareerCoaching
+        {...props}
+        navigation={navigation}
+        getUserData={getUserData}
+      />
+    );
+  };
+  setDrawerRef = ref => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -465,7 +509,7 @@ export default class HomeScreen extends Component {
         style={styles.drawer}
         drawerWidth={300}
         drawerContent={drawerContent}
-        type={Drawer.types.Overlay}
+        type={Drawer.types.Default}
         customStyles={{ drawer: customStyles.drawer }}
         drawerPosition={Drawer.positions.Left}
         onDrawerOpen={() => {
@@ -500,17 +544,21 @@ export default class HomeScreen extends Component {
           }}
           // rightComponent={{ icon: "search", color: "#1E4275", size: 35 }}
           rightComponent={
-            <Feather
-              name="search"
-              size={28}
-              color={this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"}
-              style={{
-                marginTop: 6,
-              }}
-              onPress={() => {
-                this.props.navigation.navigate("Search");
-              }}
-            />
+            this.state.headerTitle == "Explore" ? (
+              <Feather
+                name="search"
+                size={28}
+                color={this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"}
+                style={{
+                  marginTop: 6,
+                }}
+                onPress={() => {
+                  this.props.navigation.navigate("Search");
+                }}
+              />
+            ) : (
+              ""
+            )
           }
           backgroundColor={
             this.state.headerTitle == "Profile" ? "#1E4274" : "#fff"
@@ -565,7 +613,7 @@ export default class HomeScreen extends Component {
           />
           <Tabs.Screen
             name="Activity"
-            component={Activity}
+            component={this.ActivityScreen}
             options={{
               tabBarIcon: ({ focused, color, size }) => (
                 <Icon color="#fff" name="bolt" type="font-awesome-5" />
@@ -574,7 +622,7 @@ export default class HomeScreen extends Component {
           />
           <Tabs.Screen
             name="Coaching"
-            component={CareerCoaching}
+            component={this.CareerCoachingScreen}
             options={{
               tabBarIcon: ({ focused, color, size }) => (
                 <Icon color="#fff" name="briefcase-outline" type="ionicon" />
@@ -604,34 +652,7 @@ export default class HomeScreen extends Component {
             }}
           />
         </Tabs.Navigator>
-        {/* <Tab.Navigator
-          shifting={true}
-          tabBar={(props) => (
-            <AnimatedTabBar
-              tabs={tabs}
-              {...props}
-              // duration={500}
-              preset="bubble"
-              style={{
-                backgroundColor: "#1E4275",
-                borderRadius: 150,
-                justifyContent: "center",
-                alignItems: "center",
-                width: "99.9%",
-                height: 63,
-                alignSelf: "center",
-              }}
-              itemOuterSpace={9}
-              itemInnerSpace={7}
-            />
-          )}
-        >
-          <Tab.Screen name="Explore" component={this.ExploreScreen} />
-          <Tab.Screen name="Activity" component={Activity} />
-          <Tab.Screen name="Coaching" component={CareerCoaching} />
-          <Tab.Screen name="Notifications" component={Notification} />
-          <Tab.Screen name="Profile" component={this.ProfileScreen} />
-        </Tab.Navigator> */}
+
         {this.state.headerTitle == "Profile" ? (
           <StatusBar style="light" animated={true} showHideTransition="slide" />
         ) : (
