@@ -53,7 +53,13 @@ export default class ExploreScreen extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        if (err.response.data.status == 401) {
+          AsyncStorage.removeItem("userData");
+          AsyncStorage.removeItem("userToken");
+          AsyncStorage.removeItem("config");
+          axios.defaults.headers.common["Authorization"] = ``;
+          this.props.logout();
+        }
       });
   }
 

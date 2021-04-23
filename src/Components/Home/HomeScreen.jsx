@@ -168,7 +168,9 @@ export default class HomeScreen extends Component {
   }
   ExploreScreen = props => {
     const navigation = useNavigation();
-    const signOut = this.props.userSignOut;
+    const signOut = () => {
+      this.props.logout();
+    };
     const setTitle = title => {
       this.setState({ headerTitle: title });
     };
@@ -616,12 +618,7 @@ export default class HomeScreen extends Component {
             component={this.ActivityScreen}
             options={{
               tabBarIcon: ({ focused, color, size }) => (
-                <Icon
-                  color="#fff"
-                  name="pulse"
-                  size={35}
-                  type="material-community"
-                />
+                <Icon color="#fff" name="md-pulse" type="ionicon" />
               ),
             }}
           />
