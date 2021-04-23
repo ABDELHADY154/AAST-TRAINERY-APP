@@ -37,7 +37,7 @@ export default class ProfileScreen extends Component {
   afterImageUpload = async () => {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -50,7 +50,7 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
@@ -67,7 +67,7 @@ export default class ProfileScreen extends Component {
   hideModal = () => {
     this.setState({ visible: false });
   };
-  getImage = image => {
+  getImage = (image) => {
     this.setState({ image: image });
   };
   updateImage = async () => {
@@ -89,14 +89,14 @@ export default class ProfileScreen extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(e => {
+      .then((e) => {
         this.setState({ visible: false });
         this.afterImageUpload();
         this.setState({
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   };
@@ -188,6 +188,7 @@ export default class ProfileScreen extends Component {
                 marginTop: 10,
                 marginBottom: 15,
                 textAlign: "center",
+                textTransform: "capitalize",
               }}
             >
               {this.state.userData.fullName}
