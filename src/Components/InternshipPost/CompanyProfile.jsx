@@ -24,7 +24,7 @@ export default class CompanyProfile extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/company/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,

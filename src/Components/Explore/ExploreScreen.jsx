@@ -17,11 +17,17 @@ import Drawer from "react-native-drawer-menu";
 import { FlatList } from "react-native-bidirectional-infinite-scroll";
 import RefreshListView, { RefreshState } from "react-native-refresh-list-view";
 import Spinner from "react-native-loading-spinner-overlay";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Card from "../Cards/Cards";
 
 import { Feather } from "@expo/vector-icons";
 
+function CardCompt(props) {
+  // const { navigation } = useNavigation();
+  // const route = useRoute();navigation={navigation} route={route}
+  return <Card {...props} />;
+}
 export default class ExploreScreen extends Component {
   state = {
     posts: [],
@@ -31,11 +37,15 @@ export default class ExploreScreen extends Component {
     spinner: true,
   };
 
+  CardComponent = props => {
+    return <Card {...props} navigation={this.props.navigation} />;
+  };
+
   async componentDidMount() {
     var userToken = await AsyncStorage.getItem("userToken");
     axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
     await axios
-      .get(`/A/student/posts`)
+      .get(`/A/student/posts?page=1`)
       .then(res => {
         this.setState({
           posts: res.data.response.data,
@@ -43,26 +53,16 @@ export default class ExploreScreen extends Component {
         });
       })
       .catch(err => {
-        console.log(err);
+        if (err.response.data.status == 401) {
+          AsyncStorage.removeItem("userData");
+          AsyncStorage.removeItem("userToken");
+          AsyncStorage.removeItem("config");
+          axios.defaults.headers.common["Authorization"] = ``;
+          this.props.logout();
+        }
       });
   }
 
-  getData = async num => {
-    var sum = this.state.paginate + Number(num);
-    this.setState({
-      paginate: sum,
-      // refreshState:
-    });
-    await axios
-      .get(`/A/student/posts?q=${this.state.paginate}`)
-      .then(res => {
-        this.state.posts.concat(res.data.response.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-    // return this.state.posts;
-  };
   onHeaderRefresh = async () => {
     this.setState({ refreshState: RefreshState.HeaderRefreshing });
     await axios
@@ -112,7 +112,7 @@ export default class ExploreScreen extends Component {
           <RefreshListView
             data={this.state.posts}
             keyExtractor={item => item.id}
-            renderItem={Card}
+            renderItem={this.CardComponent}
             refreshState={this.state.refreshState}
             onHeaderRefresh={this.onHeaderRefresh}
             onFooterRefresh={() => {

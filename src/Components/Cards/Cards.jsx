@@ -13,12 +13,7 @@ import {
   Paragraph,
 } from "react-native-paper";
 
-export default function CompanyCard(props) {
-  // const navigation = useNavigation();
-  // const route = useRoute();navigation={navigation} route={route}
-  return <Company {...props} />;
-}
-class Company extends Component {
+export default class CardComponent extends Component {
   render() {
     return this.props.item.post_type == "companyPost" ? (
       <View>
@@ -29,6 +24,11 @@ class Company extends Component {
             borderWidth: 1,
             marginBottom: 10,
             borderColor: "#CCCCCC",
+          }}
+          onPress={() => {
+            this.props.navigation.push("OpportunityPost", {
+              id: this.props.item.id,
+            });
           }}
         >
           <Card.Title
@@ -60,15 +60,34 @@ class Company extends Component {
                 }}
               />
             )}
-            right={(props) => (
-              <IconButton
-                {...props}
-                icon="bookmark-outline"
-                size={30}
-                color="#1E4274"
-                onPress={() => {}}
-              />
-            )}
+            right={props =>
+              this.props.item.saved && this.props.item.saved == true ? (
+                <IconButton
+                  {...props}
+                  icon="bookmark"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.push("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              ) : (
+                <IconButton
+                  {...props}
+                  icon="bookmark-outline"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.push("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              )
+            }
+
           />
           <Card.Content>
             <Paragraph
@@ -130,6 +149,11 @@ class Company extends Component {
             marginBottom: 10,
             borderColor: "#CCCCCC",
           }}
+          onPress={() => {
+            this.props.navigation.push("OpportunityPost", {
+              id: this.props.item.id,
+            });
+          }}
         >
           <Card.Title
             style={{ marginLeft: 1 }}
@@ -160,15 +184,34 @@ class Company extends Component {
                 }}
               />
             )}
-            right={(props) => (
-              <IconButton
-                {...props}
-                icon="bookmark-outline"
-                size={30}
-                color="#1E4274"
-                onPress={() => {}}
-              />
-            )}
+            right={props =>
+              this.props.item.saved && this.props.item.saved == true ? (
+                <IconButton
+                  {...props}
+                  icon="bookmark"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.push("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              ) : (
+                <IconButton
+                  {...props}
+                  icon="bookmark-outline"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.navigate("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              )
+            }
+
           />
           <Card.Content>
             {/* <Title>Card title</Title> */}
@@ -275,6 +318,11 @@ class Company extends Component {
             marginBottom: 10,
             borderColor: "#CCCCCC",
           }}
+          onPress={() => {
+            this.props.navigation.push("OpportunityPost", {
+              id: this.props.item.id,
+            });
+          }}
         >
           <Card.Title
             style={{ marginLeft: 1 }}
@@ -305,15 +353,34 @@ class Company extends Component {
                 }}
               />
             )}
-            right={(props) => (
-              <IconButton
-                {...props}
-                icon="bookmark-outline"
-                size={30}
-                color="#1E4274"
-                onPress={() => {}}
-              />
-            )}
+            right={props =>
+              this.props.item.saved && this.props.item.saved == true ? (
+                <IconButton
+                  {...props}
+                  icon="bookmark"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.push("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              ) : (
+                <IconButton
+                  {...props}
+                  icon="bookmark-outline"
+                  size={30}
+                  color="#1E4274"
+                  onPress={() => {
+                    this.props.navigation.navigate("OpportunityPost", {
+                      id: this.props.item.id,
+                    });
+                  }}
+                />
+              )
+            }
+
           />
           <Card.Content>
             {/* <Title>Card title</Title> */}
