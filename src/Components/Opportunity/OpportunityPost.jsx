@@ -119,7 +119,7 @@ class OpportunityPost extends Component {
   unApply = async () => {
     Alert.alert(
       "Hold on!",
-      "Are you sure you want to cancel your Application?",
+      "Are you sure you want to cancel the applying for this opportunity?",
       [
         {
           text: "NO",
