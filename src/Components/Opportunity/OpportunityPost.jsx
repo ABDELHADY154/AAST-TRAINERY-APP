@@ -9,11 +9,17 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  Alert,
 } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { FontAwesome, Entypo, Feather } from "@expo/vector-icons";
+import {
+  FontAwesome,
+  Entypo,
+  Feather,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { ProfileImgLoader } from "../Loader/Loader";
-import { Card, IconButton, Paragraph } from "react-native-paper";
+import { Card, IconButton, Paragraph, Modal, Portal } from "react-native-paper";
 
 import Swiper from "react-native-swiper";
 import StarRating from "react-native-star-rating";
@@ -95,6 +101,51 @@ class OpportunityPost extends Component {
       .catch(err => {
         console.log(err);
       });
+  };
+  applyPost = async () => {
+    this.setState({
+      spinner: true,
+    });
+    await axios
+      .post(`/A/student/apply/${this.state.userData.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.refreshComponent();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  unApply = async () => {
+    Alert.alert(
+      "Hold on!",
+      "Are you sure you want to cancel your Application?",
+      [
+        {
+          text: "NO",
+          onPress: () => null,
+          style: "cancel",
+        },
+        {
+          text: "YES",
+          onPress: async () => {
+            this.setState({
+              spinner: true,
+            });
+            await axios
+              .post(`/A/student/unApply/${this.state.userData.id}`)
+              .then(res => {
+                console.log(res.data);
+                this.refreshComponent();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          },
+        },
+      ],
+    );
+    return true;
   };
   render() {
     return (
@@ -213,19 +264,42 @@ class OpportunityPost extends Component {
               marginRight: "5%",
             }}
           >
-            <TouchableOpacity
-              style={{
-                borderColor: "#1E4274",
-                borderWidth: 1,
-                justifyContent: "flex-end",
-                alignItems: "center",
-                width: 90,
-                padding: 5,
-                borderRadius: 5,
-              }}
-            >
-              <Text style={{ color: "#1E4274", fontSize: 16 }}>Apply</Text>
-            </TouchableOpacity>
+            {this.state.userData.applied &&
+            this.state.userData.applied == true ? (
+              <>
+                <TouchableOpacity
+                  style={{
+                    borderColor: "#1E4274",
+                    backgroundColor: "#1E4274",
+                    borderWidth: 1,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    width: 90,
+                    padding: 5,
+                    borderRadius: 5,
+                    flexDirection: "row",
+                  }}
+                  onPress={this.unApply}
+                >
+                  <Text style={{ color: "#fff", fontSize: 16 }}>Applied</Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <TouchableOpacity
+                style={{
+                  borderColor: "#1E4274",
+                  borderWidth: 1,
+                  justifyContent: "flex-end",
+                  alignItems: "center",
+                  width: 90,
+                  padding: 5,
+                  borderRadius: 5,
+                }}
+                onPress={this.applyPost}
+              >
+                <Text style={{ color: "#1E4274", fontSize: 16 }}>Apply</Text>
+              </TouchableOpacity>
+            )}
           </View>
           <View
             style={{

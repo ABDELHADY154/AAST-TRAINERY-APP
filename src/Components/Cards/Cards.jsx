@@ -123,7 +123,7 @@ export default class CardComponent extends Component {
             borderColor: "#CCCCCC",
           }}
           onPress={() => {
-            this.props.navigation.navigate("OpportunityPost", {
+            this.props.navigation.push("OpportunityPost", {
               id: this.props.item.id,
             });
           }}
@@ -174,7 +174,7 @@ export default class CardComponent extends Component {
                   size={30}
                   color="#1E4274"
                   onPress={() => {
-                    this.props.navigation.navigate("OpportunityPost", {
+                    this.props.navigation.push("OpportunityPost", {
                       id: this.props.item.id,
                     });
                   }}
@@ -280,7 +280,7 @@ export default class CardComponent extends Component {
             borderColor: "#CCCCCC",
           }}
           onPress={() => {
-            this.props.navigation.navigate("OpportunityPost", {
+            this.props.navigation.push("OpportunityPost", {
               id: this.props.item.id,
             });
           }}
@@ -331,7 +331,7 @@ export default class CardComponent extends Component {
                   size={30}
                   color="#1E4274"
                   onPress={() => {
-                    this.props.navigation.navigate("OpportunityPost", {
+                    this.props.navigation.push("OpportunityPost", {
                       id: this.props.item.id,
                     });
                   }}
