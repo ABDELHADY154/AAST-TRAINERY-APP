@@ -47,30 +47,8 @@ class CompanyPost extends Component {
               fontSize: 16,
               fontWeight: "bold",
             }}
-            subtitle={
-              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                {this.props.departments ? (
-                  this.props.departments.map((e) => {
-                    return (
-                      <Departments
-                        key={e.id}
-                        id={e.id}
-                        dep_name={e.dep_name}
-                        departments={e.departments}
-                        navigation={this.props.navigation}
-                        // style={{ flexDirection: "column" }}
-                      />
-                    );
-                  })
-                ) : (
-                  <Text></Text>
-                )}
-              </View>
-            }
             subtitleStyle={{
               fontSize: 14,
-
-              // marginBottom: 50,
             }}
             left={(props) => (
               <Card.Cover
@@ -80,11 +58,6 @@ class CompanyPost extends Component {
                   borderRadius: 5,
                 }}
                 source={{ uri: this.props.company_logo }}
-
-                // source={{
-                //   uri:
-                //     "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-                // }}
               />
             )}
             right={(props) => (
@@ -108,6 +81,25 @@ class CompanyPost extends Component {
             >
               {this.props.description}
             </Paragraph>
+
+            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+              {this.props.departments ? (
+                this.props.departments.map((e) => {
+                  return (
+                    <Departments
+                      key={e.id}
+                      id={e.id}
+                      dep_name={e.dep_name}
+                      departments={e.departments}
+                      navigation={this.props.navigation}
+                      // style={{ flexDirection: "column" }}
+                    />
+                  );
+                })
+              ) : (
+                <Text></Text>
+              )}
+            </View>
           </Card.Content>
           <View
             style={{
@@ -179,30 +171,6 @@ export class PromotedCard extends Component {
               fontSize: 16,
               fontWeight: "bold",
             }}
-            subtitle={
-              <View style={{ flexDirection: "row" }}>
-                <Text style={{ color: "#1E4274" }}>Qowwa{"   "}</Text>
-                {/* <Text style={{ color: "#CD8930" }}>BIS</Text> */}
-                <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-                  {this.props.departments ? (
-                    this.props.departments.map((e) => {
-                      return (
-                        <Departments
-                          key={e.id}
-                          id={e.id}
-                          dep_name={e.dep_name}
-                          departments={e.departments}
-                          navigation={this.props.navigation}
-                          // style={{ flexDirection: "column" }}
-                        />
-                      );
-                    })
-                  ) : (
-                    <Text></Text>
-                  )}
-                </View>
-              </View>
-            }
             subtitleStyle={{
               color: "#1E4274",
               fontSize: 14,
@@ -236,7 +204,23 @@ export class PromotedCard extends Component {
             >
               {this.props.description}
             </Paragraph>
-            {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+            <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+              {this.props.departments ? (
+                this.props.departments.map((e) => {
+                  return (
+                    <Departments
+                      key={e.id}
+                      id={e.id}
+                      dep_name={e.dep_name}
+                      departments={e.departments}
+                      navigation={this.props.navigation}
+                    />
+                  );
+                })
+              ) : (
+                <Text></Text>
+              )}
+            </View>
           </Card.Content>
           <View
             style={{
@@ -244,8 +228,6 @@ export class PromotedCard extends Component {
               width: "90%",
               height: 1,
               marginVertical: 5,
-              // marginHorizontal: 10,
-              // alignItems: "center",
               alignSelf: "center",
             }}
           ></View>
@@ -272,8 +254,6 @@ export class PromotedCard extends Component {
                   color: "#1E4274",
                   marginLeft: 16,
                   marginTop: -7,
-                  // alignItems: "flex-end",
-                  // justifyContent: "flex-end",
                 }}
               >
                 Deadline {this.props.application_deadline}

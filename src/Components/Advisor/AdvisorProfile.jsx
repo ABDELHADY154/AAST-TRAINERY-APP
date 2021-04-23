@@ -95,20 +95,26 @@ export default class AdvisorProfile extends Component {
                   fontWeight: "bold",
                   color: "#1E4274",
                   marginTop: 10,
+                  flexWrap: "wrap",
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.userData.name}
               </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#1E4274",
-                  marginBottom: 15,
-                  // textAlign: "center",
-                }}
-              >
-                {this.state.userData.title} Training Advisor
-              </Text>
+              <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#1E4274",
+                    marginBottom: 15,
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    textTransform: "capitalize",
+                  }}
+                >
+                  {this.state.userData.title}
+                </Text>
+              </View>
             </View>
           </View>
         </View>

@@ -187,7 +187,14 @@ class OpportunityPost extends Component {
               subtitle={
                 <>
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                    <Text
+                      style={{
+                        color: "#1E4274",
+                        fontSize: 16,
+                        flexWrap: "wrap",
+                        textTransform: "capitalize",
+                      }}
+                    >
                       {this.state.userData.company_name}
                       {"   "}
                     </Text>

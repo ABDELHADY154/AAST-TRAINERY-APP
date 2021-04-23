@@ -24,7 +24,7 @@ export default class CompanyProfile extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/company/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -98,6 +98,8 @@ export default class CompanyProfile extends Component {
                   fontWeight: "bold",
                   color: "#1E4274",
                   marginTop: 10,
+                  flexWrap: "wrap",
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.userData.company_name}
@@ -107,6 +109,8 @@ export default class CompanyProfile extends Component {
                   fontSize: 16,
                   color: "#1E4274",
                   marginBottom: 15,
+                  flexWrap: "wrap",
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.userData.company_field}
