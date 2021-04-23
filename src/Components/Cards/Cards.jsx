@@ -60,7 +60,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={props =>
+            right={(props) =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   {...props}
@@ -87,7 +87,6 @@ export default class CardComponent extends Component {
                 />
               )
             }
-
           />
           <Card.Content>
             <Paragraph
@@ -112,18 +111,11 @@ export default class CardComponent extends Component {
                   return (
                     <View
                       style={{
-                        // flex: 1,
-                        // flexDirection: "row",
                         flexWrap: "wrap",
                       }}
                     >
                       <Text
                         style={{
-                          // flex: 1,
-                          // flexDirection: "row",
-                          // justifyContent: "center",
-                          // alignItems: "center",
-                          // flexWrap: "wrap",
                           color: "#CD8930",
                         }}
                       >
@@ -184,7 +176,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={props =>
+            right={(props) =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   {...props}
@@ -211,7 +203,6 @@ export default class CardComponent extends Component {
                 />
               )
             }
-
           />
           <Card.Content>
             {/* <Title>Card title</Title> */}
@@ -226,19 +217,29 @@ export default class CardComponent extends Component {
             >
               {this.props.item.description}
             </Paragraph>
-            <View>
+            <View
+              style={{
+                // flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
               {this.props.item.departments ? (
                 this.props.item.departments.map((item) => {
                   return (
-                    <Text
+                    <View
                       style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        color: "#CD8930",
+                        flexWrap: "wrap",
                       }}
                     >
-                      {item.dep_name}
-                    </Text>
+                      <Text
+                        style={{
+                          color: "#CD8930",
+                        }}
+                      >
+                        {item.dep_name},{"  "}
+                      </Text>
+                    </View>
                   );
                 })
               ) : (
@@ -353,7 +354,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={props =>
+            right={(props) =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   {...props}
@@ -380,7 +381,6 @@ export default class CardComponent extends Component {
                 />
               )
             }
-
           />
           <Card.Content>
             {/* <Title>Card title</Title> */}
@@ -395,19 +395,29 @@ export default class CardComponent extends Component {
             >
               {this.props.item.description}
             </Paragraph>
-            <View>
+            <View
+              style={{
+                // flex: 1,
+                flexDirection: "row",
+                flexWrap: "wrap",
+              }}
+            >
               {this.props.item.departments ? (
                 this.props.item.departments.map((item) => {
                   return (
-                    <Text
+                    <View
                       style={{
-                        flex: 1,
-                        flexDirection: "row",
-                        color: "#CD8930",
+                        flexWrap: "wrap",
                       }}
                     >
-                      {item.dep_name}
-                    </Text>
+                      <Text
+                        style={{
+                          color: "#CD8930",
+                        }}
+                      >
+                        {item.dep_name},{"  "}
+                      </Text>
+                    </View>
                   );
                 })
               ) : (
