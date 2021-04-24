@@ -119,7 +119,8 @@ export default class CardComponent extends Component {
                           color: "#CD8930",
                         }}
                       >
-                        {item.dep_name},{"  "}
+                        {item.dep_name}
+                        {"  "}
                       </Text>
                     </View>
                   );
@@ -237,7 +238,8 @@ export default class CardComponent extends Component {
                           color: "#CD8930",
                         }}
                       >
-                        {item.dep_name},{"  "}
+                        {item.dep_name}
+                        {"  "}
                       </Text>
                     </View>
                   );
@@ -456,7 +458,7 @@ export default class CardComponent extends Component {
                   fontSize: 12,
                   color: "#1E4274",
                   marginLeft: 16,
-                  marginTop: -7,
+                  marginTop: -3,
                 }}
               >
                 Deadline {this.props.item.application_deadline}
