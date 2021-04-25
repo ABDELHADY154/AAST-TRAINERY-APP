@@ -170,9 +170,10 @@ class OpportunityPost extends Component {
             marginTop: 45,
             marginBottom: 15,
           }}
-          onPress={() =>
-            this.props.navigation.push("App", { screen: "Explore" })
-          }
+          // onPress={() =>
+          //   this.props.navigation.push("App", { screen: "Explore" })
+          // }
+          onPress={() => this.props.navigation.goBack()}
         />
         <ScrollView>
           <View style={{ width: "98%" }}>

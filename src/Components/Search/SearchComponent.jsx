@@ -1,9 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
+
 import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { View, StyleSheet, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome, Entypo, Feather } from "@expo/vector-icons";
+import { SearchBar } from "react-native-elements";
 
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Spinner from "react-native-loading-spinner-overlay";
@@ -14,6 +16,10 @@ export default class CompanyProfile extends Component {
     userData: {},
     loading: false,
     spinner: false,
+    search: "",
+  };
+  updateSearch = (search) => {
+    this.setState({ search });
   };
 
   async componentDidMount() {
@@ -38,6 +44,8 @@ export default class CompanyProfile extends Component {
   }
 
   render() {
+    const { search } = this.state;
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <View style={styles.container}>
@@ -63,11 +71,38 @@ export default class CompanyProfile extends Component {
             }}
             onPress={() => this.props.navigation.goBack()}
           />
+          <SearchBar
+            inputStyle={{ backgroundColor: "#fff" }}
+            inputContainerStyle={{ backgroundColor: "#fff" }}
+            containerStyle={{ backgroundColor: "#fff" }}
+            lightTheme="light"
+            placeholder="Type Here..."
+            onChangeText={this.updateSearch}
+            value={search}
+          />
         </View>
       </SafeAreaView>
     );
   }
 }
+
+export const App = () => {
+  const modalizeRef = useRef < Modalize > null;
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
+  return (
+    <>
+      <TouchableOpacity onPress={onOpen}>
+        <Text>Open the modal</Text>
+      </TouchableOpacity>
+
+      <Modalize ref={modalizeRef}>...your content</Modalize>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
