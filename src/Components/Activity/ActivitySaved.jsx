@@ -37,7 +37,7 @@ export default class ActivitySaved extends Component {
               );
             })
           ) : (
-            <Text>There are no Accepted internships here.</Text>
+            <Text>There are no Saved internships here.</Text>
           )}
         </ScrollView>
       </View>
