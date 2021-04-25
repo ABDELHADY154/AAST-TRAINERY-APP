@@ -33,6 +33,7 @@ import { BackHandler, Alert } from "react-native";
 import CompanyProfile from "./src/Components/InternshipPost/CompanyProfile";
 import AdvisorProfile from "./src/Components/Advisor/AdvisorProfile";
 import OpportunityPost from "./src/Components/Opportunity/OpportunityPost";
+import SearchComponent from "./src/Components/Search/SearchComponent";
 
 import {
   DefaultTheme,
@@ -113,6 +114,12 @@ function AdvisingScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <Advising {...props} navigation={navigation} route={route} />;
+}
+
+function SearchScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <SearchComponent {...props} navigation={navigation} route={route} />;
 }
 // function ActivityAcceptedScreen(props) {
 // const navigation = useNavigation();
@@ -338,7 +345,17 @@ export default function App({ navigation }) {
                     },
                   })}
                 />
-
+                <Stack.Screen
+                  name="SearchScreen"
+                  component={SearchScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
                 <Stack.Screen
                   name="EducationForm"
                   component={EducationInfoFormScreen}
