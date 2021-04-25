@@ -37,7 +37,7 @@ class OpportunityPost extends Component {
   refreshComponent = async () => {
     await axios
       .get(`/W/student/post/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
@@ -47,7 +47,7 @@ class OpportunityPost extends Component {
         console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -57,7 +57,7 @@ class OpportunityPost extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/post/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
@@ -67,7 +67,7 @@ class OpportunityPost extends Component {
         console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -80,11 +80,11 @@ class OpportunityPost extends Component {
     });
     axios
       .post(`/A/student/save/${this.state.userData.id}`)
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -94,11 +94,11 @@ class OpportunityPost extends Component {
     });
     axios
       .post(`/A/student/unsave/${this.state.userData.id}`)
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -108,11 +108,11 @@ class OpportunityPost extends Component {
     });
     await axios
       .post(`/A/student/apply/${this.state.userData.id}`)
-      .then((res) => {
+      .then(res => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -134,16 +134,16 @@ class OpportunityPost extends Component {
             });
             await axios
               .post(`/A/student/unApply/${this.state.userData.id}`)
-              .then((res) => {
+              .then(res => {
                 console.log(res.data);
                 this.refreshComponent();
               })
-              .catch((err) => {
+              .catch(err => {
                 console.log(err);
               });
           },
         },
-      ]
+      ],
     );
     return true;
   };
@@ -195,6 +195,12 @@ class OpportunityPost extends Component {
                         flexWrap: "wrap",
                         textTransform: "capitalize",
                       }}
+                      onPress={() => {
+                        console.log(this.state.userData.company_id);
+                        this.props.navigation.push("CompanyProfile", {
+                          id: this.state.userData.company_id,
+                        });
+                      }}
                     >
                       {this.state.userData.company_name}
                       {"   "}
@@ -207,7 +213,7 @@ class OpportunityPost extends Component {
               subtitleStyle={{
                 fontSize: 16,
               }}
-              left={(props) => (
+              left={props => (
                 <Pressable
                   onPress={() => {
                     this.props.navigation.push("CompanyProfile", {
@@ -225,7 +231,7 @@ class OpportunityPost extends Component {
                   />
                 </Pressable>
               )}
-              right={(props) =>
+              right={props =>
                 this.state.userData.saved &&
                 this.state.userData.saved == true ? (
                   <IconButton
@@ -256,7 +262,7 @@ class OpportunityPost extends Component {
             }}
           >
             {this.state.userData.departments ? (
-              this.state.userData.departments.map((e) => {
+              this.state.userData.departments.map(e => {
                 return (
                   <Departments
                     key={e.id}
@@ -509,7 +515,7 @@ class OpportunityPost extends Component {
               Requirements
             </Text>
             {this.state.userData.requirements ? (
-              this.state.userData.requirements.map((e) => {
+              this.state.userData.requirements.map(e => {
                 return (
                   <Requirements
                     key={e.id}
@@ -734,7 +740,7 @@ class ReviewWrite extends Component {
             disabled={false}
             maxStars={5}
             rating={this.state.rating}
-            selectedStar={(value) => this.setState({ rating: value })}
+            selectedStar={value => this.setState({ rating: value })}
             style={{
               justifyContent: "center",
               alignSelf: "center",
