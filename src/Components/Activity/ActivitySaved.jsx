@@ -4,6 +4,8 @@ import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import Cards from "../Cards/Cards";
 import { axios } from "../../Config/Axios";
+import { RefreshControl } from "react-native";
+
 export function ActivitySavedS(props) {
   const navigation = useNavigation();
   return <ActivitySaved navigation={navigation} {...props} />;
@@ -12,26 +14,49 @@ export function ActivitySavedS(props) {
 export default class ActivitySaved extends Component {
   state = {
     posts: [],
+    refresh: false,
   };
-  componentDidMount() {
-    axios
-      .get("/A/student/studentSaved")
 
-      .then((res) => {
+  onRefresh = async () => {
+    await axios
+      .get("/A/student/studentSaved")
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
+  componentDidMount() {
+    axios
+      .get("/A/student/studentSaved")
+
+      .then(res => {
+        this.setState({
+          posts: res.data.response.data,
+        });
+      })
+      .catch(error => {
         console.log(error);
       });
   }
   render() {
     return (
       <View style={{ marginTop: "3%" }}>
-        <ScrollView>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refresh}
+              onRefresh={this.onRefresh}
+              colors={["#1E4274"]}
+            />
+          }
+        >
           {this.state.posts ? (
-            this.state.posts.map((e) => {
+            this.state.posts.map(e => {
               return (
                 <Cards item={e} key={e.id} navigation={this.props.navigation} />
               );
