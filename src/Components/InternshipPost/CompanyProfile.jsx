@@ -24,7 +24,7 @@ export default class CompanyProfile extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/company/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
@@ -32,17 +32,18 @@ export default class CompanyProfile extends Component {
           userData: response.data.response.data,
         });
         // console.log(response.data.response.data);
-        this.props.getUserData(this.state.userData);
+        // this.props.getUserData(this.state.userData);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
       });
   }
 
   render() {
+    console.log(this.props.route.params.id);
     return (
       <View style={styles.container}>
         {/* Header */}

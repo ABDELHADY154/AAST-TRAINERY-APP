@@ -555,7 +555,7 @@ export default class HomeScreen extends Component {
                   marginTop: 6,
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate("Search");
+                  this.props.navigation.push("SearchScreen");
                 }}
               />
             ) : (

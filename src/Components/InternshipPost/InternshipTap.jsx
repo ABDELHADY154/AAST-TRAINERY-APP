@@ -23,7 +23,7 @@ class InternshipTapScreen extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/company/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
@@ -60,7 +60,7 @@ class InternshipTapScreen extends Component {
                     marginBottom: 10,
                   }}
                 >
-                  Opened Internship
+                  {/* Opened Internship */}
                 </Text>
                 {/* {this.state.internshipPosts.open !== [] ? (
                   // <p>opened</p>
@@ -192,10 +192,10 @@ class InternshipTapScreen extends Component {
                     justifyContent: "flex-start",
                   }}
                 >
-                  Ended Internships
+                  {/* Ended Internships */}
                 </Text>
                 {this.state.internshipPosts.open ? (
-                  this.state.internshipPosts.open.map((e) => {
+                  this.state.internshipPosts.open.map(e => {
                     return e.post_type == "adsPost" ? (
                       <AdsCard
                         key={e.id}
