@@ -14,6 +14,35 @@ class AdvisorPost extends Component {
     departments: [],
     loading: false,
   };
+
+  savePost = async () => {
+    this.setState({
+      spinner: true,
+    });
+    axios
+      .post(`/A/student/save/${this.props.item.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.props.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+  unSavePost = async () => {
+    this.setState({
+      spinner: true,
+    });
+    axios
+      .post(`/A/student/unsave/${this.props.item.id}`)
+      .then(res => {
+        console.log(res.data);
+        this.props.reload();
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
   render() {
     // console.log(this.props.departments);
     return (
@@ -26,9 +55,11 @@ class AdvisorPost extends Component {
             borderWidth: 1,
             borderColor: "#CCCCCC",
           }}
-          // onPress={() => {
-          //   this.props.navigation.navigate("CompanyProfile");
-          // }}
+          onPress={() => {
+            this.props.navigation.push("OpportunityPost", {
+              id: this.props.item.id,
+            });
+          }}
         >
           <Card.Title
             style={{ marginLeft: 1 }}
@@ -41,7 +72,7 @@ class AdvisorPost extends Component {
             subtitle={
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {this.props.departments ? (
-                  this.props.departments.map((e) => {
+                  this.props.departments.map(e => {
                     return (
                       <Departments
                         key={e.id}
@@ -60,7 +91,7 @@ class AdvisorPost extends Component {
             subtitleStyle={{
               fontSize: 14,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{
                   height: 45,
@@ -70,15 +101,25 @@ class AdvisorPost extends Component {
                 source={{ uri: this.props.company_logo }}
               />
             )}
-            right={(props) => (
-              <IconButton
-                {...props}
-                icon="bookmark-outline"
-                size={30}
-                color="#1E4274"
-                onPress={() => {}}
-              />
-            )}
+            right={props =>
+              this.props.item.saved && this.props.item.saved == true ? (
+                <IconButton
+                  {...props}
+                  icon="bookmark"
+                  size={30}
+                  color="#1E4274"
+                  onPress={this.unSavePost}
+                />
+              ) : (
+                <IconButton
+                  {...props}
+                  icon="bookmark-outline"
+                  size={30}
+                  color="#1E4274"
+                  onPress={this.savePost}
+                />
+              )
+            }
           />
           <Card.Content>
             <Paragraph

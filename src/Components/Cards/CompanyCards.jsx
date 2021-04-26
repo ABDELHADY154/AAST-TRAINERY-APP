@@ -276,7 +276,7 @@ export default class CardComponent extends Component {
               alignSelf: "center",
             }}
           ></View>
-          <Card.Actions style={{ marginTop: -3 }}>
+          {/* <Card.Actions style={{ marginTop: -3 }}>
             <Pressable
               style={{ flexDirection: "row" }}
               onPress={() => {
@@ -324,7 +324,7 @@ export default class CardComponent extends Component {
                 </Text>
               </View>
             </Pressable>
-          </Card.Actions>
+          </Card.Actions> */}
         </Card>
       </View>
     ) : this.props.item.post_type == "promotedPost" ? (

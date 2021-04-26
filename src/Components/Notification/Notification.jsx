@@ -12,56 +12,21 @@ export default class Notification extends Component {
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
-            marginTop: 40,
+            // marginTop: 40,
           }}
         >
-          <Button
-            onlyIcon
-            icon="menu"
-            iconFamily="Ionicons"
-            iconSize={40}
-            color="transparent"
-            iconColor="#1E4274"
-            style={{
-              width: 40,
-              height: 40,
-              // flex: 1,
-              // justifyContent: "flex-start",
-              marginRight: 90,
-            }}
-            onPress={() => {
-              AsyncStorage.removeItem("userData");
-              AsyncStorage.removeItem("userToken");
-              AsyncStorage.removeItem("config");
-              this.props.logout();
-            }}
-          >
-            menu
-          </Button>
-
           <Text
             style={{
-              // justifyContent: "center",
-              // marginLeft: 115,
-              marginRight: 130,
-              fontSize: 16,
+              justifyContent: "center",
+              alignSelf: "center",
+              fontSize: 26,
               color: "#1E4274",
               fontWeight: "bold",
             }}
           >
-            Notification
+            Soon
           </Text>
         </View>
-        {/* <Button
-          onPress={() => {
-            AsyncStorage.removeItem("userData");
-            AsyncStorage.removeItem("userToken");
-            AsyncStorage.removeItem("config");
-            this.props.userSignOut();
-          }}
-        >
-          <Text>Profile Logout</Text>
-        </Button> */}
       </View>
     );
   }

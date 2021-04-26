@@ -38,7 +38,13 @@ export default class ExploreScreen extends Component {
   };
 
   CardComponent = props => {
-    return <Card {...props} navigation={this.props.navigation} />;
+    return (
+      <Card
+        {...props}
+        navigation={this.props.navigation}
+        reload={this.refresh}
+      />
+    );
   };
 
   async componentDidMount() {
@@ -78,6 +84,7 @@ export default class ExploreScreen extends Component {
         console.log(err);
       });
   };
+
   footerRefreshing = async () => {
     this.setState({ refreshState: RefreshState.FooterRefreshing });
     await axios
@@ -94,6 +101,27 @@ export default class ExploreScreen extends Component {
       })
       .catch(err => {
         console.log(err);
+      });
+  };
+
+  refresh = async () => {
+    this.setState({ spinner: true });
+    await axios
+      .get(`/A/student/posts?page=1`)
+      .then(res => {
+        this.setState({
+          posts: res.data.response.data,
+          spinner: false,
+        });
+      })
+      .catch(err => {
+        if (err.response.data.status == 401) {
+          AsyncStorage.removeItem("userData");
+          AsyncStorage.removeItem("userToken");
+          AsyncStorage.removeItem("config");
+          axios.defaults.headers.common["Authorization"] = ``;
+          this.props.logout();
+        }
       });
   };
   render() {

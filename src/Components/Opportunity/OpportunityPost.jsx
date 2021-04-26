@@ -217,7 +217,7 @@ class OpportunityPost extends Component {
                 <Pressable
                   onPress={() => {
                     this.props.navigation.push("CompanyProfile", {
-                      id: 10,
+                      id: this.state.userData.company_id,
                     });
                   }}
                 >

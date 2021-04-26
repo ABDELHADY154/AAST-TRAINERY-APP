@@ -35,7 +35,7 @@ class CompanyTapScreen extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/company/${this.props.route.params.id}`)
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           spinner: false,
@@ -45,11 +45,11 @@ class CompanyTapScreen extends Component {
         console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
-      .catch(function (error) {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
-        console.log(error.response.data.errors);
+        // console.log(error.response.data.errors);
       });
   }
   render() {

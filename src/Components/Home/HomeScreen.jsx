@@ -212,7 +212,30 @@ export default class HomeScreen extends Component {
       <Profile {...props} navigation={navigation} getUserData={getUserData} />
     );
   };
+  NotificationScreen = props => {
+    const navigation = useNavigation();
+    const getUserData = data => {
+      this.setState({
+        userData: data,
+      });
+    };
+    useFocusEffect(
+      useCallback(() => {
+        const stackNavigator = navigation.dangerouslyGetParent();
+        if (stackNavigator) {
+          this.setState({ headerTitle: "Notifications" });
+        }
+      }, [navigation]),
+    );
 
+    return (
+      <Notification
+        {...props}
+        navigation={navigation}
+        getUserData={getUserData}
+      />
+    );
+  };
   ActivityScreen = props => {
     const navigation = useNavigation();
     const getUserData = data => {
@@ -633,7 +656,7 @@ export default class HomeScreen extends Component {
           />
           <Tabs.Screen
             name="Notifications"
-            component={Notification}
+            component={this.NotificationScreen}
             options={{
               tabBarIcon: ({ focused, color, size }) => (
                 <Icon color="#fff" name="bell" type="font-awesome-5" />
