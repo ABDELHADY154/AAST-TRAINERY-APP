@@ -91,6 +91,7 @@ export default class Interests extends Component {
         this.setState({
           spinner: false,
         });
+        console.log(error.response.data);
         if (error.response.data) {
           this.setState({
             interestErr: error.response.data.errors.interests,
@@ -147,7 +148,7 @@ export default class Interests extends Component {
               inputStyle={{ color: "#1E4275" }}
               label="Press Enter to add a tag"
               labelStyle={{
-                textTransform: 'capitalize',
+                textTransform: "capitalize",
                 color: "#1E4274",
                 fontSize: 16,
                 fontFamily: "SF-M",
@@ -156,7 +157,14 @@ export default class Interests extends Component {
               updateState={this.updateTagState}
               tags={this.state.tags}
               // keysForTag={","}
-              rightElement={<Icon name={'plus'} type={'material-community'} color="#1E4275" style={{marginRight:5}}/>}
+              rightElement={
+                <Icon
+                  name={"plus"}
+                  type={"material-community"}
+                  color="#1E4275"
+                  style={{ marginRight: 5 }}
+                />
+              }
             />
 
             {this.state.interestsErr != "" ? (
@@ -174,7 +182,7 @@ export default class Interests extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.interestErr}
