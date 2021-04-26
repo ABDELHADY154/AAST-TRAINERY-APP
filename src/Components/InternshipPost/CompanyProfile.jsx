@@ -73,6 +73,7 @@ export default class CompanyProfile extends Component {
             style={{
               flexDirection: "row",
               marginBottom: 10,
+              width: "100%",
             }}
           >
             <View style={{ marginLeft: 25 }}>
@@ -86,7 +87,7 @@ export default class CompanyProfile extends Component {
                     style={{
                       backgroundColor: "transparent",
                     }}
-                    size={90}
+                    size={75}
                     source={{ uri: this.state.userData.logo }}
                   />
                 </View>
