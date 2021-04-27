@@ -1,5 +1,12 @@
 import React, { Component } from "react";
-import { View, StyleSheet, SafeAreaView, ScrollView, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Text,
+  Image,
+} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useNavigation } from "@react-navigation/native";
 import Cards from "../Cards/Cards";
@@ -20,12 +27,12 @@ export default class ActivityAccepted extends Component {
   onRefresh = async () => {
     await axios
       .get("/A/student/studentAccepted")
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -34,12 +41,12 @@ export default class ActivityAccepted extends Component {
     axios
       .get("/A/student/studentAccepted")
 
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -57,8 +64,9 @@ export default class ActivityAccepted extends Component {
               />
             }
           >
-            {this.state.posts ? (
-              this.state.posts.map(e => {
+            {/* {this.state.posts ? ( */}
+            {this.state.posts && this.state.posts.length !== 0 ? (
+              this.state.posts.map((e) => {
                 return (
                   <Cards
                     item={e}
@@ -68,7 +76,24 @@ export default class ActivityAccepted extends Component {
                 );
               })
             ) : (
-              <Text>There are no Accepted internships here.</Text>
+              <View
+                style={{
+                  width: "98%",
+                  justifyContent: "center",
+                  alignContent: "center",
+                  height: "100%",
+                }}
+              >
+                <Image
+                  source={require("../../assets/Images/void.png")}
+                  style={{
+                    marginTop: "5%",
+                    width: "100%",
+                    height: 420,
+                    alignSelf: "center",
+                  }}
+                />
+              </View>
             )}
           </ScrollView>
         </View>
