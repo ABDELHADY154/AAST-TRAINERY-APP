@@ -21,11 +21,11 @@ class AdvisorPost extends Component {
     });
     axios
       .post(`/A/student/save/${this.props.item.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.props.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -35,11 +35,11 @@ class AdvisorPost extends Component {
     });
     axios
       .post(`/A/student/unsave/${this.props.item.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.props.reload();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -72,7 +72,7 @@ class AdvisorPost extends Component {
             subtitle={
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 {this.props.departments ? (
-                  this.props.departments.map(e => {
+                  this.props.departments.map((e) => {
                     return (
                       <Departments
                         key={e.id}
@@ -91,7 +91,7 @@ class AdvisorPost extends Component {
             subtitleStyle={{
               fontSize: 14,
             }}
-            left={props => (
+            left={(props) => (
               <Card.Cover
                 style={{
                   height: 45,
@@ -101,7 +101,7 @@ class AdvisorPost extends Component {
                 source={{ uri: this.props.company_logo }}
               />
             )}
-            right={props =>
+            right={(props) =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   {...props}
@@ -123,7 +123,7 @@ class AdvisorPost extends Component {
           />
           <Card.Content>
             <Paragraph
-              numberOfLines={4}
+              numberOfLines={2}
               style={{
                 fontSize: 14,
                 color: "#1E4274",
