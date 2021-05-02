@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { Card, Button, Paragraph } from "react-native-paper";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { axios } from "../../Config/Axios";
 
 export function CvCoach(props) {
   const navigation = useNavigation();
@@ -38,7 +39,7 @@ export class CvCard extends Component {
         >
           <Card.Title
             style={{ marginLeft: 1 }}
-            title="CV Writing Service"
+            title={this.props.title}
             titleStyle={{
               color: "#1E4274",
               fontSize: 16,
@@ -49,6 +50,7 @@ export class CvCard extends Component {
           />
           <Card.Content>
             <Paragraph
+              numberOfLines={3}
               style={{
                 // marginHorizontal: 23,
                 fontSize: 14,
@@ -56,10 +58,7 @@ export class CvCard extends Component {
                 lineHeight: 19,
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit. Consectetur
-              dictumst nisi blandit ornare viverra eleifend
+              {this.props.desc}
             </Paragraph>
           </Card.Content>
           <View
@@ -88,7 +87,7 @@ export class CvCard extends Component {
                   }}
                 >
                   {/* {this.state.price} */}
-                  150 L.E
+                  {this.props.price} L.E
                 </Text>
                 <Button
                   style={{
