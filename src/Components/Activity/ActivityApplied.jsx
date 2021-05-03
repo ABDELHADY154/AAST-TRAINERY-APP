@@ -54,7 +54,7 @@ export default class ActivityApplied extends Component {
   }
 
   render() {
-    console.log(this.state.posts);
+    // console.log(this.state.posts);
     return (
       <View style={{ marginTop: "3%" }}>
         <ScrollView

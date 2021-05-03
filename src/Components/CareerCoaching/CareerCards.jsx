@@ -11,18 +11,7 @@ export function CvCoach(props) {
   const navigation = useNavigation();
   return <CvCard navigation={navigation} {...props} />;
 }
-export function InterviewCoach(props) {
-  const navigation = useNavigation();
-  return <InterviewCard navigation={navigation} {...props} />;
-}
-export function CareerCa(props) {
-  const navigation = useNavigation();
-  return <CareerCard navigation={navigation} {...props} />;
-}
-export function Advisingcoach(props) {
-  const navigation = useNavigation();
-  return <AdvisingCard navigation={navigation} {...props} />;
-}
+
 export class CvCard extends Component {
   render() {
     return (
@@ -50,7 +39,7 @@ export class CvCard extends Component {
           />
           <Card.Content>
             <Paragraph
-              numberOfLines={3}
+              numberOfLines={2}
               style={{
                 // marginHorizontal: 23,
                 fontSize: 14,
@@ -99,7 +88,9 @@ export class CvCard extends Component {
                     backgroundColor: "#1E4274",
                   }}
                   onPress={() => {
-                    this.props.navigation.push("CvWriting");
+                    this.props.navigation.push("Advising", {
+                      id: this.props.item.id,
+                    });
                   }}
                 >
                   <Text style={{ color: "white", textTransform: "capitalize" }}>

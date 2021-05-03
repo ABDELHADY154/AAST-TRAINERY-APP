@@ -5,9 +5,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
-import CvWriting from "./src/Components/CareerCoaching/CvWriting";
-import InterviewCoaching from "./src/Components/CareerCoaching/InterviewCoaching";
-import CareerCa from "./src/Components/CareerCoaching/CareerCa";
+// import CvWriting from "./src/Components/CareerCoaching/CvWriting";
+// import InterviewCoaching from "./src/Components/CareerCoaching/InterviewCoaching";
+// import CareerCa from "./src/Components/CareerCoaching/CareerCa";
 import Advising from "./src/Components/CareerCoaching/Advising";
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";
@@ -92,21 +92,7 @@ function OpportunityPostScreen(props) {
   const route = useRoute();
   return <OpportunityPost {...props} navigation={navigation} route={route} />;
 }
-function CvWritingScreen(props) {
-  const navigation = useNavigation();
-  const route = useRoute();
-  return <CvWriting {...props} navigation={navigation} route={route} />;
-}
-function InterviewCoachingScreen(props) {
-  const navigation = useNavigation();
-  const route = useRoute();
-  return <InterviewCoaching {...props} navigation={navigation} route={route} />;
-}
-function CareerCaScreen(props) {
-  const navigation = useNavigation();
-  const route = useRoute();
-  return <CareerCa {...props} navigation={navigation} route={route} />;
-}
+
 function AdvisingScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
@@ -187,12 +173,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    },
+    }
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = props => {
+  const TutorialsSCreen = (props) => {
     const navigation = useNavigation();
-    const showTutorial = val => {
+    const showTutorial = (val) => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -229,7 +215,7 @@ export default function App({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction,
+      backAction
     );
 
     return () => backHandler.remove();
@@ -237,18 +223,18 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async data => {
+      signIn: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async data => {
+      signUp: async (data) => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    [],
+    []
   );
 
-  const Trainery = props => {
+  const Trainery = (props) => {
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -485,39 +471,7 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
-                <Stack.Screen
-                  name="CvWriting"
-                  component={CvWritingScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="InterviewCoaching"
-                  component={InterviewCoachingScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="CareerCa"
-                  component={CareerCaScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
+
                 <Stack.Screen
                   name="Advising"
                   component={AdvisingScreen}
