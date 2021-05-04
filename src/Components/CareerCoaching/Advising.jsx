@@ -23,7 +23,7 @@ import React, { Component, useState, useEffect, useRef } from "react";
 
 export default class Advising extends Component {
   state = {
-    isBooked: false,
+    booked: null,
     isDatePickerVisible: false,
     Date: "2021-1-9",
     Time: "11:11",
@@ -32,6 +32,50 @@ export default class Advising extends Component {
     desc: "",
     price: "",
     image: "",
+    booking_date: "",
+    id: 0,
+  };
+
+  book = async () => {
+    const data = {
+      booking_date: this.state.booking_date,
+      // booked: true,
+    };
+    axios
+      .post(`/A/bookSession/${this.state.data.id}`, data)
+
+      .then(() => {
+        console.log(this.state.booking_date);
+        this.setState({
+          booked: true,
+          booking_date: this.state.booking_date,
+        });
+      })
+
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+  unbook = async () => {
+    const data = {
+      // booking_date: this.state.booking_date,
+      id: this.state.id,
+      booked: false,
+    };
+    axios
+      .post(`/A/bookSession/cancelBooking/${this.state.data.id}`, data)
+
+      .then(() => {
+        console.log(this.state.booking_date);
+        this.setState({
+          booked: false,
+          // booking_date: this.state.booking_date,
+        });
+      })
+
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
   showDatePicker = () => {
     this.setState({ isDatePickerVisible: true });
@@ -40,20 +84,24 @@ export default class Advising extends Component {
     this.setState({ isDatePickerVisible: false });
   };
   handleConfirm = (date) => {
-    this.setState({ Date: date.toISOString().split("T")[0] });
     this.setState({
+      Date: date.toISOString().split("T")[0],
       Time: date.toLocaleTimeString().replace(/:\d{2}\s/, " "),
+      booking_date:
+        date.toISOString().split("T")[0] +
+        " " +
+        date.toLocaleTimeString().replace(/:\d{2}\s/, " "),
     });
-    console.log(this.state.Time);
 
     this.hideDatePicker();
   };
   componentDidMount() {
     axios
-      .get(`/A/session/${id}`)
+      .get(`/A/session/${this.props.route.params.id}`)
 
       .then((res) => {
         this.setState({
+          booked: res.data.response.data.booked,
           data: res.data.response.data,
           id: res.data.response.data.id,
           title: res.data.response.data.title,
@@ -84,11 +132,11 @@ export default class Advising extends Component {
         {/* {this.state.data ? ( */}
 
         {this.state.id !== 0 ? (
-          <View>
+          <>
             <Text style={styles.title}>{this.state.title}</Text>
             <ScrollView>
               <Image
-                source={this.state.image}
+                source={{ uri: this.state.image }}
                 style={{
                   height: 200,
                   width: "93%",
@@ -108,7 +156,7 @@ export default class Advising extends Component {
               >
                 {this.state.desc}
               </Text>
-              {this.state.isBooked == false ? (
+              {this.state.booked == false ? (
                 <>
                   <View style={{ flexDirection: "row", marginTop: "6%" }}>
                     <DateTimePickerModal
@@ -208,9 +256,7 @@ export default class Advising extends Component {
                         marginLeft: "60%",
                         backgroundColor: "#1E4274",
                       }}
-                      // onPress={() => {
-                      //   this.props.navigation.navigate("CvWriting");
-                      // }}
+                      onPress={this.book}
                     >
                       <Text
                         style={{ color: "white", textTransform: "capitalize" }}
@@ -258,11 +304,10 @@ export default class Advising extends Component {
                           textTransform: "uppercase",
                         }}
                       >
-                        {this.state.price}
+                        {this.state.price} L.E
                         {/* 150 L.E */}
                       </Text>
                       <Button
-                        disabled
                         style={{
                           marginTop: 0,
                           justifyContent: "center",
@@ -271,7 +316,7 @@ export default class Advising extends Component {
                           marginLeft: "56%",
                           backgroundColor: "#f2f2f2",
                         }}
-                        onPress={{}}
+                        onPress={this.unbook}
                       >
                         <Text
                           style={{
@@ -370,7 +415,7 @@ export default class Advising extends Component {
                 </>
               )}
             </ScrollView>
-          </View>
+          </>
         ) : (
           <View></View>
         )}

@@ -5,9 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
-// import CvWriting from "./src/Components/CareerCoaching/CvWriting";
-// import InterviewCoaching from "./src/Components/CareerCoaching/InterviewCoaching";
-// import CareerCa from "./src/Components/CareerCoaching/CareerCa";
+
 import Advising from "./src/Components/CareerCoaching/Advising";
 import LoginForm from "./src/Components/Auth/LoginForm";
 import ForgetPass from "./src/Components/Auth/ForgetPass";

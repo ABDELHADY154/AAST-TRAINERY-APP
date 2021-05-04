@@ -73,15 +73,15 @@ export default class ActivityAppointment extends Component {
             />
           }
         >
-          {this.state.data ? (
+          {this.state.data.length !== 0 ? (
             this.state.data.map((data) => {
               return (
                 <Card
-                  // onPress={() => {
-                  //   this.props.navigation.push("", {
-                  //     id: this.props.item.id,
-                  //   });
-                  // }}
+                  onPress={() => {
+                    this.props.navigation.push("Advising", {
+                      id: data.id,
+                    });
+                  }}
                   style={{
                     width: "93%",
                     marginLeft: "3.6%",
@@ -118,8 +118,7 @@ export default class ActivityAppointment extends Component {
                       width: "90%",
                       height: 1,
                       marginVertical: 7,
-                      // marginHorizontal: 10,
-                      // alignItems: "center",
+
                       alignSelf: "center",
                     }}
                   ></View>
