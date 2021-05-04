@@ -208,33 +208,6 @@ export default class SearchComp extends Component {
               marginBottom: "3%",
             }}
           >
-            {/* <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "center",
-                alignItems: "center",
-                marginRight: "3%",
-              }}
-            >
-              <Text
-                style={{
-                  color: "#1E4274",
-                  fontWeight: "500",
-                  fontSize: 15,
-                  marginRight: "5%",
-                }}
-              >
-                Sort By
-              </Text>
-              <MaterialIcons
-                name="sort"
-                size={24}
-                onPress={() => {
-                  this.state.modalRef.current?.open();
-                }}
-                color="#1E4274"
-              />
-            </View> */}
             <View
               style={{
                 flexDirection: "row",
@@ -285,21 +258,7 @@ export default class SearchComp extends Component {
               )}
             </View>
           </ScrollView>
-          {/* <Modalize ref={this.state.modalRef} snapPoint={500} modalHeight={500}>
-            <View style={{ width: "90%", alignSelf: "center" }}>
-              <Text
-                style={{
-                  color: "#1E4274",
-                  fontWeight: "500",
-                  fontSize: 20,
-                  marginTop: "10%",
-                  alignSelf: "flex-start",
-                }}
-              >
-                Sort By
-              </Text>
-            </View>
-          </Modalize> */}
+
           <Modalize
             ref={this.state.filterRef}
             snapPoint={500}
@@ -691,24 +650,6 @@ export default class SearchComp extends Component {
     );
   }
 }
-
-// export const App = () => {
-//   const modalizeRef = useRef < Modalize > null;
-
-//   const onOpen = () => {
-//     modalizeRef.current?.open();
-//   };
-
-//   return (
-//     <>
-//       <TouchableOpacity onPress={onOpen}>
-//         <Text>Open the modal</Text>
-//       </TouchableOpacity>
-
-//       <Modalize ref={modalizeRef}>...your content</Modalize>
-//     </>
-//   );
-// };
 
 const styles = StyleSheet.create({
   container: {
