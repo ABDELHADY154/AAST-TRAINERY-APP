@@ -51,7 +51,7 @@ export default class ActivityAccepted extends Component {
       });
   }
   render() {
-    console.log(this.state.posts);
+    // console.log(this.state.posts);
     return (
       <SafeAreaView>
         <View style={{ marginTop: "3%" }}>
