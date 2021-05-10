@@ -14,6 +14,9 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
+import Cv from "../Cv/Cv";
+import Portfolio from "../Cv/Portfolio";
+
 import Explore from "../Explore/ExploreScreen";
 import Profile from "../Profile/ProfileScreen";
 import Activity from "../Activity/ActivityScreen";
@@ -137,7 +140,7 @@ export default class HomeScreen extends Component {
   getUserData = async () => {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -153,7 +156,7 @@ export default class HomeScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: false,
           // userData: response.data.response.data,
@@ -166,12 +169,12 @@ export default class HomeScreen extends Component {
         console.log(error.response.data.errors);
       });
   }
-  ExploreScreen = props => {
+  ExploreScreen = (props) => {
     const navigation = useNavigation();
     const signOut = () => {
       this.props.logout();
     };
-    const setTitle = title => {
+    const setTitle = (title) => {
       this.setState({ headerTitle: title });
     };
     useFocusEffect(
@@ -180,7 +183,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Explore" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -192,9 +195,9 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ProfileScreen = props => {
+  ProfileScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -205,16 +208,16 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Profile" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
       <Profile {...props} navigation={navigation} getUserData={getUserData} />
     );
   };
-  NotificationScreen = props => {
+  NotificationScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -225,7 +228,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Notifications" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -236,9 +239,9 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  ActivityScreen = props => {
+  ActivityScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -249,16 +252,16 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Activity" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
       <Activity {...props} navigation={navigation} getUserData={getUserData} />
     );
   };
-  CareerCoachingScreen = props => {
+  CareerCoachingScreen = (props) => {
     const navigation = useNavigation();
-    const getUserData = data => {
+    const getUserData = (data) => {
       this.setState({
         userData: data,
       });
@@ -269,7 +272,7 @@ export default class HomeScreen extends Component {
         if (stackNavigator) {
           this.setState({ headerTitle: "Career Coaching" });
         }
-      }, [navigation]),
+      }, [navigation])
     );
 
     return (
@@ -280,7 +283,7 @@ export default class HomeScreen extends Component {
       />
     );
   };
-  setDrawerRef = ref => {
+  setDrawerRef = (ref) => {
     this.setState({ drawerRef: ref });
   };
   render() {
@@ -389,6 +392,9 @@ export default class HomeScreen extends Component {
                 alignItems: "center",
                 paddingLeft: 20,
               }}
+              onPress={() => {
+                this.props.navigation.push("Cv");
+              }}
             >
               <MaterialCommunityIcons
                 name="newspaper-variant-outline"
@@ -407,6 +413,9 @@ export default class HomeScreen extends Component {
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 20,
+              }}
+              onPress={() => {
+                this.props.navigation.push("Portfolio");
               }}
             >
               <MaterialCommunityIcons

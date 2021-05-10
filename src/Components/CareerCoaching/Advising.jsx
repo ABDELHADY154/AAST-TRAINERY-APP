@@ -45,7 +45,7 @@ export default class Advising extends Component {
       .post(`/A/bookSession/${this.state.data.id}`, data)
 
       .then(() => {
-        console.log(this.state.booking_date);
+        // console.log(this.state.booking_date);
         this.setState({
           booked: true,
           booking_date: this.state.booking_date,
@@ -230,6 +230,19 @@ export default class Advising extends Component {
                       </Text>
                     </Button>
                   </View>
+                  <View>
+                    <Text
+                      style={{
+                        color: "#1e4274",
+                        marginLeft: "5%",
+                        // textAlign: "center",
+                        marginTop: "3%",
+                      }}
+                    >
+                      (please choose suitable timings for your session)
+                    </Text>
+                  </View>
+
                   <View style={{ marginTop: 22, flexDirection: "row" }}>
                     <Text
                       style={{
