@@ -29,6 +29,8 @@ import CompanyProfile from "./src/Components/InternshipPost/CompanyProfile";
 import AdvisorProfile from "./src/Components/Advisor/AdvisorProfile";
 import OpportunityPost from "./src/Components/Opportunity/OpportunityPost";
 import SearchComponent from "./src/Components/Search/SearchComponent";
+import Settings from "./src/Components/Settings/Settings";
+import ChangePassword from "./src/Components/Settings/ChangePassword";
 
 import {
   DefaultTheme,
@@ -101,6 +103,16 @@ function SearchScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <SearchComponent {...props} navigation={navigation} route={route} />;
+}
+function SettingsScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Settings {...props} navigation={navigation} route={route} />;
+}
+function ChangePasswordScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <ChangePassword {...props} navigation={navigation} route={route} />;
 }
 // function ActivityAcceptedScreen(props) {
 // const navigation = useNavigation();
@@ -473,6 +485,28 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="Advising"
                   component={AdvisingScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="Settings"
+                  component={SettingsScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="ChangePassword"
+                  component={ChangePasswordScreen}
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
