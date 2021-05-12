@@ -37,7 +37,7 @@ class OpportunityPost extends Component {
   refreshComponent = async () => {
     await axios
       .get(`/W/student/post/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -47,7 +47,7 @@ class OpportunityPost extends Component {
         console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -57,7 +57,7 @@ class OpportunityPost extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/post/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -67,7 +67,7 @@ class OpportunityPost extends Component {
         console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -80,11 +80,11 @@ class OpportunityPost extends Component {
     });
     axios
       .post(`/A/student/save/${this.state.userData.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -94,11 +94,11 @@ class OpportunityPost extends Component {
     });
     axios
       .post(`/A/student/unsave/${this.state.userData.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -108,11 +108,11 @@ class OpportunityPost extends Component {
     });
     await axios
       .post(`/A/student/apply/${this.state.userData.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.refreshComponent();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -134,16 +134,16 @@ class OpportunityPost extends Component {
             });
             await axios
               .post(`/A/student/unApply/${this.state.userData.id}`)
-              .then(res => {
+              .then((res) => {
                 console.log(res.data);
                 this.refreshComponent();
               })
-              .catch(err => {
+              .catch((err) => {
                 console.log(err);
               });
           },
         },
-      ],
+      ]
     );
     return true;
   };
@@ -213,7 +213,7 @@ class OpportunityPost extends Component {
               subtitleStyle={{
                 fontSize: 16,
               }}
-              left={props => (
+              left={(props) => (
                 <Pressable
                   onPress={() => {
                     this.props.navigation.push("CompanyProfile", {
@@ -231,7 +231,7 @@ class OpportunityPost extends Component {
                   />
                 </Pressable>
               )}
-              right={props =>
+              right={(props) =>
                 this.state.userData.saved &&
                 this.state.userData.saved == true ? (
                   <IconButton
@@ -262,7 +262,7 @@ class OpportunityPost extends Component {
             }}
           >
             {this.state.userData.departments ? (
-              this.state.userData.departments.map(e => {
+              this.state.userData.departments.map((e) => {
                 return (
                   <Departments
                     key={e.id}
@@ -285,8 +285,7 @@ class OpportunityPost extends Component {
               marginRight: "5%",
             }}
           >
-            {this.state.userData.applied &&
-            this.state.userData.applied == true ? (
+            {this.state.userData.status == "achieved" ? (
               <>
                 <TouchableOpacity
                   style={{
@@ -300,11 +299,45 @@ class OpportunityPost extends Component {
                     borderRadius: 5,
                     flexDirection: "row",
                   }}
-                  onPress={this.unApply}
+                  // onPress={this.unApply}
                 >
-                  <Text style={{ color: "#fff", fontSize: 16 }}>Applied</Text>
+                  <Text style={{ color: "#fff", fontSize: 16 }}>Achieved</Text>
                 </TouchableOpacity>
               </>
+            ) : this.state.userData.status == "accepted" ? (
+              <TouchableOpacity
+                style={{
+                  borderColor: "#1E4274",
+                  backgroundColor: "#1E4274",
+                  borderWidth: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 90,
+                  padding: 5,
+                  borderRadius: 5,
+                  flexDirection: "row",
+                }}
+                // onPress={this.applyPost}
+              >
+                <Text style={{ color: "#fff", fontSize: 16 }}>Accepted</Text>
+              </TouchableOpacity>
+            ) : this.state.userData.status == "applied" ? (
+              <TouchableOpacity
+                style={{
+                  borderColor: "#1E4274",
+                  backgroundColor: "#1E4274",
+                  borderWidth: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: 90,
+                  padding: 5,
+                  borderRadius: 5,
+                  flexDirection: "row",
+                }}
+                onPress={this.unApply}
+              >
+                <Text style={{ color: "#fff", fontSize: 16 }}>Applied</Text>
+              </TouchableOpacity>
             ) : (
               <TouchableOpacity
                 style={{
@@ -515,7 +548,7 @@ class OpportunityPost extends Component {
               Requirements
             </Text>
             {this.state.userData.requirements ? (
-              this.state.userData.requirements.map(e => {
+              this.state.userData.requirements.map((e) => {
                 return (
                   <Requirements
                     key={e.id}
@@ -740,7 +773,7 @@ class ReviewWrite extends Component {
             disabled={false}
             maxStars={5}
             rating={this.state.rating}
-            selectedStar={value => this.setState({ rating: value })}
+            selectedStar={(value) => this.setState({ rating: value })}
             style={{
               justifyContent: "center",
               alignSelf: "center",
