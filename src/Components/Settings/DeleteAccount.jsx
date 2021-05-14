@@ -14,7 +14,7 @@ import { Button } from "galio-framework";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
-export default class ChangePassword extends Component {
+export default class DeleteAccount extends Component {
   render() {
     return (
       <View style={styles.container}>
@@ -41,7 +41,7 @@ export default class ChangePassword extends Component {
             fontWeight: "bold",
           }}
         >
-          Change Password
+          Delete Account
         </Text>
         <ScrollView>
           <View style={{ alignSelf: "center", width: "90%" }}>
@@ -62,7 +62,7 @@ export default class ChangePassword extends Component {
                 borderBottomWidth: 2,
                 width: "105%",
               }}
-              label="Old Password"
+              label="Password"
               labelStyle={{
                 color: "#1E4274",
                 fontSize: 16,
@@ -88,49 +88,7 @@ export default class ChangePassword extends Component {
             >
               {/* {this.state.studentNameErr ? this.state.studentNameErr : null} */}
             </Text>
-            <Input
-              style={{
-                backgroundColor: "transparent",
-                height: 35,
-                marginLeft: "1%",
-              }}
-              autoCompleteType="name"
-              textContentType="name"
-              keyboardType="default"
-              textAlign="left"
-              inputStyle={{ color: "#1E4274" }}
-              inputContainerStyle={{
-                borderColor: "#1E4274",
-                marginLeft: "-2%",
-                borderBottomWidth: 2,
-                width: "105%",
-              }}
-              label="New Password"
-              labelStyle={{
-                color: "#1E4274",
-                fontSize: 16,
-                fontFamily: "SF-M",
-                fontWeight: "normal",
-                marginBottom: -10,
-                marginTop: 15,
-                marginLeft: "-2%",
-              }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
-            />
-            <Text
-              style={{
-                color: "#F44336",
-                fontSize: 14,
-                textAlign: "left",
-                marginTop: "-7%",
-                marginLeft: "3%",
-                marginBottom: "2%",
-                textTransform: "capitalize",
-              }}
-            >
-              {/* {this.state.studentNameErr ? this.state.studentNameErr : null} */}
-            </Text>
+
             <Input
               style={{
                 backgroundColor: "transparent",
@@ -175,11 +133,26 @@ export default class ChangePassword extends Component {
               {/* {this.state.studentNameErr ? this.state.studentNameErr : null} */}
             </Text>
             <Button
-              style={{ width: "auto", borderRadius: 50, marginTop: 40 }}
+              style={{
+                border: 2,
+                borderColor: "#F44336",
+                borderWidth: 1,
+                width: "auto",
+                borderRadius: 50,
+                marginTop: 20,
+                backgroundColor: "#fff",
+              }}
               color="#1E4275"
-              // onPress={this.handleSubmit}
+              // onPress={this.handleDelete}
             >
-              <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 18,
+                }}
+              >
+                Delete
+              </Text>
             </Button>
           </View>
         </ScrollView>

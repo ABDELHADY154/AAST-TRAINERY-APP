@@ -35,6 +35,7 @@ export default class Settings extends Component {
             fontSize: 24,
             fontFamily: "SF-M",
             marginBottom: 10,
+            fontWeight: "bold",
           }}
         >
           Account Settings
@@ -61,8 +62,8 @@ export default class Settings extends Component {
                   <Text
                     style={{
                       color: "#1E4274",
-                      fontSize: 22,
-                      fontWeight: "bold",
+                      fontSize: 20,
+                      // fontWeight: "bold",
                     }}
                   >
                     Change Password
@@ -82,14 +83,16 @@ export default class Settings extends Component {
                   paddingVertical: 15,
                   marginBottom: 10,
                 }}
-                // onPress={this.onPress}
+                onPress={() => {
+                  this.props.navigation.navigate("UpdateEmail");
+                }}
               >
                 <View style={{}}>
                   <Text
                     style={{
                       color: "#1E4274",
-                      fontSize: 22,
-                      fontWeight: "bold",
+                      fontSize: 20,
+                      // fontWeight: "bold",
                     }}
                   >
                     Update E-mail
@@ -109,14 +112,16 @@ export default class Settings extends Component {
                   paddingVertical: 15,
                   marginBottom: 10,
                 }}
-                // onPress={this.onPress}
+                onPress={() => {
+                  this.props.navigation.navigate("MySubscriptions");
+                }}
               >
                 <View style={{}}>
                   <Text
                     style={{
                       color: "#1E4274",
-                      fontSize: 22,
-                      fontWeight: "bold",
+                      fontSize: 20,
+                      // fontWeight: "bold",
                     }}
                   >
                     My Subscriptions
@@ -136,14 +141,16 @@ export default class Settings extends Component {
                   paddingVertical: 15,
                   marginBottom: 10,
                 }}
-                // onPress={this.onPress}
+                onPress={() => {
+                  this.props.navigation.navigate("AdCancellation");
+                }}
               >
                 <View style={{}}>
                   <Text
                     style={{
                       color: "#1E4274",
-                      fontSize: 22,
-                      fontWeight: "bold",
+                      fontSize: 20,
+                      // fontWeight: "bold",
                     }}
                   >
                     Ad-Cancellation
@@ -163,17 +170,19 @@ export default class Settings extends Component {
                   paddingVertical: 15,
                   marginBottom: 10,
                 }}
-                // onPress={this.onPress}
+                onPress={() => {
+                  this.props.navigation.navigate("DeleteAccount");
+                }}
               >
                 <View style={{}}>
                   <Text
                     style={{
                       color: "#1E4274",
-                      fontSize: 22,
-                      fontWeight: "bold",
+                      fontSize: 20,
+                      // fontWeight: "bold",
                     }}
                   >
-                    Delete Account{" "}
+                    Delete Account
                   </Text>
                 </View>
               </TouchableOpacity>
