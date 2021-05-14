@@ -47,6 +47,7 @@ export default class CardComponent extends Component {
       });
   };
   render() {
+    // console.log(this.props.item.advisor.name);
     return this.props.item.post_type == "companyPost" ? (
       <View>
         <Card
@@ -292,9 +293,11 @@ export default class CardComponent extends Component {
                   borderRadius: 7,
                   marginLeft: 10,
                 }}
-                source={{
-                  uri: this.props.item.advisor.image,
-                }}
+                source={
+                  {
+                    // uri: this.props.item.advisor.image,
+                  }
+                }
               />
               <View style={{ marginTop: -7 }}>
                 <Button>
@@ -307,7 +310,7 @@ export default class CardComponent extends Component {
                       // marginTop: -6,
                     }}
                   >
-                    {this.props.item.advisor.name}
+                    {/* {this.props.item.advisor.name} */}
                   </Text>
                 </Button>
                 <Text
