@@ -28,9 +28,14 @@ import Spinner from "react-native-loading-spinner-overlay";
 class OpportunityPost extends Component {
   state = {
     userData: {},
+    Reviews: [],
     departments: [],
     requirements: [],
-
+    comment: "",
+    rate: 0,
+    commentErr: "",
+    rateErr: "",
+    training_roleErr: "",
     loading: false,
     spinner: true,
   };
@@ -44,8 +49,26 @@ class OpportunityPost extends Component {
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(this.state.userData);
+        // console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
+      })
+      .catch((error) => {
+        this.setState({
+          spinner: false,
+        });
+        // console.log(error.response.data.errors);
+      });
+    await axios
+      .get(`/W/student/review/${this.props.route.params.id}`)
+      .then((response) => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          Reviews: response.data.response.data,
+        });
+        console.log(this.state.Reviews);
+        this.props.getUserData(this.state.Reviews);
       })
       .catch((error) => {
         this.setState({
@@ -64,7 +87,7 @@ class OpportunityPost extends Component {
           id: response.data.response.data.id,
           userData: response.data.response.data,
         });
-        console.log(this.state.userData);
+        // console.log(this.state.userData);
         this.props.getUserData(this.state.userData);
       })
       .catch((error) => {
@@ -73,7 +96,93 @@ class OpportunityPost extends Component {
         });
         // console.log(error.response.data.errors);
       });
+    await axios
+      .get(`/W/student/review/${this.props.route.params.id}`)
+      .then((response) => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          Reviews: response.data.response.data,
+        });
+        console.log(this.state.Reviews);
+        this.props.getUserData(this.state.Reviews);
+      })
+      .catch((error) => {
+        this.setState({
+          spinner: false,
+        });
+        // console.log(error.response.data.errors);
+      });
   }
+  refresh = async () => {
+    await axios
+      .get(`/W/student/post/${this.props.route.params.id}`)
+      .then((response) => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          userData: response.data.response.data,
+        });
+        // console.log(this.state.userData);
+        this.props.getUserData(this.state.userData);
+      })
+      .catch((error) => {
+        this.setState({
+          spinner: false,
+        });
+        // console.log(error.response.data.errors);
+      });
+    await axios
+      .get(`/W/student/review/${this.props.route.params.id}`)
+      .then((response) => {
+        this.setState({
+          loading: true,
+          spinner: false,
+          id: response.data.response.data.id,
+          Reviews: response.data.response.data,
+        });
+        console.log(this.state.Reviews);
+        this.props.getUserData(this.state.Reviews);
+      })
+      .catch((error) => {
+        this.setState({
+          spinner: false,
+        });
+        // console.log(error.response.data.errors);
+      });
+  };
+  handleReview = async () => {
+    this.setState({
+      spinner: true,
+    });
+    var body = {
+      comment: this.state.comment,
+      rate: this.state.rate,
+    };
+
+    return await axios
+      .post(`/W/student/review/${this.props.route.params.id}`, body)
+      .then((response) => {
+        this.refresh();
+        this.setState({
+          spinner: false,
+        });
+      })
+      .catch((error) => {
+        this.setState({
+          spinner: false,
+        });
+        if (error.response.data) {
+          this.setState({
+            rateErr: error.response.data.errors.rate,
+            commentErr: error.response.data.errors.comment,
+          });
+          console.log(error.response.data.errors);
+        }
+      });
+  };
   savePost = async () => {
     this.setState({
       spinner: true,
@@ -577,13 +686,212 @@ class OpportunityPost extends Component {
           >
             Reviews
           </Text>
-          <Swiper height={260} dotColor="#CCCCCC" activeDotColor="#CD8930">
-            <OpportunityReview />
-            <OpportunityReview />
-            <OpportunityReview />
-          </Swiper>
 
-          <ReviewWrite />
+          <Swiper height={160} dotColor="#CCCCCC" activeDotColor="#CD8930">
+            {this.state.Reviews.length == 0 ? (
+              <View>
+                <Text
+                  style={{
+                    marginLeft: "5%",
+                    color: "#1E4274",
+                    size: 18,
+                    marginTop: "1%",
+                    // marginBottom: "-10%",
+                    // paddingBottom: "-10%",
+                  }}
+                >
+                  No Reviews Were Added
+                </Text>
+              </View>
+            ) : this.state.Reviews ? (
+              this.state.Reviews.map((e) => {
+                return (
+                  <OpportunityReview
+                    key={e.id}
+                    id={e.id}
+                    comment={e.comment}
+                    fullName={e.fullName}
+                    training_role={e.training_role}
+                    rate={e.rate}
+                    navigation={this.props.navigation}
+                    // style={{ flexDirection: "column" }}
+                  />
+                );
+              })
+            ) : (
+              <Text></Text>
+            )}
+
+            {/* {this.state.Reviews  ? (
+              this.state.Reviews.map((e) => {
+                return (
+                  <OpportunityReview
+                    key={e.id}
+                    id={e.id}
+                    comment={e.comment}
+                    fullName={e.fullName}
+                    training_role={e.training_role}
+                    rate={e.rate}
+                    navigation={this.props.navigation}
+                    // style={{ flexDirection: "column" }}
+                  />
+                );
+              })
+            ) : (
+              <View>
+                <Text style={{}}>No Reviews Were Added</Text>
+              </View>
+            )} */}
+          </Swiper>
+          {this.state.userData.status == "achieved" ? (
+            this.state.userData.reviewed == false ? (
+              <View>
+                <Text
+                  style={{
+                    marginTop: "7%",
+                    alignSelf: "flex-start",
+                    marginLeft: "5%",
+                    color: "#1E4274",
+                    fontSize: 20,
+                    fontFamily: "SF-M",
+                    marginBottom: 10,
+                  }}
+                >
+                  Add Your Review
+                </Text>
+                <View
+                  style={{
+                    alignSelf: "flex-start",
+                    marginLeft: "5%",
+                    marginTop: "-2%",
+                    marginBottom: "5%",
+                  }}
+                >
+                  <StarRating
+                    fullStarColor={"#CD8930"}
+                    starSize={25}
+                    disabled={false}
+                    maxStars={5}
+                    rating={this.state.rate}
+                    selectedStar={(value) => this.setState({ rate: value })}
+                    style={{
+                      justifyContent: "center",
+                      alignSelf: "center",
+                      marginLeft: "5%",
+                    }}
+                  />
+                  {this.state.rateErr != "" ? (
+                    <View
+                      style={{
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        flexDirection: "row",
+                        width: "91.5%",
+                        // marginTop: 5,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#F44336",
+                          fontSize: 14,
+                          textAlign: "left",
+                          marginLeft: "-1%",
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {this.state.rateErr}
+                      </Text>
+                    </View>
+                  ) : (
+                    <Text></Text>
+                  )}
+                </View>
+                <View
+                  style={
+                    {
+                      // marginTop: "1%",
+                    }
+                  }
+                >
+                  <TextInput
+                    style={{
+                      alignSelf: "center",
+                      backgroundColor: "#f2f2f2",
+                      width: "93%",
+                      paddingTop: "1%",
+                      paddingLeft: "2%",
+                      paddingRight: "3%",
+                      paddingBottom: "15%",
+                    }}
+                    multiline={true}
+                    //   onChangeText={onChangeNumber}
+                    //   value={number}
+                    placeholder="Write Your Review..."
+                    placeholderTextColor="#1E4274"
+                    value={this.state.comment}
+                    onChangeText={(value) => this.setState({ comment: value })}
+                  />
+                  {this.state.commentErr != "" ? (
+                    <View
+                      style={{
+                        justifyContent: "space-between",
+                        alignSelf: "center",
+                        flexDirection: "row",
+                        width: "91.5%",
+                        marginTop: -10,
+                      }}
+                    >
+                      <Text
+                        style={{
+                          color: "#F44336",
+                          fontSize: 14,
+                          textAlign: "left",
+                          marginLeft: "-1%",
+                          textTransform: "capitalize",
+                        }}
+                      >
+                        {this.state.commentErr}
+                      </Text>
+                    </View>
+                  ) : (
+                    <Text></Text>
+                  )}
+                </View>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "flex-end",
+                    marginRight: "3%",
+                    marginTop: "5%",
+                    marginBottom: "5%",
+                  }}
+                >
+                  <TouchableOpacity
+                    style={{
+                      borderColor: "#1E4274",
+                      borderWidth: 1,
+                      justifyContent: "flex-end",
+                      alignItems: "center",
+                      width: 90,
+                      padding: 5,
+                      borderRadius: 5,
+                    }}
+                    onPress={this.handleReview}
+                  >
+                    <Text style={{ color: "#1E4274", fontSize: 16 }}>
+                      Review
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ) : (
+              <Text></Text>
+            )
+          ) : (
+            <Text></Text>
+          )}
+
+          {/* {this.state.data.reviewed == false ? <ReviewWrite /> : <Text></Text>} */}
         </ScrollView>
       </View>
     );
@@ -670,9 +978,7 @@ class OpportunityReview extends Component {
                 lineHeight: 22,
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
+              {this.props.comment}
             </Paragraph>
             <View
               style={{
@@ -691,7 +997,7 @@ class OpportunityReview extends Component {
                   width: "100%",
                   alignContent: "center",
                 }}
-                title="Yasmin Sabry"
+                title={this.props.fullName}
                 titleStyle={{
                   margin: 0,
                   alignSelf: "center",
@@ -702,7 +1008,7 @@ class OpportunityReview extends Component {
                   fontSize: 18,
                   fontWeight: "bold",
                 }}
-                subtitle="Cv Writing"
+                subtitle={this.props.training_role}
                 subtitleStyle={{
                   textTransform: "capitalize",
                   alignSelf: "center",
@@ -729,7 +1035,7 @@ class OpportunityReview extends Component {
               starSize={22}
               disabled={false}
               maxStars={5}
-              rating={this.state.rating}
+              rating={this.props.rate}
             />
           </View>
         </Card>
@@ -769,16 +1075,42 @@ class ReviewWrite extends Component {
         >
           <StarRating
             fullStarColor={"#CD8930"}
-            starSize={22}
+            starSize={35}
             disabled={false}
             maxStars={5}
-            rating={this.state.rating}
-            selectedStar={(value) => this.setState({ rating: value })}
+            rating={this.state.rate}
+            selectedStar={(value) => this.setState({ rate: value })}
             style={{
               justifyContent: "center",
               alignSelf: "center",
+              marginLeft: "5%",
             }}
           />
+          {this.state.rateErr != "" ? (
+            <View
+              style={{
+                justifyContent: "space-between",
+                alignSelf: "center",
+                flexDirection: "row",
+                width: "91.5%",
+                marginTop: 10,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginLeft: "-1%",
+                  textTransform: "capitalize",
+                }}
+              >
+                {this.state.rateErr}
+              </Text>
+            </View>
+          ) : (
+            <Text></Text>
+          )}
         </View>
         <View
           style={{
@@ -800,7 +1132,34 @@ class ReviewWrite extends Component {
             //   value={number}
             placeholder="Write Your Review..."
             placeholderTextColor="#1E4274"
+            value={this.state.comment}
+            onChangeText={(value) => this.setState({ comment: value })}
           />
+          {this.state.commentErr != "" ? (
+            <View
+              style={{
+                justifyContent: "space-between",
+                alignSelf: "center",
+                flexDirection: "row",
+                width: "91.5%",
+                marginTop: -10,
+              }}
+            >
+              <Text
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginLeft: "-1%",
+                  textTransform: "capitalize",
+                }}
+              >
+                {this.state.commentErr}
+              </Text>
+            </View>
+          ) : (
+            <Text></Text>
+          )}
         </View>
         <View
           style={{
