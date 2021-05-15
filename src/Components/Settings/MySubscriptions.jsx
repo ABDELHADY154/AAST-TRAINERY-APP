@@ -1,19 +1,6 @@
 import React, { Component, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  Text,
-  ScrollView,
-  TouchableHighlight,
-  TouchableOpacity,
-  Switch,
-} from "react-native";
-import { Input } from "react-native-elements";
+import { View, StyleSheet, Text, ScrollView, Switch } from "react-native";
 import { Button } from "galio-framework";
-
-import { StatusBar } from "expo-status-bar";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
 const SwitchButton = () => {
   const [isEnabled, setIsEnabled] = useState(false);
@@ -23,11 +10,10 @@ const SwitchButton = () => {
     <View style={styles.container}>
       <Switch
         trackColor={{
-          false: "#1E4274",
+          false: "#CCCCCC",
           true: "#1E4274",
         }}
-        // style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.4 }] }}
-        thumbColor={isEnabled ? "#1E4274" : "#fff"}
+        thumbColor={isEnabled ? "#fff" : "#fff"}
         ios_backgroundColor="#1E4274"
         onValueChange={toggleSwitch}
         value={isEnabled}
@@ -81,7 +67,7 @@ export default class MySubscriptions extends Component {
                   fontWeight: "normal",
                   marginBottom: -4,
                   marginTop: 15,
-                  marginLeft: "-2%",
+                  marginLeft: "1%",
                 }}
               >
                 Mail subscriptions for newsletter
