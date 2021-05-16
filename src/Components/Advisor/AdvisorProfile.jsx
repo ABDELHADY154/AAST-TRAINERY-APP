@@ -20,8 +20,8 @@ export default class AdvisorProfile extends Component {
 
   async componentDidMount() {
     await axios
-      .get(`/W/student/advisor/${this.props.route.params.id}`)
-      .then(response => {
+      .get(`/A/student/advisor/${this.props.route.params.id}`)
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -31,7 +31,7 @@ export default class AdvisorProfile extends Component {
         // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });

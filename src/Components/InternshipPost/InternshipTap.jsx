@@ -25,8 +25,8 @@ class InternshipTapScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`/W/student/company/${this.props.route.params.id}`)
-      .then(response => {
+      .get(`/A/student/company/${this.props.route.params.id}`)
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -37,7 +37,7 @@ class InternshipTapScreen extends Component {
         // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -49,8 +49,8 @@ class InternshipTapScreen extends Component {
       spinner: true,
     });
     await axios
-      .get(`/W/student/company/${this.props.route.params.id}`)
-      .then(response => {
+      .get(`/A/student/company/${this.props.route.params.id}`)
+      .then((response) => {
         this.setState({
           loading: false,
           spinner: false,
@@ -61,7 +61,7 @@ class InternshipTapScreen extends Component {
         // console.log(response.data.response.data);
         this.props.getUserData(this.state.userData);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           loading: false,
           spinner: false,
@@ -75,11 +75,11 @@ class InternshipTapScreen extends Component {
     });
     axios
       .post(`/A/student/save/${this.state.userData.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         // this.refreshComponent();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -89,11 +89,11 @@ class InternshipTapScreen extends Component {
     });
     axios
       .post(`/A/student/unsave/${this.state.userData.id}`)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         // this.refreshComponent();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -128,7 +128,7 @@ class InternshipTapScreen extends Component {
                 </Text>
 
                 {this.state.internshipPosts.open ? (
-                  this.state.internshipPosts.open.map(e => {
+                  this.state.internshipPosts.open.map((e) => {
                     return (
                       <Cards
                         key={e.id}
@@ -169,7 +169,7 @@ class InternshipTapScreen extends Component {
                 </Text>
 
                 {this.state.internshipPosts.ended ? (
-                  this.state.internshipPosts.ended.map(e => {
+                  this.state.internshipPosts.ended.map((e) => {
                     return (
                       <Cards
                         key={e.id}

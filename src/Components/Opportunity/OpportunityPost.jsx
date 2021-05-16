@@ -41,7 +41,7 @@ class OpportunityPost extends Component {
   };
   refreshComponent = async () => {
     await axios
-      .get(`/W/student/post/${this.props.route.params.id}`)
+      .get(`/A/student/post/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -59,7 +59,7 @@ class OpportunityPost extends Component {
         // console.log(error.response.data.errors);
       });
     await axios
-      .get(`/W/student/review/${this.props.route.params.id}`)
+      .get(`/A/student/review/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -79,7 +79,7 @@ class OpportunityPost extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`/W/student/post/${this.props.route.params.id}`)
+      .get(`/A/student/post/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -97,7 +97,7 @@ class OpportunityPost extends Component {
         // console.log(error.response.data.errors);
       });
     await axios
-      .get(`/W/student/review/${this.props.route.params.id}`)
+      .get(`/A/student/review/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -117,7 +117,7 @@ class OpportunityPost extends Component {
   }
   refresh = async () => {
     await axios
-      .get(`/W/student/post/${this.props.route.params.id}`)
+      .get(`/A/student/post/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -135,7 +135,7 @@ class OpportunityPost extends Component {
         // console.log(error.response.data.errors);
       });
     await axios
-      .get(`/W/student/review/${this.props.route.params.id}`)
+      .get(`/A/student/review/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,
@@ -163,7 +163,7 @@ class OpportunityPost extends Component {
     };
 
     return await axios
-      .post(`/W/student/review/${this.props.route.params.id}`, body)
+      .post(`/A/student/review/${this.props.route.params.id}`, body)
       .then((response) => {
         this.refresh();
         this.setState({
