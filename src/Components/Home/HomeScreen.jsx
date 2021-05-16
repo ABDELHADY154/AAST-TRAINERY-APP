@@ -557,7 +557,7 @@ export default class HomeScreen extends Component {
           leftComponent={{
             icon: "menu",
             color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275",
-            size: 39,
+            size: 48,
             onPress: () => {
               this.state.drawerIsOpened == false
                 ? this.state.drawerRef.openDrawer()
@@ -584,7 +584,7 @@ export default class HomeScreen extends Component {
               >
                 <Feather
                   name="search"
-                  size={28}
+                  size={30}
                   color={
                     this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"
                   }

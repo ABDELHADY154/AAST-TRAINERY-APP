@@ -100,7 +100,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to unsave"
                   {...props}
                   icon="bookmark"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.unSavePost}
                 />
@@ -110,7 +110,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to save"
                   {...props}
                   icon="bookmark-outline"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.savePost}
                 />
@@ -119,7 +119,6 @@ export default class CardComponent extends Component {
           />
           <Card.Content>
             <Paragraph
-              accessible={true}
               numberOfLines={2}
               style={{
                 fontSize: 14,
@@ -214,7 +213,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to unsave"
                   {...props}
                   icon="bookmark"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.unSavePost}
                 />
@@ -224,7 +223,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to save"
                   {...props}
                   icon="bookmark-outline"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.savePost}
                 />
@@ -286,12 +285,7 @@ export default class CardComponent extends Component {
               alignSelf: "center",
             }}
           ></View>
-          <Card.Actions
-            style={{ marginTop: -3 }}
-            accessible={true}
-            accessibilityLabel="post by the academic advisor"
-            accessibilityHint="Go to advisor profile"
-          >
+          <Card.Actions style={{ marginTop: -3 }}>
             <Pressable
               style={{ flexDirection: "row" }}
               onPress={() => {
@@ -312,11 +306,7 @@ export default class CardComponent extends Component {
                 }}
               />
               <View style={{ marginTop: -7 }}>
-                <Button
-                  accessible={true}
-                  // accessibilityLabel=
-                  // accessibilityHint="The academic advisor"
-                >
+                <Button>
                   <Text
                     style={{
                       fontSize: 14,
@@ -330,9 +320,6 @@ export default class CardComponent extends Component {
                   </Text>
                 </Button>
                 <Text
-                  // accessible={true}
-                  // accessibilityLabel="post deadline"
-                  // accessibilityHint={this.props.item.application_deadline}
                   style={{
                     fontSize: 12,
                     color: "#1E4274",
@@ -401,7 +388,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to unsave"
                   {...props}
                   icon="bookmark"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.unSavePost}
                 />
@@ -411,7 +398,7 @@ export default class CardComponent extends Component {
                   accessibilityLabel="Tab to save"
                   {...props}
                   icon="bookmark-outline"
-                  size={30}
+                  size={33}
                   color="#1E4274"
                   onPress={this.savePost}
                 />
@@ -451,8 +438,7 @@ export default class CardComponent extends Component {
                           color: "#CD8930",
                         }}
                       >
-                        {item.dep_name}
-                        {"   "}
+                        {item.dep_name},{"  "}
                       </Text>
                     </View>
                   );
@@ -471,29 +457,11 @@ export default class CardComponent extends Component {
               alignSelf: "center",
             }}
           ></View>
-          <Card.Actions
-            style={{ marginTop: -3, marginLeft: 5 }}
-            accessible={true}
-            accessibilityLabel="promoted post by the company"
-            accessibilityRole="text"
-          >
-            <Feather
-              name="arrow-up-right"
-              size={35}
-              color="#1E4274"
-              style={{ flexDirection: "column" }}
-            />
-            <View
-              style={{
-                marginTop: -7,
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                marginLeft: 22,
-              }}
-            >
-              <View
-              // style={{ marginLeft: 10 }}
-              >
+          <Card.Actions style={{ marginTop: -3, marginLeft: 5 }}>
+            <Feather name="arrow-up-right" size={35} color="#1E4274" />
+
+            <View style={{ marginTop: -7 }}>
+              <Button style={{ marginLeft: -26 }}>
                 <Text
                   style={{
                     fontSize: 14,
@@ -504,13 +472,13 @@ export default class CardComponent extends Component {
                 >
                   Promoted
                 </Text>
-              </View>
+              </Button>
 
               <Text
                 style={{
                   fontSize: 12,
                   color: "#1E4274",
-                  // marginLeft: 16,
+                  marginLeft: 16,
                   marginTop: -3,
                 }}
               >
@@ -576,12 +544,7 @@ export default class CardComponent extends Component {
               alignSelf: "center",
             }}
           ></View>
-          <Card.Actions
-            style={{ marginTop: -3, marginLeft: 10 }}
-            accessible={true}
-            accessibilityLabel="Advertising post by the company"
-            accessibilityRole="text"
-          >
+          <Card.Actions style={{ marginTop: -3, marginLeft: 10 }}>
             <FontAwesome5 name="ad" size={24} color="#1E4274" />
           </Card.Actions>
         </Card>
