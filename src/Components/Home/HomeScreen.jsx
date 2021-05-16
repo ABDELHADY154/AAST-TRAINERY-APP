@@ -287,7 +287,12 @@ export default class HomeScreen extends Component {
     // const studentName = this.state.userData.fullName;
     // const image = this.state.userData.image;
     var drawerContent = (
-      <View>
+      <View
+        accessible={true}
+        accessibilityLabel="Menu"
+        // accessibilityHint="Tap me"
+        // accessibilityRole="menu"
+      >
         <View
           style={{
             height: "100%",
@@ -533,9 +538,9 @@ export default class HomeScreen extends Component {
     };
     return (
       <Drawer
-        accessible={true}
-        accessibilityLabel="Tap me!"
-        accessibilityHint="Tap me"
+        // accessible={true}
+        // accessibilityLabel="Tap me!"
+        // accessibilityHint="Tap me"
         ref={this.setDrawerRef}
         style={styles.drawer}
         drawerWidth={300}
@@ -555,6 +560,10 @@ export default class HomeScreen extends Component {
       >
         <Header
           leftComponent={{
+            accessible: "true",
+            accessibilityLabel: "menu",
+            // accessibilityHint: "Tap me",
+            accessibilityRole: "menu",
             icon: "menu",
             color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275",
             size: 48,
