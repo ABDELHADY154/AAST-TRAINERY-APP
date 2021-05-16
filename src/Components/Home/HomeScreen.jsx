@@ -8,12 +8,12 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Button } from "galio-framework";
 import Explore from "../Explore/ExploreScreen";
 import Profile from "../Profile/ProfileScreen";
 import Activity from "../Activity/ActivityScreen";
@@ -533,6 +533,9 @@ export default class HomeScreen extends Component {
     };
     return (
       <Drawer
+        accessible={true}
+        accessibilityLabel="Tap me!"
+        accessibilityHint="Tap me"
         ref={this.setDrawerRef}
         style={styles.drawer}
         drawerWidth={300}
@@ -573,17 +576,26 @@ export default class HomeScreen extends Component {
           // rightComponent={{ icon: "search", color: "#1E4275", size: 35 }}
           rightComponent={
             this.state.headerTitle == "Explore" ? (
-              <Feather
-                name="search"
-                size={28}
-                color={this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"}
-                style={{
-                  marginTop: 6,
-                }}
-                onPress={() => {
-                  this.props.navigation.push("SearchScreen");
-                }}
-              />
+              <TouchableHighlight
+                accessible={true}
+                accessibilityHint="Filter opportunities by department, state and payment"
+                accessibilityLabel="Go to Search"
+                // style={{ width: "35%" }}
+              >
+                <Feather
+                  name="search"
+                  size={28}
+                  color={
+                    this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"
+                  }
+                  style={{
+                    marginTop: 6,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.push("SearchScreen");
+                  }}
+                />
+              </TouchableHighlight>
             ) : (
               ""
             )
