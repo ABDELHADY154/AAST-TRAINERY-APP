@@ -7,8 +7,10 @@ import img from "../../assets/Images/cvpic.png";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Button } from "react-native-paper";
 import Swiper from "react-native-swiper";
+
 import StarRating from "react-native-star-rating";
-import { ReviewsCard } from "./ReviewsCoaching";
+
+import { Card, Paragraph } from "react-native-paper";
 import {
   Image,
   View,
@@ -23,7 +25,7 @@ import React, { Component, useState, useEffect, useRef } from "react";
 
 export default class Advising extends Component {
   state = {
-    booked: null,
+    status: "",
     isDatePickerVisible: false,
     Date: "2021-1-9",
     Time: "11:11",
@@ -34,12 +36,38 @@ export default class Advising extends Component {
     image: "",
     booking_date: "",
     id: 0,
+    review: [],
+    session_type: "",
+    comment: "",
+    fullName: "",
+    rate: 0,
+  };
+  review = async () => {
+    const data = {
+      session_type: this.state.session_type,
+      comment: this.state.comment,
+      fullName: this.state.fullName,
+      rate: this.state.rate,
+    };
+    axios
+      .post(`/A/student/sessionReview/${this.state.data.id}`, data)
+
+      .then(() => {
+        // console.log("REVIEWED");
+        this.setState({
+          status: "reviewed",
+        });
+      })
+
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   book = async () => {
     const data = {
       booking_date: this.state.booking_date,
-      // booked: true,
+      status: "booked",
     };
     axios
       .post(`/A/bookSession/${this.state.data.id}`, data)
@@ -47,7 +75,7 @@ export default class Advising extends Component {
       .then(() => {
         // console.log(this.state.booking_date);
         this.setState({
-          booked: true,
+          status: "booked",
           booking_date: this.state.booking_date,
         });
       })
@@ -60,7 +88,7 @@ export default class Advising extends Component {
     const data = {
       // booking_date: this.state.booking_date,
       id: this.state.id,
-      booked: false,
+      status: "unbooked",
     };
     axios
       .post(`/A/bookSession/cancelBooking/${this.state.data.id}`, data)
@@ -68,7 +96,7 @@ export default class Advising extends Component {
       .then(() => {
         console.log(this.state.booking_date);
         this.setState({
-          booked: false,
+          status: "unbooked",
           // booking_date: this.state.booking_date,
         });
       })
@@ -101,7 +129,7 @@ export default class Advising extends Component {
 
       .then((res) => {
         this.setState({
-          booked: res.data.response.data.booked,
+          status: res.data.response.data.status,
           data: res.data.response.data,
           id: res.data.response.data.id,
           title: res.data.response.data.title,
@@ -113,8 +141,25 @@ export default class Advising extends Component {
       .catch((error) => {
         console.log(error);
       });
+    axios
+      .get(`/A/student/sessionReview/${this.props.route.params.id}`)
+
+      .then((res) => {
+        this.setState({
+          session_type: res.data.response.data.session_type,
+          review: res.data.response.data,
+          comment: res.data.response.data.comment,
+          fullName: res.data.response.data.fullName,
+          rate: res.data.response.data.rate,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
   render() {
+    console.log(this.state.status);
+    // console.log(this.state.review);
     return (
       <View style={styles.container}>
         <Feather
@@ -156,7 +201,7 @@ export default class Advising extends Component {
               >
                 {this.state.desc}
               </Text>
-              {this.state.booked == false ? (
+              {this.state.status == "unbooked" ? (
                 <>
                   <View style={{ flexDirection: "row", marginTop: "6%" }}>
                     <DateTimePickerModal
@@ -278,28 +323,6 @@ export default class Advising extends Component {
                       </Text>
                     </Button>
                   </View>
-                  <Text
-                    style={{
-                      marginTop: "7%",
-                      alignSelf: "flex-start",
-                      marginLeft: "5%",
-                      color: "#CD8930",
-                      fontSize: 20,
-                      fontFamily: "SF-M",
-                      marginBottom: 10,
-                    }}
-                  >
-                    Reviews
-                  </Text>
-                  <Swiper
-                    height={260}
-                    dotColor="#CCCCCC"
-                    activeDotColor="#CD8930"
-                  >
-                    <ReviewsCard />
-                    <ReviewsCard />
-                    <ReviewsCard />
-                  </Swiper>
                 </>
               ) : (
                 <>
@@ -342,6 +365,10 @@ export default class Advising extends Component {
                       </Button>
                     </>
                   </View>
+                </>
+              )}
+              {this.state.status == "achieved" ? (
+                <>
                   <Text
                     style={{
                       marginTop: "7%",
@@ -364,12 +391,15 @@ export default class Advising extends Component {
                     }}
                   >
                     <StarRating
+                      onChange={(rate) => {
+                        this.setState({ rate: rate });
+                      }}
                       fullStarColor={"#CD8930"}
                       starSize={22}
                       disabled={false}
                       maxStars={5}
-                      rating={this.state.rating}
-                      selectedStar={(value) => this.setState({ rating: value })}
+                      rating={this.state.rate}
+                      selectedStar={(rate) => this.setState({ rate: rate })}
                       style={{
                         justifyContent: "center",
                         alignSelf: "center",
@@ -392,17 +422,17 @@ export default class Advising extends Component {
                         paddingBottom: "15%",
                       }}
                       multiline={true}
-                      //   onChangeText={onChangeNumber}
-                      //   value={number}
                       placeholder="Write Your Review..."
                       placeholderTextColor="#1E4274"
-                      //   keyboardType="numeric"
+                      value={this.state.comment}
+                      onChangeText={(value) =>
+                        this.setState({ comment: value })
+                      }
                     />
                   </View>
                   <View style={{ marginTop: 22, flexDirection: "row" }}>
                     <>
                       <Button
-                        disabled
                         style={{
                           marginTop: 0,
                           justifyContent: "center",
@@ -412,7 +442,7 @@ export default class Advising extends Component {
                           backgroundColor: "#1E4274",
                           marginBottom: "15%",
                         }}
-                        onPress={{}}
+                        onPress={this.review}
                       >
                         <Text
                           style={{
@@ -425,6 +455,111 @@ export default class Advising extends Component {
                       </Button>
                     </>
                   </View>
+                </>
+              ) : (
+                <>
+                  <Text
+                    style={{
+                      marginTop: "7%",
+                      alignSelf: "flex-start",
+                      marginLeft: "5%",
+                      color: "#CD8930",
+                      fontSize: 20,
+                      fontFamily: "SF-M",
+                      marginBottom: 10,
+                    }}
+                  >
+                    Reviews
+                  </Text>
+                  <Swiper
+                    height={260}
+                    dotColor="#CCCCCC"
+                    activeDotColor="#CD8930"
+                  >
+                    {this.state.review.map((review) => {
+                      return (
+                        <>
+                          <Card
+                            style={{
+                              marginBottom: 10,
+                            }}
+                          >
+                            <Card.Content>
+                              <Paragraph
+                                style={{
+                                  fontSize: 14,
+
+                                  textAlign: "center",
+                                  color: "#1E4274",
+                                  lineHeight: 19,
+                                }}
+                              >
+                                {review.comment}
+                              </Paragraph>
+                              <View
+                                style={{
+                                  borderBottomColor: "#CD8930",
+                                  borderBottomWidth: 2,
+                                  width: "45%",
+                                  alignSelf: "center",
+                                  // marginLeft: "3.5%",
+                                  marginTop: "3%",
+                                }}
+                              />
+                              <View style={{ width: "100%" }}>
+                                <Card.Title
+                                  style={{
+                                    alignSelf: "center",
+                                    textAlign: "center",
+                                    width: "100%",
+                                    alignContent: "center",
+                                  }}
+                                  title={review.fullName}
+                                  titleStyle={{
+                                    margin: 0,
+                                    alignSelf: "center",
+                                    textAlign: "center",
+                                    textTransform: "capitalize",
+                                    marginLeft: "-4%",
+                                    color: "#1E4274",
+                                    fontSize: 18,
+                                    fontWeight: "bold",
+                                  }}
+                                  subtitle={review.session_type}
+                                  subtitleStyle={{
+                                    textTransform: "capitalize",
+                                    alignSelf: "center",
+                                    textAlign: "center",
+                                    color: "#1E4274",
+                                    marginLeft: "-4%",
+
+                                    fontSize: 14,
+                                  }}
+                                />
+                              </View>
+                            </Card.Content>
+                            <View
+                              style={{
+                                flexDirection: "row",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                alignSelf: "center",
+                                marginBottom: "15%",
+                              }}
+                            >
+                              <StarRating
+                                fullStarColor={"#CD8930"}
+                                starSize={22}
+                                disabled={false}
+                                maxStars={5}
+                                rating={review.rate}
+                              />
+                            </View>
+                          </Card>
+                        </>
+                      );
+                    })}
+                  </Swiper>
                 </>
               )}
             </ScrollView>
