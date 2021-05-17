@@ -27,6 +27,10 @@ export class CvCard extends Component {
           }}
         >
           <Card.Title
+            accessible={true}
+            accessibilityLabel={this.props.title}
+            // accessibilityHint={this.props.item.company_name}
+            accessibilityRole="text"
             style={{ marginLeft: 1 }}
             title={this.props.title}
             titleStyle={{
@@ -37,7 +41,10 @@ export class CvCard extends Component {
               fontWeight: "bold",
             }}
           />
-          <Card.Content>
+          <Card.Content
+            accessible={false}
+            accessibilityLabel="Tab for more detailes"
+          >
             <Paragraph
               numberOfLines={2}
               style={{
@@ -65,6 +72,9 @@ export class CvCard extends Component {
             <View style={{ marginTop: 0, flexDirection: "row" }}>
               <>
                 <Text
+                  accessible={true}
+                  // accessibilityLabel={this.props.price}
+                  // accessibilityHint="L.E"
                   style={{
                     marginLeft: "3%",
                     marginTop: 7,
@@ -79,6 +89,9 @@ export class CvCard extends Component {
                   {this.props.price} L.E
                 </Text>
                 <Button
+                  accessible={true}
+                  accessibilityLabel="tab to book session"
+                  // accessibilityHint= {this.props.price}
                   style={{
                     marginTop: 0,
                     justifyContent: "center",

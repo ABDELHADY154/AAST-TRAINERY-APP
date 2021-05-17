@@ -288,10 +288,10 @@ export default class HomeScreen extends Component {
     // const image = this.state.userData.image;
     var drawerContent = (
       <View
-        accessible={true}
-        accessibilityLabel="Menu"
-        // accessibilityHint="Tap me"
-        // accessibilityRole="menu"
+      // accessible={true}
+      // accessibilityLabel="Side Menu"
+      // accessibilityHint="Tap me"
+      // accessibilityRole="menu"
       >
         <View
           style={{
@@ -319,6 +319,10 @@ export default class HomeScreen extends Component {
               </View>
             ) : (
               <TouchableWithoutFeedback
+                accessible={true}
+                accessibilityRole="menuitem"
+                accessibilityLabel="Go to your Profile"
+                accessibilityHint={this.state.name}
                 onPress={() => {
                   this.props.navigation.navigate("App", {
                     screen: "Profile",
@@ -365,6 +369,10 @@ export default class HomeScreen extends Component {
               </TouchableWithoutFeedback>
             )}
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="edit general information"
+              // accessibilityRole="menuitem"
+              //  accessibilityHint="save post to activity"
               style={{
                 // backgroundColor: "#F2F2F2",
                 padding: 15,
@@ -387,6 +395,8 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Generate CV"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -406,6 +416,8 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="create Portfolio"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -429,6 +441,8 @@ export default class HomeScreen extends Component {
               />
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel=" Account settings"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -451,6 +465,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="About Us"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -469,6 +486,9 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
             <Divider style={{ backgroundColor: "#ccc" }} />
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel=" Help center"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -482,6 +502,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Terms and conditions"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -495,6 +518,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Log Out"
+              // accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -562,7 +588,7 @@ export default class HomeScreen extends Component {
           leftComponent={{
             accessible: "true",
             accessibilityLabel: "menu",
-            // accessibilityHint: "Tap me",
+            // accessibilityHint: "Tap to open or close side menu",
             accessibilityRole: "menu",
             icon: "menu",
             color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275",
@@ -587,7 +613,7 @@ export default class HomeScreen extends Component {
             this.state.headerTitle == "Explore" ? (
               <TouchableHighlight
                 accessible={true}
-                accessibilityHint="Filter opportunities by department, state and payment"
+                // accessibilityHint="Filter opportunities by department, state and payment"
                 accessibilityLabel="Go to Search"
                 // style={{ width: "35%" }}
               >
