@@ -41,6 +41,7 @@ export default class Advising extends Component {
     comment: "",
     fullName: "",
     rate: 0,
+    reviewed: null,
   };
   review = async () => {
     const data = {
@@ -53,9 +54,8 @@ export default class Advising extends Component {
       .post(`/A/student/sessionReview/${this.state.data.id}`, data)
 
       .then(() => {
-        // console.log("REVIEWED");
         this.setState({
-          status: "reviewed",
+          reviewed: true,
         });
       })
 
@@ -97,7 +97,6 @@ export default class Advising extends Component {
         console.log(this.state.booking_date);
         this.setState({
           status: "unbooked",
-          // booking_date: this.state.booking_date,
         });
       })
 
@@ -136,6 +135,7 @@ export default class Advising extends Component {
           desc: res.data.response.data.desc,
           price: res.data.response.data.price,
           image: res.data.response.data.image,
+          reviewed: res.data.response.data.reviewed,
         });
       })
       .catch((error) => {
@@ -159,7 +159,7 @@ export default class Advising extends Component {
   }
   render() {
     console.log(this.state.status);
-    // console.log(this.state.review);
+    console.log(this.state.reviewed);
     return (
       <View style={styles.container}>
         <Feather
@@ -174,7 +174,6 @@ export default class Advising extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
-        {/* {this.state.data ? ( */}
 
         {this.state.id !== 0 ? (
           <>
@@ -367,7 +366,7 @@ export default class Advising extends Component {
                   </View>
                 </>
               )}
-              {this.state.status == "achieved" ? (
+              {this.state.reviewed == false ? (
                 <>
                   <Text
                     style={{
