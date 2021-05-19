@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { View, StyleSheet, SafeAreaView, Text, ScrollView } from "react-native";
+import { Image } from "react-native-elements";
+
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
@@ -98,7 +100,19 @@ export default class Notification extends Component {
                 }
               })
             ) : (
-              <Text></Text>
+              <View
+                style={{
+                  alignSelf: "stretch",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  alignContent: "center",
+                }}
+              >
+                <Image
+                  source={require("../../assets/Images/Notifications.png")}
+                  style={{ width: 250, height: 250, marginTop: 100 }}
+                />
+              </View>
             )}
 
             {/* <View

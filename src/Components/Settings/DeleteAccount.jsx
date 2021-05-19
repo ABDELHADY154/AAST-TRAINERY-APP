@@ -10,14 +10,69 @@ import {
 } from "react-native";
 import { Input } from "react-native-elements";
 import { Button } from "galio-framework";
+import { Ionicons } from "@expo/vector-icons";
 
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
+import Spinner from "react-native-loading-spinner-overlay";
+import { axios } from "../../Config/Axios";
+
 export default class DeleteAccount extends Component {
+  state = {
+    password: null,
+    confirmPassword: null,
+    passwordErr: "",
+    spinner: false,
+    newPasswordText: true,
+    confirmPasswordText: true,
+  };
+
+  handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
+    var data = {
+      password: this.state.password,
+      password_confirmation: this.state.confirmPassword,
+    };
+    await axios
+      .post("/A/student/deleteAccount", data)
+      .then(res => {
+        // console.log(res.data);
+        this.setState({
+          spinner: false,
+          passwordErr: "",
+        });
+        this.props.logout();
+      })
+      .catch(err => {
+        console.log(err.response.data.errors);
+        this.setState({
+          spinner: false,
+        });
+        if (err.response.data.errors) {
+          this.setState({
+            spinner: false,
+            passwordErr: err.response.data.errors.password
+              ? err.response.data.errors.password
+              : err.response.data.errors,
+          });
+        }
+      });
+  };
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -30,6 +85,7 @@ export default class DeleteAccount extends Component {
           }}
           onPress={() => this.props.navigation.goBack()}
         />
+
         <Text
           style={{
             alignSelf: "flex-start",
@@ -63,6 +119,7 @@ export default class DeleteAccount extends Component {
                 width: "105%",
               }}
               label="Password"
+              errorMessage={this.state.passwordErr}
               labelStyle={{
                 color: "#1E4274",
                 fontSize: 16,
@@ -72,8 +129,30 @@ export default class DeleteAccount extends Component {
                 marginTop: 15,
                 marginLeft: "-2%",
               }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              secureTextEntry={this.state.newPasswordText}
+              rightIcon={() =>
+                this.state.newPasswordText == true ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ newPasswordText: false });
+                    }}
+                  />
+                ) : (
+                  <Ionicons
+                    name="eye-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ newPasswordText: true });
+                    }}
+                  />
+                )
+              }
+              value={this.state.password}
+              onChangeText={value => this.setState({ password: value })}
             />
             <Text
               style={{
@@ -116,8 +195,30 @@ export default class DeleteAccount extends Component {
                 marginTop: 15,
                 marginLeft: "-2%",
               }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              secureTextEntry={this.state.confirmPasswordText}
+              rightIcon={() =>
+                this.state.confirmPasswordText == true ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ confirmPasswordText: false });
+                    }}
+                  />
+                ) : (
+                  <Ionicons
+                    name="eye-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ confirmPasswordText: true });
+                    }}
+                  />
+                )
+              }
+              value={this.state.confirmPassword}
+              onChangeText={value => this.setState({ confirmPassword: value })}
             />
             <Text
               style={{
@@ -143,7 +244,7 @@ export default class DeleteAccount extends Component {
                 backgroundColor: "#fff",
               }}
               color="#1E4275"
-              // onPress={this.handleDelete}
+              onPress={this.handleSubmit}
             >
               <Text
                 style={{

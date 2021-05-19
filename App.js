@@ -144,11 +144,11 @@ function AdCancellationScreen(props) {
   const route = useRoute();
   return <AdCancellation {...props} navigation={navigation} route={route} />;
 }
-function DeleteAccountScreen(props) {
-  const navigation = useNavigation();
-  const route = useRoute();
-  return <DeleteAccount {...props} navigation={navigation} route={route} />;
-}
+// function DeleteAccountScreen(props) {
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   return <DeleteAccount {...props} navigation={navigation} route={route} />;
+// }
 // function ActivityAcceptedScreen(props) {
 // const navigation = useNavigation();
 // const route = useRoute();
@@ -218,12 +218,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    }
+    },
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = (props) => {
+  const TutorialsSCreen = props => {
     const navigation = useNavigation();
-    const showTutorial = (val) => {
+    const showTutorial = val => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -260,7 +260,7 @@ export default function App({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -268,18 +268,18 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signIn: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async (data) => {
+      signUp: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    []
+    [],
   );
 
-  const Trainery = (props) => {
+  const Trainery = props => {
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -295,6 +295,20 @@ export default function App({ navigation }) {
     );
   };
 
+  const DeleteAccountScreen = props => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    return (
+      <DeleteAccount
+        {...props}
+        navigation={navigation}
+        route={route}
+        logout={() => {
+          dispatch({ type: "SIGN_OUT" });
+        }}
+      />
+    );
+  };
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
@@ -550,9 +564,10 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
-  <Stack.Screen
+                <Stack.Screen
                   name="Portfolio"
-                  component={PortfolioScreen}   options={{
+                  component={PortfolioScreen}
+                  options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
                     header: () => {
@@ -608,7 +623,6 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="DeleteAccount"
                   component={DeleteAccountScreen}
-
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",
