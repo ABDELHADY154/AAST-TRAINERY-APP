@@ -17,7 +17,7 @@ export default class CareerCoaching extends Component {
   };
   componentDidMount() {
     axios
-      .get("/W/sessions")
+      .get("/A/sessions")
 
       .then((res) => {
         this.setState({

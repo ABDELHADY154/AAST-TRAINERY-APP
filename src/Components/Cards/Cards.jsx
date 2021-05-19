@@ -25,7 +25,7 @@ export default class CardComponent extends Component {
     axios
       .post(`/A/student/save/${this.props.item.id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.props.reload();
       })
       .catch((err) => {
@@ -39,7 +39,7 @@ export default class CardComponent extends Component {
     axios
       .post(`/A/student/unsave/${this.props.item.id}`)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         this.props.reload();
       })
       .catch((err) => {
@@ -47,6 +47,7 @@ export default class CardComponent extends Component {
       });
   };
   render() {
+    // console.log(this.props.item.advisor.name);
     return this.props.item.post_type == "companyPost" ? (
       <View>
         <Card

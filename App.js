@@ -31,6 +31,12 @@ import CompanyProfile from "./src/Components/InternshipPost/CompanyProfile";
 import AdvisorProfile from "./src/Components/Advisor/AdvisorProfile";
 import OpportunityPost from "./src/Components/Opportunity/OpportunityPost";
 import SearchComponent from "./src/Components/Search/SearchComponent";
+import Settings from "./src/Components/Settings/Settings";
+import ChangePassword from "./src/Components/Settings/ChangePassword";
+import UpdateEmail from "./src/Components/Settings/UpdateEmail";
+import MySubscriptions from "./src/Components/Settings/MySubscriptions";
+import DeleteAccount from "./src/Components/Settings/DeleteAccount";
+import AdCancellation from "./src/Components/Settings/AdCancellation";
 
 import {
   DefaultTheme,
@@ -112,6 +118,36 @@ function SearchScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
   return <SearchComponent {...props} navigation={navigation} route={route} />;
+}
+function SettingsScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Settings {...props} navigation={navigation} route={route} />;
+}
+function ChangePasswordScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <ChangePassword {...props} navigation={navigation} route={route} />;
+}
+function UpdateEmailScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <UpdateEmail {...props} navigation={navigation} route={route} />;
+}
+function MySubscriptionsScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <MySubscriptions {...props} navigation={navigation} route={route} />;
+}
+function AdCancellationScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <AdCancellation {...props} navigation={navigation} route={route} />;
+}
+function DeleteAccountScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <DeleteAccount {...props} navigation={navigation} route={route} />;
 }
 // function ActivityAcceptedScreen(props) {
 // const navigation = useNavigation();
@@ -503,10 +539,76 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
+                <Stack.Screen
+                  name="Settings"
+                  component={SettingsScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+  <Stack.Screen
+                  name="Portfolio"
+                  component={PortfolioScreen}   options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
 
                 <Stack.Screen
-                  name="Portfolio"
-                  component={PortfolioScreen}
+                  name="ChangePassword"
+                  component={ChangePasswordScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="UpdateEmail"
+                  component={UpdateEmailScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="MySubscriptions"
+                  component={MySubscriptionsScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="AdCancellation"
+                  component={AdCancellationScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
+                  name="DeleteAccount"
+                  component={DeleteAccountScreen}
+
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

@@ -440,6 +440,9 @@ export default class HomeScreen extends Component {
                 alignItems: "center",
                 paddingLeft: 20,
               }}
+              onPress={() => {
+                this.props.navigation.navigate("Settings");
+              }}
             >
               <Feather
                 name="settings"

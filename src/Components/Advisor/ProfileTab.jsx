@@ -17,7 +17,7 @@ class ProfileTabScreen extends Component {
   };
   async componentDidMount() {
     await axios
-      .get(`/W/student/advisor/${this.props.route.params.id}`)
+      .get(`/A/student/advisor/${this.props.route.params.id}`)
       .then((response) => {
         this.setState({
           loading: true,

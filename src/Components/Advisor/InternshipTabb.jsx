@@ -20,8 +20,8 @@ class InternshipTabbScreen extends Component {
   refresh = async () => {
     this.setState({ spinner: true });
     await axios
-      .get(`/W/student/advisor/${this.props.route.params.id}`)
-      .then(response => {
+      .get(`/A/student/advisor/${this.props.route.params.id}`)
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -42,7 +42,7 @@ class InternshipTabbScreen extends Component {
   async componentDidMount() {
     await axios
       .get(`/W/student/advisor/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           loading: true,
           spinner: false,
@@ -90,7 +90,7 @@ class InternshipTabbScreen extends Component {
                   Published Internship
                 </Text>
                 {this.state.internshipPosts ? (
-                  this.state.internshipPosts.map(e => {
+                  this.state.internshipPosts.map((e) => {
                     // console.log(e);
                     return (
                       <OpportunityCardAdvisor
