@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
+import Cv from "./src/Components/Cv/Cv";
+import Portfolio from "./src/Components/Cv/Portfolio";
 
 import Advising from "./src/Components/CareerCoaching/Advising";
 import LoginForm from "./src/Components/Auth/LoginForm";
@@ -102,7 +104,16 @@ function AdvisingScreen(props) {
   const route = useRoute();
   return <Advising {...props} navigation={navigation} route={route} />;
 }
-
+function CvScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Cv {...props} navigation={navigation} route={route} />;
+}
+function PortfolioScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Portfolio {...props} navigation={navigation} route={route} />;
+}
 function SearchScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
@@ -518,6 +529,17 @@ export default function App({ navigation }) {
                   }}
                 />
                 <Stack.Screen
+                  name="Cv"
+                  component={CvScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
                   name="Settings"
                   component={SettingsScreen}
                   options={{
@@ -528,6 +550,17 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
+  <Stack.Screen
+                  name="Portfolio"
+                  component={PortfolioScreen}   options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+
                 <Stack.Screen
                   name="ChangePassword"
                   component={ChangePasswordScreen}
@@ -575,6 +608,7 @@ export default function App({ navigation }) {
                 <Stack.Screen
                   name="DeleteAccount"
                   component={DeleteAccountScreen}
+
                   options={{
                     cardStyle: { backgroundColor: "#fff" },
                     animationTypeForReplace: state.isSignout ? "pop" : "push",

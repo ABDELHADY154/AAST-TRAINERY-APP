@@ -14,6 +14,9 @@ import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
+import Cv from "../Cv/Cv";
+import Portfolio from "../Cv/Portfolio";
+
 import Explore from "../Explore/ExploreScreen";
 import Profile from "../Profile/ProfileScreen";
 import Activity from "../Activity/ActivityScreen";
@@ -389,6 +392,9 @@ export default class HomeScreen extends Component {
                 alignItems: "center",
                 paddingLeft: 20,
               }}
+              onPress={() => {
+                this.props.navigation.push("Cv");
+              }}
             >
               <MaterialCommunityIcons
                 name="newspaper-variant-outline"
@@ -407,6 +413,9 @@ export default class HomeScreen extends Component {
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 20,
+              }}
+              onPress={() => {
+                this.props.navigation.push("Portfolio");
               }}
             >
               <MaterialCommunityIcons

@@ -7,14 +7,18 @@ import { Feather } from "@expo/vector-icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Button } from "galio-framework";
 import GeneralInfo from "../Profile/Generalinfo/Generalinfo";
+import Cv from "../Cv/Cv";
+import Portfolio from "../Cv/Portfolio";
 
 const Drawer = createDrawerNavigator();
 
 export default class DrawerMenu extends Component {
   render() {
     return (
-      <Drawer.Navigator initialRouteName="Edit Profile">
+      <Drawer.Navigator>
         <Drawer.Screen name="Edit Profile" component={GeneralInfo} />
+        <Drawer.Screen name="Generate CV" component={Cv} />
+        <Drawer.Screen name=" Portfolio" component={Portfolio} />
       </Drawer.Navigator>
     );
   }
