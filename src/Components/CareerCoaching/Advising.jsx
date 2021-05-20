@@ -366,7 +366,7 @@ export default class Advising extends Component {
                   </View>
                 </>
               )}
-              {this.state.reviewed == false ? (
+              {this.state.status == "achieved" ? (
                 <>
                   <Text
                     style={{
