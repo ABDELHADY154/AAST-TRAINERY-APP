@@ -43,6 +43,7 @@ export default class CareerCoaching extends Component {
                   desc={data.desc}
                   price={data.price}
                   navigation={this.props.navigation}
+                  status={data.status}
                 />
               );
             })

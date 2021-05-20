@@ -88,28 +88,57 @@ export class CvCard extends Component {
                   {/* {this.state.price} */}
                   {this.props.price} L.E
                 </Text>
-                <Button
-                  accessible={true}
-                  accessibilityLabel="tab to book session"
-                  // accessibilityHint= {this.props.price}
-                  style={{
-                    marginTop: 0,
-                    justifyContent: "center",
-                    alignItems: "center",
-                    alignSelf: "flex-end",
-                    marginLeft: "60%",
-                    backgroundColor: "#1E4274",
-                  }}
-                  onPress={() => {
-                    this.props.navigation.push("Advising", {
-                      id: this.props.item.id,
-                    });
-                  }}
-                >
-                  <Text style={{ color: "white", textTransform: "capitalize" }}>
-                    book
-                  </Text>
-                </Button>
+                {this.props.status == "booked" ? (
+                  <Button
+                    accessible={true}
+                    accessibilityLabel="tab to book session"
+                    // accessibilityHint= {this.props.price}
+                    style={{
+                      marginTop: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                      marginLeft: "55%",
+                      backgroundColor: "#1E4274",
+                    }}
+                    onPress={() => {
+                      this.props.navigation.push("Advising", {
+                        id: this.props.item.id,
+                      });
+                    }}
+                  >
+                    <Text
+                      style={{ color: "white", textTransform: "capitalize" }}
+                    >
+                      booked
+                    </Text>
+                  </Button>
+                ) : (
+                  <Button
+                    accessible={true}
+                    accessibilityLabel="tab to book session"
+                    // accessibilityHint= {this.props.price}
+                    style={{
+                      marginTop: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                      marginLeft: "60%",
+                      backgroundColor: "#1E4274",
+                    }}
+                    onPress={() => {
+                      this.props.navigation.push("Advising", {
+                        id: this.props.item.id,
+                      });
+                    }}
+                  >
+                    <Text
+                      style={{ color: "white", textTransform: "capitalize" }}
+                    >
+                      book
+                    </Text>
+                  </Button>
+                )}
               </>
             </View>
           </Card.Actions>
