@@ -84,7 +84,7 @@ export default class Settings extends Component {
                   marginBottom: 10,
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate("UpdateEmail");
+                  this.props.navigation.push("UpdateEmail");
                 }}
               >
                 <View style={{}}>
@@ -113,7 +113,7 @@ export default class Settings extends Component {
                   marginBottom: 10,
                 }}
                 onPress={() => {
-                  this.props.navigation.navigate("MySubscriptions");
+                  this.props.navigation.push("MySubscriptions");
                 }}
               >
                 <View style={{}}>
@@ -139,21 +139,35 @@ export default class Settings extends Component {
               <TouchableOpacity
                 style={{
                   paddingVertical: 15,
-                  marginBottom: 10,
+                  marginBottom: 5,
                 }}
-                onPress={() => {
-                  this.props.navigation.navigate("AdCancellation");
-                }}
+                // onPress={() => {
+                //   this.props.navigation.navigate("AdCancellation");
+                // }}
               >
-                <View style={{}}>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
                   <Text
                     style={{
                       color: "#1E4274",
                       fontSize: 20,
                       // fontWeight: "bold",
+                      marginRight: 20,
                     }}
                   >
                     Ad-Cancellation
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#fff",
+                      fontSize: 15,
+                      backgroundColor: "#1E4274",
+                      paddingHorizontal: 10,
+                      paddingVertical: 5,
+                      borderRadius: 20,
+                      // fontWeight: "bold",
+                    }}
+                  >
+                    Soon
                   </Text>
                 </View>
               </TouchableOpacity>

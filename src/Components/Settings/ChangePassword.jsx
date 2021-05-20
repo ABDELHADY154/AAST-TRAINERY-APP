@@ -14,10 +14,84 @@ import { Button } from "galio-framework";
 import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Feather } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import { axios } from "../../Config/Axios";
+import Spinner from "react-native-loading-spinner-overlay";
+import { Modal, Portal } from "react-native-paper";
+
 export default class ChangePassword extends Component {
+  state = {
+    oldPasswordText: true,
+    newPasswordText: true,
+    confirmPasswordText: true,
+    oldpassword: null,
+    newPassword: null,
+    confirmPassword: null,
+    oldError: "",
+    passwordError: "",
+    spinner: false,
+    visible: false,
+  };
+
+  handleSubmit = async () => {
+    this.setState({
+      spinner: true,
+    });
+    var data = {
+      old_password: this.state.oldpassword,
+      password: this.state.newPassword,
+      password_confirmation: this.state.confirmPassword,
+    };
+    await axios
+      .put("/A/student/updatePassword", data)
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          spinner: false,
+          visible: true,
+        });
+      })
+      .catch(err => {
+        if (err.response.data.errors) {
+          this.setState({
+            spinner: false,
+          });
+          if (
+            err.response.data.errors.old_password ||
+            err.response.data.errors.password
+          ) {
+            this.setState({
+              oldError: err.response.data.errors.old_password,
+              passwordError: err.response.data.errors.password,
+            });
+          } else {
+            this.setState({
+              oldError: err.response.data.errors,
+              passwordError: "",
+            });
+          }
+        }
+      });
+  };
+  showModal = () => {
+    this.setState({ visible: true });
+  };
+  hideModal = () => {
+    this.setState({ visible: false });
+    this.props.navigation.navigate("Settings");
+  };
   render() {
     return (
       <View style={styles.container}>
+        <Spinner
+          visible={this.state.spinner}
+          cancelable={false}
+          size="large"
+          color="#1E4274"
+          animation="fade"
+          overlayColor="rgba(255, 255, 255, 0.8)"
+          textStyle={{ color: "#1E4274", textAlign: "center" }}
+        />
         <Feather
           name="chevron-left"
           size={36}
@@ -51,6 +125,7 @@ export default class ChangePassword extends Component {
                 height: 35,
                 marginLeft: "1%",
               }}
+              errorMessage={this.state.oldError}
               autoCompleteType="name"
               textContentType="name"
               keyboardType="default"
@@ -72,8 +147,30 @@ export default class ChangePassword extends Component {
                 marginTop: 15,
                 marginLeft: "-2%",
               }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              secureTextEntry={this.state.oldPasswordText}
+              rightIcon={() =>
+                this.state.oldPasswordText == true ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ oldPasswordText: false });
+                    }}
+                  />
+                ) : (
+                  <Ionicons
+                    name="eye-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ oldPasswordText: true });
+                    }}
+                  />
+                )
+              }
+              value={this.state.oldpassword}
+              onChangeText={value => this.setState({ oldpassword: value })}
             />
             <Text
               style={{
@@ -96,6 +193,7 @@ export default class ChangePassword extends Component {
               }}
               autoCompleteType="name"
               textContentType="name"
+              errorMessage={this.state.passwordError}
               keyboardType="default"
               textAlign="left"
               inputStyle={{ color: "#1E4274" }}
@@ -115,8 +213,30 @@ export default class ChangePassword extends Component {
                 marginTop: 15,
                 marginLeft: "-2%",
               }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              secureTextEntry={this.state.newPasswordText}
+              rightIcon={() =>
+                this.state.newPasswordText == true ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ newPasswordText: false });
+                    }}
+                  />
+                ) : (
+                  <Ionicons
+                    name="eye-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ newPasswordText: true });
+                    }}
+                  />
+                )
+              }
+              value={this.state.newPassword}
+              onChangeText={value => this.setState({ newPassword: value })}
             />
             <Text
               style={{
@@ -158,8 +278,30 @@ export default class ChangePassword extends Component {
                 marginTop: 15,
                 marginLeft: "-2%",
               }}
-              // value={this.state.studentName}
-              // onChangeText={(value) => this.setState({ studentName: value })}
+              secureTextEntry={this.state.confirmPasswordText}
+              rightIcon={() =>
+                this.state.confirmPasswordText == true ? (
+                  <Ionicons
+                    name="eye-off-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ confirmPasswordText: false });
+                    }}
+                  />
+                ) : (
+                  <Ionicons
+                    name="eye-outline"
+                    size={24}
+                    color="#1E4274"
+                    onPress={() => {
+                      this.setState({ confirmPasswordText: true });
+                    }}
+                  />
+                )
+              }
+              value={this.state.confirmPassword}
+              onChangeText={value => this.setState({ confirmPassword: value })}
             />
             <Text
               style={{
@@ -177,10 +319,36 @@ export default class ChangePassword extends Component {
             <Button
               style={{ width: "auto", borderRadius: 50, marginTop: 40 }}
               color="#1E4275"
-              // onPress={this.handleSubmit}
+              onPress={this.handleSubmit}
             >
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
+            <Portal>
+              <Modal
+                visible={this.state.visible}
+                onDismiss={this.hideModal}
+                contentContainerStyle={{
+                  backgroundColor: "white",
+                  padding: 20,
+                  width: 294,
+                  height: 178,
+                  alignSelf: "center",
+                  justifyContent: "center",
+                  borderRadius: 10,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    color: "#1E4274",
+                    // marginTop: 20,
+                    fontSize: 25,
+                  }}
+                >
+                  Password changed successfully
+                </Text>
+              </Modal>
+            </Portal>
           </View>
         </ScrollView>
       </View>

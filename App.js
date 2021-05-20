@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SplashScreen from "./src/Components/Splash/SplashScreen";
 import Home from "./src/Components/Home/HomeScreen";
+import Cv from "./src/Components/Cv/Cv";
+import Portfolio from "./src/Components/Cv/Portfolio";
 
 import Advising from "./src/Components/CareerCoaching/Advising";
 import LoginForm from "./src/Components/Auth/LoginForm";
@@ -102,7 +104,16 @@ function AdvisingScreen(props) {
   const route = useRoute();
   return <Advising {...props} navigation={navigation} route={route} />;
 }
-
+function CvScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Cv {...props} navigation={navigation} route={route} />;
+}
+function PortfolioScreen(props) {
+  const navigation = useNavigation();
+  const route = useRoute();
+  return <Portfolio {...props} navigation={navigation} route={route} />;
+}
 function SearchScreen(props) {
   const navigation = useNavigation();
   const route = useRoute();
@@ -133,11 +144,11 @@ function AdCancellationScreen(props) {
   const route = useRoute();
   return <AdCancellation {...props} navigation={navigation} route={route} />;
 }
-function DeleteAccountScreen(props) {
-  const navigation = useNavigation();
-  const route = useRoute();
-  return <DeleteAccount {...props} navigation={navigation} route={route} />;
-}
+// function DeleteAccountScreen(props) {
+//   const navigation = useNavigation();
+//   const route = useRoute();
+//   return <DeleteAccount {...props} navigation={navigation} route={route} />;
+// }
 // function ActivityAcceptedScreen(props) {
 // const navigation = useNavigation();
 // const route = useRoute();
@@ -207,12 +218,12 @@ export default function App({ navigation }) {
       isLoading: true,
       isSignout: false,
       userToken: null,
-    }
+    },
   );
   const [showTutorial, setShowTurial] = useState(true);
-  const TutorialsSCreen = (props) => {
+  const TutorialsSCreen = props => {
     const navigation = useNavigation();
-    const showTutorial = (val) => {
+    const showTutorial = val => {
       setShowTurial(val);
     };
     return <Tutorials {...props} navigation={navigation} show={showTutorial} />;
@@ -249,7 +260,7 @@ export default function App({ navigation }) {
 
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
-      backAction
+      backAction,
     );
 
     return () => backHandler.remove();
@@ -257,18 +268,18 @@ export default function App({ navigation }) {
 
   const authContext = React.useMemo(
     () => ({
-      signIn: async (data) => {
+      signIn: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
       signOut: () => dispatch({ type: "SIGN_OUT" }),
-      signUp: async (data) => {
+      signUp: async data => {
         dispatch({ type: "SIGN_IN", token: "dummy-auth-token" });
       },
     }),
-    []
+    [],
   );
 
-  const Trainery = (props) => {
+  const Trainery = props => {
     const navigation = useNavigation();
     const route = useRoute();
 
@@ -284,6 +295,20 @@ export default function App({ navigation }) {
     );
   };
 
+  const DeleteAccountScreen = props => {
+    const navigation = useNavigation();
+    const route = useRoute();
+    return (
+      <DeleteAccount
+        {...props}
+        navigation={navigation}
+        route={route}
+        logout={() => {
+          dispatch({ type: "SIGN_OUT" });
+        }}
+      />
+    );
+  };
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
@@ -518,6 +543,17 @@ export default function App({ navigation }) {
                   }}
                 />
                 <Stack.Screen
+                  name="Cv"
+                  component={CvScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+                <Stack.Screen
                   name="Settings"
                   component={SettingsScreen}
                   options={{
@@ -528,6 +564,18 @@ export default function App({ navigation }) {
                     },
                   }}
                 />
+                <Stack.Screen
+                  name="Portfolio"
+                  component={PortfolioScreen}
+                  options={{
+                    cardStyle: { backgroundColor: "#fff" },
+                    animationTypeForReplace: state.isSignout ? "pop" : "push",
+                    header: () => {
+                      "none";
+                    },
+                  }}
+                />
+
                 <Stack.Screen
                   name="ChangePassword"
                   component={ChangePasswordScreen}
