@@ -54,7 +54,7 @@ class LoginForm extends Component {
 
     axios
       .post("/login", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
           emailErr: "",
@@ -70,7 +70,7 @@ class LoginForm extends Component {
         this.props.userLogin(this.state.email, this.state.password);
       })
 
-      .catch(error => {
+      .catch((error) => {
         if (error.response.data.errors.email) {
           this.setState({
             emailErr: error.response.data.errors.email,
@@ -108,6 +108,8 @@ class LoginForm extends Component {
 
             <View style={styles.inputContainer}>
               <Input
+                accessible={true}
+                accessibilityLabel="enter your email Address"
                 style={styles.input}
                 autoCompleteType="email"
                 textContentType="emailAddress"
@@ -120,7 +122,7 @@ class LoginForm extends Component {
                 }}
                 label="Student Email"
                 labelStyle={styles.labelStyle}
-                onChangeText={value => this.setState({ email: value })}
+                onChangeText={(value) => this.setState({ email: value })}
               />
               {this.state.emailErr != "" ? (
                 <View
@@ -152,6 +154,8 @@ class LoginForm extends Component {
                 <Text></Text>
               )}
               <Input
+                accessible={true}
+                accessibilityLabel="enter your password"
                 style={styles.input}
                 textContentType="password"
                 autoCompleteType="password"
@@ -166,6 +170,8 @@ class LoginForm extends Component {
                 rightIcon={
                   this.state.showPass == false ? (
                     <Icon
+                      accessible={true}
+                      accessibilityLabel="show or hide password"
                       name="eye-off-outline"
                       type="ionicon"
                       color="#ffffff"
@@ -175,6 +181,8 @@ class LoginForm extends Component {
                     />
                   ) : (
                     <Icon
+                      accessible={true}
+                      accessibilityLabel="show or hide password"
                       name="eye-outline"
                       type="ionicon"
                       color="#ffffff"
@@ -186,7 +194,7 @@ class LoginForm extends Component {
                 }
                 labelStyle={styles.labelPassword}
                 secureTextEntry={this.state.showPass}
-                onChangeText={value => this.setState({ password: value })}
+                onChangeText={(value) => this.setState({ password: value })}
               />
               {this.state.passErr != "" ? (
                 <View
@@ -218,6 +226,9 @@ class LoginForm extends Component {
                 <Text></Text>
               )}
               <Text
+                accessible={true}
+                accessibilityLabel="Forget password"
+                accessibilityRole="button"
                 style={{
                   color: "white",
                   fontSize: 18,
@@ -240,48 +251,63 @@ class LoginForm extends Component {
                 marginBottom: "5%",
               }}
             >
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 16,
-                  fontWeight: "500",
-                  textAlign: "center",
-                  marginBottom: 3,
-                }}
+              <View
+                accessible={true}
+                accessibilityLabel="Don't have an account"
+                accessibilityHint="Signup"
+                accessibilityRole="button"
               >
-                Don't have an account?{"  "}
                 <Text
                   style={{
-                    color: "#CD8930",
+                    color: "white",
+                    fontSize: 16,
+                    fontWeight: "500",
+                    textAlign: "center",
+                    marginBottom: 3,
                   }}
                   onPress={() => navigation.push("Register")}
                 >
-                  Sign Up
+                  Don't have an account?{"  "}
+                  <Text
+                    style={{
+                      color: "#CD8930",
+                    }}
+                    onPress={() => navigation.push("Register")}
+                  >
+                    Sign Up
+                  </Text>
                 </Text>
-              </Text>
-              <Text
-                style={{
-                  color: "white",
-                  fontSize: 16,
-                  textAlign: "center",
-                  fontWeight: "500",
-                }}
+              </View>
+              <View
+                accessible={true}
+                accessibilityLabel="By continuing you agree to our Terms and conditions"
+                accessibilityHint="Will navigate to trainery website"
+                accessibilityRole="button"
               >
-                By continuing you agree to our
-              </Text>
-              <Text
-                style={{
-                  color: "#CD8930",
-                  fontWeight: "500",
-                  fontSize: 16,
-                  textAlign: "center",
-                }}
-                onPress={() =>
-                  alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
-                }
-              >
-                Terms and conditions
-              </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    fontSize: 16,
+                    textAlign: "center",
+                    fontWeight: "500",
+                  }}
+                >
+                  By continuing you agree to our
+                </Text>
+                <Text
+                  style={{
+                    color: "#CD8930",
+                    fontWeight: "500",
+                    fontSize: 16,
+                    textAlign: "center",
+                  }}
+                  onPress={() =>
+                    alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
+                  }
+                >
+                  Terms and conditions
+                </Text>
+              </View>
             </View>
           </ScrollView>
         </ImageBackground>

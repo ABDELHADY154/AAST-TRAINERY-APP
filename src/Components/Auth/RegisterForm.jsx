@@ -63,7 +63,7 @@ class RegisterForm extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -92,7 +92,7 @@ class RegisterForm extends Component {
     };
     axios
       .post("/register", body)
-      .then(response => {
+      .then((response) => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -105,10 +105,10 @@ class RegisterForm extends Component {
         this.storeToken(this.state.userData.token);
         this.props.userSignUp(
           this.state.userData.name,
-          this.state.userData.email,
+          this.state.userData.email
         );
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data.errors);
         if (error.response.data.errors.name) {
           this.setState({
@@ -162,6 +162,8 @@ class RegisterForm extends Component {
 
               <View style={styles.inputContainer}>
                 <Input
+                  accessible={true}
+                  accessibilityLabel="enter your name"
                   style={styles.input}
                   autoCompleteType="name"
                   textContentType="name"
@@ -174,7 +176,9 @@ class RegisterForm extends Component {
                   }}
                   label="Student Name"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ studentName: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentName: value })
+                  }
                 />
                 {this.state.studentNameErr != "" ? (
                   <View
@@ -206,6 +210,8 @@ class RegisterForm extends Component {
                   <Text></Text>
                 )}
                 <Input
+                  accessible={true}
+                  accessibilityLabel="enter your email"
                   style={styles.input}
                   autoCompleteType="email"
                   textContentType="emailAddress"
@@ -218,7 +224,9 @@ class RegisterForm extends Component {
                   }}
                   label="Student Email"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ studentEmail: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentEmail: value })
+                  }
                 />
                 {this.state.studentEmailErr != "" ? (
                   <View
@@ -250,6 +258,8 @@ class RegisterForm extends Component {
                   <Text></Text>
                 )}
                 <Input
+                  accessible={true}
+                  accessibilityLabel="enter your password"
                   style={styles.input}
                   textContentType="password"
                   autoCompleteType="password"
@@ -264,6 +274,8 @@ class RegisterForm extends Component {
                   rightIcon={
                     this.state.showPass == false ? (
                       <Icon
+                        accessible={true}
+                        accessibilityLabel="show or hide password"
                         name="eye-off-outline"
                         type="ionicon"
                         color="#ffffff"
@@ -273,6 +285,8 @@ class RegisterForm extends Component {
                       />
                     ) : (
                       <Icon
+                        accessible={true}
+                        accessibilityLabel="show or hide password"
                         name="eye-outline"
                         type="ionicon"
                         color="#ffffff"
@@ -284,7 +298,9 @@ class RegisterForm extends Component {
                   }
                   labelStyle={styles.labelPassword}
                   secureTextEntry={this.state.showPass}
-                  onChangeText={value => this.setState({ studentPass: value })}
+                  onChangeText={(value) =>
+                    this.setState({ studentPass: value })
+                  }
                 />
                 {this.state.studentPassErr != "" ? (
                   <View
@@ -317,6 +333,8 @@ class RegisterForm extends Component {
                   <Text></Text>
                 )}
                 <Input
+                  accessible={true}
+                  accessibilityLabel="confirm your password"
                   style={styles.input}
                   textContentType="password"
                   autoCompleteType="password"
@@ -331,6 +349,8 @@ class RegisterForm extends Component {
                   rightIcon={
                     this.state.showConfPass == false ? (
                       <Icon
+                        accessible={true}
+                        accessibilityLabel="show or hide password"
                         name="eye-off-outline"
                         type="ionicon"
                         color="#ffffff"
@@ -340,6 +360,8 @@ class RegisterForm extends Component {
                       />
                     ) : (
                       <Icon
+                        accessible={true}
+                        accessibilityLabel="show or hide password"
                         name="eye-outline"
                         type="ionicon"
                         color="#ffffff"
@@ -351,11 +373,13 @@ class RegisterForm extends Component {
                   }
                   labelStyle={styles.labelPassword}
                   secureTextEntry={this.state.showConfPass}
-                  onChangeText={value =>
+                  onChangeText={(value) =>
                     this.setState({ studentConPass: value })
                   }
                 />
                 <Input
+                  accessible={true}
+                  accessibilityLabel="enter your Registration Number"
                   style={styles.input}
                   keyboardType="number-pad"
                   textAlign="left"
@@ -366,7 +390,7 @@ class RegisterForm extends Component {
                   }}
                   label="Registration Number"
                   labelStyle={styles.labelStyle}
-                  onChangeText={value => this.setState({ regNo: value })}
+                  onChangeText={(value) => this.setState({ regNo: value })}
                 />
                 {this.state.regNoErr != "" ? (
                   <View
@@ -410,7 +434,11 @@ class RegisterForm extends Component {
                 >
                   Department Major
                 </Text>
-                <View style={styles.boxContainer}>
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your Major Department "
+                  style={styles.boxContainer}
+                >
                   <Picker
                     mode="dialog"
                     style={{
@@ -432,8 +460,11 @@ class RegisterForm extends Component {
                       this.setState({ department: itemValue })
                     }
                   >
-                    <Picker.Item label="Not Set" value="0" />
-                    {this.state.departments.map(key => {
+                    <Picker.Item
+                      label="choose your Major Department"
+                      value="0"
+                    />
+                    {this.state.departments.map((key) => {
                       return (
                         <Picker.Item
                           label={key.dep_name}
@@ -474,6 +505,8 @@ class RegisterForm extends Component {
                   <Text></Text>
                 )}
                 <Text
+                  accessible={true}
+                  accessibilityLabel="choose your Gender"
                   style={{
                     color: "white",
                     fontSize: 22,
@@ -493,6 +526,8 @@ class RegisterForm extends Component {
                   }}
                 >
                   <RadioButton
+                    accessible={true}
+                    accessibilityLabel="male"
                     value="male"
                     uncheckedColor="white"
                     status={
@@ -513,6 +548,8 @@ class RegisterForm extends Component {
                     Male
                   </Text>
                   <RadioButton
+                    accessible={true}
+                    accessibilityLabel="female"
                     value="female"
                     uncheckedColor="white"
                     color="white"
@@ -578,46 +615,63 @@ class RegisterForm extends Component {
                   marginBottom: 10,
                 }}
               >
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 16,
-                    fontWeight: "500",
-                    textAlign: "center",
-                    marginBottom: 3,
-                  }}
+                <View
+                  accessible={true}
+                  accessibilityLabel="Already have an account"
+                  accessibilityHint="Signin"
+                  accessibilityRole="button"
                 >
-                  Already have an account?{"  "}
                   <Text
                     style={{
-                      color: "#CD8930",
+                      color: "white",
+                      fontSize: 16,
+                      fontWeight: "500",
+                      textAlign: "center",
+                      marginBottom: 3,
                     }}
                     onPress={() => navigation.navigate("SignIn")}
                   >
-                    Sign In
+                    Already have an account?
+                    <Text
+                      style={{
+                        color: "#CD8930",
+                      }}
+                      onPress={() => navigation.navigate("SignIn")}
+                    >
+                      Sign In
+                    </Text>
                   </Text>
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    fontSize: 16,
-                    textAlign: "center",
-                    fontWeight: "500",
-                  }}
+                </View>
+                <View
+                  accessible={true}
+                  accessibilityLabel="By continuing you agree to our Terms and conditions"
+                  accessibilityHint="Will navigate to trainery website"
+                  accessibilityRole="button"
                 >
-                  By continuing you agree to our
-                </Text>
-                <Text
-                  style={{
-                    color: "#CD8930",
-                    fontWeight: "500",
-                    fontSize: 16,
-                    textAlign: "center",
-                  }}
-                  onPress={() => alert("mafeesh l kalam dah ")}
-                >
-                  Terms and conditions
-                </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      fontSize: 16,
+                      textAlign: "center",
+                      fontWeight: "500",
+                    }}
+                  >
+                    By continuing you agree to our
+                  </Text>
+                  <Text
+                    style={{
+                      color: "#CD8930",
+                      fontWeight: "500",
+                      fontSize: 16,
+                      textAlign: "center",
+                    }}
+                    onPress={() =>
+                      alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
+                    }
+                  >
+                    Terms and conditions
+                  </Text>
+                </View>
               </View>
             </ImageBackground>
             <StatusBar style="light" />
