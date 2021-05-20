@@ -30,15 +30,15 @@ export default class SearchComp extends Component {
     state: "",
     payment: "",
   };
-  updateSearch = async search => {
+  updateSearch = async (search) => {
     this.setState({ search: search });
     if (this.state.search.length + 1 > 3) {
       await axios
         .get(`/A/student/search/${search}`)
-        .then(res => {
+        .then((res) => {
           this.setState({ posts: res.data.response.data });
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -50,13 +50,13 @@ export default class SearchComp extends Component {
     });
     await axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({
           departments: response.data.response.data,
           spinner: false,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         this.setState({
           spinner: false,
@@ -64,7 +64,7 @@ export default class SearchComp extends Component {
       });
   }
 
-  depFilter = async id => {
+  depFilter = async (id) => {
     this.setState({
       dep: id,
     });
@@ -75,16 +75,16 @@ export default class SearchComp extends Component {
     if (this.state.search.length + 1 > 3) {
       await axios
         .post(`/A/student/filterDep/${this.state.search}?page=1`, data)
-        .then(res => {
+        .then((res) => {
           this.setState({ posts: res.data.response.data });
           this.state.filterRef.current?.close();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
   };
-  stateFilter = async val => {
+  stateFilter = async (val) => {
     this.setState({
       state: val,
     });
@@ -95,17 +95,17 @@ export default class SearchComp extends Component {
     if (this.state.search.length + 1 > 3) {
       await axios
         .post(`/A/student/filterState/${this.state.search}?page=1`, data)
-        .then(res => {
+        .then((res) => {
           this.setState({ posts: res.data.response.data });
           this.state.filterRef.current?.close();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
   };
 
-  paymentFilter = async val => {
+  paymentFilter = async (val) => {
     this.setState({
       payment: val,
     });
@@ -116,11 +116,11 @@ export default class SearchComp extends Component {
     if (this.state.search.length + 1 > 3) {
       await axios
         .post(`/A/student/filterPay/${this.state.search}?page=1`, data)
-        .then(res => {
+        .then((res) => {
           this.setState({ posts: res.data.response.data });
           this.state.filterRef.current?.close();
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     }
@@ -142,6 +142,9 @@ export default class SearchComp extends Component {
             textStyle={{ color: "#1E4274", textAlign: "center" }}
           />
           <Feather
+            accessible={true}
+            //  accessibilityHint="Go back"
+            accessibilityLabel="Go back"
             name="chevron-left"
             size={36}
             color="#1E4274"
@@ -154,6 +157,9 @@ export default class SearchComp extends Component {
             onPress={() => this.props.navigation.goBack()}
           />
           <SearchBar
+            accessible={true}
+            accessibilityRole="search"
+            accessibilityLabel="Type somthing to search for"
             inputStyle={{
               backgroundColor: "#fff",
               color: "#1E4274",
@@ -185,6 +191,7 @@ export default class SearchComp extends Component {
             clearIcon={() => {
               return (
                 <MaterialIcons
+                  accessible={false}
                   name="clear"
                   size={24}
                   color="#1E4274"
@@ -217,6 +224,9 @@ export default class SearchComp extends Component {
               }}
             >
               <TouchableOpacity
+                accessible={true}
+                accessibilityRole="button"
+                accessibilityLabel="Filter by department, state and payment"
                 onPress={() => {
                   this.state.filterRef.current?.open();
                 }}
@@ -225,6 +235,7 @@ export default class SearchComp extends Component {
                   justifyContent: "center",
                   alignItems: "center",
                   alignSelf: "flex-end",
+                  padding: 14,
                 }}
               >
                 <Text
@@ -242,9 +253,13 @@ export default class SearchComp extends Component {
             </View>
           </View>
           <ScrollView>
-            <View>
+            <View
+            //   accessible={true}
+            //   accessibilityRole="none"
+            //   accessibilityLabel="search result"
+            >
               {this.state.posts ? (
-                this.state.posts.map(item => {
+                this.state.posts.map((item) => {
                   return (
                     <Cards
                       navigation={this.props.navigation}
@@ -254,7 +269,7 @@ export default class SearchComp extends Component {
                   );
                 })
               ) : (
-                <Text></Text>
+                <Text accessible={false}></Text>
               )}
             </View>
           </ScrollView>
@@ -278,10 +293,15 @@ export default class SearchComp extends Component {
                 Filter By
               </Text>
             </View>
-            <List.Section>
+            <List.Section
+              accessible={true}
+              accessibilityLabel="Filter by department, state and payment"
+            >
               <List.Accordion
+                accessible={true}
+                accessibilityLabel="Filter by department"
                 title="Department"
-                right={props =>
+                right={(props) =>
                   props.isExpanded == false ? (
                     <List.Icon {...props} icon="chevron-down" color="#1E4274" />
                   ) : (
@@ -308,6 +328,9 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    // accessible={true}
+                    // accessibilityRole="radio"
+                    // accessibilityLabel="Filter by All departments"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -326,6 +349,9 @@ export default class SearchComp extends Component {
                       All
                     </Text>
                     <RadioButton
+                      accessible={true}
+                      accessibilityRole="radio"
+                      accessibilityLabel="Tab to checkor unchecked"
                       color="#1E4274"
                       value=""
                       status={this.state.dep === "" ? "checked" : "unchecked"}
@@ -334,7 +360,7 @@ export default class SearchComp extends Component {
                   </View>
                 </View>
                 {this.state.departments ? (
-                  this.state.departments.map(dep => {
+                  this.state.departments.map((dep) => {
                     return (
                       <View
                         style={{
@@ -346,6 +372,10 @@ export default class SearchComp extends Component {
                         key={dep.id}
                       >
                         <View
+                          accessible={true}
+                          accessibilityRole="radio"
+                          accessibilityLabel="Filter by All departments"
+                          accessibilityHint={dep.dep_name}
                           style={{
                             flexDirection: "row",
                             justifyContent: "space-between",
@@ -364,6 +394,10 @@ export default class SearchComp extends Component {
                             {dep.dep_name}
                           </Text>
                           <RadioButton
+                            accessible={true}
+                            accessibilityRole="radio"
+                            accessibilityLabel="Filter by All departments"
+                            accessibilityHint={dep.dep_name}
                             color="#1E4274"
                             value={dep.id}
                             status={
@@ -383,7 +417,7 @@ export default class SearchComp extends Component {
               </List.Accordion>
               <List.Accordion
                 title="State"
-                right={props =>
+                right={(props) =>
                   props.isExpanded == false ? (
                     <List.Icon {...props} icon="chevron-down" color="#1E4274" />
                   ) : (
@@ -514,7 +548,7 @@ export default class SearchComp extends Component {
               </List.Accordion>
               <List.Accordion
                 title="Payment"
-                right={props =>
+                right={(props) =>
                   props.isExpanded == false ? (
                     <List.Icon {...props} icon="chevron-down" color="#1E4274" />
                   ) : (

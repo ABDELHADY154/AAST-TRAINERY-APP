@@ -8,11 +8,13 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
   TouchableOpacity,
+  TouchableHighlight,
 } from "react-native";
 import { AnimatedTabBarNavigator } from "react-native-animated-nav-tab-bar";
 
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Button } from "galio-framework";
 import Cv from "../Cv/Cv";
 import Portfolio from "../Cv/Portfolio";
@@ -290,7 +292,12 @@ export default class HomeScreen extends Component {
     // const studentName = this.state.userData.fullName;
     // const image = this.state.userData.image;
     var drawerContent = (
-      <View>
+      <View
+      // accessible={true}
+      // accessibilityLabel="Side Menu"
+      // accessibilityHint="Tap me"
+      // accessibilityRole="menu"
+      >
         <View
           style={{
             height: "100%",
@@ -317,6 +324,10 @@ export default class HomeScreen extends Component {
               </View>
             ) : (
               <TouchableWithoutFeedback
+                accessible={true}
+                accessibilityRole="menuitem"
+                accessibilityLabel="Go to your Profile"
+                accessibilityHint={this.state.name}
                 onPress={() => {
                   this.props.navigation.navigate("App", {
                     screen: "Profile",
@@ -363,6 +374,10 @@ export default class HomeScreen extends Component {
               </TouchableWithoutFeedback>
             )}
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="edit general information"
+              // accessibilityRole="menuitem"
+              //  accessibilityHint="save post to activity"
               style={{
                 // backgroundColor: "#F2F2F2",
                 padding: 15,
@@ -385,6 +400,8 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Generate CV"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -407,6 +424,8 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="create Portfolio"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -433,6 +452,8 @@ export default class HomeScreen extends Component {
               />
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel=" Account settings"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -455,6 +476,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="About Us"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -473,6 +497,9 @@ export default class HomeScreen extends Component {
             </TouchableOpacity>
             <Divider style={{ backgroundColor: "#ccc" }} />
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel=" Help center"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -486,6 +513,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Terms and conditions"
+              accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -499,6 +529,9 @@ export default class HomeScreen extends Component {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
+              accessible={true}
+              accessibilityLabel="Log Out"
+              // accessibilityHint="will navigate to trainery website"
               style={{
                 backgroundColor: "#fff",
                 padding: 15,
@@ -542,6 +575,9 @@ export default class HomeScreen extends Component {
     };
     return (
       <Drawer
+        // accessible={true}
+        // accessibilityLabel="Tap me!"
+        // accessibilityHint="Tap me"
         ref={this.setDrawerRef}
         style={styles.drawer}
         drawerWidth={300}
@@ -561,9 +597,13 @@ export default class HomeScreen extends Component {
       >
         <Header
           leftComponent={{
+            accessible: "true",
+            accessibilityLabel: "menu",
+            // accessibilityHint: "Tap to open or close side menu",
+            accessibilityRole: "menu",
             icon: "menu",
             color: this.state.headerTitle == "Profile" ? "#fff" : "#1E4275",
-            size: 39,
+            size: 48,
             onPress: () => {
               this.state.drawerIsOpened == false
                 ? this.state.drawerRef.openDrawer()
@@ -582,17 +622,26 @@ export default class HomeScreen extends Component {
           // rightComponent={{ icon: "search", color: "#1E4275", size: 35 }}
           rightComponent={
             this.state.headerTitle == "Explore" ? (
-              <Feather
-                name="search"
-                size={28}
-                color={this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"}
-                style={{
-                  marginTop: 6,
-                }}
-                onPress={() => {
-                  this.props.navigation.push("SearchScreen");
-                }}
-              />
+              <TouchableHighlight
+                accessible={true}
+                // accessibilityHint="Filter opportunities by department, state and payment"
+                accessibilityLabel="Go to Search"
+                // style={{ width: "35%" }}
+              >
+                <Feather
+                  name="search"
+                  size={30}
+                  color={
+                    this.state.headerTitle == "Profile" ? "#fff" : "#1E4275"
+                  }
+                  style={{
+                    marginTop: 6,
+                  }}
+                  onPress={() => {
+                    this.props.navigation.push("SearchScreen");
+                  }}
+                />
+              </TouchableHighlight>
             ) : (
               ""
             )
