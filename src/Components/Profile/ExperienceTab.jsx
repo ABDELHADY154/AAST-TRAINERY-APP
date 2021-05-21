@@ -31,7 +31,7 @@ export class ExperienceTab extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profileExperience")
-      .then(response => {
+      .then((response) => {
         this.setState({
           educations: response.data.response.data.educations,
           work_experience: response.data.response.data.work_experience,
@@ -41,7 +41,7 @@ export class ExperienceTab extends Component {
           languages: response.data.response.data.languages,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -54,6 +54,8 @@ export class ExperienceTab extends Component {
               <ScrollView>
                 <View>
                   <Card
+                    accessible={true}
+                    accessibilityLabel="Education achievement"
                     style={{
                       width: "95%",
                       marginLeft: 9,
@@ -70,8 +72,10 @@ export class ExperienceTab extends Component {
                         fontSize: 18,
                         fontWeight: "bold",
                       }}
-                      right={props => (
+                      right={(props) => (
                         <IconButton
+                          accessible={true}
+                          accessibilityLabel="add new Education "
                           {...props}
                           icon="plus-box"
                           size={30}
@@ -85,9 +89,11 @@ export class ExperienceTab extends Component {
                       )}
                     />
                     {this.state.educations ? (
-                      this.state.educations.map(e => {
+                      this.state.educations.map((e) => {
                         return (
                           <EducationCard
+                            accessible={true}
+                            accessibilityLabel="Education achievement"
                             key={e.id}
                             id={e.id}
                             school_name={e.school_name}
@@ -111,6 +117,8 @@ export class ExperienceTab extends Component {
             {/* experiance */}
             <View>
               <Card
+                accessible={true}
+                accessibilityLabel="Work Experience achievement"
                 style={{
                   width: "95%",
                   marginLeft: 9,
@@ -127,8 +135,10 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
+                      accessible={true}
+                      accessibilityLabel="add new Work Experience "
                       {...props}
                       icon="plus-box"
                       size={30}
@@ -142,9 +152,11 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.work_experience ? (
-                  this.state.work_experience.map(e => {
+                  this.state.work_experience.map((e) => {
                     return (
                       <ExperienceCard
+                        accessible={true}
+                        accessibilityLabel="Work Experience achievement"
                         key={e.id}
                         id={e.id}
                         job_title={e.job_title}
@@ -170,6 +182,8 @@ export class ExperienceTab extends Component {
             {/* course */}
             <View>
               <Card
+                accessible={true}
+                accessibilityLabel="Courses achievement"
                 style={{
                   width: "95%",
                   marginLeft: 9,
@@ -186,8 +200,10 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
+                      accessible={true}
+                      accessibilityLabel="add new Course "
                       {...props}
                       icon="plus-box"
                       size={30}
@@ -201,9 +217,11 @@ export class ExperienceTab extends Component {
                   )}
                 />
                 {this.state.courses ? (
-                  this.state.courses.map(e => {
+                  this.state.courses.map((e) => {
                     return (
                       <CoursesCard
+                        accessible={true}
+                        accessibilityLabel="Courses achievement"
                         key={e.id}
                         id={e.id}
                         course_name={e.course_name}
@@ -222,6 +240,8 @@ export class ExperienceTab extends Component {
             {/* skills */}
             <View>
               <Card
+                accessible={true}
+                accessibilityLabel="Skills"
                 style={{
                   width: "95%",
                   marginLeft: 9,
@@ -238,8 +258,10 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
+                      accessible={true}
+                      accessibilityLabel="add new Skills "
                       {...props}
                       icon="plus-box"
                       size={30}
@@ -282,9 +304,11 @@ export class ExperienceTab extends Component {
                     </View>
                   </View> */}
                   {this.state.skills ? (
-                    this.state.skills.map(e => {
+                    this.state.skills.map((e) => {
                       return (
                         <SkillsCard
+                          accessible={true}
+                          accessibilityLabel="Skills"
                           key={e.id}
                           id={e.id}
                           skill_name={e.skill_name}
@@ -299,6 +323,8 @@ export class ExperienceTab extends Component {
                 </Card.Content>
 
                 <Card.Title
+                  accessible={true}
+                  accessibilityLabel="Interests"
                   style={{ marginLeft: 1 }}
                   title="Interests"
                   titleStyle={{
@@ -306,8 +332,10 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
+                      accessible={true}
+                      accessibilityLabel="add and edit Interests "
                       {...props}
                       icon="plus-box"
                       size={30}
@@ -334,9 +362,11 @@ export class ExperienceTab extends Component {
                           flexDirection: "row",
                         }}
                       >
-                        {this.state.interests.map(e => {
+                        {this.state.interests.map((e) => {
                           return (
                             <Interests
+                              accessible={true}
+                              accessibilityLabel="Interests"
                               key={e.id}
                               id={e.id}
                               interest={e.interest}
@@ -351,6 +381,8 @@ export class ExperienceTab extends Component {
                   </View>
                 </Card.Content>
                 <Card.Title
+                  accessible={true}
+                  accessibilityLabel="Languages"
                   style={{ marginLeft: 1 }}
                   title="Languages"
                   titleStyle={{
@@ -358,8 +390,10 @@ export class ExperienceTab extends Component {
                     fontSize: 18,
                     fontWeight: "bold",
                   }}
-                  right={props => (
+                  right={(props) => (
                     <IconButton
+                      accessible={true}
+                      accessibilityLabel="add new Languages "
                       {...props}
                       icon="plus-box"
                       size={30}
@@ -372,9 +406,11 @@ export class ExperienceTab extends Component {
                 />
                 <Card.Content style={{ marginLeft: -15 }}>
                   {this.state.languages ? (
-                    this.state.languages.map(e => {
+                    this.state.languages.map((e) => {
                       return (
                         <Languages
+                          accessible={true}
+                          accessibilityLabel="Languages"
                           key={e.id}
                           id={e.id}
                           language={e.language}
@@ -409,7 +445,10 @@ export function EducationCard(props) {
 export class EducationCardSample extends Component {
   render() {
     return (
-      <Card.Content>
+      <Card.Content
+        accessible={true}
+        accessibilityLabel={this.props.school_name}
+      >
         <View
           style={{
             flexDirection: "row",
@@ -455,20 +494,30 @@ export class EducationCardSample extends Component {
               </Title>
             </View>
           </View>
-          <MaterialIcons
-            name="mode-edit"
-            size={24}
-            color="#CD8930"
-            style={{ justifyContent: "flex-end" }}
-            onPress={() => {
-              this.props.navigation.push("EducationForm", {
-                id: this.props.id,
-              });
-            }}
-          />
+          <View
+            style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+            accessible={true}
+            accessibilityLabel="edit details of "
+            accessibilityHint={this.props.school_name}
+          >
+            <MaterialIcons
+              name="mode-edit"
+              size={24}
+              color="#CD8930"
+              style={{ justifyContent: "flex-end" }}
+              onPress={() => {
+                this.props.navigation.push("EducationForm", {
+                  id: this.props.id,
+                });
+              }}
+            />
+          </View>
         </View>
         <View style={{ marginLeft: 18 }}>
           <Paragraph
+            accessible={true}
+            accessibilityLabel={this.props.city}
+            accessibilityHint={this.props.country}
             style={{
               fontSize: 14,
               color: "#1E4274",
@@ -480,6 +529,9 @@ export class EducationCardSample extends Component {
             {this.props.city}, {this.props.country}
           </Paragraph>
           <Paragraph
+            accessible={true}
+            accessibilityLabel={this.props.from}
+            accessibilityHint={this.props.to}
             style={{
               fontSize: 14,
               color: "#1E4274",
@@ -490,6 +542,8 @@ export class EducationCardSample extends Component {
           <View style={{ flexDirection: "row" }}>
             {this.props.cred_url !== null ? (
               <Button
+                accessible={true}
+                accessibilityLabel="navigate to credential PDF"
                 type="text"
                 style={{
                   fontSize: 14,
@@ -509,6 +563,8 @@ export class EducationCardSample extends Component {
 
             {this.props.cred !== null ? (
               <IconButton
+                accessible={true}
+                accessibilityLabel="navigate to credential URL"
                 style={{
                   marginTop: "1%",
                   justifyContent: "center",
@@ -535,7 +591,10 @@ export class ExperienceCard extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Card.Content>
+          <Card.Content
+            accessible={true}
+            accessibilityLabel={this.props.job_title}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -581,22 +640,32 @@ export class ExperienceCard extends Component {
                   </Title>
                 </View>
               </View>
-              <MaterialIcons
-                name="mode-edit"
-                size={24}
-                color="#CD8930"
-                style={{ justifyContent: "flex-end" }}
-                onPress={() => {
-                  this.props.navigation.push("ExperienceForm", {
-                    id: this.props.id,
-                  });
-                }}
-              />
+              <View
+                style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+                accessible={true}
+                accessibilityLabel="edit details of "
+                accessibilityHint={this.props.job_title}
+              >
+                <MaterialIcons
+                  name="mode-edit"
+                  size={24}
+                  color="#CD8930"
+                  style={{ justifyContent: "flex-end" }}
+                  onPress={() => {
+                    this.props.navigation.push("ExperienceForm", {
+                      id: this.props.id,
+                    });
+                  }}
+                />
+              </View>
             </View>
             <View style={{ marginLeft: 18 }}>
               <View style={{ flexDirection: "row" }}>
                 <View style={{ alignItems: "flex-start", flex: 1 }}>
                   <Paragraph
+                    accessible={true}
+                    accessibilityLabel={this.props.city}
+                    accessibilityHint={this.props.country}
                     style={{
                       fontSize: 14,
                       color: "#1E4274",
@@ -607,6 +676,9 @@ export class ExperienceCard extends Component {
                     {this.props.city}, {this.props.country}
                   </Paragraph>
                   <Paragraph
+                    accessible={true}
+                    accessibilityLabel={this.props.from}
+                    accessibilityHint={this.props.to}
                     style={{
                       fontSize: 14,
                       color: "#1E4274",
@@ -619,6 +691,9 @@ export class ExperienceCard extends Component {
                   style={{ alignItems: "flex-end", justifyContent: "center" }}
                 >
                   <Chip
+                    accessible={true}
+                    accessibilityLabel={this.props.experience_type}
+                    accessibilityHint={this.props.experience_type}
                     style={{ height: 25 }}
                     textStyle={{
                       fontSize: 12,
@@ -633,6 +708,8 @@ export class ExperienceCard extends Component {
               <View style={{ flexDirection: "row" }}>
                 {this.props.cred_url !== null ? (
                   <Button
+                    accessible={true}
+                    accessibilityLabel="navigate to credential PDF"
                     type="text"
                     style={{
                       fontSize: 14,
@@ -652,6 +729,8 @@ export class ExperienceCard extends Component {
 
                 {this.props.cred !== null ? (
                   <IconButton
+                    accessible={true}
+                    accessibilityLabel="navigate to credential URL"
                     style={{
                       marginTop: "1%",
                       justifyContent: "center",
@@ -680,7 +759,10 @@ export class CoursesCard extends Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Card.Content>
+          <Card.Content
+            accessible={true}
+            accessibilityLabel={this.props.course_name}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -706,7 +788,7 @@ export class CoursesCard extends Component {
                 <View
                   style={{
                     justifyContent: "flex-end",
-                    width: "85%",
+                    // width: "95%",
                   }}
                 >
                   <Title
@@ -726,20 +808,29 @@ export class CoursesCard extends Component {
                   </Title>
                 </View>
               </View>
-              <MaterialIcons
-                name="mode-edit"
-                size={24}
-                color="#CD8930"
-                style={{ justifyContent: "flex-end" }}
-                onPress={() => {
-                  this.props.navigation.push("CoursesForm", {
-                    id: this.props.id,
-                  });
-                }}
-              />
+              <View
+                style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+                accessible={true}
+                accessibilityLabel="edit details of "
+                accessibilityHint={this.props.course_name}
+              >
+                <MaterialIcons
+                  name="mode-edit"
+                  size={24}
+                  color="#CD8930"
+                  style={{ justifyContent: "flex-end" }}
+                  onPress={() => {
+                    this.props.navigation.push("CoursesForm", {
+                      id: this.props.id,
+                    });
+                  }}
+                />
+              </View>
             </View>
             <View style={{ marginLeft: 18 }}>
               <Paragraph
+                accessible={true}
+                accessibilityLabel={this.props.course_name}
                 style={{
                   fontSize: 14,
                   color: "#1E4274",
@@ -748,11 +839,13 @@ export class CoursesCard extends Component {
                   width: "85%",
                 }}
               >
-                {this.props.course_name}
+                {this.props.course_name}{" "}
               </Paragraph>
               <View style={{ flexDirection: "row" }}>
                 {this.props.cred_url !== null ? (
                   <Button
+                    accessible={true}
+                    accessibilityLabel="navigate to credential PDF"
                     type="text"
                     style={{
                       fontSize: 14,
@@ -772,6 +865,8 @@ export class CoursesCard extends Component {
 
                 {this.props.cred !== null ? (
                   <IconButton
+                    accessible={true}
+                    accessibilityLabel="navigate to credential URL"
                     style={{
                       marginTop: "1%",
                       justifyContent: "center",
@@ -822,6 +917,8 @@ export class SkillsCardSample extends Component {
         }}
       >
         <View
+          accessible={true}
+          accessibilityLabel={this.props.skill_name}
           style={{
             width: "33%",
             marginRight: "3%",
@@ -842,8 +939,10 @@ export class SkillsCardSample extends Component {
             {this.props.skill_name}
           </Paragraph>
         </View>
-        <View>
+        <View accessible={false} accessibilityRole="none">
           <StarRating
+            accessible={false}
+            accessibilityRole="none"
             fullStarColor={"#CD8930"}
             starSize={20}
             disabled={false}
@@ -865,16 +964,23 @@ export class SkillsCardSample extends Component {
             alignItems: "flex-end",
           }}
         >
-          <MaterialIcons
-            name="mode-edit"
-            size={24}
-            color="#CD8930"
-            onPress={() => {
-              this.props.navigation.push("Skillinfo", {
-                id: this.props.id,
-              });
-            }}
-          />
+          <View
+            style={{ paddingHorizontal: 10, paddingVertical: 5 }}
+            accessible={true}
+            accessibilityLabel="edit details of "
+            accessibilityHint={this.props.skill_name}
+          >
+            <MaterialIcons
+              name="mode-edit"
+              size={24}
+              color="#CD8930"
+              onPress={() => {
+                this.props.navigation.push("Skillinfo", {
+                  id: this.props.id,
+                });
+              }}
+            />
+          </View>
         </View>
       </View>
     );
@@ -888,6 +994,9 @@ export class InterestsSample extends Component {
   render() {
     return (
       <View
+        accessible={true}
+        accessibilityLabel={this.props.interest}
+        accessibilityRole="text"
         style={{
           flexWrap: "wrap",
           marginBottom: 5,
@@ -935,6 +1044,8 @@ export class Languages extends Component {
             }}
           >
             <Paragraph
+              accessible={true}
+              accessibilityLabel={this.props.language}
               style={{
                 flex: 1,
                 justifyContent: "flex-start",
@@ -945,8 +1056,10 @@ export class Languages extends Component {
             >
               {this.props.language}
             </Paragraph>
-            <View>
+            <View accessible={false} accessibilityRole="none">
               <StarRating
+                accessible={false}
+                accessibilityRole="none"
                 fullStarColor={"#CD8930"}
                 starSize={20}
                 disabled={false}
@@ -965,7 +1078,11 @@ export class Languages extends Component {
                 justifyContent: "flex-end",
                 alignSelf: "flex-end",
                 alignItems: "flex-end",
+                paddingHorizontal: 10,
+                paddingVertical: 5,
               }}
+              accessibilityLabel="edit details of "
+              accessibilityHint={this.props.school_name}
             >
               <MaterialIcons
                 name="mode-edit"

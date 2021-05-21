@@ -88,6 +88,9 @@ class ProfileTabScreen extends Component {
               </View>
               <View style={{ marginTop: 7 }}>
                 <View
+                  accessible={true}
+                  accessibilityLabel="advisor email"
+                  accessibilityHint={this.state.userData.email}
                   style={{
                     flexDirection: "row",
                     marginBottom: 10,
@@ -116,6 +119,9 @@ class ProfileTabScreen extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel="advisor department"
+                  accessibilityHint={this.state.userData.department}
                   style={{
                     flexDirection: "row",
                     marginBottom: 10,
@@ -146,6 +152,9 @@ class ProfileTabScreen extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel="advisor university"
+                  accessibilityHint={this.state.userData.university}
                   style={{
                     flexDirection: "row",
                     marginBottom: 10,

@@ -67,6 +67,9 @@ class PersonalTabForm extends Component {
         <ScrollView>
           <View style={{ paddingHorizontal: 15, marginBottom: 15 }}>
             <View
+              accessible={true}
+              accessibilityLabel=" Track your profile"
+              accessibilityHint=" Complete your general information"
               style={{
                 backgroundColor: "#F2F2F2",
                 marginHorizontal: -15,
@@ -152,9 +155,12 @@ class PersonalTabForm extends Component {
                   Personal Information
                 </Text>
                 <MaterialIcons
+                  accessible={true}
+                  accessibilityLabel="edit Personal and contact Information"
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
+                  style={{ padding: 30 }}
                   onPress={() => {
                     this.props.navigation.push("GeneralForm");
                   }}
@@ -163,6 +169,9 @@ class PersonalTabForm extends Component {
               </View>
               <View style={{ marginTop: 5 }}>
                 <View
+                  accessible={true}
+                  accessibilityLabel="Gender:"
+                  accessibilityHint={this.state.userData.gender}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -189,6 +198,9 @@ class PersonalTabForm extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel={this.state.userData.age}
+                  accessibilityHint={this.state.userData.age}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -215,6 +227,9 @@ class PersonalTabForm extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel="nationality:"
+                  accessibilityHint={this.state.userData.nationality}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -240,7 +255,12 @@ class PersonalTabForm extends Component {
                     {this.state.userData.nationality}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  accessible={true}
+                  accessibilityLabel={this.state.userData.city}
+                  accessibilityHint={this.state.userData.country}
+                  style={{ flexDirection: "row", marginBottom: 2 }}
+                >
                   <Text
                     style={{
                       fontSize: 14,
@@ -278,6 +298,9 @@ class PersonalTabForm extends Component {
               </View>
               <View style={{ marginTop: 7 }}>
                 <View
+                  accessible={true}
+                  accessibilityLabel="phone number"
+                  accessibilityHint={this.state.userData.phone_number}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -301,7 +324,12 @@ class PersonalTabForm extends Component {
                     {this.state.userData.phone_number}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 2 }}>
+                <View
+                  accessible={true}
+                  accessibilityLabel="email"
+                  accessibilityHint={this.state.userData.email}
+                  style={{ flexDirection: "row", marginBottom: 2 }}
+                >
                   <Text
                     style={{
                       marginRight: 5,
@@ -340,6 +368,8 @@ class PersonalTabForm extends Component {
                   Academics Information
                 </Text>
                 <MaterialIcons
+                  accessible={true}
+                  accessibilityLabel="edit Academics Information"
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
@@ -351,6 +381,9 @@ class PersonalTabForm extends Component {
               </View>
               <View style={{ marginTop: 5 }}>
                 <View
+                  accessible={true}
+                  accessibilityLabel="university:"
+                  accessibilityHint={this.state.userData.university}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -378,6 +411,9 @@ class PersonalTabForm extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel="department:"
+                  accessibilityHint={this.state.userData.department}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -405,6 +441,9 @@ class PersonalTabForm extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel={this.state.userData.gpa}
+                  accessibilityHint={this.state.userData.gpa}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -430,7 +469,12 @@ class PersonalTabForm extends Component {
                     {this.state.userData.gpa}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 5 }}>
+                <View
+                  accessible={true}
+                  accessibilityLabel={this.state.userData.start_year}
+                  accessibilityHint={this.state.userData.end_year}
+                  style={{ flexDirection: "row", marginBottom: 5 }}
+                >
                   <Text
                     style={{
                       fontSize: 14,
@@ -452,6 +496,9 @@ class PersonalTabForm extends Component {
                   </Text>
                 </View>
                 <View
+                  accessible={true}
+                  accessibilityLabel={this.state.userData.period}
+                  accessibilityHint={this.state.userData.period}
                   style={{
                     flexDirection: "row",
                     marginBottom: 2,
@@ -494,6 +541,8 @@ class PersonalTabForm extends Component {
                 </Text>
 
                 <MaterialIcons
+                  accessible={true}
+                  accessibilityLabel="edit social Accounts"
                   name="mode-edit"
                   size={24}
                   color="#CD8930"
@@ -509,11 +558,12 @@ class PersonalTabForm extends Component {
                     <>
                       {this.state.userData.accounts.facebook ? (
                         <FontAwesome
+                          accessible={true}
+                          accessibilityLabel="navigate to facebook account"
                           name="facebook"
                           size={28}
                           color="#1E4274"
                           style={{ marginRight: 25 }}
-
                           onPress={() => {
                             Linking.openURL(
                               this.state.userData.accounts.facebook
@@ -525,6 +575,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.instagram ? (
                         <Feather
+                          accessible={true}
+                          accessibilityLabel="navigate to instagram account"
                           name="instagram"
                           size={28}
                           color="#1E4274"
@@ -540,6 +592,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.youtube ? (
                         <FontAwesome5
+                          accessible={true}
+                          accessibilityLabel="navigate to youtube account"
                           name="youtube"
                           size={28}
                           color="#1E4274"
@@ -555,6 +609,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.linkedin ? (
                         <FontAwesome5
+                          accessible={true}
+                          accessibilityLabel="navigate to linkedin account"
                           name="linkedin-in"
                           size={28}
                           color="#1E4274"
@@ -570,7 +626,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.behance ? (
                         <Entypo
-                          name="behance"
+                          accessible={true}
+                          accessibilityLabel="navigate to behance account"
                           size={28}
                           color="#1E4274"
                           style={{ marginRight: 25 }}
@@ -585,6 +642,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.github ? (
                         <FontAwesome
+                          accessible={true}
+                          accessibilityLabel="navigate to github account"
                           name="github"
                           size={28}
                           color="#1E4274"
@@ -600,6 +659,8 @@ class PersonalTabForm extends Component {
                       )}
                       {this.state.userData.accounts.website ? (
                         <Entypo
+                          accessible={true}
+                          accessibilityLabel="navigate to website link"
                           name="link"
                           size={28}
                           color="#1E4274"

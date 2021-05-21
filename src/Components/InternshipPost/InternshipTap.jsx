@@ -142,17 +142,6 @@ class InternshipTapScreen extends Component {
                 ) : (
                   <Text></Text>
                 )}
-
-                {/* <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1E4274",
-                    lineHeight: 20,
-                    marginTop: 5,
-                  }}
-                >
-                  There are currently no ended Internship at Qowwa Inc.
-                </Text> */}
               </View>
             </View>
             <View>
@@ -180,61 +169,10 @@ class InternshipTapScreen extends Component {
                         reload={this.refresh}
                       />
                     );
-                    // return e.post_type == "adsPost" ? (
-                    //   <AdsCard
-                    //     key={e.id}
-                    //     id={e.id}
-                    //     company_name={e.company_name}
-                    //     title={e.title}
-                    //     company_logo={e.company_logo}
-                    //     description={e.description}
-                    //     application_deadline={e.application_deadline}
-                    //     departments={e.departments}
-                    //     sponsor_image={e.sponsor_image}
-                    //     navigation={this.props.navigation}
-                    //   />
-                    // ) : e.post_type == "companyPost" ? (
-                    //   <OpportunityCardCompany
-                    //     key={e.id}
-                    //     id={e.id}
-                    //     company_name={e.company_name}
-                    //     title={e.title}
-                    //     company_logo={e.company_logo}
-                    //     description={e.description}
-                    //     application_deadline={e.application_deadline}
-                    //     departments={e.departments}
-                    //     navigation={this.props.navigation}
-                    //   />
-                    // ) : e.post_type == "promotedPost" ? (
-                    //   <PromotedCard
-                    //     key={e.id}
-                    //     id={e.id}
-                    //     company_name={e.company_name}
-                    //     title={e.title}
-                    //     company_logo={e.company_logo}
-                    //     description={e.description}
-                    //     application_deadline={e.application_deadline}
-                    //     departments={e.departments}
-                    //     navigation={this.props.navigation}
-                    //   />
-                    // ) : (
-                    //   <Text></Text>
-                    // );
                   })
                 ) : (
                   <Text></Text>
                 )}
-
-                {/* <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1E4274",
-                    lineHeight: 20,
-                    marginTop: 5,
-                  }}
-                >
-                  There are currently no ended Internship at Qowwa Inc.
-                </Text> */}
               </View>
             </View>
           </View>

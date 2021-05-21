@@ -2,10 +2,9 @@ import React, { Component, useState, useEffect, useRef } from "react";
 import { axios } from "../../Config/Axios";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { OpportunityCardAdvisor } from "./OpportunityCardAdvisor";
+import Cards from "../Cards/CompanyCards";
 import Spinner from "react-native-loading-spinner-overlay";
 
-import Cards from "../Cards/CompanyCards";
 export function InternshipTabb(props) {
   const navigation = useNavigation();
   return <InternshipTabbScreen navigation={navigation} {...props} />;
@@ -93,17 +92,10 @@ class InternshipTabbScreen extends Component {
                   this.state.internshipPosts.map((e) => {
                     // console.log(e);
                     return (
-                      <OpportunityCardAdvisor
+                      <Cards
                         key={e.id}
-                        id={e.id}
-                        item={e}
-                        company_name={e.company_name}
-                        title={e.title}
-                        company_logo={e.company_logo}
-                        description={e.description}
-                        application_deadline={e.application_deadline}
-                        departments={e.departments}
                         navigation={this.props.navigation}
+                        item={e}
                         reload={this.refresh}
                       />
                     );
@@ -113,31 +105,6 @@ class InternshipTabbScreen extends Component {
                 )}
               </View>
             </View>
-            {/* <View style={{ marginTop: 10 }}>
-              <View>
-                <Text
-                  style={{
-                    fontSize: 16,
-                    color: "#1E4274",
-                    fontWeight: "bold",
-                    flex: 1,
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  Ended Internships
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#1E4274",
-                    lineHeight: 20,
-                    marginTop: 5,
-                  }}
-                >
-                  There are currently no ended Internship at Qowwa Inc.
-                </Text>
-              </View>
-            </View> */}
           </View>
         </ScrollView>
       </View>

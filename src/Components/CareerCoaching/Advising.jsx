@@ -163,6 +163,8 @@ export default class Advising extends Component {
     return (
       <View style={styles.container}>
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -210,6 +212,8 @@ export default class Advising extends Component {
                       onCancel={this.hideDatePicker}
                     />
                     <Feather
+                      accessible={true}
+                      accessibilityLabel="select your suitable date & time"
                       onPress={this.showDatePicker}
                       name="calendar"
                       size={22}
@@ -222,6 +226,8 @@ export default class Advising extends Component {
                       }}
                     ></Feather>
                     <Button
+                      accessible={true}
+                      accessibilityLabel="select your suitable date"
                       onPress={this.showDatePicker}
                       color="#1E4274"
                       style={{
@@ -247,6 +253,8 @@ export default class Advising extends Component {
                       </Text>
                     </Button>
                     <Button
+                      accessible={true}
+                      accessibilityLabel="select your suitable time"
                       onPress={this.showDatePicker}
                       color="#1E4274"
                       style={{
@@ -274,7 +282,10 @@ export default class Advising extends Component {
                       </Text>
                     </Button>
                   </View>
-                  <View>
+                  <View
+                    accessible={true}
+                    accessibilityLabel="please choose suitable timings for your session"
+                  >
                     <Text
                       style={{
                         color: "#1e4274",
@@ -387,9 +398,17 @@ export default class Advising extends Component {
                       marginLeft: "5%",
                       marginTop: "-2%",
                       marginBottom: "5%",
+                      padding: 20,
+                      paddingLeft: 0,
+                      paddingTop: 0,
                     }}
+                    accessible={true}
+                    accessibilityLabel="Rating start from 1 to 5"
+                    accessibilityHint="rate your experience"
                   >
                     <StarRating
+                      accessible={true}
+                      accessibilityLabel={this.state.rate}
                       onChange={(rate) => {
                         this.setState({ rate: rate });
                       }}
@@ -406,28 +425,36 @@ export default class Advising extends Component {
                     />
                   </View>
                   <View
-                    style={{
-                      marginTop: "1%",
-                    }}
-                  >
-                    <TextInput
-                      style={{
-                        alignSelf: "center",
-                        backgroundColor: "#f2f2f2",
-                        width: "93%",
-                        paddingTop: "1%",
-                        paddingLeft: "2%",
-                        paddingRight: "3%",
-                        paddingBottom: "15%",
-                      }}
-                      multiline={true}
-                      placeholder="Write Your Review..."
-                      placeholderTextColor="#1E4274"
-                      value={this.state.comment}
-                      onChangeText={(value) =>
-                        this.setState({ comment: value })
+                    style={
+                      {
+                        // marginTop: "1%",
                       }
-                    />
+                    }
+                  >
+                    <View
+                      accessible={true}
+                      accessibilityLabel="leave a comment "
+                      accessibilityHint="describe your experience"
+                    >
+                      <TextInput
+                        style={{
+                          alignSelf: "center",
+                          backgroundColor: "#f2f2f2",
+                          width: "93%",
+                          paddingTop: "1%",
+                          paddingLeft: "2%",
+                          paddingRight: "3%",
+                          paddingBottom: "15%",
+                        }}
+                        multiline={true}
+                        placeholder="Write Your Review..."
+                        placeholderTextColor="#1E4274"
+                        value={this.state.comment}
+                        onChangeText={(value) =>
+                          this.setState({ comment: value })
+                        }
+                      />
+                    </View>
                   </View>
                   <View style={{ marginTop: 22, flexDirection: "row" }}>
                     <>

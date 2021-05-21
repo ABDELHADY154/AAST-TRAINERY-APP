@@ -117,12 +117,21 @@ export default class ProfileScreen extends Component {
         <View style={{ backgroundColor: "#1E4274" }}>
           <View style={{ alignItems: "center", justifyContent: "center" }}>
             {this.state.loading === false ? (
-              <View>
+              <View
+                accessible={true}
+                accessibilityLabel="profile picture loader"
+                accessibilityHint="profile picture"
+              >
                 <ProfileImgLoader />
               </View>
             ) : (
               <View style={{ marginTop: 20 }}>
-                <Pressable onPress={this.showModal}>
+                <Pressable
+                  onPress={this.showModal}
+                  accessible={true}
+                  accessibilityLabel="upload profile picture"
+                  accessibilityHint="choose picture from gallary or use camera"
+                >
                   <Avatar.Image
                     style={{
                       backgroundColor: "transparent",
@@ -131,6 +140,8 @@ export default class ProfileScreen extends Component {
                     source={{ uri: this.state.userData.image }}
                   />
                   <FontAwesome
+                    accessible={true}
+                    accessibil
                     name="camera"
                     size={20}
                     color="#1E4274"
@@ -146,6 +157,8 @@ export default class ProfileScreen extends Component {
                 </Pressable>
                 <Portal>
                   <Modal
+                    accessible={true}
+                    accessibilityLabel="Change Your Profile Picture"
                     visible={this.state.visible}
                     onDismiss={this.hideModal}
                     contentContainerStyle={{
@@ -254,9 +267,8 @@ export class ProfileImg extends Component {
 
   async componentDidMount() {
     if (Platform.OS !== "web") {
-      const {
-        status,
-      } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") {
         alert("Sorry, we need camera roll permissions to make this work!");
       }

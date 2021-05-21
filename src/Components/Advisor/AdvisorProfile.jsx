@@ -53,6 +53,8 @@ export default class AdvisorProfile extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -73,11 +75,14 @@ export default class AdvisorProfile extends Component {
           >
             <View style={{ marginLeft: 25 }}>
               {this.state.loading === false ? (
-                <View>
+                <View accessible={true} accessibilityLabel="logo loader">
                   <ProfileImgLoader />
                 </View>
               ) : (
-                <View>
+                <View
+                  accessible={true}
+                  accessibilityLabel=" advisor profile picture"
+                >
                   <Avatar.Image
                     style={{
                       backgroundColor: "transparent",
@@ -103,6 +108,10 @@ export default class AdvisorProfile extends Component {
               </Text>
               <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
                 <Text
+                  accessible={true}
+                  accessibilityLabel="advisor title"
+                  accessibilityHint="save post to activity"
+                  accessibilityHint={this.state.userData.title}
                   style={{
                     fontSize: 15,
                     color: "#1E4274",
