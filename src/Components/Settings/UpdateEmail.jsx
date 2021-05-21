@@ -32,14 +32,14 @@ export default class UpdateEmail extends Component {
     });
     await axios
       .get("/A/student/studentAccount")
-      .then(res => {
+      .then((res) => {
         console.log(res.data.response.data.email);
         this.setState({
           spinner: false,
           email: res.data.response.data.email,
         });
       })
-      .catch(err => {});
+      .catch((err) => {});
   }
   showModal = () => {
     this.setState({ visible: true });
@@ -57,7 +57,7 @@ export default class UpdateEmail extends Component {
     };
     await axios
       .put("/A/student/updateEmail", data)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.setState({
           spinner: false,
@@ -65,7 +65,7 @@ export default class UpdateEmail extends Component {
           emailErr: "",
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.data.errors) {
           this.setState({
             spinner: false,
@@ -95,6 +95,8 @@ export default class UpdateEmail extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -122,6 +124,9 @@ export default class UpdateEmail extends Component {
         <ScrollView>
           <View style={{ alignSelf: "center", width: "90%" }}>
             <Input
+              accessible={true}
+              accessibilityLabel="enter your new email"
+              accessibilityHint={this.state.email}
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -150,7 +155,7 @@ export default class UpdateEmail extends Component {
                 marginLeft: "-2%",
               }}
               value={this.state.email}
-              onChangeText={value => this.setState({ email: value })}
+              onChangeText={(value) => this.setState({ email: value })}
             />
             <Text
               style={{

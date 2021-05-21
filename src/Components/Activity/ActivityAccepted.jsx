@@ -85,6 +85,8 @@ export default class ActivityAccepted extends Component {
                 }}
               >
                 <Image
+                  accessible={true}
+                  accessibilityLabel="no accepted posts"
                   source={require("../../assets/Images/void.png")}
                   style={{
                     marginTop: "5%",

@@ -16,40 +16,40 @@ export default class MySubscriptions extends Component {
     });
     await axios
       .get("/A/student/studentAccount")
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
           isEnabled: res.data.response.data.subscribed,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
       });
   }
-  handleSubmit = async val => {
+  handleSubmit = async (val) => {
     this.setState({ spinner: true });
     if (val == false) {
       await axios
         .get("/A/student/unsubscribe")
-        .then(res => {
+        .then((res) => {
           this.setState({
             spinner: false,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({ spinner: false });
         });
     } else if (val == true) {
       await axios
         .get("/A/student/subscribe")
-        .then(res => {
+        .then((res) => {
           this.setState({
             spinner: false,
           });
         })
-        .catch(err => {
+        .catch((err) => {
           this.setState({ spinner: false });
         });
     }
@@ -67,6 +67,8 @@ export default class MySubscriptions extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -122,7 +124,7 @@ export default class MySubscriptions extends Component {
                   }}
                   thumbColor={this.state.isEnabled ? "#fff" : "#fff"}
                   ios_backgroundColor="#1E4274"
-                  onValueChange={e => {
+                  onValueChange={(e) => {
                     console.log(e);
                     this.setState({
                       isEnabled: e,

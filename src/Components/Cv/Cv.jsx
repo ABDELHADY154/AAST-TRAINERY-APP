@@ -8,6 +8,8 @@ export default class Cv extends Component {
     return (
       <View style={styles.container}>
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -27,6 +29,7 @@ export default class Cv extends Component {
             width: "93%",
             marginLeft: "4%",
             fontSize: 16,
+            lineHeight: 22,
           }}
         >
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Et nibh

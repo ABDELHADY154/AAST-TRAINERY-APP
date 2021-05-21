@@ -66,6 +66,8 @@ class ForgetPass extends Component {
         >
           <View style={styles.logoContainer}>
             <Feather
+              accessible={true}
+              accessibilityLabel="go back"
               name="chevron-left"
               size={36}
               color="#fff"
@@ -85,6 +87,8 @@ class ForgetPass extends Component {
 
           <View style={styles.inputContainer}>
             <Input
+              accessible={true}
+              accessibilityLabel="enter your email Address"
               style={styles.input}
               autoCompleteType="email"
               textContentType="emailAddress"

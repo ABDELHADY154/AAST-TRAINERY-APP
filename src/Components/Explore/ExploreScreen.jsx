@@ -37,7 +37,7 @@ export default class ExploreScreen extends Component {
     spinner: true,
   };
 
-  CardComponent = props => {
+  CardComponent = (props) => {
     return (
       <Card
         {...props}
@@ -52,13 +52,13 @@ export default class ExploreScreen extends Component {
     axios.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
     await axios
       .get(`/A/student/posts?page=1`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: res.data.response.data,
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.data.status == 401) {
           AsyncStorage.removeItem("userData");
           AsyncStorage.removeItem("userToken");
@@ -73,14 +73,14 @@ export default class ExploreScreen extends Component {
     this.setState({ refreshState: RefreshState.HeaderRefreshing });
     await axios
       .get(`/A/student/posts`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: res.data.response.data,
         });
         this.setState({ refreshState: RefreshState.Idle });
         console.log(this.state.posts);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -89,7 +89,7 @@ export default class ExploreScreen extends Component {
     this.setState({ refreshState: RefreshState.FooterRefreshing });
     await axios
       .get(`/A/student/posts?page=${this.state.paginate}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: this.state.posts.concat(res.data.response.data),
         });
@@ -99,7 +99,7 @@ export default class ExploreScreen extends Component {
         });
         console.log(this.state.posts);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -108,13 +108,13 @@ export default class ExploreScreen extends Component {
     this.setState({ spinner: true });
     await axios
       .get(`/A/student/posts?page=1`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           posts: res.data.response.data,
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.data.status == 401) {
           AsyncStorage.removeItem("userData");
           AsyncStorage.removeItem("userToken");
@@ -129,6 +129,8 @@ export default class ExploreScreen extends Component {
       <View style={styles.container}>
         <SafeAreaView>
           <Spinner
+            accessible={true}
+            accessibilityLabel="loading please wait"
             visible={this.state.spinner}
             cancelable={false}
             size="large"
@@ -138,8 +140,10 @@ export default class ExploreScreen extends Component {
             textStyle={{ color: "#1E4274", textAlign: "center" }}
           />
           <RefreshListView
+            accessible={true}
+            accessibilityLabel="loading please wait"
             data={this.state.posts}
-            keyExtractor={item => item.id}
+            keyExtractor={(item) => item.id}
             renderItem={this.CardComponent}
             refreshState={this.state.refreshState}
             onHeaderRefresh={this.onHeaderRefresh}

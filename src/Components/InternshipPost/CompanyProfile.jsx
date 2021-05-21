@@ -57,6 +57,8 @@ export default class CompanyProfile extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -78,11 +80,11 @@ export default class CompanyProfile extends Component {
           >
             <View style={{ marginLeft: 25 }}>
               {this.state.loading === false ? (
-                <View>
+                <View accessible={true} accessibilityLabel="logo loader">
                   <ProfileImgLoader />
                 </View>
               ) : (
-                <View>
+                <View accessible={true} accessibilityLabel=" company logo">
                   <Avatar.Image
                     style={{
                       backgroundColor: "transparent",
@@ -107,6 +109,9 @@ export default class CompanyProfile extends Component {
                 {this.state.userData.company_name}
               </Text>
               <Text
+                accessible={true}
+                accessibilityLabel="company field"
+                accessibilityHint={this.state.userData.company_field}
                 style={{
                   fontSize: 16,
                   color: "#1E4274",

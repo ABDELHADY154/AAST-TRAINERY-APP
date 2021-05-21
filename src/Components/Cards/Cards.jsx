@@ -282,7 +282,7 @@ export default class CardComponent extends Component {
                       <Text
                         style={{
                           // color: "#CD8930",
-                          color: "#A75F00",
+                          color: "#CD8930",
                         }}
                       >
                         {item.dep_name}

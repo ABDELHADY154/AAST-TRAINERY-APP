@@ -38,7 +38,7 @@ export default class DeleteAccount extends Component {
     };
     await axios
       .post("/A/student/deleteAccount", data)
-      .then(res => {
+      .then((res) => {
         // console.log(res.data);
         this.setState({
           spinner: false,
@@ -46,7 +46,7 @@ export default class DeleteAccount extends Component {
         });
         this.props.logout();
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response.data.errors);
         this.setState({
           spinner: false,
@@ -74,6 +74,8 @@ export default class DeleteAccount extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -102,6 +104,8 @@ export default class DeleteAccount extends Component {
         <ScrollView>
           <View style={{ alignSelf: "center", width: "90%" }}>
             <Input
+              accessible={true}
+              accessibilityLabel="enter your password"
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -133,6 +137,8 @@ export default class DeleteAccount extends Component {
               rightIcon={() =>
                 this.state.newPasswordText == true ? (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-off-outline"
                     size={24}
                     color="#1E4274"
@@ -142,6 +148,8 @@ export default class DeleteAccount extends Component {
                   />
                 ) : (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-outline"
                     size={24}
                     color="#1E4274"
@@ -152,7 +160,7 @@ export default class DeleteAccount extends Component {
                 )
               }
               value={this.state.password}
-              onChangeText={value => this.setState({ password: value })}
+              onChangeText={(value) => this.setState({ password: value })}
             />
             <Text
               style={{
@@ -169,6 +177,8 @@ export default class DeleteAccount extends Component {
             </Text>
 
             <Input
+              accessible={true}
+              accessibilityLabel="confirm your password"
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -199,6 +209,8 @@ export default class DeleteAccount extends Component {
               rightIcon={() =>
                 this.state.confirmPasswordText == true ? (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-off-outline"
                     size={24}
                     color="#1E4274"
@@ -208,6 +220,8 @@ export default class DeleteAccount extends Component {
                   />
                 ) : (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-outline"
                     size={24}
                     color="#1E4274"
@@ -218,7 +232,9 @@ export default class DeleteAccount extends Component {
                 )
               }
               value={this.state.confirmPassword}
-              onChangeText={value => this.setState({ confirmPassword: value })}
+              onChangeText={(value) =>
+                this.setState({ confirmPassword: value })
+              }
             />
             <Text
               style={{

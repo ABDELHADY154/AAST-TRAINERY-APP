@@ -270,6 +270,8 @@ class OpportunityPost extends Component {
         />
         {/* Header */}
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -296,7 +298,12 @@ class OpportunityPost extends Component {
               }}
               subtitle={
                 <>
-                  <View style={{ flexDirection: "row" }}>
+                  <View
+                    style={{ flexDirection: "row" }}
+                    accessible={true}
+                    accessibilityLabel="go to company profile"
+                    accessibilityHint={this.state.userData.company_name}
+                  >
                     <Text
                       style={{
                         color: "#1E4274",
@@ -324,6 +331,9 @@ class OpportunityPost extends Component {
               }}
               left={(props) => (
                 <Pressable
+                  accessible={true}
+                  accessibilityLabel="go to company profile"
+                  accessibilityHint={this.state.userData.company_name}
                   onPress={() => {
                     this.props.navigation.push("CompanyProfile", {
                       id: this.state.userData.company_id,
@@ -344,6 +354,9 @@ class OpportunityPost extends Component {
                 this.state.userData.saved &&
                 this.state.userData.saved == true ? (
                   <IconButton
+                    accessible={true}
+                    accessibilityLabel="Tab to unsave"
+                    accessibilityHint="unsave post to activity"
                     {...props}
                     icon="bookmark"
                     size={30}
@@ -352,6 +365,9 @@ class OpportunityPost extends Component {
                   />
                 ) : (
                   <IconButton
+                    accessible={true}
+                    accessibilityLabel="Tab to save"
+                    accessibilityHint="save post to activity"
                     {...props}
                     icon="bookmark-outline"
                     size={30}
@@ -363,6 +379,8 @@ class OpportunityPost extends Component {
             />
           </View>
           <View
+            accessible={true}
+            accessibilityLabel="related departments"
             style={{
               marginLeft: 20,
               flexDirection: "row",
@@ -397,6 +415,8 @@ class OpportunityPost extends Component {
             {this.state.userData.status == "achieved" ? (
               <>
                 <TouchableOpacity
+                  accessible={true}
+                  accessibilityLabel="opportunity achieved"
                   style={{
                     borderColor: "#1E4274",
                     backgroundColor: "#1E4274",
@@ -415,6 +435,8 @@ class OpportunityPost extends Component {
               </>
             ) : this.state.userData.status == "accepted" ? (
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="opportunity accepted"
                 style={{
                   borderColor: "#1E4274",
                   backgroundColor: "#1E4274",
@@ -432,6 +454,9 @@ class OpportunityPost extends Component {
               </TouchableOpacity>
             ) : this.state.userData.status == "applied" ? (
               <TouchableOpacity
+                accessible={true}
+                accessibilityLabel="opportunity applied"
+                accessibilityHint="tap to unApply"
                 style={{
                   borderColor: "#1E4274",
                   backgroundColor: "#1E4274",
@@ -449,6 +474,7 @@ class OpportunityPost extends Component {
               </TouchableOpacity>
             ) : (
               <TouchableOpacity
+                accessibilityLabel="tap to apply"
                 style={{
                   borderColor: "#1E4274",
                   borderWidth: 1,
@@ -480,7 +506,12 @@ class OpportunityPost extends Component {
             >
               Overview
             </Text>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ flexDirection: "row" }}
+              accessible={true}
+              accessibilityLabel="Published on:"
+              accessibilityHint={this.state.userData.published_on}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -500,7 +531,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.published_on}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "1%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "1%" }}
+              accessible={true}
+              accessibilityLabel={this.state.userData.vacancy}
+              accessibilityHint={this.state.userData.vacancy}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -520,7 +556,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.vacancy}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "1%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "1%" }}
+              accessible={true}
+              accessibilityLabel="Gender:"
+              accessibilityHint={this.state.userData.gender}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -540,7 +581,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.gender}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "1%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "1%" }}
+              accessible={true}
+              accessibilityLabel="Type:"
+              accessibilityHint={this.state.userData.type}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -560,7 +606,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.type}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "1%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "1%" }}
+              accessible={true}
+              accessibilityLabel="Salary:"
+              accessibilityHint={this.state.userData.salary}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -580,7 +631,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.salary}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "1%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "1%" }}
+              accessible={true}
+              accessibilityLabel="   Application deadline:"
+              accessibilityHint={this.state.userData.application_deadline}
+            >
               <Text
                 style={{
                   fontSize: 16,
@@ -600,7 +656,12 @@ class OpportunityPost extends Component {
                 {this.state.userData.application_deadline}
               </Text>
             </View>
-            <View style={{ flexDirection: "row", marginTop: "3%" }}>
+            <View
+              style={{ flexDirection: "row", marginTop: "3%" }}
+              accessible={true}
+              accessibilityLabel="Location:"
+              accessibilityHint={this.state.userData.location}
+            >
               <Text
                 style={{
                   fontSize: 18,
@@ -689,7 +750,11 @@ class OpportunityPost extends Component {
 
           <Swiper height={160} dotColor="#CCCCCC" activeDotColor="#CD8930">
             {this.state.Reviews.length == 0 ? (
-              <View>
+              <View
+                accessible={true}
+                accessibilityLabel="No Reviews Were Added"
+                accessibilityHint="achieve your opportunityto add your review"
+              >
                 <Text
                   style={{
                     marginLeft: "5%",
@@ -764,22 +829,31 @@ class OpportunityPost extends Component {
                     alignSelf: "flex-start",
                     marginLeft: "5%",
                     marginTop: "-2%",
-                    marginBottom: "5%",
+                    // marginBottom: "5%",
                   }}
                 >
-                  <StarRating
-                    fullStarColor={"#CD8930"}
-                    starSize={25}
-                    disabled={false}
-                    maxStars={5}
-                    rating={this.state.rate}
-                    selectedStar={(value) => this.setState({ rate: value })}
-                    style={{
-                      justifyContent: "center",
-                      alignSelf: "center",
-                      marginLeft: "5%",
-                    }}
-                  />
+                  <View
+                    style={{ padding: 20, paddingLeft: 0, paddingTop: 0 }}
+                    accessible={true}
+                    accessibilityLabel="Rating start from 1 to 5"
+                    accessibilityHint="rate your experience"
+                  >
+                    <StarRating
+                      accessible={true}
+                      accessibilityLabel={this.state.rate}
+                      fullStarColor={"#CD8930"}
+                      starSize={25}
+                      disabled={false}
+                      maxStars={5}
+                      rating={this.state.rate}
+                      selectedStar={(value) => this.setState({ rate: value })}
+                      style={{
+                        justifyContent: "center",
+                        alignSelf: "center",
+                        marginLeft: "5%",
+                      }}
+                    />
+                  </View>
                   {this.state.rateErr != "" ? (
                     <View
                       style={{
@@ -787,7 +861,7 @@ class OpportunityPost extends Component {
                         alignSelf: "center",
                         flexDirection: "row",
                         width: "91.5%",
-                        // marginTop: 5,
+                        marginTop: 10,
                       }}
                     >
                       <Text
@@ -814,6 +888,9 @@ class OpportunityPost extends Component {
                   }
                 >
                   <TextInput
+                    accessible={true}
+                    accessibilityLabel="leave a comment "
+                    accessibilityHint="describe your experience"
                     style={{
                       alignSelf: "center",
                       backgroundColor: "#f2f2f2",
@@ -838,7 +915,7 @@ class OpportunityPost extends Component {
                         alignSelf: "center",
                         flexDirection: "row",
                         width: "91.5%",
-                        marginTop: -10,
+                        // marginTop: -10,
                       }}
                     >
                       <Text
@@ -907,7 +984,11 @@ class Departments extends Component {
   }
   render() {
     return (
-      <View>
+      <View
+        accessible={true}
+        accessibilityLabel="related departments"
+        accessibilityHint={this.props.dep_name}
+      >
         <Text style={{ color: "#CD8930", fontSize: 16 }}>
           {this.props.dep_name}
           {"   "}
@@ -923,7 +1004,11 @@ class Requirements extends Component {
   }
   render() {
     return (
-      <View style={{ flexDirection: "row" }}>
+      <View
+        style={{ flexDirection: "row" }}
+        accessible={true}
+        accessibilityLabel={this.props.req}
+      >
         <Entypo
           name="dot-single"
           size={36}
@@ -1022,6 +1107,8 @@ class OpportunityReview extends Component {
             </View>
           </Card.Content>
           <View
+            accessible={true}
+            accessibilityLabel={this.state.rate}
             style={{
               flexDirection: "row",
               justifyContent: "center",
@@ -1031,6 +1118,8 @@ class OpportunityReview extends Component {
             }}
           >
             <StarRating
+              accessible={true}
+              accessibilityLabel={this.state.rate}
               fullStarColor={"#CD8930"}
               starSize={22}
               disabled={false}
@@ -1074,6 +1163,9 @@ class ReviewWrite extends Component {
           }}
         >
           <StarRating
+            accessible={true}
+            accessibilityLabel={this.state.rate}
+            accessibilityHint="rate your experience"
             fullStarColor={"#CD8930"}
             starSize={35}
             disabled={false}

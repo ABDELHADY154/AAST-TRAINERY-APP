@@ -18,6 +18,8 @@ export const ProfileImgLoader = (props) => (
 
 export const DrawerProfile = (props) => (
   <ContentLoader
+    accessible={true}
+    accessibilityLabel="Loader please wait"
     speed={2}
     width={476}
     height={124}

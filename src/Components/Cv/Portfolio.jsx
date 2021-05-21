@@ -16,6 +16,8 @@ export default class Portfolio extends Component {
     return (
       <View style={styles.container}>
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -43,7 +45,7 @@ export default class Portfolio extends Component {
               </Swiper>
             </>
           ) : (
-            <>
+            <View accessible={true} accessibilityRole="button">
               <Text
                 style={{
                   color: "#1E4275",
@@ -51,6 +53,9 @@ export default class Portfolio extends Component {
                   marginLeft: "4%",
                   fontSize: 16,
                   marginBottom: "25%",
+                }}
+                onPress={() => {
+                  this.props.navigation.push("Cv");
                 }}
               >
                 You don’t have a portfolio yet check our portfolio themes or
@@ -70,7 +75,7 @@ export default class Portfolio extends Component {
                 </Text>{" "}
                 for free
               </Text>
-            </>
+            </View>
           )}
         </ScrollView>
       </View>

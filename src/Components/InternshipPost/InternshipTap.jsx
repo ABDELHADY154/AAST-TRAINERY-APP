@@ -122,6 +122,7 @@ class InternshipTapScreen extends Component {
                     flex: 1,
                     justifyContent: "flex-start",
                     marginBottom: 10,
+                    marginVertical: 10,
                   }}
                 >
                   Opened Internships
@@ -154,7 +155,7 @@ class InternshipTapScreen extends Component {
                 </Text> */}
               </View>
             </View>
-            <View style={{ marginTop: 10 }}>
+            <View>
               <View>
                 <Text
                   style={{
@@ -162,6 +163,7 @@ class InternshipTapScreen extends Component {
                     color: "#1E4274",
                     fontWeight: "bold",
                     flex: 1,
+                    marginVertical: 10,
                     justifyContent: "flex-start",
                   }}
                 >

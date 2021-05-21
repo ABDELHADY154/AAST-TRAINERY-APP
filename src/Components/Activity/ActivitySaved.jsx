@@ -79,6 +79,8 @@ export default class ActivitySaved extends Component {
               }}
             >
               <Image
+                accessible={true}
+                accessibilityLabel="no saved posts"
                 source={require("../../assets/Images/void.png")}
                 style={{
                   marginTop: "5%",

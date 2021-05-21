@@ -21,13 +21,13 @@ export default class Notification extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/notifications")
-      .then(res => {
+      .then((res) => {
         this.setState({
           loading: false,
           notifications: res.data.response.data,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -37,14 +37,14 @@ export default class Notification extends Component {
     });
     await axios
       .get("/A/student/notifications")
-      .then(res => {
+      .then((res) => {
         this.setState({
           loading: false,
           notifications: res.data.response.data,
           refresh: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     // this.setState
@@ -53,6 +53,8 @@ export default class Notification extends Component {
     return (
       <View style={styles.container}>
         <Spinner
+          accessible={true}
+          accessibilityLabel="loading please wait"
           visible={this.state.loading}
           cancelable={false}
           size="large"
@@ -72,7 +74,7 @@ export default class Notification extends Component {
         >
           <View style={{ marginVertical: 10 }}>
             {this.state.notifications.length !== 0 ? (
-              this.state.notifications.map(e => {
+              this.state.notifications.map((e) => {
                 if (e.category == "rejected") {
                   return (
                     <RejectCard
@@ -114,98 +116,6 @@ export default class Notification extends Component {
                 />
               </View>
             )}
-
-            {/* <View
-              style={{
-                width: "99%",
-                // height: 50,
-                marginBottom: 15,
-                borderRadius: 3,
-                backgroundColor: "#fff",
-                borderLeftColor: "#007BC2",
-                borderLeftWidth: 5,
-                borderLeftRadius: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: 4.65,
-
-                elevation: 8,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <Feather
-                  name="alert-circle"
-                  size={24}
-                  color="#007BC2"
-                  style={{ marginHorizontal: 10 }}
-                />
-                <View style={{ width: "80%" }}>
-                  <Text style={{ color: "#1E4274", fontSize: 16 }}>
-                    Review your finished session{" "}
-                  </Text>
-                  <Text style={{ color: "#B1B0B0" }}>
-                    Tap for more information{" "}
-                  </Text>
-                </View>
-              </View>
-            </View>
-            <View
-              style={{
-                width: "99%",
-                // height: 50,
-                marginBottom: 15,
-                borderRadius: 3,
-                backgroundColor: "#fff",
-                borderLeftColor: "#007BC2",
-                borderLeftWidth: 5,
-                borderLeftRadius: 5,
-                shadowColor: "#000",
-                shadowOffset: {
-                  width: 0,
-                  height: 4,
-                },
-                shadowOpacity: 0.3,
-                shadowRadius: 4.65,
-
-                elevation: 8,
-              }}
-            >
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  paddingVertical: 10,
-                }}
-              >
-                <Feather
-                  name="alert-circle"
-                  size={24}
-                  color="#007BC2"
-                  style={{ marginHorizontal: 10 }}
-                />
-                <View style={{ width: "80%" }}>
-                  <Text style={{ color: "#1E4274", fontSize: 16 }}>
-                    You have a recomendation to apply for an internship
-                  </Text>
-                  <Text style={{ color: "#B1B0B0" }}>
-                    Tap for more information
-                  </Text>
-                </View>
-              </View>
-            </View>
-             */}
-
-            {/* booked session notification */}
           </View>
         </ScrollView>
       </View>
@@ -272,7 +182,9 @@ class RejectCard extends Component {
               style={{ marginHorizontal: 10 }}
             />
             <View style={{ width: "80%" }}>
-              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              <Text
+                style={{ color: "#1E4274", fontSize: 16, fontWeight: "bold" }}
+              >
                 {this.props.data.type == "internship"
                   ? this.props.data.internship.title
                   : this.props.data.session.title}{" "}
@@ -342,7 +254,9 @@ class AcceptedCard extends Component {
               style={{ marginHorizontal: 10 }}
             />
             <View style={{ width: "80%" }}>
-              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              <Text
+                style={{ color: "#1E4274", fontSize: 16, fontWeight: "bold" }}
+              >
                 {this.props.data.type == "internship"
                   ? this.props.data.internship.title
                   : this.props.data.session.title}{" "}
@@ -410,7 +324,9 @@ class ImportantCard extends Component {
               style={{ marginHorizontal: 10 }}
             />
             <View style={{ width: "80%" }}>
-              <Text style={{ color: "#1E4274", fontSize: 16 }}>
+              <Text
+                style={{ color: "#1E4274", fontSize: 16, fontWeight: "bold" }}
+              >
                 {this.props.data.type == "internship"
                   ? this.props.data.internship.title
                   : this.props.data.session.title}{" "}

@@ -67,6 +67,8 @@ export default class ActivityAppointment extends Component {
         <ScrollView
           refreshControl={
             <RefreshControl
+              accessible={true}
+              accessibilityLabel="loading please wait"
               refreshing={this.state.refresh}
               onRefresh={this.onRefresh}
               colors={["#1E4274"]}
@@ -77,6 +79,8 @@ export default class ActivityAppointment extends Component {
             this.state.data.map((data) => {
               return (
                 <Card
+                  accessible={true}
+                  accessibilityLabel={data.title}
                   onPress={() => {
                     this.props.navigation.push("Advising", {
                       id: data.id,
@@ -102,6 +106,8 @@ export default class ActivityAppointment extends Component {
                   />
                   <Card.Content>
                     <Paragraph
+                      accessible={false}
+                      accessibilityLabel="Tab for more detailes"
                       numberOfLines={2}
                       style={{
                         fontSize: 14,
@@ -122,7 +128,11 @@ export default class ActivityAppointment extends Component {
                       alignSelf: "center",
                     }}
                   ></View>
-                  <Card.Actions style={{ marginTop: -3 }}>
+                  <Card.Actions
+                    accessible={true}
+                    accessibilityLabel=" 15 Oct 2021 | 10:00"
+                    style={{ marginTop: -3 }}
+                  >
                     <View style={{ marginTop: 0, flexDirection: "row" }}>
                       <Text
                         style={{
@@ -163,6 +173,8 @@ export default class ActivityAppointment extends Component {
               }}
             >
               <Image
+                accessible={true}
+                accessibilityLabel="no booked sessions"
                 source={require("../../assets/Images/void.png")}
                 style={{
                   marginTop: "5%",

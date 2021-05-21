@@ -105,6 +105,9 @@ class CompanyTapScreen extends Component {
               </View>
               <View style={{ marginTop: 7 }}>
                 <View
+                  accessible={true}
+                  accessibilityLabel="company phone number"
+                  accessibilityHint={this.state.userData.phone_number}
                   style={{
                     flexDirection: "row",
                     marginBottom: 10,
@@ -127,7 +130,12 @@ class CompanyTapScreen extends Component {
                     {this.state.userData.phone_number}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View
+                  style={{ flexDirection: "row", marginBottom: 10 }}
+                  accessible={true}
+                  accessibilityLabel="company email"
+                  accessibilityHint={this.state.userData.email}
+                >
                   <Text
                     style={{
                       marginRight: 5,
@@ -149,7 +157,12 @@ class CompanyTapScreen extends Component {
                     {this.state.userData.email}
                   </Text>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View
+                  style={{ flexDirection: "row", marginBottom: 10 }}
+                  accessible={true}
+                  accessibilityLabel="company location"
+                  accessibilityHint={this.state.userData.address}
+                >
                   <Text
                     style={{
                       marginLeft: -2,
@@ -177,7 +190,12 @@ class CompanyTapScreen extends Component {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                <View
+                  style={{ flexDirection: "row", marginBottom: 10 }}
+                  accessible={true}
+                  accessibilityLabel="go to company website"
+                  // accessibilityHint={this.state.userData.website}
+                >
                   <Text
                     style={{
                       marginRight: 5,

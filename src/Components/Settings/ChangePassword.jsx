@@ -44,14 +44,14 @@ export default class ChangePassword extends Component {
     };
     await axios
       .put("/A/student/updatePassword", data)
-      .then(res => {
+      .then((res) => {
         console.log(res.data);
         this.setState({
           spinner: false,
           visible: true,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         if (err.response.data.errors) {
           this.setState({
             spinner: false,
@@ -93,6 +93,8 @@ export default class ChangePassword extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -120,6 +122,8 @@ export default class ChangePassword extends Component {
         <ScrollView>
           <View style={{ alignSelf: "center", width: "90%" }}>
             <Input
+              accessible={true}
+              accessibilityLabel="enter your old password"
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -151,6 +155,8 @@ export default class ChangePassword extends Component {
               rightIcon={() =>
                 this.state.oldPasswordText == true ? (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-off-outline"
                     size={24}
                     color="#1E4274"
@@ -160,6 +166,8 @@ export default class ChangePassword extends Component {
                   />
                 ) : (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-outline"
                     size={24}
                     color="#1E4274"
@@ -170,7 +178,7 @@ export default class ChangePassword extends Component {
                 )
               }
               value={this.state.oldpassword}
-              onChangeText={value => this.setState({ oldpassword: value })}
+              onChangeText={(value) => this.setState({ oldpassword: value })}
             />
             <Text
               style={{
@@ -186,6 +194,8 @@ export default class ChangePassword extends Component {
               {/* {this.state.studentNameErr ? this.state.studentNameErr : null} */}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter your new password"
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -217,6 +227,8 @@ export default class ChangePassword extends Component {
               rightIcon={() =>
                 this.state.newPasswordText == true ? (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-off-outline"
                     size={24}
                     color="#1E4274"
@@ -226,6 +238,8 @@ export default class ChangePassword extends Component {
                   />
                 ) : (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-outline"
                     size={24}
                     color="#1E4274"
@@ -236,7 +250,7 @@ export default class ChangePassword extends Component {
                 )
               }
               value={this.state.newPassword}
-              onChangeText={value => this.setState({ newPassword: value })}
+              onChangeText={(value) => this.setState({ newPassword: value })}
             />
             <Text
               style={{
@@ -252,6 +266,8 @@ export default class ChangePassword extends Component {
               {/* {this.state.studentNameErr ? this.state.studentNameErr : null} */}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="confirm your new password"
               style={{
                 backgroundColor: "transparent",
                 height: 35,
@@ -282,6 +298,8 @@ export default class ChangePassword extends Component {
               rightIcon={() =>
                 this.state.confirmPasswordText == true ? (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-off-outline"
                     size={24}
                     color="#1E4274"
@@ -291,6 +309,8 @@ export default class ChangePassword extends Component {
                   />
                 ) : (
                   <Ionicons
+                    accessible={true}
+                    accessibilityLabel="show or hide password"
                     name="eye-outline"
                     size={24}
                     color="#1E4274"
@@ -301,7 +321,9 @@ export default class ChangePassword extends Component {
                 )
               }
               value={this.state.confirmPassword}
-              onChangeText={value => this.setState({ confirmPassword: value })}
+              onChangeText={(value) =>
+                this.setState({ confirmPassword: value })
+              }
             />
             <Text
               style={{

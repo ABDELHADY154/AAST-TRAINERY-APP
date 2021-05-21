@@ -91,8 +91,7 @@ export class CvCard extends Component {
                 {this.props.status == "booked" ? (
                   <Button
                     accessible={true}
-                    accessibilityLabel="tab to book session"
-                    // accessibilityHint= {this.props.price}
+                    accessibilityLabel="booked session"
                     style={{
                       marginTop: 0,
                       justifyContent: "center",
@@ -116,8 +115,7 @@ export class CvCard extends Component {
                 ) : (
                   <Button
                     accessible={true}
-                    accessibilityLabel="tab to book session"
-                    // accessibilityHint= {this.props.price}
+                    accessibilityLabel="book session"
                     style={{
                       marginTop: 0,
                       justifyContent: "center",
