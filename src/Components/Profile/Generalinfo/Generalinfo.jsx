@@ -63,7 +63,7 @@ class GeneralInfo extends Component {
   hideDatePicker = () => {
     this.setState({ isDatePickerVisible: false });
   };
-  handleConfirm = date => {
+  handleConfirm = (date) => {
     this.setState({ date: date.toISOString().split("T")[0] });
     this.hideDatePicker();
   };
@@ -78,13 +78,13 @@ class GeneralInfo extends Component {
     }
   };
 
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -104,13 +104,13 @@ class GeneralInfo extends Component {
     };
     await axios
       .put("/A/student/profile/personal", data)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
         this.props.navigation.push("App", { screen: "Profile" });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error.response.data);
         this.setState({
           spinner: false,
@@ -129,18 +129,18 @@ class GeneralInfo extends Component {
   componentDidMount() {
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     axios
       .get("/A/student/profile/personal")
-      .then(res => {
+      .then((res) => {
         this.setState({
           studentName: res.data.response.data.fullName,
           gender: res.data.response.data.gender,
@@ -154,7 +154,7 @@ class GeneralInfo extends Component {
         });
       })
 
-      .catch(err => {
+      .catch((err) => {
         console.log(err.response);
       });
   }
@@ -172,6 +172,8 @@ class GeneralInfo extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -207,7 +209,7 @@ class GeneralInfo extends Component {
               label="Full Name"
               labelStyle={styles.labelStyle}
               value={this.state.studentName}
-              onChangeText={value => this.setState({ studentName: value })}
+              onChangeText={(value) => this.setState({ studentName: value })}
             />
             <Text
               style={{
@@ -217,12 +219,14 @@ class GeneralInfo extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.studentNameErr ? this.state.studentNameErr : null}
             </Text>
             <Text
+              accessible={true}
+              accessibilityLabel="choose your Gender"
               style={{
                 color: "#1E4274",
                 fontSize: 16,
@@ -241,6 +245,8 @@ class GeneralInfo extends Component {
               }}
             >
               <RadioButton
+                accessible={true}
+                accessibilityLabel="male"
                 value="male"
                 uncheckedColor="#1E4274"
                 status={
@@ -262,6 +268,8 @@ class GeneralInfo extends Component {
                 Male
               </Text>
               <RadioButton
+                accessible={true}
+                accessibilityLabel="female"
                 value="female"
                 uncheckedColor="#1E4274"
                 color="#1E4274"
@@ -365,7 +373,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: -25,
                 }}
-                onChangeText={value => this.setState({ nationality: value })}
+                onChangeText={(value) => this.setState({ nationality: value })}
               />
               <Text
                 style={{
@@ -375,7 +383,7 @@ class GeneralInfo extends Component {
                   marginTop: "-7%",
                   marginLeft: "-5%",
                   marginBottom: "2%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.nationalityErr ? this.state.nationalityErr : null}
@@ -511,7 +519,7 @@ class GeneralInfo extends Component {
                   marginTop: 15,
                   marginLeft: "-8%",
                 }}
-                onChangeText={value => this.setState({ phoneNumber: value })}
+                onChangeText={(value) => this.setState({ phoneNumber: value })}
               />
               <Text
                 style={{
@@ -521,7 +529,7 @@ class GeneralInfo extends Component {
                   marginTop: "-7%",
                   marginLeft: "-6%",
                   marginBottom: "2%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.phoneNumberErr ? this.state.phoneNumberErr : null}

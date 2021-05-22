@@ -31,7 +31,7 @@ export default class Interests extends Component {
       interestErr: "",
     };
   }
-  updateTagState = state => {
+  updateTagState = (state) => {
     this.setState({
       tags: state,
     });
@@ -43,8 +43,8 @@ export default class Interests extends Component {
     const interestArr = [];
     await axios
       .get("/A/student/profile/interest")
-      .then(res => {
-        res.data.response.data.forEach(element => {
+      .then((res) => {
+        res.data.response.data.forEach((element) => {
           interestArr.push(element.interest);
         });
         this.setState({
@@ -56,7 +56,7 @@ export default class Interests extends Component {
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
@@ -71,12 +71,12 @@ export default class Interests extends Component {
     const data = {
       interests: [],
     };
-    this.state.tags.tagsArray.forEach(el => {
+    this.state.tags.tagsArray.forEach((el) => {
       data.interests.push({ interest: el });
     });
     await axios
       .put("/A/student/profile/interest", data)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -87,7 +87,7 @@ export default class Interests extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -114,6 +114,8 @@ export default class Interests extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -136,17 +138,19 @@ export default class Interests extends Component {
         >
           <ScrollView>
             <TagInput
-              placeholder="Tags..."
+              accessible={true}
+              accessibilityLabel="Enter new a tag"
+              // placeholder="Tags..."
               tagStyle={{
                 backgroundColor: "#fff",
               }}
               inputContainerStyle={{
                 borderColor: "#1E4275",
                 borderBottomWidth: 2,
-                width: "107%",
+                // width: "107%",
               }}
               inputStyle={{ color: "#1E4275" }}
-              label="Press Enter to add a tag"
+              label="Press Enter to add a intrest tag"
               labelStyle={{
                 textTransform: "capitalize",
                 color: "#1E4274",
@@ -159,6 +163,8 @@ export default class Interests extends Component {
               // keysForTag={","}
               rightElement={
                 <Icon
+                  accessible={true}
+                  accessibilityLabel="add new intrest tag"
                   name={"plus"}
                   type={"material-community"}
                   color="#1E4275"

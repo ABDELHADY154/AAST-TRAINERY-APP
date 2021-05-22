@@ -37,7 +37,7 @@ export default class Skillinfo extends Component {
       });
       await axios
         .get(`/A/student/profile/skill/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             id: res.data.response.data.id,
             skill_name: res.data.response.data.skill_name,
@@ -47,7 +47,7 @@ export default class Skillinfo extends Component {
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -72,7 +72,7 @@ export default class Skillinfo extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/skill/${this.props.route.params.id}`, body)
-        .then(res => {
+        .then((res) => {
           this.setState({
             spinner: false,
           });
@@ -83,7 +83,7 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -97,7 +97,7 @@ export default class Skillinfo extends Component {
     } else {
       return await axios
         .post("/A/student/profile/skill", body)
-        .then(response => {
+        .then((response) => {
           this.setState({
             spinner: false,
           });
@@ -108,7 +108,7 @@ export default class Skillinfo extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -121,13 +121,13 @@ export default class Skillinfo extends Component {
         });
     }
   };
-  handleDelete = async e => {
+  handleDelete = async (e) => {
     this.setState({
       spinner: true,
     });
     await axios
       .delete(`/A/student/profile/skill/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           spinner: false,
         });
@@ -138,7 +138,7 @@ export default class Skillinfo extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -158,6 +158,8 @@ export default class Skillinfo extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -174,6 +176,8 @@ export default class Skillinfo extends Component {
         <View style={{ flex: 1, width: "94%", alignSelf: "center" }}>
           <ScrollView>
             <Input
+              accessible={true}
+              accessibilityLabel="type skill name"
               containerStyle={{
                 justifyContent: "center",
                 alignSelf: "center",
@@ -199,7 +203,7 @@ export default class Skillinfo extends Component {
                 marginTop: 15,
               }}
               value={this.state.skill_name}
-              onChangeText={value => this.setState({ skill_name: value })}
+              onChangeText={(value) => this.setState({ skill_name: value })}
             />
             {this.state.skillErr != "" ? (
               <View
@@ -217,7 +221,7 @@ export default class Skillinfo extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.skillErr}
@@ -227,6 +231,9 @@ export default class Skillinfo extends Component {
               <Text></Text>
             )}
             <View
+              accessible={true}
+              accessibilityLabel="Level of Experience"
+              accessibilityHint="select a star from 1 to 5"
               style={{
                 width: "93%",
                 justifyContent: "center",
@@ -253,7 +260,7 @@ export default class Skillinfo extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.years_of_exp}
-                selectedStar={years_of_exp =>
+                selectedStar={(years_of_exp) =>
                   this.setState({ years_of_exp: years_of_exp })
                 }
                 style={{
@@ -278,8 +285,8 @@ export default class Skillinfo extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
-marginTop: "7%",
-                    textTransform: 'capitalize'
+                    marginTop: "7%",
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.yearsExpErr}

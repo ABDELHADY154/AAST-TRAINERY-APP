@@ -32,7 +32,7 @@ export default class Academicinfo extends Component {
   componentDidMount() {
     axios
       .get("departments")
-      .then(response => {
+      .then((response) => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -40,7 +40,7 @@ export default class Academicinfo extends Component {
       });
     axios
       .get("/A/student/profile/academic")
-      .then(res => {
+      .then((res) => {
         this.setState({
           university: res.data.response.data.university,
           department: res.data.response.data.department,
@@ -65,7 +65,7 @@ export default class Academicinfo extends Component {
           spinner: false,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   }
@@ -76,7 +76,7 @@ export default class Academicinfo extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ start_year: date.getFullYear() });
 
     this.hideFromDatePicker();
@@ -87,7 +87,7 @@ export default class Academicinfo extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ end_year: date.getFullYear() });
     this.hideToDatePicker();
   };
@@ -106,7 +106,7 @@ export default class Academicinfo extends Component {
     };
     await axios
       .put("/A/student/profile/academic", data)
-      .then(res => {
+      .then((res) => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
@@ -115,7 +115,7 @@ export default class Academicinfo extends Component {
         });
         // console.log(res.response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -151,6 +151,8 @@ export default class Academicinfo extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -200,7 +202,9 @@ export default class Academicinfo extends Component {
                   itemStyle={{ backgroundColor: "#fff" }}
                   dropdownIconColor="#1E4275"
                   selectedValue={this.state.university}
-                  onValueChange={value => this.setState({ university: value })}
+                  onValueChange={(value) =>
+                    this.setState({ university: value })
+                  }
                 >
                   <Picker.Item label="Choose Your University" />
                   <Picker.Item label="AAST CMT" value="AAST CMT" />
@@ -208,7 +212,12 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left",textTransform: 'capitalize' }}
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  textTransform: "capitalize",
+                }}
               >
                 {this.state.universityErr ? this.state.universityErr : null}
               </Text>
@@ -253,7 +262,7 @@ export default class Academicinfo extends Component {
                   }
                 >
                   <Picker.Item label="Choose Your Department" value="0" />
-                  {this.state.departments.map(key => {
+                  {this.state.departments.map((key) => {
                     return (
                       <Picker.Item
                         label={key.dep_name}
@@ -265,13 +274,21 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left" ,textTransform: 'capitalize'}}
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  textTransform: "capitalize",
+                }}
               >
                 {this.state.department_idErr
                   ? this.state.department_idErr
                   : null}
               </Text>
               <Input
+                accessible={true}
+                accessibilityLabel="Registration Number"
+                accessibilityHint={this.state.reg_no}
                 style={{
                   alignSelf: "flex-start",
                   alignContent: "flex-start",
@@ -305,7 +322,7 @@ export default class Academicinfo extends Component {
                 }}
                 // errorMessage={this.state.reg_noErr}
                 value={this.state.reg_no}
-                onChangeText={value => this.setState({ reg_no: value })}
+                onChangeText={(value) => this.setState({ reg_no: value })}
               />
               <Text
                 style={{
@@ -313,7 +330,7 @@ export default class Academicinfo extends Component {
                   fontSize: 14,
                   textAlign: "left",
                   marginTop: "-7%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.reg_noErr ? this.state.reg_noErr : null}
@@ -326,7 +343,7 @@ export default class Academicinfo extends Component {
                   fontWeight: "normal",
                 }}
               >
-                Term Period
+                Term
               </Text>
               <View
                 style={{
@@ -345,6 +362,9 @@ export default class Academicinfo extends Component {
                 }}
               >
                 <Picker
+                  accessible={true}
+                  accessibilityLabel="choose your term "
+                  accessibilityHint={this.state.period}
                   mode="dialog"
                   style={{
                     color: "#1E4275",
@@ -377,11 +397,19 @@ export default class Academicinfo extends Component {
                 </Picker>
               </View>
               <Text
-                style={{ color: "#F44336", fontSize: 14, textAlign: "left",textTransform: 'capitalize' }}
+                style={{
+                  color: "#F44336",
+                  fontSize: 14,
+                  textAlign: "left",
+                  textTransform: "capitalize",
+                }}
               >
                 {this.state.periodErr ? this.state.periodErr : null}
               </Text>
               <Input
+                accessible={true}
+                accessibilityLabel="gpa "
+                accessibilityHint={this.state.gpa}
                 keyboardType="number-pad"
                 textAlign="left"
                 inputStyle={{ color: "#1E4275", marginLeft: "1%" }}
@@ -411,7 +439,7 @@ export default class Academicinfo extends Component {
                 }}
                 value={gpa}
                 // errorMessage={this.state.gpaErr}
-                onChangeText={value => this.setState({ gpa: value })}
+                onChangeText={(value) => this.setState({ gpa: value })}
               />
               <Text
                 style={{
@@ -419,7 +447,7 @@ export default class Academicinfo extends Component {
                   fontSize: 14,
                   textAlign: "left",
                   marginTop: "-7%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.gpaErr ? this.state.gpaErr : " "}
@@ -468,6 +496,9 @@ export default class Academicinfo extends Component {
                 ></Feather>
 
                 <Button
+                  accessible={true}
+                  accessibilityLabel=" start year"
+                  accessibilityHint={this.state.start_year}
                   onPress={this.showFromDatePicker}
                   color="transparent"
                   style={{
@@ -509,7 +540,7 @@ export default class Academicinfo extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
-                      textTransform: 'capitalize'
+                      textTransform: "capitalize",
                     }}
                   >
                     {this.state.fromErr}
@@ -563,6 +594,9 @@ export default class Academicinfo extends Component {
                   }}
                 ></Feather>
                 <Button
+                  accessible={true}
+                  accessibilityLabel=" end year"
+                  accessibilityHint={this.state.end}
                   onPress={this.showToDatePicker}
                   color="transparent"
                   style={{
@@ -604,7 +638,7 @@ export default class Academicinfo extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.toErr}

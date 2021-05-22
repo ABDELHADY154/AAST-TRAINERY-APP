@@ -317,6 +317,8 @@ export default class ExpInfoForm extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -382,12 +384,15 @@ export default class ExpInfoForm extends Component {
                 marginTop: "1%",
                 marginLeft: "3%",
                 marginBottom: "-4%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.expErr ? this.state.expErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="job title"
+              accessibilityHint={this.state.job_title}
               style={styles.input}
               autoCompleteType="name"
               textContentType="name"
@@ -421,12 +426,15 @@ export default class ExpInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "0%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.jobErr ? this.state.jobErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="Company Name"
+              accessibilityHint={this.state.company_name}
               style={styles.input}
               autoCompleteType="name"
               textContentType="name"
@@ -460,12 +468,15 @@ export default class ExpInfoForm extends Component {
                 marginTop: "-7%",
                 marginLeft: "3%",
                 marginBottom: "2%",
-                textTransform: 'capitalize'
+                textTransform: "capitalize",
               }}
             >
               {this.state.companyErr ? this.state.companyErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="Company Website"
+              accessibilityHint={this.state.company_website}
               style={styles.input}
               autoCompleteType="name"
               textContentType="name"
@@ -572,7 +583,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-5%",
                   marginBottom: "-2%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.countryErr ? this.state.countryErr : null}
@@ -639,7 +650,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "1%",
                   marginLeft: "-5%",
                   marginBottom: "-2%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.cityErr ? this.state.cityErr : null}
@@ -677,6 +688,9 @@ export default class ExpInfoForm extends Component {
                   ></Feather>
 
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date from"
+                    accessibilityHint={this.state.from}
                     onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
@@ -709,7 +723,7 @@ export default class ExpInfoForm extends Component {
                   marginTop: "0%",
                   marginLeft: "-5%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.fromErr ? this.state.fromErr : null}
@@ -746,6 +760,9 @@ export default class ExpInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date to"
+                    accessibilityHint={this.state.to}
                     onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
@@ -777,12 +794,15 @@ export default class ExpInfoForm extends Component {
                   marginTop: "0%",
                   marginLeft: "-5%",
                   marginBottom: "-4%",
-                  textTransform: 'capitalize'
+                  textTransform: "capitalize",
                 }}
               >
                 {this.state.toErr ? this.state.toErr : null}
               </Text>
               <Input
+                accessible={true}
+                accessibilityLabel=" enter a valid  Credential url"
+                accessibilityHint={this.state.cred_url}
                 style={styles.input}
                 textContentType="name"
                 keyboardType="default"
@@ -800,20 +820,29 @@ export default class ExpInfoForm extends Component {
                   fontSize: 16,
                   fontFamily: "SF-M",
                   fontWeight: "normal",
-                  marginBottom: -10,
+                  // marginBottom: -10,
                   marginTop: 15,
                   marginLeft: "-10%",
                 }}
-                placeholder="https://www."
+                // placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
                 onChangeText={(value) => this.setState({ cred_url: value })}
               />
-              <View
+              <Text
                 style={{
-                  flexDirection: "row",
+                  color: "#1E4274",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-5%",
+                  marginLeft: "-5%",
+                  marginBottom: "2%",
+                  textTransform: "capitalize",
                 }}
               >
+                https://www.example.com
+              </Text>
+              <View style={{ marginTop: 5, flexDirection: "row" }}>
                 {this.state.cred == null ? (
                   <>
                     <Text
@@ -832,6 +861,8 @@ export default class ExpInfoForm extends Component {
                       Credentials Upload
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Upload Credential document "
                       style={{
                         marginTop: -4,
                         flex: 1,
@@ -871,6 +902,8 @@ export default class ExpInfoForm extends Component {
                       Credentials Uploaded
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Credential document Uploaded  "
                       style={{
                         marginTop: -4,
                         flex: 1,

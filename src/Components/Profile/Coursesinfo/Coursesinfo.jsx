@@ -234,6 +234,8 @@ export default class CoursesInfoForm extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -250,6 +252,9 @@ export default class CoursesInfoForm extends Component {
         <View style={{ flex: 1, width: "90%", alignSelf: "center" }}>
           <ScrollView style={styles.scrollView}>
             <Input
+              accessible={true}
+              accessibilityLabel="course name"
+              accessibilityHint={this.state.course_name}
               containerStyle={styles.inputContainer}
               autoCompleteType="name"
               textContentType="name"
@@ -290,7 +295,7 @@ export default class CoursesInfoForm extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.course_nameErr}
@@ -300,6 +305,9 @@ export default class CoursesInfoForm extends Component {
               <Text></Text>
             )}
             <Input
+              accessible={true}
+              accessibilityLabel="Course Provider"
+              accessibilityHint={this.state.course_provider}
               containerStyle={{ flex: 1, width: "111%", alignSelf: "center" }}
               style={styles.input}
               autoCompleteType="name"
@@ -345,7 +353,7 @@ export default class CoursesInfoForm extends Component {
                     color: "#F44336",
                     fontSize: 14,
                     textAlign: "left",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.course_providerErr}
@@ -388,6 +396,9 @@ export default class CoursesInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date from"
+                    accessibilityHint={this.state.from}
                     onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
@@ -429,7 +440,7 @@ export default class CoursesInfoForm extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
-                      textTransform: 'capitalize'
+                      textTransform: "capitalize",
                     }}
                   >
                     {this.state.fromErr}
@@ -451,7 +462,6 @@ export default class CoursesInfoForm extends Component {
               >
                 To
               </Text>
-
               <View>
                 <View>
                   <DateTimePickerModal
@@ -471,6 +481,9 @@ export default class CoursesInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date to"
+                    accessibilityHint={this.state.to}
                     onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
@@ -511,7 +524,7 @@ export default class CoursesInfoForm extends Component {
                       color: "#F44336",
                       fontSize: 14,
                       textAlign: "left",
-                      textTransform: 'capitalize'
+                      textTransform: "capitalize",
                     }}
                   >
                     {this.state.toErr}
@@ -521,6 +534,9 @@ export default class CoursesInfoForm extends Component {
                 <Text></Text>
               )}
               <Input
+                accessible={true}
+                accessibilityLabel=" enter a valid  Credential url"
+                accessibilityHint={this.state.cred_url}
                 style={styles.input}
                 textContentType="name"
                 keyboardType="default"
@@ -543,11 +559,24 @@ export default class CoursesInfoForm extends Component {
                   marginTop: 15,
                   marginLeft: "-6%",
                 }}
-                placeholder="https://www."
+                // placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
                 onChangeText={(value) => this.setState({ cred_url: value })}
               />
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-5%",
+                  marginLeft: "-5%",
+                  marginBottom: "2%",
+                  textTransform: "capitalize",
+                }}
+              >
+                https://www.example.com
+              </Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -571,6 +600,8 @@ export default class CoursesInfoForm extends Component {
                       Credentials Upload
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Upload Credential document "
                       style={{
                         marginTop: -4,
                         flex: 1,
@@ -610,6 +641,8 @@ export default class CoursesInfoForm extends Component {
                       Credentials Uploaded
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Credential document Uploaded  "
                       style={{
                         marginTop: -4,
                         flex: 1,

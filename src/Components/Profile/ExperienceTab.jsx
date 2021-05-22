@@ -1082,7 +1082,7 @@ export class Languages extends Component {
                 paddingVertical: 5,
               }}
               accessibilityLabel="edit details of "
-              accessibilityHint={this.props.school_name}
+              accessibilityHint={this.props.language}
             >
               <MaterialIcons
                 name="mode-edit"

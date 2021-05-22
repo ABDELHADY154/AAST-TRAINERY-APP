@@ -46,7 +46,7 @@ export default class EduInfoForm extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = date => {
+  handleFromConfirm = (date) => {
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -56,7 +56,7 @@ export default class EduInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = date => {
+  handleToConfirm = (date) => {
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -70,13 +70,13 @@ export default class EduInfoForm extends Component {
       }
     }
   };
-  getCityList = code => {
+  getCityList = (code) => {
     axios
       .get(`/stateList/${code}`)
-      .then(res => {
+      .then((res) => {
         this.setState({ citiesList: res.data });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
@@ -111,7 +111,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -122,7 +122,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -169,7 +169,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -180,7 +180,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -203,7 +203,7 @@ export default class EduInfoForm extends Component {
     });
     axios
       .get("/countriesList")
-      .then(res => {
+      .then((res) => {
         this.setState({ countriesList: res.data });
         // if (this.state.country !== "") {
         this.countryOnchangeHandler(this.state.country);
@@ -212,7 +212,7 @@ export default class EduInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
@@ -221,7 +221,7 @@ export default class EduInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/education/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           console.log(res.data.response.data);
           this.setState({
             SchoolName: res.data.response.data.school_name,
@@ -236,7 +236,7 @@ export default class EduInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error.response);
         });
     }
@@ -256,7 +256,7 @@ export default class EduInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/education/${this.props.route.params.id}`)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -267,7 +267,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
@@ -289,6 +289,8 @@ export default class EduInfoForm extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -304,6 +306,9 @@ export default class EduInfoForm extends Component {
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
             <Input
+              accessible={true}
+              accessibilityLabel="School Name"
+              accessibilityHint={this.state.SchoolName}
               style={styles.input}
               autoCompleteType="name"
               textContentType="name"
@@ -318,7 +323,7 @@ export default class EduInfoForm extends Component {
               label="School Name"
               labelStyle={styles.labelStyle}
               value={this.state.SchoolName}
-              onChangeText={value => this.setState({ SchoolName: value })}
+              onChangeText={(value) => this.setState({ SchoolName: value })}
             />
             <Text
               style={{
@@ -506,6 +511,9 @@ export default class EduInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date from"
+                    accessibilityHint={this.state.from}
                     onPress={this.showFromDatePicker}
                     color="transparent"
                     style={{
@@ -575,6 +583,9 @@ export default class EduInfoForm extends Component {
                     }}
                   ></Feather>
                   <Button
+                    accessible={true}
+                    accessibilityLabel=" select date to"
+                    accessibilityHint={this.state.to}
                     onPress={this.showToDatePicker}
                     color="transparent"
                     style={{
@@ -612,6 +623,9 @@ export default class EduInfoForm extends Component {
                 {this.state.toErr ? this.state.toErr : null}
               </Text>
               <Input
+                accessible={true}
+                accessibilityLabel=" enter a valid  Credential url"
+                accessibilityHint={this.state.cred_url}
                 style={styles.input}
                 textContentType="name"
                 keyboardType="default"
@@ -633,13 +647,26 @@ export default class EduInfoForm extends Component {
                   marginTop: 15,
                   marginLeft: "-10%",
                 }}
-                placeholder="https://www."
+                // placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.EducationCredURL}
-                onChangeText={value =>
+                onChangeText={(value) =>
                   this.setState({ EducationCredURL: value })
                 }
               />
+              <Text
+                style={{
+                  color: "#1E4274",
+                  fontSize: 14,
+                  textAlign: "left",
+                  marginTop: "-5%",
+                  marginLeft: "-5%",
+                  marginBottom: "2%",
+                  textTransform: "capitalize",
+                }}
+              >
+                https://www.example.com
+              </Text>
               <View
                 style={{
                   flexDirection: "row",
@@ -663,6 +690,8 @@ export default class EduInfoForm extends Component {
                       Credentials Upload
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Upload Credential document "
                       style={{
                         marginTop: -4,
                         flex: 1,
@@ -702,6 +731,8 @@ export default class EduInfoForm extends Component {
                       Credentials Uploaded
                     </Text>
                     <TouchableOpacity
+                      accessible={true}
+                      accessibilityLabel="Credential document Uploaded  "
                       style={{
                         marginTop: -4,
                         flex: 1,

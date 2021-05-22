@@ -56,7 +56,7 @@ export default class AccountInfoForm extends Component {
     }
     await axios
       .post("/A/student/profile/account", data)
-      .then(res => {
+      .then((res) => {
         this.setState({
           spinner: false,
         });
@@ -64,7 +64,7 @@ export default class AccountInfoForm extends Component {
           screen: "Profile",
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -86,7 +86,7 @@ export default class AccountInfoForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/profile/account")
-      .then(res => {
+      .then((res) => {
         this.setState({
           website: res.data.response.data[0].website,
           facebook: res.data.response.data[0].facebook,
@@ -100,7 +100,7 @@ export default class AccountInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch(err => {
+      .catch((err) => {
         this.setState({
           spinner: false,
         });
@@ -123,6 +123,8 @@ export default class AccountInfoForm extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -139,6 +141,8 @@ export default class AccountInfoForm extends Component {
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
             <Input
+              accessible={true}
+              accessibilityLabel="Website"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -153,7 +157,7 @@ export default class AccountInfoForm extends Component {
               labelStyle={styles.labelStyle}
               value={this.state.website}
               // errorMessage={this.state.webErr}
-              onChangeText={value => this.setState({ website: value })}
+              onChangeText={(value) => this.setState({ website: value })}
             />
             <Text
               style={{
@@ -169,6 +173,8 @@ export default class AccountInfoForm extends Component {
               {this.state.webErr ? this.state.webErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid Facebook account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -190,7 +196,7 @@ export default class AccountInfoForm extends Component {
               }}
               // errorMessage={this.state.facebookErr}
               value={this.state.facebook}
-              onChangeText={value => this.setState({ facebook: value })}
+              onChangeText={(value) => this.setState({ facebook: value })}
             />
             <Text
               style={{
@@ -206,6 +212,8 @@ export default class AccountInfoForm extends Component {
               {this.state.facebookErr ? this.state.facebookErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid instagram account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -227,7 +235,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.instagram}
               // errorMessage={this.state.instagramErr}
-              onChangeText={value => this.setState({ instagram: value })}
+              onChangeText={(value) => this.setState({ instagram: value })}
             />
             <Text
               style={{
@@ -243,6 +251,8 @@ export default class AccountInfoForm extends Component {
               {this.state.instagramErr ? this.state.instagramErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid youtube account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -264,7 +274,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.youtube}
               // errorMessage={this.state.youtubeErr}
-              onChangeText={value => this.setState({ youtube: value })}
+              onChangeText={(value) => this.setState({ youtube: value })}
             />
             <Text
               style={{
@@ -280,6 +290,8 @@ export default class AccountInfoForm extends Component {
               {this.state.youtubeErr ? this.state.youtubeErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid linkedin account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -301,7 +313,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.linkedin}
               // errorMessage={this.state.linkedinErr}
-              onChangeText={value => this.setState({ linkedin: value })}
+              onChangeText={(value) => this.setState({ linkedin: value })}
             />
             <Text
               style={{
@@ -318,6 +330,8 @@ export default class AccountInfoForm extends Component {
             </Text>
 
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid behance account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -339,7 +353,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.behance}
               // errorMessage={this.state.behanceErr}
-              onChangeText={value => this.setState({ behance: value })}
+              onChangeText={(value) => this.setState({ behance: value })}
             />
             <Text
               style={{
@@ -355,6 +369,8 @@ export default class AccountInfoForm extends Component {
               {this.state.behanceErr ? this.state.behanceErr : null}
             </Text>
             <Input
+              accessible={true}
+              accessibilityLabel="enter a valid github account"
               style={styles.input}
               autoCompleteType="off"
               textContentType="name"
@@ -376,7 +392,7 @@ export default class AccountInfoForm extends Component {
               }}
               value={this.state.github}
               // errorMessage={this.state.githubErr}
-              onChangeText={value => this.setState({ github: value })}
+              onChangeText={(value) => this.setState({ github: value })}
             />
             <Text
               style={{

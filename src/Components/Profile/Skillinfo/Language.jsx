@@ -36,7 +36,7 @@ export default class Language extends Component {
       });
       await axios
         .get(`/A/student/profile/language/${this.props.route.params.id}`)
-        .then(res => {
+        .then((res) => {
           this.setState({
             id: res.data.response.data.id,
             language: res.data.response.data.language,
@@ -46,7 +46,7 @@ export default class Language extends Component {
             spinner: false,
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -72,7 +72,7 @@ export default class Language extends Component {
     if (this.props.route.params.id !== 0) {
       return await axios
         .put(`/A/student/profile/language/${this.props.route.params.id}`, body)
-        .then(res => {
+        .then((res) => {
           this.setState({
             spinner: false,
           });
@@ -83,7 +83,7 @@ export default class Language extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -97,7 +97,7 @@ export default class Language extends Component {
     } else {
       return await axios
         .post("/A/student/profile/language", body)
-        .then(response => {
+        .then((response) => {
           this.setState({
             spinner: false,
           });
@@ -108,7 +108,7 @@ export default class Language extends Component {
             },
           });
         })
-        .catch(error => {
+        .catch((error) => {
           this.setState({
             spinner: false,
           });
@@ -121,13 +121,13 @@ export default class Language extends Component {
         });
     }
   };
-  handleDelete = async e => {
+  handleDelete = async (e) => {
     this.setState({
       spinner: true,
     });
     await axios
       .delete(`/A/student/profile/language/${this.props.route.params.id}`)
-      .then(response => {
+      .then((response) => {
         this.setState({
           spinner: false,
         });
@@ -138,7 +138,7 @@ export default class Language extends Component {
           },
         });
       })
-      .catch(error => {
+      .catch((error) => {
         this.setState({
           spinner: false,
         });
@@ -164,6 +164,8 @@ export default class Language extends Component {
           textStyle={{ color: "#1E4274", textAlign: "center" }}
         />
         <Feather
+          accessible={true}
+          accessibilityLabel="go back"
           name="chevron-left"
           size={36}
           color="#1E4274"
@@ -180,6 +182,8 @@ export default class Language extends Component {
         <View style={{ flex: 1, width: "94%", alignSelf: "center" }}>
           <ScrollView>
             <Input
+              accessible={true}
+              accessibilityLabel="type a language"
               containerStyle={{
                 justifyContent: "center",
                 alignSelf: "center",
@@ -205,7 +209,7 @@ export default class Language extends Component {
                 marginTop: 15,
               }}
               value={this.state.language}
-              onChangeText={value => this.setState({ language: value })}
+              onChangeText={(value) => this.setState({ language: value })}
             />
             {this.state.languageErr != "" ? (
               <View
@@ -223,7 +227,7 @@ export default class Language extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.languageErr}
@@ -233,6 +237,9 @@ export default class Language extends Component {
               <Text></Text>
             )}
             <View
+              accessible={true}
+              accessibilityLabel="Level of Experience"
+              accessibilityHint="select a star from 1 to 5"
               style={{
                 width: "93%",
                 justifyContent: "center",
@@ -259,7 +266,7 @@ export default class Language extends Component {
                 disabled={false}
                 maxStars={5}
                 rating={this.state.level}
-                selectedStar={value => this.setState({ level: value })}
+                selectedStar={(value) => this.setState({ level: value })}
                 style={{
                   justifyContent: "center",
                   alignSelf: "center",
@@ -283,7 +290,7 @@ export default class Language extends Component {
                     fontSize: 14,
                     textAlign: "left",
                     marginLeft: "-1%",
-                    textTransform: 'capitalize'
+                    textTransform: "capitalize",
                   }}
                 >
                   {this.state.levelErr}
