@@ -186,11 +186,23 @@ export default class SearchComp extends Component {
             value={this.state.search}
             placeholderTextColor="#1E4274"
             searchIcon={() => {
-              return <Feather name="search" size={24} color="#1E4274" />;
+              return (
+                <Feather
+                  accessible={true}
+                  accessibilityRole="none"
+                  accessibilityLabel=" search icon"
+                  name="search"
+                  size={24}
+                  color="#1E4274"
+                />
+              );
             }}
             clearIcon={() => {
               return (
                 <MaterialIcons
+                  accessible={true}
+                  accessibilityRole="search"
+                  accessibilityLabel=" delete search text"
                   accessible={false}
                   name="clear"
                   size={24}
@@ -328,9 +340,9 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
-                    // accessible={true}
-                    // accessibilityRole="radio"
-                    // accessibilityLabel="Filter by All departments"
+                    accessible={true}
+                    accessibilityRole="radio"
+                    accessibilityLabel="Filter by All departments"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -351,7 +363,7 @@ export default class SearchComp extends Component {
                     <RadioButton
                       accessible={true}
                       accessibilityRole="radio"
-                      accessibilityLabel="Tab to checkor unchecked"
+                      accessibilityLabel="Tab to check or unchecked"
                       color="#1E4274"
                       value=""
                       status={this.state.dep === "" ? "checked" : "unchecked"}
@@ -374,8 +386,8 @@ export default class SearchComp extends Component {
                         <View
                           accessible={true}
                           accessibilityRole="radio"
-                          accessibilityLabel="Filter by All departments"
-                          accessibilityHint={dep.dep_name}
+                          accessibilityLabel={dep.dep_name}
+                          accessibilityHint="Filter"
                           style={{
                             flexDirection: "row",
                             justifyContent: "space-between",
@@ -396,8 +408,8 @@ export default class SearchComp extends Component {
                           <RadioButton
                             accessible={true}
                             accessibilityRole="radio"
-                            accessibilityLabel="Filter by All departments"
-                            accessibilityHint={dep.dep_name}
+                            accessibilityLabel={dep.dep_name}
+                            accessibilityHint="Filter"
                             color="#1E4274"
                             value={dep.id}
                             status={
@@ -416,6 +428,8 @@ export default class SearchComp extends Component {
                 )}
               </List.Accordion>
               <List.Accordion
+                accessible={true}
+                accessibilityLabel="Filter by State"
                 title="State"
                 right={(props) =>
                   props.isExpanded == false ? (
@@ -444,6 +458,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by all States"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -478,6 +494,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by  Full Time State"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -516,6 +534,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by  part Time State"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -547,6 +567,8 @@ export default class SearchComp extends Component {
                 </View>
               </List.Accordion>
               <List.Accordion
+                accessible={true}
+                accessibilityLabel="Filter by Payment"
                 title="Payment"
                 right={(props) =>
                   props.isExpanded == false ? (
@@ -575,6 +597,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by All"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -611,6 +635,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by Paid Payment"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
@@ -647,6 +673,8 @@ export default class SearchComp extends Component {
                   }}
                 >
                   <View
+                    accessible={true}
+                    accessibilityLabel="Filter by unPaid"
                     style={{
                       flexDirection: "row",
                       justifyContent: "space-between",
