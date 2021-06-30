@@ -5905,7 +5905,7 @@ react-native-animatable@^1.2.4:
 
 react-native-animated-nav-tab-bar@^3.1.4:
   version "3.1.4"
-  resolved "https://registry.npmjs.org/react-native-animated-nav-tab-bar/-/react-native-animated-nav-tab-bar-3.1.4.tgz"
+  resolved "https://registry.yarnpkg.com/react-native-animated-nav-tab-bar/-/react-native-animated-nav-tab-bar-3.1.4.tgz#a96b6bb69e02a61b1ecbe118b84f52c63ceeb54e"
   integrity sha512-WCL4WfmgR8rIXEimOd+BNzsEoVxDoJtf9386I7SeD4ZQbWbewrmpyiSn/gc7SyTGz5x0nBntg56OYIdOgreQyw==
   dependencies:
     "@react-navigation/native" "^5.9.0"
