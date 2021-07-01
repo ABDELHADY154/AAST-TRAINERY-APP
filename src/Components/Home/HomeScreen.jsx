@@ -653,13 +653,13 @@ export default class HomeScreen extends Component {
           containerStyle={{
             paddingHorizontal: "5%",
             alignSelf: "center",
-            shadowColor: "#000",
-            shadowOffset: {
-              width: 0,
-              height: 10,
-            },
-            shadowOpacity: 0.9,
-            shadowRadius: 60,
+            // shadowColor: "#000",
+            // shadowOffset: {
+            //   width: 0,
+            //   height: 10,
+            // },
+            // shadowOpacity: 0.9,
+            // shadowRadius: 60,
             borderBottomColor: "transparent",
           }}
         />

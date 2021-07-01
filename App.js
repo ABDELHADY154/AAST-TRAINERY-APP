@@ -37,6 +37,7 @@ import UpdateEmail from "./src/Components/Settings/UpdateEmail";
 import MySubscriptions from "./src/Components/Settings/MySubscriptions";
 import DeleteAccount from "./src/Components/Settings/DeleteAccount";
 import AdCancellation from "./src/Components/Settings/AdCancellation";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 
 import {
   DefaultTheme,
@@ -291,326 +292,333 @@ export default function App({ navigation }) {
   return (
     <AuthContext.Provider value={authContext}>
       <PaperProvider theme={theme}>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName="App">
-            {state.isLoading ? (
-              <>
-                <Stack.Screen
-                  name="Splash"
-                  component={SplashScreen}
-                  options={{
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-              </>
-            ) : state.userToken == null ? (
-              showTutorial == true ? (
-                <Stack.Screen
-                  name="Tutorial"
-                  component={TutorialsSCreen}
-                  options={{
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-              ) : (
+        <SafeAreaProvider>
+          <NavigationContainer>
+            <Stack.Navigator initialRouteName="App">
+              {state.isLoading ? (
                 <>
                   <Stack.Screen
-                    name="SignIn"
-                    component={SignInScreen}
+                    name="Splash"
+                    component={SplashScreen}
                     options={{
-                      animationTypeForReplace: state.isSignout ? "pop" : "push",
-
-                      header: () => {
-                        "none";
-                      },
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Register"
-                    component={SignUpScreen}
-                    options={{
-                      animationTypeForReplace: state.isSignout ? "pop" : "push",
-                      header: () => {
-                        "none";
-                      },
-                    }}
-                  />
-                  <Stack.Screen
-                    name="Forget-password"
-                    component={ForgetPassScreen}
-                    options={{
-                      animationTypeForReplace: state.isSignout ? "pop" : "push",
                       header: () => {
                         "none";
                       },
                     }}
                   />
                 </>
-              )
-            ) : (
-              <>
-                <Stack.Screen
-                  name="App"
-                  component={Trainery}
-                  options={({ route }) => ({
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "pop",
-                    title: "App",
-                    header: () => {
-                      "none";
-                    },
-                  })}
-                />
-                <Stack.Screen
-                  name="SearchScreen"
-                  component={SearchScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="EducationForm"
-                  component={EducationInfoFormScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="GeneralForm"
-                  component={GeneralScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Skillinfo"
-                  component={SkillinfoFormScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Language"
-                  component={LanguageFormScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Interests"
-                  component={InterestsFormScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="AcademicForm"
-                  component={AcademicScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="ExperienceForm"
-                  component={ExperienceScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="CoursesForm"
-                  component={CoursesScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="AccountForm"
-                  component={AccountScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="CompanyProfile"
-                  component={CompanyProfileScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="AdvisorProfile"
-                  component={AdvisorProfileScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="OpportunityPost"
-                  component={OpportunityPostScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
+              ) : state.userToken == null ? (
+                showTutorial == true ? (
+                  <Stack.Screen
+                    name="Tutorial"
+                    component={TutorialsSCreen}
+                    options={{
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                ) : (
+                  <>
+                    <Stack.Screen
+                      name="SignIn"
+                      component={SignInScreen}
+                      options={{
+                        animationTypeForReplace: state.isSignout
+                          ? "pop"
+                          : "push",
 
-                <Stack.Screen
-                  name="Advising"
-                  component={AdvisingScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Cv"
-                  component={CvScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Settings"
-                  component={SettingsScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="Portfolio"
-                  component={PortfolioScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
+                        header: () => {
+                          "none";
+                        },
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Register"
+                      component={SignUpScreen}
+                      options={{
+                        animationTypeForReplace: state.isSignout
+                          ? "pop"
+                          : "push",
+                        header: () => {
+                          "none";
+                        },
+                      }}
+                    />
+                    <Stack.Screen
+                      name="Forget-password"
+                      component={ForgetPassScreen}
+                      options={{
+                        animationTypeForReplace: state.isSignout
+                          ? "pop"
+                          : "push",
+                        header: () => {
+                          "none";
+                        },
+                      }}
+                    />
+                  </>
+                )
+              ) : (
+                <>
+                  <Stack.Screen
+                    name="App"
+                    component={Trainery}
+                    options={({ route }) => ({
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "pop",
+                      title: "App",
+                      header: () => {
+                        "none";
+                      },
+                    })}
+                  />
+                  <Stack.Screen
+                    name="SearchScreen"
+                    component={SearchScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="EducationForm"
+                    component={EducationInfoFormScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="GeneralForm"
+                    component={GeneralScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Skillinfo"
+                    component={SkillinfoFormScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Language"
+                    component={LanguageFormScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Interests"
+                    component={InterestsFormScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AcademicForm"
+                    component={AcademicScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="ExperienceForm"
+                    component={ExperienceScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="CoursesForm"
+                    component={CoursesScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AccountForm"
+                    component={AccountScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="CompanyProfile"
+                    component={CompanyProfileScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AdvisorProfile"
+                    component={AdvisorProfileScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="OpportunityPost"
+                    component={OpportunityPostScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
 
-                <Stack.Screen
-                  name="ChangePassword"
-                  component={ChangePasswordScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="UpdateEmail"
-                  component={UpdateEmailScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="MySubscriptions"
-                  component={MySubscriptionsScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="AdCancellation"
-                  component={AdCancellationScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                <Stack.Screen
-                  name="DeleteAccount"
-                  component={DeleteAccountScreen}
-                  options={{
-                    cardStyle: { backgroundColor: "#fff" },
-                    animationTypeForReplace: state.isSignout ? "pop" : "push",
-                    header: () => {
-                      "none";
-                    },
-                  }}
-                />
-                {/* <Stack.Screen
+                  <Stack.Screen
+                    name="Advising"
+                    component={AdvisingScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Cv"
+                    component={CvScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Settings"
+                    component={SettingsScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="Portfolio"
+                    component={PortfolioScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+
+                  <Stack.Screen
+                    name="ChangePassword"
+                    component={ChangePasswordScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="UpdateEmail"
+                    component={UpdateEmailScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="MySubscriptions"
+                    component={MySubscriptionsScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="AdCancellation"
+                    component={AdCancellationScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  <Stack.Screen
+                    name="DeleteAccount"
+                    component={DeleteAccountScreen}
+                    options={{
+                      cardStyle: { backgroundColor: "#fff" },
+                      animationTypeForReplace: state.isSignout ? "pop" : "push",
+                      header: () => {
+                        "none";
+                      },
+                    }}
+                  />
+                  {/* <Stack.Screen
                   name="ActivityAccepted"
                   component={ActivityAcceptedScreen}
                   options={{
@@ -643,10 +651,11 @@ export default function App({ navigation }) {
                     },
                   }}
                 /> */}
-              </>
-            )}
-          </Stack.Navigator>
-        </NavigationContainer>
+                </>
+              )}
+            </Stack.Navigator>
+          </NavigationContainer>
+        </SafeAreaProvider>
       </PaperProvider>
     </AuthContext.Provider>
   );
