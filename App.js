@@ -144,28 +144,7 @@ function AdCancellationScreen(props) {
   const route = useRoute();
   return <AdCancellation {...props} navigation={navigation} route={route} />;
 }
-// function DeleteAccountScreen(props) {
-//   const navigation = useNavigation();
-//   const route = useRoute();
-//   return <DeleteAccount {...props} navigation={navigation} route={route} />;
-// }
-// function ActivityAcceptedScreen(props) {
-// const navigation = useNavigation();
-// const route = useRoute();
-// return <ActivityAccepted {...props} navigation={navigation} route={route} />;
-// }
-// function ActivitySavedScreen(props) {
-// const navigation = useNavigation();
-// const route = useRoute();
-// return <ActivitySaved {...props} navigation={navigation} route={route} />;
-// }
-// function ActivityAppointmentScreen(props) {
-// const navigation = useNavigation();
-// const route = useRoute();
-// return (
-// <ActivityAppointment {...props} navigation={navigation} route={route} />
-// );
-// }
+
 const Stack = createStackNavigator();
 const fontConfig = {
   web: {
