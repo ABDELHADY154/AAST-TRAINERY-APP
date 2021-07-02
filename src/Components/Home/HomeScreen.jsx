@@ -653,13 +653,6 @@ export default class HomeScreen extends Component {
           containerStyle={{
             paddingHorizontal: "5%",
             alignSelf: "center",
-            // shadowColor: "#000",
-            // shadowOffset: {
-            //   width: 0,
-            //   height: 10,
-            // },
-            // shadowOpacity: 0.9,
-            // shadowRadius: 60,
             borderBottomColor: "transparent",
           }}
         />
@@ -678,16 +671,15 @@ export default class HomeScreen extends Component {
               justifyContent: "center",
               alignItems: "center",
               width: "99.9%",
-              height: 63,
-              alignSelf: "center",
             },
           }}
           appearance={{
             tabBarBackground: "#1E4275",
             shadow: true,
-            floating: Platform.OS == "ios" ? true : false,
+            floating: Platform.OS == "ios" ? false : false,
             dotSize: "large",
             dotCornerRadius: 300,
+            // topPadding: 15,
           }}
         >
           <Tabs.Screen

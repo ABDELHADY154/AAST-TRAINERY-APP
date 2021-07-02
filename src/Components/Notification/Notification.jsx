@@ -21,13 +21,13 @@ export default class Notification extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/notifications")
-      .then((res) => {
+      .then(res => {
         this.setState({
           loading: false,
           notifications: res.data.response.data,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -37,14 +37,14 @@ export default class Notification extends Component {
     });
     await axios
       .get("/A/student/notifications")
-      .then((res) => {
+      .then(res => {
         this.setState({
           loading: false,
           notifications: res.data.response.data,
           refresh: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     // this.setState
@@ -74,7 +74,7 @@ export default class Notification extends Component {
         >
           <View style={{ marginVertical: 10 }}>
             {this.state.notifications.length !== 0 ? (
-              this.state.notifications.map((e) => {
+              this.state.notifications.map(e => {
                 if (e.category == "rejected") {
                   return (
                     <RejectCard

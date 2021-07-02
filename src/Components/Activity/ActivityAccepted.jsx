@@ -27,12 +27,12 @@ export default class ActivityAccepted extends Component {
   onRefresh = async () => {
     await axios
       .get("/A/student/studentAccepted")
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -41,12 +41,12 @@ export default class ActivityAccepted extends Component {
     axios
       .get("/A/student/studentAccepted")
 
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -66,7 +66,7 @@ export default class ActivityAccepted extends Component {
           >
             {/* {this.state.posts ? ( */}
             {this.state.posts && this.state.posts.length !== 0 ? (
-              this.state.posts.map((e) => {
+              this.state.posts.map(e => {
                 return (
                   <Cards
                     item={e}
@@ -91,7 +91,7 @@ export default class ActivityAccepted extends Component {
                   style={{
                     marginTop: "5%",
                     width: "100%",
-                    height: 420,
+                    height: 600,
                     alignSelf: "center",
                   }}
                 />

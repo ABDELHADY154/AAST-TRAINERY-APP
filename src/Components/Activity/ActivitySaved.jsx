@@ -27,12 +27,12 @@ export default class ActivitySaved extends Component {
   onRefresh = async () => {
     await axios
       .get("/A/student/studentSaved")
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -41,12 +41,12 @@ export default class ActivitySaved extends Component {
     axios
       .get("/A/student/studentSaved")
 
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -64,7 +64,7 @@ export default class ActivitySaved extends Component {
         >
           {this.state.posts && this.state.posts.length !== 0 ? (
             // {this.state.posts ? (
-            this.state.posts.map((e) => {
+            this.state.posts.map(e => {
               return (
                 <Cards item={e} key={e.id} navigation={this.props.navigation} />
               );
@@ -85,7 +85,7 @@ export default class ActivitySaved extends Component {
                 style={{
                   marginTop: "5%",
                   width: "100%",
-                  height: 420,
+                  height: 600,
                   alignSelf: "center",
                 }}
               />

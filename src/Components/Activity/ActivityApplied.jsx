@@ -28,12 +28,12 @@ export default class ActivityApplied extends Component {
   onRefresh = async () => {
     await axios
       .get("/A/student/studentApplied")
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -42,13 +42,13 @@ export default class ActivityApplied extends Component {
     this.setState({ refresh: true });
     axios
       .get("/A/student/studentApplied")
-      .then((res) => {
+      .then(res => {
         this.setState({
           posts: res.data.response.data,
           refresh: false,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -67,7 +67,7 @@ export default class ActivityApplied extends Component {
           }
         >
           {this.state.posts && this.state.posts.length !== 0 ? (
-            this.state.posts.map((e) => {
+            this.state.posts.map(e => {
               return (
                 <Cards item={e} key={e.id} navigation={this.props.navigation} />
               );
@@ -88,7 +88,7 @@ export default class ActivityApplied extends Component {
                 style={{
                   marginTop: "5%",
                   width: "100%",
-                  height: 420,
+                  height: 600,
                   alignSelf: "center",
                 }}
               />

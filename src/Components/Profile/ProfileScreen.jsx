@@ -21,6 +21,7 @@ import { PersonalTab } from "./PersonalTab";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ProfileImgLoader } from "../Loader/Loader";
 import Spinner from "react-native-loading-spinner-overlay";
+import { Button } from "galio-framework";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -37,7 +38,7 @@ export default class ProfileScreen extends Component {
   afterImageUpload = async () => {
     await axios
       .get("/A/student/studentImg")
-      .then((response) => {
+      .then(response => {
         this.setState({
           userData: response.data.response.data,
         });
@@ -50,7 +51,7 @@ export default class ProfileScreen extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/studentImg")
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
@@ -67,7 +68,7 @@ export default class ProfileScreen extends Component {
   hideModal = () => {
     this.setState({ visible: false });
   };
-  getImage = (image) => {
+  getImage = image => {
     this.setState({ image: image });
   };
   updateImage = async () => {
@@ -89,14 +90,14 @@ export default class ProfileScreen extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((e) => {
+      .then(e => {
         this.setState({ visible: false });
         this.afterImageUpload();
         this.setState({
           spinner: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response);
       });
   };
@@ -139,7 +140,7 @@ export default class ProfileScreen extends Component {
                     size={110}
                     source={{ uri: this.state.userData.image }}
                   />
-                  <FontAwesome
+                  {/* <FontAwesome
                     accessible={true}
                     accessibil
                     name="camera"
@@ -153,7 +154,27 @@ export default class ProfileScreen extends Component {
                       marginTop: -30,
                       marginLeft: 74,
                     }}
-                  />
+                  /> */}
+                  <Button
+                    onlyIcon
+                    accessible={true}
+                    icon="camera"
+                    iconFamily="antdesign"
+                    iconSize={30}
+                    color="#fff"
+                    iconColor="#1E4274"
+                    onPress={this.showModal}
+                    style={{
+                      width: 45,
+                      height: 45,
+                      paddingVertical: 7,
+                      paddingHorizontal: 8,
+                      marginTop: -30,
+                      marginLeft: 74,
+                    }}
+                  >
+                    warning
+                  </Button>
                 </Pressable>
                 <Portal>
                   <Modal

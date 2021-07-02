@@ -35,12 +35,12 @@ export default class ActivityAppointment extends Component {
   onRefresh = async () => {
     await axios
       .get("/A/student/studentSessions")
-      .then((res) => {
+      .then(res => {
         this.setState({
           data: res.data.response.data,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
@@ -49,13 +49,13 @@ export default class ActivityAppointment extends Component {
     this.setState({ refresh: true });
     axios
       .get("/A/student/studentSessions")
-      .then((res) => {
+      .then(res => {
         this.setState({
           data: res.data.response.data,
           refresh: false,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -76,7 +76,7 @@ export default class ActivityAppointment extends Component {
           }
         >
           {this.state.data.length !== 0 ? (
-            this.state.data.map((data) => {
+            this.state.data.map(data => {
               return (
                 <Card
                   accessible={true}
@@ -179,7 +179,7 @@ export default class ActivityAppointment extends Component {
                 style={{
                   marginTop: "5%",
                   width: "100%",
-                  height: 420,
+                  height: 600,
                   alignSelf: "center",
                 }}
               />
