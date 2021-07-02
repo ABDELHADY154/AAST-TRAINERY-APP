@@ -592,7 +592,7 @@ export default class Academicinfo extends Component {
                 <Button
                   accessible={true}
                   accessibilityLabel=" start year"
-                  accessibilityHint={this.state.start_year}
+                  accessibilityHint={`${this.state.start_year}`}
                   onPress={this.showFromDatePicker}
                   color="transparent"
                   style={{
@@ -690,7 +690,7 @@ export default class Academicinfo extends Component {
                 <Button
                   accessible={true}
                   accessibilityLabel=" end year"
-                  accessibilityHint={this.state.end}
+                  accessibilityHint={`${this.state.end_year}`}
                   onPress={this.showToDatePicker}
                   color="transparent"
                   style={{

@@ -670,7 +670,7 @@ export default class HomeScreen extends Component {
               borderRadius: 150,
               justifyContent: "center",
               alignItems: "center",
-              width: "99.9%",
+              // width: "70%",
               alignSelf: "center",
             },
           }}

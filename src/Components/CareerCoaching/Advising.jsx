@@ -59,7 +59,7 @@ export default class Advising extends Component {
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response.data);
       });
   };
@@ -69,10 +69,11 @@ export default class Advising extends Component {
       booking_date: this.state.booking_date,
       status: "booked",
     };
+    console.log(this.state.booking_date);
     axios
       .post(`/A/bookSession/${this.state.data.id}`, data)
 
-      .then(() => {
+      .then(res => {
         // console.log(this.state.booking_date);
         this.setState({
           status: "booked",
@@ -80,7 +81,7 @@ export default class Advising extends Component {
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response.data);
       });
   };
@@ -92,7 +93,6 @@ export default class Advising extends Component {
     };
     axios
       .post(`/A/bookSession/cancelBooking/${this.state.data.id}`, data)
-
       .then(() => {
         console.log(this.state.booking_date);
         this.setState({
@@ -100,7 +100,7 @@ export default class Advising extends Component {
         });
       })
 
-      .catch((err) => {
+      .catch(err => {
         console.log(err.response.data);
       });
   };
@@ -110,14 +110,19 @@ export default class Advising extends Component {
   hideDatePicker = () => {
     this.setState({ isDatePickerVisible: false });
   };
-  handleConfirm = (date) => {
+  handleConfirm = date => {
+    // var date = new Date(timestamp * 1000);
+    var iso = date
+      .toISOString()
+      .match(/(\d{4}\-\d{2}\-\d{2})T(\d{2}:\d{2}:\d{2})/);
+
     this.setState({
       Date: date.toISOString().split("T")[0],
       Time: date.toLocaleTimeString().replace(/:\d{2}\s/, " "),
-      booking_date:
-        date.toISOString().split("T")[0] +
-        " " +
-        date.toLocaleTimeString().replace(/:\d{2}\s/, " "),
+      booking_date: iso[1] + " " + iso[2],
+      // date.toISOString().split("T")[0] +
+      // " " +
+      // date.toLocaleTimeString().replace(/:\d{2}\s/, " "),
     });
 
     this.hideDatePicker();
@@ -126,7 +131,7 @@ export default class Advising extends Component {
     axios
       .get(`/A/session/${this.props.route.params.id}`)
 
-      .then((res) => {
+      .then(res => {
         this.setState({
           status: res.data.response.data.status,
           data: res.data.response.data,
@@ -138,13 +143,13 @@ export default class Advising extends Component {
           reviewed: res.data.response.data.reviewed,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
     axios
       .get(`/A/student/sessionReview/${this.props.route.params.id}`)
 
-      .then((res) => {
+      .then(res => {
         this.setState({
           session_type: res.data.response.data.session_type,
           review: res.data.response.data,
@@ -153,7 +158,7 @@ export default class Advising extends Component {
           rate: res.data.response.data.rate,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -210,6 +215,7 @@ export default class Advising extends Component {
                       mode="datetime"
                       onConfirm={this.handleConfirm}
                       onCancel={this.hideDatePicker}
+                      locale="en_GB" // Use "en_GB" here
                     />
                     <Feather
                       accessible={true}
@@ -409,7 +415,7 @@ export default class Advising extends Component {
                     <StarRating
                       accessible={true}
                       accessibilityLabel={this.state.rate}
-                      onChange={(rate) => {
+                      onChange={rate => {
                         this.setState({ rate: rate });
                       }}
                       fullStarColor={"#CD8930"}
@@ -417,7 +423,7 @@ export default class Advising extends Component {
                       disabled={false}
                       maxStars={5}
                       rating={this.state.rate}
-                      selectedStar={(rate) => this.setState({ rate: rate })}
+                      selectedStar={rate => this.setState({ rate: rate })}
                       style={{
                         justifyContent: "center",
                         alignSelf: "center",
@@ -450,7 +456,7 @@ export default class Advising extends Component {
                         placeholder="Write Your Review..."
                         placeholderTextColor="#1E4274"
                         value={this.state.comment}
-                        onChangeText={(value) =>
+                        onChangeText={value =>
                           this.setState({ comment: value })
                         }
                       />
@@ -502,7 +508,7 @@ export default class Advising extends Component {
                     dotColor="#CCCCCC"
                     activeDotColor="#CD8930"
                   >
-                    {this.state.review.map((review) => {
+                    {this.state.review.map(review => {
                       return (
                         <>
                           <Card

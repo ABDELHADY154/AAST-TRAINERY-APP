@@ -14,6 +14,7 @@ export function CvCoach(props) {
 
 export class CvCard extends Component {
   render() {
+    console.log(this.props.status);
     return (
       <View>
         <Card
@@ -110,6 +111,54 @@ export class CvCard extends Component {
                       style={{ color: "white", textTransform: "capitalize" }}
                     >
                       booked
+                    </Text>
+                  </Button>
+                ) : this.props.status == "accepted" ? (
+                  <Button
+                    accessible={true}
+                    accessibilityLabel="book session"
+                    style={{
+                      marginTop: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                      marginLeft: "55%",
+                      backgroundColor: "#1E4274",
+                    }}
+                    onPress={() => {
+                      this.props.navigation.push("Advising", {
+                        id: this.props.item.id,
+                      });
+                    }}
+                  >
+                    <Text
+                      style={{ color: "white", textTransform: "capitalize" }}
+                    >
+                      accepted
+                    </Text>
+                  </Button>
+                ) : this.props.status == "achieved" ? (
+                  <Button
+                    accessible={true}
+                    accessibilityLabel="book session"
+                    style={{
+                      marginTop: 0,
+                      justifyContent: "center",
+                      alignItems: "center",
+                      alignSelf: "flex-end",
+                      marginLeft: "55%",
+                      backgroundColor: "#1E4274",
+                    }}
+                    onPress={() => {
+                      this.props.navigation.push("Advising", {
+                        id: this.props.item.id,
+                      });
+                    }}
+                  >
+                    <Text
+                      style={{ color: "white", textTransform: "capitalize" }}
+                    >
+                      achieved
                     </Text>
                   </Button>
                 ) : (

@@ -18,6 +18,7 @@ import {
   Entypo,
   MaterialIcons,
   MaterialCommunityIcons,
+  AntDesign,
 } from "@expo/vector-icons";
 import {
   Card,
@@ -49,13 +50,13 @@ class PersonalTabForm extends Component {
   async componentDidMount() {
     await axios
       .get("/A/student/get-profilePersonal")
-      .then((response) => {
+      .then(response => {
         this.setState({
           loading: true,
           userData: response.data.response.data,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -566,7 +567,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.facebook
+                              this.state.userData.accounts.facebook,
                             );
                           }}
                         />
@@ -583,7 +584,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.instagram
+                              this.state.userData.accounts.instagram,
                             );
                           }}
                         />
@@ -600,7 +601,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.youtube
+                              this.state.userData.accounts.youtube,
                             );
                           }}
                         />
@@ -617,7 +618,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.linkedin
+                              this.state.userData.accounts.linkedin,
                             );
                           }}
                         />
@@ -625,7 +626,8 @@ class PersonalTabForm extends Component {
                         <Text></Text>
                       )}
                       {this.state.userData.accounts.behance ? (
-                        <Entypo
+                        <AntDesign
+                          name="behance-square"
                           accessible={true}
                           accessibilityLabel="navigate to behance account"
                           size={28}
@@ -633,7 +635,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.behance
+                              this.state.userData.accounts.behance,
                             );
                           }}
                         />
@@ -650,7 +652,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.github
+                              this.state.userData.accounts.github,
                             );
                           }}
                         />
@@ -667,7 +669,7 @@ class PersonalTabForm extends Component {
                           style={{ marginRight: 25 }}
                           onPress={() => {
                             Linking.openURL(
-                              this.state.userData.accounts.website
+                              this.state.userData.accounts.website,
                             );
                           }}
                         />
