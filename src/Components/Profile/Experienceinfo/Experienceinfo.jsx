@@ -17,6 +17,8 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
 import { StatusBar } from "expo-status-bar";
 import Spinner from "react-native-loading-spinner-overlay";
+import { Modal, Portal } from "react-native-paper";
+import { Platform } from "react-native";
 
 export default class ExpInfoForm extends Component {
   state = {
@@ -45,15 +47,27 @@ export default class ExpInfoForm extends Component {
     isFromDatePickerVisible: false,
     isToDatePickerVisible: false,
     currently_work: 1,
-  };
 
+    countryModalVisible: false,
+    cityModalVisible: false,
+    expTypeModalVisible: false,
+  };
+  toggleCountryModal = () => {
+    this.setState({ countryModalVisible: !this.state.countryModalVisible });
+  };
+  toggleCityModal = () => {
+    this.setState({ cityModalVisible: !this.state.cityModalVisible });
+  };
+  toggleExpModal = () => {
+    this.setState({ expTypeModalVisible: !this.state.expTypeModalVisible });
+  };
   showFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: true });
   };
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     // console.log("A date has been picked: ", date);
     this.setState({ from: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
@@ -64,7 +78,7 @@ export default class ExpInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     // console.log("A date has been picked: ", date);
     this.setState({ to: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
@@ -79,13 +93,13 @@ export default class ExpInfoForm extends Component {
       }
     }
   };
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -124,7 +138,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -135,7 +149,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error.response.data.errors);
         this.setState({
           spinner: false,
@@ -190,7 +204,7 @@ export default class ExpInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         console.log(res.response);
         this.setState({
           spinner: false,
@@ -202,7 +216,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -229,7 +243,7 @@ export default class ExpInfoForm extends Component {
     });
     await axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         if (this.state.country !== "") {
           this.countryOnchangeHandler(this.state.country);
@@ -238,7 +252,7 @@ export default class ExpInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
           spinner: false,
         });
@@ -250,7 +264,7 @@ export default class ExpInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/experience/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           this.setState({
             experience_type: res.data.response.data.experience_type,
             job_title: res.data.response.data.job_title,
@@ -267,7 +281,7 @@ export default class ExpInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch((error) => {
+        .catch(error => {
           this.setState({
             spinner: false,
           });
@@ -287,7 +301,7 @@ export default class ExpInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/experience/${this.props.route.params.id}`)
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -298,7 +312,7 @@ export default class ExpInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -335,47 +349,84 @@ export default class ExpInfoForm extends Component {
         <View style={styles.inputContainer}>
           <ScrollView style={styles.scrollView}>
             <Text style={styles.labelStyle}>Experience Type</Text>
-            <View
-              style={{
-                backgroundColor: "transparent",
-                width: "99%",
-                marginLeft: "2%",
-                alignSelf: "flex-start",
-                borderColor: "#1E4275",
-                borderTopWidth: 0,
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                borderBottomWidth: 2,
-                borderRadius: 0,
-                alignSelf: "flex-start",
-              }}
-            >
-              <Picker
-                mode="dialog"
+            {Platform.OS == "android" ? (
+              <View
                 style={{
-                  color: "#1E4275",
+                  backgroundColor: "transparent",
+                  width: "99%",
+                  marginLeft: "2%",
+                  alignSelf: "flex-start",
                   borderColor: "#1E4275",
                   borderTopWidth: 0,
                   borderRightWidth: 0,
                   borderLeftWidth: 0,
-                  borderBottomWidth: 10,
+                  borderBottomWidth: 2,
                   borderRadius: 0,
+                  alignSelf: "flex-start",
                 }}
-                placeholder="Select your SIM"
-                placeholderStyle={{ color: "#1E4275" }}
-                placeholderIconColor="#1E4275"
-                itemStyle={{ backgroundColor: "#fff" }}
-                dropdownIconColor="#1E4275"
-                selectedValue={this.state.experience_type}
-                onValueChange={(value) =>
-                  this.setState({ experience_type: value })
-                }
               >
-                <Picker.Item label="Choose Your Experience Type" value="0" />
-                <Picker.Item label="Internship" value="Internship" />
-                <Picker.Item label="Volunteer" value="Volunteer" />
-              </Picker>
-            </View>
+                <Picker
+                  mode="dialog"
+                  style={{
+                    color: "#1E4275",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 10,
+                    borderRadius: 0,
+                  }}
+                  placeholder="Select your SIM"
+                  placeholderStyle={{ color: "#1E4275" }}
+                  placeholderIconColor="#1E4275"
+                  itemStyle={{ backgroundColor: "#fff" }}
+                  dropdownIconColor="#1E4275"
+                  selectedValue={this.state.experience_type}
+                  onValueChange={value =>
+                    this.setState({ experience_type: value })
+                  }
+                >
+                  <Picker.Item label="Choose Your Experience Type" value="0" />
+                  <Picker.Item label="Internship" value="Internship" />
+                  <Picker.Item label="Volunteer" value="Volunteer" />
+                </Picker>
+              </View>
+            ) : (
+              <View
+                accessible={true}
+                accessibilityLabel="choose your Experience Type "
+                style={{
+                  backgroundColor: "transparent",
+                  width: "112%",
+                  alignSelf: "flex-start",
+                  borderColor: "#1E4275",
+                  borderTopWidth: 0,
+                  borderRightWidth: 0,
+                  borderLeftWidth: 0,
+                  borderBottomWidth: 2,
+                  borderRadius: 0,
+                  alignSelf: "flex-start",
+                  marginLeft: "-4.5%",
+                }}
+              >
+                <Text
+                  style={{
+                    color: "#1E4275",
+                    fontSize: 18,
+                    alignSelf: "center",
+                    // textAlign: "left",
+                    paddingTop: "5%",
+                    paddingBottom: "3%",
+                  }}
+                  onPress={this.toggleExpModal}
+                >
+                  {/* {this.state.city} */}
+                  {this.state.experience_type == ""
+                    ? "choose your Experience Type"
+                    : this.state.experience_type}
+                </Text>
+              </View>
+            )}
             <Text
               style={{
                 color: "#F44336",
@@ -416,7 +467,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1%",
               }}
               value={this.state.job_title}
-              onChangeText={(value) => this.setState({ job_title: value })}
+              onChangeText={value => this.setState({ job_title: value })}
             />
             <Text
               style={{
@@ -457,7 +508,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1.4%",
               }}
               value={this.state.company_name}
-              onChangeText={(value) => this.setState({ company_name: value })}
+              onChangeText={value => this.setState({ company_name: value })}
             />
 
             <Text
@@ -499,9 +550,7 @@ export default class ExpInfoForm extends Component {
                 marginLeft: "-1.4%",
               }}
               value={this.state.company_website}
-              onChangeText={(value) =>
-                this.setState({ company_website: value })
-              }
+              onChangeText={value => this.setState({ company_website: value })}
             />
 
             <Text
@@ -535,46 +584,86 @@ export default class ExpInfoForm extends Component {
               >
                 Country
               </Text>
-              <View
-                style={{
-                  backgroundColor: "transparent",
-                  width: "114%",
-                  alignSelf: "flex-start",
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                  marginLeft: "-6%",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    backgroundColor: "transparent",
+                    width: "114%",
+                    alignSelf: "flex-start",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-6%",
                   }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.country}
-                  onValueChange={this.countryOnchangeHandler}
                 >
-                  <Picker.Item label="Choose Your Country" value="0" />
-                  {Object.entries(this.state.countriesList).map(([el, val]) => {
-                    return <Picker.Item label={val} value={val} key={el} />;
-                  })}
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.country}
+                    onValueChange={this.countryOnchangeHandler}
+                  >
+                    <Picker.Item label="Choose Your Country" value="0" />
+                    {Object.entries(this.state.countriesList).map(
+                      ([el, val]) => {
+                        return <Picker.Item label={val} value={val} key={el} />;
+                      },
+                    )}
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your Country "
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      // textAlign: "left",
+                      paddingTop: "3%",
+                      paddingBottom: "3%",
+                    }}
+                    onPress={this.toggleCountryModal}
+                  >
+                    {/* {this.state.city} */}
+                    {this.state.country == ""
+                      ? "choose your country"
+                      : this.state.country}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -600,48 +689,86 @@ export default class ExpInfoForm extends Component {
               >
                 City
               </Text>
-              <View
-                style={{
-                  backgroundColor: "transparent",
-                  width: "114%",
-                  alignSelf: "flex-start",
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                  marginLeft: "-6%",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    backgroundColor: "transparent",
+                    width: "114%",
+                    alignSelf: "flex-start",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
-                  }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.city}
-                  onValueChange={(itemValue, itemIndex) => {
-                    this.setState({ city: itemValue });
+                    alignSelf: "flex-start",
+                    marginLeft: "-6%",
                   }}
                 >
-                  <Picker.Item label="Choose The City" value="0" />
-                  {Object.entries(this.state.citiesList).map(([el, val]) => {
-                    return <Picker.Item label={val} value={val} key={el} />;
-                  })}
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.city}
+                    onValueChange={(itemValue, itemIndex) => {
+                      this.setState({ city: itemValue });
+                    }}
+                  >
+                    <Picker.Item label="Choose The City" value="0" />
+                    {Object.entries(this.state.citiesList).map(([el, val]) => {
+                      return <Picker.Item label={val} value={val} key={el} />;
+                    })}
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your City "
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      // textAlign: "left",
+                      paddingTop: "3%",
+                      paddingBottom: "3%",
+                    }}
+                    onPress={this.toggleCityModal}
+                  >
+                    {/* {this.state.city} */}
+                    {this.state.city == ""
+                      ? "choose your city"
+                      : this.state.city}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -827,7 +954,7 @@ export default class ExpInfoForm extends Component {
                 // placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.cred_url}
-                onChangeText={(value) => this.setState({ cred_url: value })}
+                onChangeText={value => this.setState({ cred_url: value })}
               />
               <Text
                 style={{
@@ -970,6 +1097,239 @@ export default class ExpInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <Portal>
+            <Modal
+              visible={this.state.expTypeModalVisible}
+              onDismiss={this.toggleExpModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleExpModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "99%",
+                    marginLeft: "2%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "transparent" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.experience_type}
+                    onValueChange={value =>
+                      this.setState({ experience_type: value })
+                    }
+                  >
+                    <Picker.Item
+                      label="Choose Your Experience Type"
+                      value="0"
+                    />
+                    <Picker.Item label="Internship" value="Internship" />
+                    <Picker.Item label="Volunteer" value="Volunteer" />
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+          <Portal>
+            <Modal
+              visible={this.state.cityModalVisible}
+              onDismiss={this.toggleCityModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleCityModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "114%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-6%",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "transparent" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.city}
+                    onValueChange={(itemValue, itemIndex) => {
+                      this.setState({ city: itemValue });
+                    }}
+                  >
+                    <Picker.Item label="Choose The City" value="0" />
+                    {Object.entries(this.state.citiesList).map(([el, val]) => {
+                      return <Picker.Item label={val} value={val} key={el} />;
+                    })}
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+          <Portal>
+            <Modal
+              visible={this.state.countryModalVisible}
+              onDismiss={this.toggleCountryModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleCountryModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "114%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-6%",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "transparent" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.country}
+                    onValueChange={this.countryOnchangeHandler}
+                  >
+                    <Picker.Item label="Choose Your Country" value="0" />
+                    {Object.entries(this.state.countriesList).map(
+                      ([el, val]) => {
+                        return <Picker.Item label={val} value={val} key={el} />;
+                      },
+                    )}
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>

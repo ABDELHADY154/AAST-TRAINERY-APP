@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, View, SafeAreaView, ScrollView } from "react-native";
+import { StyleSheet, Text, View, Platform, ScrollView } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import { Feather } from "@expo/vector-icons";
 import { Icon, Input } from "react-native-elements";
@@ -8,6 +8,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { axios } from "../../../Config/Axios";
 import { StatusBar } from "expo-status-bar";
 import Spinner from "react-native-loading-spinner-overlay";
+import { Modal, Portal } from "react-native-paper";
 
 export default class Academicinfo extends Component {
   state = {
@@ -28,11 +29,29 @@ export default class Academicinfo extends Component {
     fromErr: "",
     end_year: 0,
     toErr: "",
+    universityModalVisible: false,
+    DepModalVisible: false,
+    termModalVisible: false,
+  };
+  toggleUniversityModal = () => {
+    this.setState({
+      universityModalVisible: !this.state.universityModalVisible,
+    });
+  };
+  toggleDepModal = () => {
+    this.setState({
+      DepModalVisible: !this.state.DepModalVisible,
+    });
+  };
+  toggleTermModal = () => {
+    this.setState({
+      termModalVisible: !this.state.termModalVisible,
+    });
   };
   componentDidMount() {
     axios
       .get("departments")
-      .then((response) => {
+      .then(response => {
         this.setState({ departments: response.data.response.data });
       })
       .catch(function (error) {
@@ -40,7 +59,7 @@ export default class Academicinfo extends Component {
       });
     axios
       .get("/A/student/profile/academic")
-      .then((res) => {
+      .then(res => {
         this.setState({
           university: res.data.response.data.university,
           department: res.data.response.data.department,
@@ -65,7 +84,7 @@ export default class Academicinfo extends Component {
           spinner: false,
         });
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   }
@@ -76,7 +95,7 @@ export default class Academicinfo extends Component {
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ start_year: date.getFullYear() });
 
     this.hideFromDatePicker();
@@ -87,7 +106,7 @@ export default class Academicinfo extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ end_year: date.getFullYear() });
     this.hideToDatePicker();
   };
@@ -106,7 +125,7 @@ export default class Academicinfo extends Component {
     };
     await axios
       .put("/A/student/profile/academic", data)
-      .then((res) => {
+      .then(res => {
         this.props.navigation.push("App", {
           screen: "Profile",
         });
@@ -115,7 +134,7 @@ export default class Academicinfo extends Component {
         });
         // console.log(res.response.data);
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -135,14 +154,11 @@ export default class Academicinfo extends Component {
   };
 
   render() {
-    // console.log(this.state);
-    const gpa = this.state.gpa; // !== null ? "" : this.state.gpa;
-    console.log(gpa);
+    const gpa = this.state.gpa;
     return (
       <View style={styles.container}>
         <Spinner
           visible={this.state.spinner}
-          // textContent={"Uploading..."}
           cancelable={false}
           size="large"
           color="#1E4274"
@@ -170,47 +186,73 @@ export default class Academicinfo extends Component {
           <ScrollView style={styles.scrollView}>
             <View style={styles.inputContainer}>
               <Text style={styles.gender}>University</Text>
-              <View
-                style={{
-                  alignContent: "flex-start",
-                  backgroundColor: "transparent",
-                  width: "101%",
-                  justifyContent: "flex-start",
-
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101%",
+                    justifyContent: "flex-start",
+
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
+                    alignSelf: "flex-start",
                   }}
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.university}
-                  onValueChange={(value) =>
-                    this.setState({ university: value })
-                  }
                 >
-                  <Picker.Item label="Choose Your University" />
-                  <Picker.Item label="AAST CMT" value="AAST CMT" />
-                  <Picker.Item label="AAST CLC" value="AAST CLC" />
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.university}
+                    onValueChange={value =>
+                      this.setState({ university: value })
+                    }
+                  >
+                    <Picker.Item label="Choose Your University" />
+                    <Picker.Item label="AAST CMT" value="AAST CMT" />
+                    <Picker.Item label="AAST CLC" value="AAST CLC" />
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your University "
+                  style={styles.boxContainer}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      // textAlign: "left",
+                      paddingTop: "2%",
+                      paddingBottom: "1%",
+                    }}
+                    onPress={this.toggleUniversityModal}
+                  >
+                    {/* {this.state.city} */}
+                    {this.state.university == ""
+                      ? "choose your university"
+                      : this.state.university}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -222,57 +264,85 @@ export default class Academicinfo extends Component {
                 {this.state.universityErr ? this.state.universityErr : null}
               </Text>
               <Text style={styles.gender}>Department</Text>
-              <View
-                style={{
-                  alignContent: "flex-start",
-                  backgroundColor: "transparent",
-                  width: "101%",
-                  justifyContent: "flex-start",
-
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101%",
+                    justifyContent: "flex-start",
+
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
+                    alignSelf: "flex-start",
                   }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.department_id}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({
-                      department_id: itemValue,
-                    })
-                  }
                 >
-                  <Picker.Item label="Choose Your Department" value="0" />
-                  {this.state.departments.map((key) => {
-                    return (
-                      <Picker.Item
-                        label={key.dep_name}
-                        value={key.id}
-                        key={key.id}
-                      />
-                    );
-                  })}
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.department_id}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({
+                        department_id: itemValue,
+                      })
+                    }
+                  >
+                    <Picker.Item label="Choose Your Department" value="0" />
+                    {this.state.departments.map(key => {
+                      return (
+                        <Picker.Item
+                          label={key.dep_name}
+                          value={key.id}
+                          key={key.id}
+                        />
+                      );
+                    })}
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your Department "
+                  style={styles.boxContainer}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      paddingTop: "2%",
+                      paddingBottom: "1%",
+                    }}
+                    onPress={this.toggleDepModal}
+                  >
+                    {this.state.department_id == ""
+                      ? this.state.department
+                      : this.state.departments.map(i => {
+                          if (i.id == this.state.department_id) {
+                            return i.dep_name;
+                          }
+                        })}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -322,7 +392,7 @@ export default class Academicinfo extends Component {
                 }}
                 // errorMessage={this.state.reg_noErr}
                 value={this.state.reg_no}
-                onChangeText={(value) => this.setState({ reg_no: value })}
+                onChangeText={value => this.setState({ reg_no: value })}
               />
               <Text
                 style={{
@@ -345,57 +415,81 @@ export default class Academicinfo extends Component {
               >
                 Term
               </Text>
-              <View
-                style={{
-                  alignContent: "flex-start",
-                  backgroundColor: "transparent",
-                  width: "101.5%",
-                  justifyContent: "flex-start",
-                  marginLeft: "-0.5%",
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                }}
-              >
-                <Picker
-                  accessible={true}
-                  accessibilityLabel="choose your term "
-                  accessibilityHint={this.state.period}
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101.5%",
+                    justifyContent: "flex-start",
+                    marginLeft: "-0.5%",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
+                    alignSelf: "flex-start",
                   }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.period}
-                  onValueChange={(itemValue, itemIndex) =>
-                    this.setState({ period: itemValue })
-                  }
                 >
-                  <Picker.Item label=" Choose Your Term" value={0} />
-                  <Picker.Item label="  1" value="1" />
-                  <Picker.Item label="  2" value="2" />
-                  <Picker.Item label="  3" value="3" />
-                  <Picker.Item label="  4" value="4" />
-                  <Picker.Item label="  5" value="5" />
-                  <Picker.Item label="  6" value="6" />
-                  <Picker.Item label="  7" value="7" />
-                  <Picker.Item label="  8" value="8" />
-                </Picker>
-              </View>
+                  <Picker
+                    accessible={true}
+                    accessibilityLabel="choose your term "
+                    accessibilityHint={this.state.period}
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.period}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({ period: itemValue })
+                    }
+                  >
+                    <Picker.Item label=" Choose Your Term" value={0} />
+                    <Picker.Item label="  1" value="1" />
+                    <Picker.Item label="  2" value="2" />
+                    <Picker.Item label="  3" value="3" />
+                    <Picker.Item label="  4" value="4" />
+                    <Picker.Item label="  5" value="5" />
+                    <Picker.Item label="  6" value="6" />
+                    <Picker.Item label="  7" value="7" />
+                    <Picker.Item label="  8" value="8" />
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your Term "
+                  style={styles.boxContainer}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      paddingTop: "2%",
+                      paddingBottom: "1%",
+                    }}
+                    onPress={this.toggleTermModal}
+                  >
+                    {this.state.period == ""
+                      ? "choose a period"
+                      : this.state.period}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -439,7 +533,7 @@ export default class Academicinfo extends Component {
                 }}
                 value={gpa}
                 // errorMessage={this.state.gpaErr}
-                onChangeText={(value) => this.setState({ gpa: value })}
+                onChangeText={value => this.setState({ gpa: value })}
               />
               <Text
                 style={{
@@ -656,6 +750,255 @@ export default class Academicinfo extends Component {
               <Text style={{ color: "white", fontSize: 18 }}>Update</Text>
             </Button>
           </ScrollView>
+          <Portal>
+            <Modal
+              visible={this.state.DepModalVisible}
+              onDismiss={this.toggleDepModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleDepModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101%",
+                    justifyContent: "flex-start",
+
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.department_id}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({
+                        department_id: itemValue,
+                        department: itemValue,
+                      })
+                    }
+                  >
+                    <Picker.Item label="Choose Your Department" value="0" />
+                    {this.state.departments.map(key => {
+                      return (
+                        <Picker.Item
+                          label={key.dep_name}
+                          value={key.id}
+                          key={key.id}
+                        />
+                      );
+                    })}
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+          <Portal>
+            <Modal
+              visible={this.state.termModalVisible}
+              onDismiss={this.toggleTermModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleTermModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101.5%",
+                    justifyContent: "flex-start",
+                    marginLeft: "-0.5%",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    accessible={true}
+                    accessibilityLabel="choose your term "
+                    accessibilityHint={this.state.period}
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.period}
+                    onValueChange={(itemValue, itemIndex) =>
+                      this.setState({ period: itemValue })
+                    }
+                  >
+                    <Picker.Item label=" Choose Your Term" value={0} />
+                    <Picker.Item label="  1" value="1" />
+                    <Picker.Item label="  2" value="2" />
+                    <Picker.Item label="  3" value="3" />
+                    <Picker.Item label="  4" value="4" />
+                    <Picker.Item label="  5" value="5" />
+                    <Picker.Item label="  6" value="6" />
+                    <Picker.Item label="  7" value="7" />
+                    <Picker.Item label="  8" value="8" />
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+          <Portal>
+            <Modal
+              visible={this.state.universityModalVisible}
+              onDismiss={this.toggleUniversityModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleUniversityModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    alignContent: "flex-start",
+                    backgroundColor: "transparent",
+                    width: "101%",
+                    justifyContent: "flex-start",
+
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 0,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.university}
+                    onValueChange={value =>
+                      this.setState({ university: value })
+                    }
+                  >
+                    <Picker.Item label="Choose Your University" />
+                    <Picker.Item label="AAST CMT" value="AAST CMT" />
+                    <Picker.Item label="AAST CLC" value="AAST CLC" />
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>

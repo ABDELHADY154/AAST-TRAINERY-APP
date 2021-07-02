@@ -3,7 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
+  Platform,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
@@ -18,10 +18,13 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as DocumentPicker from "expo-document-picker";
 import { StatusBar } from "expo-status-bar";
 import Spinner from "react-native-loading-spinner-overlay";
+import { Modal, Portal } from "react-native-paper";
 
 export default class EduInfoForm extends Component {
   state = {
     SchoolName: "",
+    countryModalVisible: false,
+    cityModalVisible: false,
     spinner: false,
     country: "",
     city: "",
@@ -40,13 +43,19 @@ export default class EduInfoForm extends Component {
     fromErr: "",
     toErr: "",
   };
+  toggleCountryModal = () => {
+    this.setState({ countryModalVisible: !this.state.countryModalVisible });
+  };
+  toggleCityModal = () => {
+    this.setState({ cityModalVisible: !this.state.cityModalVisible });
+  };
   showFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: true });
   };
   hideFromDatePicker = () => {
     this.setState({ isFromDatePickerVisible: false });
   };
-  handleFromConfirm = (date) => {
+  handleFromConfirm = date => {
     this.setState({ EducationFrom: date.toISOString().split("T")[0] });
     this.hideFromDatePicker();
   };
@@ -56,7 +65,7 @@ export default class EduInfoForm extends Component {
   hideToDatePicker = () => {
     this.setState({ isToDatePickerVisible: false });
   };
-  handleToConfirm = (date) => {
+  handleToConfirm = date => {
     this.setState({ EducationTo: date.toISOString().split("T")[0] });
     this.hideToDatePicker();
   };
@@ -70,13 +79,13 @@ export default class EduInfoForm extends Component {
       }
     }
   };
-  getCityList = (code) => {
+  getCityList = code => {
     axios
       .get(`/stateList/${code}`)
-      .then((res) => {
+      .then(res => {
         this.setState({ citiesList: res.data });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -111,7 +120,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -122,7 +131,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -169,7 +178,7 @@ export default class EduInfoForm extends Component {
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     })
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -180,7 +189,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((error) => {
+      .catch(error => {
         this.setState({
           spinner: false,
         });
@@ -203,7 +212,7 @@ export default class EduInfoForm extends Component {
     });
     axios
       .get("/countriesList")
-      .then((res) => {
+      .then(res => {
         this.setState({ countriesList: res.data });
         // if (this.state.country !== "") {
         this.countryOnchangeHandler(this.state.country);
@@ -212,7 +221,7 @@ export default class EduInfoForm extends Component {
           spinner: false,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
     if (this.props.route.params.id > 0) {
@@ -221,7 +230,7 @@ export default class EduInfoForm extends Component {
       });
       await axios
         .get(`/A/student/profile/education/${this.props.route.params.id}`)
-        .then((res) => {
+        .then(res => {
           console.log(res.data.response.data);
           this.setState({
             SchoolName: res.data.response.data.school_name,
@@ -236,7 +245,7 @@ export default class EduInfoForm extends Component {
             spinner: false,
           });
         })
-        .catch((error) => {
+        .catch(error => {
           console.log(error.response);
         });
     }
@@ -256,7 +265,7 @@ export default class EduInfoForm extends Component {
     });
     await axios
       .delete(`/A/student/profile/education/${this.props.route.params.id}`)
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
         });
@@ -267,7 +276,7 @@ export default class EduInfoForm extends Component {
           },
         });
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
           spinner: false,
         });
@@ -323,7 +332,7 @@ export default class EduInfoForm extends Component {
               label="School Name"
               labelStyle={styles.labelStyle}
               value={this.state.SchoolName}
-              onChangeText={(value) => this.setState({ SchoolName: value })}
+              onChangeText={value => this.setState({ SchoolName: value })}
             />
             <Text
               style={{
@@ -357,46 +366,86 @@ export default class EduInfoForm extends Component {
               >
                 Country
               </Text>
-              <View
-                style={{
-                  backgroundColor: "transparent",
-                  width: "112%",
-                  alignSelf: "flex-start",
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  alignSelf: "flex-start",
-                  marginLeft: "-4.5%",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
                   }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.country}
-                  onValueChange={this.countryOnchangeHandler}
                 >
-                  <Picker.Item label="Choose Your Country" value="0" />
-                  {Object.entries(this.state.countriesList).map(([el, val]) => {
-                    return <Picker.Item label={val} value={val} key={el} />;
-                  })}
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.country}
+                    onValueChange={this.countryOnchangeHandler}
+                  >
+                    <Picker.Item label="Choose Your Country" value="0" />
+                    {Object.entries(this.state.countriesList).map(
+                      ([el, val]) => {
+                        return <Picker.Item label={val} value={val} key={el} />;
+                      },
+                    )}
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your Country "
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      // textAlign: "left",
+                      paddingTop: "2%",
+                      paddingBottom: "1%",
+                    }}
+                    onPress={this.toggleCountryModal}
+                  >
+                    {/* {this.state.city} */}
+                    {this.state.country == ""
+                      ? "choose your Country"
+                      : this.state.country}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -422,50 +471,86 @@ export default class EduInfoForm extends Component {
               >
                 City
               </Text>
-              <View
-                style={{
-                  backgroundColor: "transparent",
-                  width: "112%",
-                  alignSelf: "flex-start",
-                  // marginTop: 10,
-                  borderColor: "#1E4275",
-                  borderTopWidth: 0,
-                  borderRightWidth: 0,
-                  borderLeftWidth: 0,
-                  borderBottomWidth: 2,
-                  borderRadius: 0,
-                  // marginBottom: 10,
-                  alignSelf: "flex-start",
-                  marginLeft: "-4.5%",
-                }}
-              >
-                <Picker
-                  mode="dialog"
+              {Platform.OS == "android" ? (
+                <View
                   style={{
-                    color: "#1E4275",
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
+                    // marginTop: 10,
                     borderColor: "#1E4275",
                     borderTopWidth: 0,
                     borderRightWidth: 0,
                     borderLeftWidth: 0,
-                    borderBottomWidth: 10,
+                    borderBottomWidth: 2,
                     borderRadius: 0,
-                  }}
-                  placeholder="Select your SIM"
-                  placeholderStyle={{ color: "#1E4275" }}
-                  placeholderIconColor="#1E4275"
-                  itemStyle={{ backgroundColor: "#fff" }}
-                  dropdownIconColor="#1E4275"
-                  selectedValue={this.state.city}
-                  onValueChange={(itemValue, itemIndex) => {
-                    this.setState({ city: itemValue });
+                    // marginBottom: 10,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
                   }}
                 >
-                  <Picker.Item label="Choose The City" value="0" />
-                  {Object.entries(this.state.citiesList).map(([el, val]) => {
-                    return <Picker.Item label={val} value={val} key={el} />;
-                  })}
-                </Picker>
-              </View>
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 10,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "#fff" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.city}
+                    onValueChange={(itemValue, itemIndex) => {
+                      this.setState({ city: itemValue });
+                    }}
+                  >
+                    <Picker.Item label="Choose The City" value="0" />
+                    {Object.entries(this.state.citiesList).map(([el, val]) => {
+                      return <Picker.Item label={val} value={val} key={el} />;
+                    })}
+                  </Picker>
+                </View>
+              ) : (
+                <View
+                  accessible={true}
+                  accessibilityLabel="choose your City "
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "112%",
+                    alignSelf: "flex-start",
+                    borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                    marginLeft: "-4.5%",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#1E4275",
+                      fontSize: 18,
+                      alignSelf: "center",
+                      paddingTop: "2%",
+                      paddingBottom: "1%",
+                    }}
+                    onPress={this.toggleCityModal}
+                  >
+                    {this.state.city == ""
+                      ? "choose your city"
+                      : this.state.city}
+                  </Text>
+                </View>
+              )}
+
               <Text
                 style={{
                   color: "#F44336",
@@ -650,7 +735,7 @@ export default class EduInfoForm extends Component {
                 // placeholder="https://www."
                 placeholderTextColor="#1E4274"
                 value={this.state.EducationCredURL}
-                onChangeText={(value) =>
+                onChangeText={value =>
                   this.setState({ EducationCredURL: value })
                 }
               />
@@ -799,6 +884,160 @@ export default class EduInfoForm extends Component {
               </Button>
             )}
           </ScrollView>
+          <Portal>
+            <Modal
+              visible={this.state.countryModalVisible}
+              onDismiss={this.toggleCountryModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleCountryModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "118%",
+                    marginLeft: "-13%",
+                    // borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    // borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      marginLeft: "5%",
+                      // borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      // borderBottomWidth: 10,
+                      borderRadius: 0,
+                      backgroundColor: "transparent",
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "transparent" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.country}
+                    onValueChange={this.countryOnchangeHandler}
+                  >
+                    <Picker.Item label="Choose Your Country" value="0" />
+                    {Object.entries(this.state.countriesList).map(
+                      ([el, val]) => {
+                        return <Picker.Item label={val} value={val} key={el} />;
+                      },
+                    )}
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
+          <Portal>
+            <Modal
+              visible={this.state.cityModalVisible}
+              onDismiss={this.toggleCityModal}
+              contentContainerStyle={{
+                backgroundColor: "white",
+                padding: 20,
+                width: "90%",
+                // height: 178,
+                alignSelf: "center",
+                justifyContent: "flex-start",
+                borderRadius: 15,
+              }}
+            >
+              <View
+                style={{
+                  justifyContent: "center",
+                  alignItems: "flex-end",
+                }}
+              >
+                <Button
+                  onlyIcon
+                  icon="close"
+                  iconFamily="antdesign"
+                  iconSize={30}
+                  color="#f5f5f5"
+                  iconColor="#1E4274"
+                  style={{ width: 40, height: 40 }}
+                  onPress={this.toggleCityModal}
+                >
+                  warning
+                </Button>
+                <View
+                  style={{
+                    backgroundColor: "transparent",
+                    width: "118%",
+                    marginLeft: "-13%",
+                    // borderColor: "#1E4275",
+                    borderTopWidth: 0,
+                    borderRightWidth: 0,
+                    borderLeftWidth: 0,
+                    // borderBottomWidth: 2,
+                    borderRadius: 0,
+                    alignSelf: "flex-start",
+                  }}
+                >
+                  <Picker
+                    mode="dialog"
+                    style={{
+                      color: "#1E4275",
+                      borderColor: "#1E4275",
+                      borderTopWidth: 0,
+                      borderRightWidth: 0,
+                      borderLeftWidth: 0,
+                      borderBottomWidth: 0,
+                      borderRadius: 0,
+                    }}
+                    placeholder="Select your SIM"
+                    placeholderStyle={{ color: "#1E4275" }}
+                    placeholderIconColor="#1E4275"
+                    itemStyle={{ backgroundColor: "transparent" }}
+                    dropdownIconColor="#1E4275"
+                    selectedValue={this.state.city}
+                    onValueChange={(itemValue, itemIndex) => {
+                      this.setState({ city: itemValue });
+                    }}
+                  >
+                    <Picker.Item label="Choose The City" value="0" />
+                    {Object.entries(this.state.citiesList).map(([el, val]) => {
+                      return <Picker.Item label={val} value={val} key={el} />;
+                    })}
+                  </Picker>
+                </View>
+              </View>
+            </Modal>
+          </Portal>
           <StatusBar style="dark" animated={true} showHideTransition="slide" />
         </View>
       </View>

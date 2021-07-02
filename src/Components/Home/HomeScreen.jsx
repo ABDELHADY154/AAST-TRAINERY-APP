@@ -671,6 +671,7 @@ export default class HomeScreen extends Component {
               justifyContent: "center",
               alignItems: "center",
               width: "99.9%",
+              alignSelf: "center",
             },
           }}
           appearance={{
@@ -679,7 +680,6 @@ export default class HomeScreen extends Component {
             floating: Platform.OS == "ios" ? false : false,
             dotSize: "large",
             dotCornerRadius: 300,
-            // topPadding: 15,
           }}
         >
           <Tabs.Screen
