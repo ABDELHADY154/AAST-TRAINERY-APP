@@ -9,16 +9,14 @@ const slides = [
   {
     key: "1",
     title: "Start Your Non-Experience Career",
-    text:
-      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.",
+    text: "A lot may think that you should have multiple skills in order to earn an internship opportunity for your major or preffered area. With Trainery, you won't only land impressive training jobs but also you'll be able to grow and enhance your skill with us.",
     image: require("../../assets/Images/Tutorials/Tutorial1.png"),
     backgroundColor: "#59b2ab",
   },
   {
     key: "2",
-    title: "Student CV and Protfolio",
-    text:
-      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/2.jpg"),
+    title: "Your Career is Our Business",
+    text: "We firmly believe that success starts from university years for undergraduate students, and for that we want to secure your success early on to excel in your chosen career path and guide you through those years.", // image: require("./assets/2.jpg"),
     image: require("../../assets/Images/Tutorials/Tutorial2.png"),
 
     backgroundColor: "#febe29",
@@ -26,8 +24,7 @@ const slides = [
   {
     key: "3",
     title: "Career Coaching Guidance",
-    text:
-      " Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut dolor quis morbi sagittis donec sed massa. Velit malesuada amet pretium turpis in commodo aliquet pulvinar ultrices.", // image: require("./assets/3.jpg"),
+    text: "We got your back anywhere and anytime to help you improve your soft and technical skills and give you the guidance you need with professional coaches to learn more about your future career and job market", // image: require("./assets/3.jpg"),
     image: require("../../assets/Images/Tutorials/Tutorial3.png"),
 
     backgroundColor: "#22bcb5",
