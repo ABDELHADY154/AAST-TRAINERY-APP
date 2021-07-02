@@ -52,8 +52,7 @@ export class AdvisorCard extends Component {
                   borderRadius: 5,
                 }}
                 source={{
-                  uri:
-                    "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                  uri: "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
                 }}
               />
             )}
@@ -99,8 +98,7 @@ export class AdvisorCard extends Component {
                 marginLeft: 10,
               }}
               source={{
-                uri:
-                  "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+                uri: "https://images.unsplash.com/photo-1568941235198-ddb29eb888ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8N3x8dG9kbyUyMGxpc3R8ZW58MHwxfDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
               }}
             />
             <View style={{ marginTop: -7 }}>
@@ -164,8 +162,7 @@ export class ReviewsCard extends Component {
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
-                  uri:
-                    "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                  uri: "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
             )}
@@ -178,9 +175,7 @@ export class ReviewsCard extends Component {
                 lineHeight: 19,
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Consectetur dictumst nisi blandit ornare viverra eleifend Lorem
-              ipsum dolor sit amet, consectetur adipiscing elit.
+              Amazing hardworking student. Wishing them the best of luck.
             </Paragraph>
           </Card.Content>
         </Card>
@@ -225,8 +220,7 @@ export class PromotedCard extends Component {
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
-                  uri:
-                    "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                  uri: "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
             )}
@@ -329,8 +323,7 @@ export class AdsCard extends Component {
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
-                  uri:
-                    "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                  uri: "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
             )}
@@ -398,8 +391,7 @@ export class AdsCardImg extends Component {
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
-                  uri:
-                    "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                  uri: "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
             )}
@@ -420,8 +412,7 @@ export class AdsCardImg extends Component {
             </Paragraph>
             <Card.Cover
               source={{
-                uri:
-                  "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
+                uri: "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
               }}
             />
           </Card.Content>
@@ -474,8 +465,7 @@ export class AdsCardImgOnly extends Component {
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
-                  uri:
-                    "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
+                  uri: "https://media-exp1.licdn.com/dms/image/C4D0BAQGIjrvGeYN4Uw/company-logo_200_200/0/1519920801777?e=2159024400&v=beta&t=io9cI7BXwBR1wGhYyoWNAfXVBez6PSqU0li8GoGUbmI",
                 }}
               />
             )}
@@ -483,8 +473,7 @@ export class AdsCardImgOnly extends Component {
           <Card.Content>
             <Card.Cover
               source={{
-                uri:
-                  "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
+                uri: "https://www.cibeg.com/English/Personal/waystobank/PublishingImages/CIB%20-%20Digital%20Transformation%20[English%20Banner].jpg",
               }}
             />
           </Card.Content>
