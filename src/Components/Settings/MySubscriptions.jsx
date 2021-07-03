@@ -16,40 +16,40 @@ export default class MySubscriptions extends Component {
     });
     await axios
       .get("/A/student/studentAccount")
-      .then((res) => {
+      .then(res => {
         this.setState({
           spinner: false,
           isEnabled: res.data.response.data.subscribed,
         });
       })
-      .catch((err) => {
+      .catch(err => {
         this.setState({
           spinner: false,
         });
       });
   }
-  handleSubmit = async (val) => {
+  handleSubmit = async val => {
     this.setState({ spinner: true });
     if (val == false) {
       await axios
         .get("/A/student/unsubscribe")
-        .then((res) => {
+        .then(res => {
           this.setState({
             spinner: false,
           });
         })
-        .catch((err) => {
+        .catch(err => {
           this.setState({ spinner: false });
         });
     } else if (val == true) {
       await axios
         .get("/A/student/subscribe")
-        .then((res) => {
+        .then(res => {
           this.setState({
             spinner: false,
           });
         })
-        .catch((err) => {
+        .catch(err => {
           this.setState({ spinner: false });
         });
     }
@@ -100,6 +100,8 @@ export default class MySubscriptions extends Component {
                 borderBottomColor: "#1E4274",
                 borderBottomWidth: 2,
                 paddingBottom: 20,
+                // flex: 1,
+                justifyContent: "center",
               }}
             >
               <Text
@@ -116,7 +118,7 @@ export default class MySubscriptions extends Component {
                 Mail subscriptions for newsletter
               </Text>
               {/* <SwitchButton /> */}
-              <View style={styles.container}>
+              <View style={{ alignSelf: "flex-end" }}>
                 <Switch
                   trackColor={{
                     false: "#CCCCCC",
@@ -124,7 +126,7 @@ export default class MySubscriptions extends Component {
                   }}
                   thumbColor={this.state.isEnabled ? "#fff" : "#fff"}
                   ios_backgroundColor="#1E4274"
-                  onValueChange={(e) => {
+                  onValueChange={e => {
                     console.log(e);
                     this.setState({
                       isEnabled: e,
@@ -152,6 +154,8 @@ export default class MySubscriptions extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: "4%",
+    // justifyContent: "center",
     // flexDirection: "column",
     // justifyContent: "center",
     // alignItems: "center",
