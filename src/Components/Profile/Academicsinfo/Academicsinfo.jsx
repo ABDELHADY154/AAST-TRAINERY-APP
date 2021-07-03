@@ -9,6 +9,7 @@ import { axios } from "../../../Config/Axios";
 import { StatusBar } from "expo-status-bar";
 import Spinner from "react-native-loading-spinner-overlay";
 import { Modal, Portal } from "react-native-paper";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default class Academicinfo extends Component {
   state = {
@@ -229,28 +230,27 @@ export default class Academicinfo extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your University "
                   style={styles.boxContainer}
+                  onPress={this.toggleUniversityModal}
                 >
                   <Text
                     style={{
                       color: "#1E4275",
                       fontSize: 18,
                       alignSelf: "center",
-                      // textAlign: "left",
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleUniversityModal}
                   >
-                    {/* {this.state.city} */}
-                    {this.state.university == ""
+                    {this.state.university == "" ||
+                    this.state.university == null
                       ? "choose your university"
                       : this.state.university}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text
@@ -468,10 +468,11 @@ export default class Academicinfo extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your Term "
                   style={styles.boxContainer}
+                  onPress={this.toggleTermModal}
                 >
                   <Text
                     style={{
@@ -481,13 +482,14 @@ export default class Academicinfo extends Component {
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleTermModal}
                   >
-                    {this.state.period == ""
+                    {this.state.period == "" ||
+                    this.state.period == null ||
+                    this.state.period == "null"
                       ? "choose a period"
                       : this.state.period}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text

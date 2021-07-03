@@ -21,6 +21,7 @@ import { Button } from "galio-framework";
 import { useNavigation } from "@react-navigation/native";
 import { axios } from "../../../Config/Axios";
 import Spinner from "react-native-loading-spinner-overlay";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function GeneralInfoFormScreen(props) {
   const navigation = useNavigation();
@@ -453,10 +454,11 @@ class GeneralInfo extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your Country "
                   style={styles.boxContainer}
+                  onPress={this.toggleCountryModal}
                 >
                   <Text
                     style={{
@@ -467,14 +469,13 @@ class GeneralInfo extends Component {
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleCountryModal}
                   >
                     {/* {this.state.city} */}
-                    {this.state.country == ""
+                    {this.state.country == "" || this.state.country == null
                       ? "choose your Country"
                       : this.state.country}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
               <Text
                 style={{
@@ -533,10 +534,11 @@ class GeneralInfo extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your City"
                   style={styles.boxContainer}
+                  onPress={this.toggleCityModal}
                 >
                   <Text
                     style={{
@@ -546,13 +548,12 @@ class GeneralInfo extends Component {
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleCityModal}
                   >
-                    {this.state.city == ""
+                    {this.state.city == "" || this.state.city == null
                       ? "choose your City"
                       : this.state.city}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Input

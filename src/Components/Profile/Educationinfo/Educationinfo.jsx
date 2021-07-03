@@ -410,7 +410,7 @@ export default class EduInfoForm extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your Country "
                   style={{
@@ -426,6 +426,7 @@ export default class EduInfoForm extends Component {
                     alignSelf: "flex-start",
                     marginLeft: "-4.5%",
                   }}
+                  onPress={this.toggleCountryModal}
                 >
                   <Text
                     style={{
@@ -436,14 +437,13 @@ export default class EduInfoForm extends Component {
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleCountryModal}
                   >
                     {/* {this.state.city} */}
                     {this.state.country == ""
                       ? "choose your Country"
                       : this.state.country}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text
@@ -517,7 +517,7 @@ export default class EduInfoForm extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your City "
                   style={{
@@ -533,6 +533,7 @@ export default class EduInfoForm extends Component {
                     alignSelf: "flex-start",
                     marginLeft: "-4.5%",
                   }}
+                  onPress={this.toggleCityModal}
                 >
                   <Text
                     style={{
@@ -542,13 +543,12 @@ export default class EduInfoForm extends Component {
                       paddingTop: "2%",
                       paddingBottom: "1%",
                     }}
-                    onPress={this.toggleCityModal}
                   >
                     {this.state.city == ""
                       ? "choose your city"
                       : this.state.city}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text

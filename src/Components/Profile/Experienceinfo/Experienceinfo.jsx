@@ -392,7 +392,7 @@ export default class ExpInfoForm extends Component {
                 </Picker>
               </View>
             ) : (
-              <View
+              <TouchableOpacity
                 accessible={true}
                 accessibilityLabel="choose your Experience Type "
                 style={{
@@ -408,6 +408,7 @@ export default class ExpInfoForm extends Component {
                   alignSelf: "flex-start",
                   marginLeft: "-4.5%",
                 }}
+                onPress={this.toggleExpModal}
               >
                 <Text
                   style={{
@@ -418,14 +419,13 @@ export default class ExpInfoForm extends Component {
                     paddingTop: "5%",
                     paddingBottom: "3%",
                   }}
-                  onPress={this.toggleExpModal}
                 >
                   {/* {this.state.city} */}
                   {this.state.experience_type == ""
                     ? "choose your Experience Type"
                     : this.state.experience_type}
                 </Text>
-              </View>
+              </TouchableOpacity>
             )}
             <Text
               style={{
@@ -628,7 +628,7 @@ export default class ExpInfoForm extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your Country "
                   style={{
@@ -644,6 +644,7 @@ export default class ExpInfoForm extends Component {
                     alignSelf: "flex-start",
                     marginLeft: "-4.5%",
                   }}
+                  onPress={this.toggleCountryModal}
                 >
                   <Text
                     style={{
@@ -654,14 +655,13 @@ export default class ExpInfoForm extends Component {
                       paddingTop: "3%",
                       paddingBottom: "3%",
                     }}
-                    onPress={this.toggleCountryModal}
                   >
                     {/* {this.state.city} */}
                     {this.state.country == ""
                       ? "choose your country"
                       : this.state.country}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text
@@ -733,7 +733,7 @@ export default class ExpInfoForm extends Component {
                   </Picker>
                 </View>
               ) : (
-                <View
+                <TouchableOpacity
                   accessible={true}
                   accessibilityLabel="choose your City "
                   style={{
@@ -749,6 +749,7 @@ export default class ExpInfoForm extends Component {
                     alignSelf: "flex-start",
                     marginLeft: "-4.5%",
                   }}
+                  onPress={this.toggleCityModal}
                 >
                   <Text
                     style={{
@@ -759,14 +760,13 @@ export default class ExpInfoForm extends Component {
                       paddingTop: "3%",
                       paddingBottom: "3%",
                     }}
-                    onPress={this.toggleCityModal}
                   >
                     {/* {this.state.city} */}
                     {this.state.city == ""
                       ? "choose your city"
                       : this.state.city}
                   </Text>
-                </View>
+                </TouchableOpacity>
               )}
 
               <Text
