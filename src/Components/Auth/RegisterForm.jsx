@@ -697,9 +697,11 @@ class RegisterForm extends Component {
                     fontSize: 16,
                     textAlign: "center",
                   }}
-                  onPress={() =>
-                    alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
-                  }
+                  onPress={() => {
+                    Linking.openURL(
+                      "http://aast-trainery.com/TermsandConditions",
+                    );
+                  }}
                 >
                   Terms and conditions
                 </Text>

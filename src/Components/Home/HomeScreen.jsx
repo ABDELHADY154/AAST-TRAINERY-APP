@@ -42,6 +42,7 @@ import {
   FontAwesome,
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
+import { Linking } from "react-native";
 
 const tabs = {
   Explore: {
@@ -487,6 +488,9 @@ export default class HomeScreen extends Component {
                 alignItems: "center",
                 paddingLeft: 20,
               }}
+              onPress={() => {
+                Linking.openURL("http://aast-trainery.com/AboutUs");
+              }}
             >
               <Feather
                 name="info"
@@ -508,6 +512,9 @@ export default class HomeScreen extends Component {
                 alignItems: "center",
                 paddingLeft: 22,
               }}
+              onPress={() => {
+                Linking.openURL("http://aast-trainery.com/helpCenter");
+              }}
             >
               <Text style={{ color: "#1E4274", fontSize: 16 }}>
                 Help center
@@ -523,6 +530,9 @@ export default class HomeScreen extends Component {
                 flexDirection: "row",
                 alignItems: "center",
                 paddingLeft: 22,
+              }}
+              onPress={() => {
+                Linking.openURL("http://aast-trainery.com/TermsandConditions");
               }}
             >
               <Text style={{ color: "#1E4274", fontSize: 16 }}>

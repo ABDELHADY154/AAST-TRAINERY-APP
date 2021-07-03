@@ -14,6 +14,7 @@ import { axios } from "../../Config/Axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { withTheme } from "react-native-paper";
 import { Icon, Input } from "react-native-elements";
+import { Linking } from "react-native";
 
 class LoginForm extends Component {
   state = {
@@ -301,9 +302,11 @@ class LoginForm extends Component {
                     fontSize: 16,
                     textAlign: "center",
                   }}
-                  onPress={() =>
-                    alert("mafeesh l kalam dah 'lsa lsa mat3amltsh aslan' ")
-                  }
+                  onPress={() => {
+                    Linking.openURL(
+                      "http://aast-trainery.com/TermsandConditions",
+                    );
+                  }}
                 >
                   Terms and conditions
                 </Text>
