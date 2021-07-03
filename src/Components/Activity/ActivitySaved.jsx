@@ -66,7 +66,12 @@ export default class ActivitySaved extends Component {
             // {this.state.posts ? (
             this.state.posts.map(e => {
               return (
-                <Cards item={e} key={e.id} navigation={this.props.navigation} />
+                <Cards
+                  item={e}
+                  key={e.id}
+                  navigation={this.props.navigation}
+                  reload={this.onRefresh}
+                />
               );
             })
           ) : (

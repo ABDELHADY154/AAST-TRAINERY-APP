@@ -69,7 +69,12 @@ export default class ActivityApplied extends Component {
           {this.state.posts && this.state.posts.length !== 0 ? (
             this.state.posts.map(e => {
               return (
-                <Cards item={e} key={e.id} navigation={this.props.navigation} />
+                <Cards
+                  item={e}
+                  key={e.id}
+                  navigation={this.props.navigation}
+                  reload={this.onRefresh}
+                />
               );
             })
           ) : (

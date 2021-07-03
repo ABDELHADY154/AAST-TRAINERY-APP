@@ -72,6 +72,7 @@ export default class ActivityAccepted extends Component {
                     item={e}
                     key={e.id}
                     navigation={this.props.navigation}
+                    reload={this.onRefresh}
                   />
                 );
               })

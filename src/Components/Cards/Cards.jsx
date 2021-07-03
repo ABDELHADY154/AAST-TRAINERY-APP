@@ -24,11 +24,11 @@ export default class CardComponent extends Component {
     });
     axios
       .post(`/A/student/save/${this.props.item.id}`)
-      .then((res) => {
+      .then(res => {
         // console.log(res.data);
         this.props.reload();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -38,11 +38,11 @@ export default class CardComponent extends Component {
     });
     axios
       .post(`/A/student/unsave/${this.props.item.id}`)
-      .then((res) => {
+      .then(res => {
         // console.log(res.data);
         this.props.reload();
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   };
@@ -89,7 +89,7 @@ export default class CardComponent extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -97,7 +97,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={(props) =>
+            right={props =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   accessible={true}
@@ -150,7 +150,7 @@ export default class CardComponent extends Component {
               }}
             >
               {this.props.item.departments ? (
-                this.props.item.departments.map((item) => {
+                this.props.item.departments.map(item => {
                   return (
                     <View
                       style={{
@@ -212,7 +212,7 @@ export default class CardComponent extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -220,7 +220,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={(props) =>
+            right={props =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   accessible={true}
@@ -272,7 +272,7 @@ export default class CardComponent extends Component {
               }}
             >
               {this.props.item.departments ? (
-                this.props.item.departments.map((item) => {
+                this.props.item.departments.map(item => {
                   return (
                     <View
                       style={{
@@ -410,7 +410,7 @@ export default class CardComponent extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
@@ -418,7 +418,7 @@ export default class CardComponent extends Component {
                 }}
               />
             )}
-            right={(props) =>
+            right={props =>
               this.props.item.saved && this.props.item.saved == true ? (
                 <IconButton
                   accessible={true}
@@ -470,7 +470,7 @@ export default class CardComponent extends Component {
               }}
             >
               {this.props.item.departments ? (
-                this.props.item.departments.map((item) => {
+                this.props.item.departments.map(item => {
                   return (
                     <View
                       style={{
@@ -581,7 +581,7 @@ export default class CardComponent extends Component {
               fontSize: 14,
               marginTop: -3,
             }}
-            left={(props) => (
+            left={props => (
               <Card.Cover
                 style={{ height: 45, width: 45, borderRadius: 5 }}
                 source={{
